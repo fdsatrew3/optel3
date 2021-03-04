@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
+    <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
   </ItemGroup>
 
 </Project>
