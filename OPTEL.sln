@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPTEL", "OPTEL\OPTEL.csproj", "{FB66CF2D-1DDF-413A-BA17-428A9CDA5875}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.Data", "OPTEL.Data\OPTEL.Data.csproj", "{D1909267-FCFD-421D-8DDF-67D9931EF515}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.Entity", "OPTEL.Entity\OPTEL.Entity.csproj", "{4262C774-0029-43B2-B82A-A21A3B432E51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.UI.Desktop", "OPTEL.UI.Desktop\OPTEL.UI.Desktop.csproj", "{3E94CCB6-052B-4ED0-99D3-7879C03877BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithm", "GeneticAlgorithm\GeneticAlgorithm.csproj", "{509C8203-6FAA-47F8-9B84-F9FBE07A7C63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimization.Algorithms.Utilities", "Utilities\Optimization.Algorithms.Utilities.csproj", "{CB85A76D-4517-4F23-9747-B3657C5FA96C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmTest", "GeneticAlgorithmTest\GeneticAlgorithmTest.csproj", "{6B9D9079-51E7-4D97-8005-D35CD543FB39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimization.Algorithms", "Optimization.Algorithms\Optimization.Algorithms.csproj", "{0C51611C-D0B6-4C70-9CC1-70400428AC74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FB66CF2D-1DDF-413A-BA17-428A9CDA5875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB66CF2D-1DDF-413A-BA17-428A9CDA5875}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB66CF2D-1DDF-413A-BA17-428A9CDA5875}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB66CF2D-1DDF-413A-BA17-428A9CDA5875}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1909267-FCFD-421D-8DDF-67D9931EF515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1909267-FCFD-421D-8DDF-67D9931EF515}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1909267-FCFD-421D-8DDF-67D9931EF515}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +31,26 @@ Global
 		{4262C774-0029-43B2-B82A-A21A3B432E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4262C774-0029-43B2-B82A-A21A3B432E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4262C774-0029-43B2-B82A-A21A3B432E51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E94CCB6-052B-4ED0-99D3-7879C03877BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E94CCB6-052B-4ED0-99D3-7879C03877BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E94CCB6-052B-4ED0-99D3-7879C03877BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E94CCB6-052B-4ED0-99D3-7879C03877BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509C8203-6FAA-47F8-9B84-F9FBE07A7C63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509C8203-6FAA-47F8-9B84-F9FBE07A7C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509C8203-6FAA-47F8-9B84-F9FBE07A7C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509C8203-6FAA-47F8-9B84-F9FBE07A7C63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB85A76D-4517-4F23-9747-B3657C5FA96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB85A76D-4517-4F23-9747-B3657C5FA96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB85A76D-4517-4F23-9747-B3657C5FA96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB85A76D-4517-4F23-9747-B3657C5FA96C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9D9079-51E7-4D97-8005-D35CD543FB39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9D9079-51E7-4D97-8005-D35CD543FB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9D9079-51E7-4D97-8005-D35CD543FB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9D9079-51E7-4D97-8005-D35CD543FB39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C51611C-D0B6-4C70-9CC1-70400428AC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C51611C-D0B6-4C70-9CC1-70400428AC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C51611C-D0B6-4C70-9CC1-70400428AC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C51611C-D0B6-4C70-9CC1-70400428AC74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
