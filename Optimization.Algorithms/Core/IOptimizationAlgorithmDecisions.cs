@@ -2,7 +2,7 @@
 
 namespace Optimization.Algorithms.Core
 {
-    public interface IOptimizationAlgorithmDecisions<T> : IOptimizationAlgorithm<List<T>>
+    public interface IOptimizationAlgorithmDecisions<T> : IOptimizationAlgorithm<IEnumerable<T>>
     {
 
     }
