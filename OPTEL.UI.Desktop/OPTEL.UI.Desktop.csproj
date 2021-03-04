@@ -6,4 +6,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
+    <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
+  </ItemGroup>
+
 </Project>
