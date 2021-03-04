@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using Utilities.Extensions;
+using Optimization.Algorithms.Utilities.Extensions;
 
 namespace GeneticAlgorithm.Base
 {

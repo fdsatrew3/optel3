@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Utilities.Probabilities;
+using Optimization.Algorithms.Utilities.Probabilities;
 
 namespace GeneticAlgorithm.IndividualsSelectors
 {

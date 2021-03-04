@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utilities.Probabilities
+namespace Optimization.Algorithms.Utilities.Probabilities
 {
     public struct ItemProbability<T>
     {

@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.UI.Desktop", "OPTEL.U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithm", "GeneticAlgorithm\GeneticAlgorithm.csproj", "{509C8203-6FAA-47F8-9B84-F9FBE07A7C63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{CB85A76D-4517-4F23-9747-B3657C5FA96C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimization.Algorithms.Utilities", "Utilities\Optimization.Algorithms.Utilities.csproj", "{CB85A76D-4517-4F23-9747-B3657C5FA96C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmTest", "GeneticAlgorithmTest\GeneticAlgorithmTest.csproj", "{6B9D9079-51E7-4D97-8005-D35CD543FB39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimization.Algorithms", "Optimization.Algorithms\Optimization.Algorithms.csproj", "{0C51611C-D0B6-4C70-9CC1-70400428AC74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimization.Algorithms", "Optimization.Algorithms\Optimization.Algorithms.csproj", "{0C51611C-D0B6-4C70-9CC1-70400428AC74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Utilities.Extensions
+namespace Optimization.Algorithms.Utilities.Extensions
 {
     public static class IEnumerableExtensions
     {

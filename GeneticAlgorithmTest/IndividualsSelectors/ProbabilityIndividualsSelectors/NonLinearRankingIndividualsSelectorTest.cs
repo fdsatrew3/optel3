@@ -2,7 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 
-using Utilities.Probabilities;
+using Optimization.Algorithms.Utilities.Probabilities;
 using GeneticAlgorithm;
 using GeneticAlgorithm.IndividualsSelectors.ProbabilityIndividualsSelectors;
 using GeneticAlgorithmTest.Core;

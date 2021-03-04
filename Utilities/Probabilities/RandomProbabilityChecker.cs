@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Utilities.Probabilities
+namespace Optimization.Algorithms.Utilities.Probabilities
 {
     public class RandomProbabilityChecker
     {
