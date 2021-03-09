@@ -4,9 +4,10 @@ using System.Linq;
 using Moq;
 using Optimization.Algorithms.Genetic.Core;
 using Optimization.Algorithms.Genetic.Data;
+using Optimization.Algorithms.Genetic.Services.Base;
 using Xunit;
 
-namespace Optimization.Algorithms.Genetic.Services.Base.Test
+namespace Optimization.Algorithms.Genetic.Services.Test.Base
 {
     public class PopulationSelectorTest
     {
