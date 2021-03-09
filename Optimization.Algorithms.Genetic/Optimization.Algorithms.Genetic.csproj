@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Optimization.Algorithms.Utilities\Optimization.Algorithms.Utilities.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
     <ProjectReference Include="..\Utilities\Optimization.Algorithms.Utilities.csproj" />
   </ItemGroup>
