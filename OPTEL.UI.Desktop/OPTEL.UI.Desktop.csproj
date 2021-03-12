@@ -4,12 +4,38 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icons\optel.ico</ApplicationIcon>
+    <StartupObject>OPTEL.UI.Desktop.App</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+    <Page Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\Menu\excel.ico" />
+    <None Remove="Resources\Icons\Menu\options.ico" />
+    <None Remove="Resources\optel.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Menu\excel.ico" />
+    <Resource Include="Resources\Icons\Menu\options.ico" />
+    <Resource Include="Resources\Icons\optel.ico" />
   </ItemGroup>
 
 </Project>

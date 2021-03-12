@@ -1,0 +1,162 @@
+﻿<Window x:Class="OPTEL.UI.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OPTEL.UI.Desktop"
+        mc:Ignorable="d"
+        Title="Optel" 
+        WindowStyle="None" 
+        WindowState="Normal" 
+        AllowsTransparency="False" 
+        ResizeMode="CanResize"
+        Height="480" 
+        Width="640"
+        Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
+        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2" />
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_3" />
+    </Window.CommandBindings>
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="WindowControlButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border
+                            x:Name="Chrome"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Margin="0"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Webdings"/>
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Margin" Value="0,2,3,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="WindowControlCloseButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border
+                            x:Name="Chrome"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Margin="0"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Webdings"/>
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Margin" Value="0,2,3,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+
+                <Button x:Name="minimizeButton" Style="{StaticResource WindowControlButtonStyle}" Content="0" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Width="32"/>
+                <Button x:Name="restoreButton" Style="{StaticResource WindowControlButtonStyle}" Content="1" Command="{x:Static SystemCommands.MaximizeWindowCommand}" Width="32"/>
+                <Button x:Name="closeButton" Style="{StaticResource WindowControlCloseButtonStyle}" Content="r" Command="{x:Static SystemCommands.CloseWindowCommand}" Width="32"/>
+            </StackPanel>
+            <StackPanel Grid.Column="0" Grid.Row="0" MouseDown="MainWindow_MouseDown" Orientation="Horizontal" Margin="5, 5, 0, 0">
+                <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico" Width="32" Height="32"/>
+                <Label Content="Optel - Username" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        <Menu Height="25" Grid.Column="0" Grid.Row="1" Background="Transparent">
+            <MenuItem Header="File">
+                <MenuItem Header="Import Excel file">
+                    <MenuItem.Icon>
+                        <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/excel.ico" Width="20" Height="20"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Exit"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Data">
+                <MenuItem Header="Extruder calibrations"></MenuItem>
+                <MenuItem Header="Extruder nozzles"></MenuItem>
+                <MenuItem Header="Extruder cooling lips"></MenuItem>
+                <MenuItem Header="Extruder recipes"></MenuItem>
+                <MenuItem Header="Extruders"></MenuItem>
+                <MenuItem Header="Film recipes"></MenuItem>
+                <MenuItem Header="Film articles"></MenuItem>
+                <MenuItem Header="Orders"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Generate Excel template"></MenuItem>
+                <MenuItem Header="Export data to Excel">
+                    <MenuItem.Icon>
+                        <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/excel.ico" Width="20" Height="20"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Options">
+                    <MenuItem.Icon>
+                        <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/options.ico" Width="20" Height="20"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="?">
+                <MenuItem Header="Go away"></MenuItem>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Window>
