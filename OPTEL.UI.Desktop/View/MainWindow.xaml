@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop"
+        xmlns:gantt="clr-namespace:nGantt;assembly=nGantt"
         mc:Ignorable="d"
         Title="Optel" 
         WindowStyle="None" 
@@ -158,5 +159,6 @@
                 <MenuItem Header="Go away"></MenuItem>
             </MenuItem>
         </Menu>
+        <gantt:GanttControl Grid.Column="0" Grid.Row="3" x:Name="ganttControl1"></gantt:GanttControl>
     </Grid>
 </Window>

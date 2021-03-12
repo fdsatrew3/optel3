@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="nGantt\**" />
     <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="nGantt\**" />
     <EmbeddedResource Remove="Properties\**" />
+    <None Remove="nGantt\**" />
     <None Remove="Properties\**" />
+    <Page Remove="nGantt\**" />
     <Page Remove="Properties\**" />
   </ItemGroup>
 
@@ -22,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Desktop\nGantt-master\nGantt\nGantt.csproj" />
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
