@@ -29,13 +29,13 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Mutations
 
         protected override void MakeMutation(ProductionPlan individual)
         {
-            foreach(var order in GetOrdersToMutate(individual))
+            foreach(var order in SelectOrdersToMutate(individual))
             {
                 MutateOrderPosition(individual, order);
             }
         }
 
-        private IEnumerable<Order> GetOrdersToMutate(ProductionPlan productionPlan)
+        private IEnumerable<Order> SelectOrdersToMutate(ProductionPlan productionPlan)
         {
             var productionLineQueues = productionPlan.ProductionLineQueues.ToList();
 
