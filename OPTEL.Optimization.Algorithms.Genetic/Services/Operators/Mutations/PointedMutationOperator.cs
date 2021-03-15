@@ -10,21 +10,18 @@ using OPTEL.Optimization.Algorithms.Genetic.Data;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Mutations
 {
-    public class MutationOperator : MutationOperatorBase<ProductionPlan>
+    public class PointedMutationOperator : MutationOperatorBase<ProductionPlan>
     {
         private readonly Random _random;
         private readonly double _probability;
 
-        public MutationOperator(IIndividualsSelector<ProductionPlan> individualsSelector, Random random, double probability) : base(individualsSelector)
+        public PointedMutationOperator(IIndividualsSelector<ProductionPlan> individualsSelector, Random random, double probability) : base(individualsSelector)
         {
             if (probability < 0 || probability > 1)
-                throw new ArgumentOutOfRangeException("Probability should be in range between 0 and 1.", nameof(probability));
+                throw new ArgumentOutOfRangeException(nameof(probability), "Probability should be in range between 0 and 1.");
 
-            if (random is null)
-                throw new ArgumentNullException("Random should not be null,", nameof(random));
-
-            _random = random;
             _probability = probability;
+            _random = random ?? throw new ArgumentNullException(nameof(random), "Random should be in range between 0 and 1.");
         }
 
         protected override void MakeMutation(ProductionPlan individual)

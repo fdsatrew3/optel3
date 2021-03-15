@@ -16,9 +16,13 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
         private readonly double _probability;
         private readonly Random _random;
 
-        public PointedCrossoverOperator(ICrossoverOperatorSelector<ProductionPlan> crossoverOperatorSelector) : base(crossoverOperatorSelector)
+        public PointedCrossoverOperator(ICrossoverOperatorSelector<ProductionPlan> crossoverOperatorSelector, double probability, Random random) : base(crossoverOperatorSelector)
         {
+            if (probability < 0 || probability > 1)
+                throw new ArgumentOutOfRangeException(nameof(probability), "Probability should be in range between 0 and 1.");
 
+            _probability = probability;
+            _random = random ?? throw new ArgumentNullException(nameof(random), "Random should be in range between 0 and 1.");
         }
 
         protected override IEnumerable<ProductionPlan> CreateChildren(Parents<ProductionPlan> parents)

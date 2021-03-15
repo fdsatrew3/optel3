@@ -11,6 +11,8 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Data
 
         public List<Order> Orders { get; set; }
 
+        public decimal SummaryTime { get; }
+
         public object Clone()
         {
             return new ProductionLineQueue { Extruder = Extruder, Orders = Orders.ToList() };

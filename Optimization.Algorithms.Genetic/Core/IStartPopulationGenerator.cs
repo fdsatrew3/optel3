@@ -2,7 +2,7 @@
 
 namespace Optimization.Algorithms.Genetic.Core
 {
-    public interface IStartPopulationCreator<I>
+    public interface IStartPopulationGenerator<I>
         where I : ICalculatedIndividual
     {
         /// <summary>

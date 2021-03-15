@@ -10,7 +10,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
     {
         public int MaxPopulationCount { get; set; }
 
-        public IStartPopulationCreator<I> StartPopulationCreator { get; set; }
+        public IStartPopulationGenerator<I> StartPopulationCreator { get; set; }
          
         public IMutationOperator<I> MutationOperator { get; set; }
          

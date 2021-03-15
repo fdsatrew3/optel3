@@ -9,7 +9,7 @@ namespace Optimization.Algorithms.Genetic.Core
     {
         int MaxPopulationCount { get; }
         
-        IStartPopulationCreator<I> StartPopulationCreator { get; }
+        IStartPopulationGenerator<I> StartPopulationCreator { get; }
 
         IMutationOperator<I> MutationOperator { get; }
 
