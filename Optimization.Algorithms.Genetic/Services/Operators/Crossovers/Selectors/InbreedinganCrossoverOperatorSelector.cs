@@ -9,7 +9,7 @@ namespace Optimization.Algorithms.Genetic.Services.Operators.Crossovers.Selector
     public class InbreedinganCrossoverOperatorSelector<I> : CrossoverOperatorSelector<I>
         where I : ICalculatedIndividual
     {
-        protected IFitnessFunctionCalculation<I> FitnessFunctionCalculation { get; }
+        protected IFitnessFunctionCalculator<I> FitnessFunctionCalculation { get; }
 
         public InbreedinganCrossoverOperatorSelector(IIndividualsSelector<I> individualsSelector) : base(individualsSelector)
         {

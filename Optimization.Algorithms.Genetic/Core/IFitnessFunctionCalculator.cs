@@ -2,7 +2,7 @@
 
 namespace Optimization.Algorithms.Genetic.Core
 {
-    public interface IFitnessFunctionCalculation<I>
+    public interface IFitnessFunctionCalculator<I>
         where I : IIndividual
     {
         /// <summary>
