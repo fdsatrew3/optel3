@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OPTEL.Data
 {
-    public class FilmRecipeChange : Core.IDataObject
+    public class FilmTypesChange : Core.IDataObject
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }
 
         [Required]
-        public virtual FilmRecipe FilmRecipeFrom { get; set; }
+        public virtual FilmType FilmTypeFrom { get; set; }
 
         [Required]
-        public virtual FilmRecipe FilmRecipeTo { get; set; }
+        public virtual FilmType FilmTypeTo { get; set; }
 
         public decimal ReconfigurationTime { get; set; }
 

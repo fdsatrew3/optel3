@@ -12,6 +12,8 @@ namespace OPTEL.Data
         [Required]
         public string OrderNumber { get; set; }
 
+        public decimal Width { get; set; }
+
         public decimal QuantityInRunningMeter { get; set; }
 
         public virtual FilmRecipe FilmRecipe { get; set; }
@@ -19,6 +21,8 @@ namespace OPTEL.Data
         public DateTime PlanningEndDate { get; set; }
 
         public decimal PriceOverdue { get; set; }
+
+        public decimal PredefinedTime { get; set; }
 
         public virtual Customer ParentCustomer { get; set; }
     }

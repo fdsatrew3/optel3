@@ -20,7 +20,7 @@ namespace OPTEL.Entity.Core
 
         IRepository<Extruder> ExtruderRepository { get; }
 
-        IRepository<FilmRecipeChange> FilmRecipeChangeRepository { get; }
+        IRepository<FilmTypesChange> FilmRecipeChangeRepository { get; }
 
         IRepository<NozzleChange> NozzleChangeRepository { get; }
 
