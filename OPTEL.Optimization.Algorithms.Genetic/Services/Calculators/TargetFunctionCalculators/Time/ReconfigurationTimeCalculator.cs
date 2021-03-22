@@ -2,9 +2,9 @@
 using System.Linq;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
-using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Base;
+using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time.Base;
 
-namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators
+namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time
 {
     public class ReconfigurationTimeCalculator : IReconfigurationTimeCalculator
     {
