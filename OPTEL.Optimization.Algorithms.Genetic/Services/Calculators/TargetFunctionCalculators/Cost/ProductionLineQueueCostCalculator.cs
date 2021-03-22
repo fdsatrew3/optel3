@@ -15,6 +15,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
             TimeCalculator = timeCalculator ?? throw new ArgumentNullException(nameof(timeCalculator));
         }
 
-        public double Calculate(ProductionLineQueue productionLineQueue) => TimeCalculator.Calculate(productionLineQueue) * Convert.ToDouble(productionLineQueue.Extruder.HourCost);
+        public double Calculate(ProductionLineQueue productionLineQueue) 
+            => (TimeCalculator.Calculate(productionLineQueue) / 3600) * Convert.ToDouble(productionLineQueue.Extruder.HourCost);
     }
 }
