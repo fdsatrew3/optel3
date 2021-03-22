@@ -6,11 +6,11 @@ using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionC
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time
 {
-    public class TargetFunctionCalculator : ITargetFunctionCalculator<ProductionPlan>
+    public class TimeFunctionCalculator : ITargetFunctionCalculator<ProductionPlan>
     {
         public IProductionLineQueueTimeCalculator ProductionLineQueueTimeCalculator { get; }
 
-        public TargetFunctionCalculator(IProductionLineQueueTimeCalculator productionLineQueueTimeCalculator)
+        public TimeFunctionCalculator(IProductionLineQueueTimeCalculator productionLineQueueTimeCalculator)
         {
             ProductionLineQueueTimeCalculator = productionLineQueueTimeCalculator ?? throw new ArgumentNullException(nameof(productionLineQueueTimeCalculator));
         }
