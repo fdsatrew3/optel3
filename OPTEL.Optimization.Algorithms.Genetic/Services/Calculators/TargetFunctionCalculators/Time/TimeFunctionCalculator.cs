@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Optimization.Algorithms.Genetic.Data;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
@@ -15,16 +16,6 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
             ProductionLineQueueTimeCalculator = productionLineQueueTimeCalculator ?? throw new ArgumentNullException(nameof(productionLineQueueTimeCalculator));
         }
 
-        public double Calculate(ProductionPlan individual)
-        {
-            var result = 0d;
-
-            foreach (var queue in individual.ProductionLineQueues)
-            {
-                result += ProductionLineQueueTimeCalculator.Calculate(queue);
-            }
-
-            return result;
-        }
+        public double Calculate(ProductionPlan individual) => individual.ProductionLineQueues.Select(x => ProductionLineQueueTimeCalculator.Calculate(x)).Max();
     }
 }
