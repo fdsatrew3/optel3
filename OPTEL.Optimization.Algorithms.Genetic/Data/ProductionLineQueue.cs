@@ -7,7 +7,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Data
 {
     public class ProductionLineQueue : ICloneable
     {
-        public Extruder Extruder { get; set; }
+        public ProductionLine ProductionLine { get; set; }
 
         public List<Order> Orders { get; set; }
 
@@ -15,7 +15,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Data
 
         public object Clone()
         {
-            return new ProductionLineQueue { Extruder = Extruder, Orders = Orders.ToList() };
+            return new ProductionLineQueue { ProductionLine = ProductionLine, Orders = Orders.ToList() };
         }
     }
 }

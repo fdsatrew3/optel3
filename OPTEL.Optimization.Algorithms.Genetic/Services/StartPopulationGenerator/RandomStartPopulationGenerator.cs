@@ -14,10 +14,10 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerato
     public class RandomStartPopulationGenerator : IStartPopulationGenerator<ProductionPlan>
     {
         private readonly Random _random;
-        private readonly ICollection<Extruder> _extruders;
+        private readonly ICollection<ProductionLine> _extruders;
         private readonly ICollection<Order> _orders;
 
-        public RandomStartPopulationGenerator(Random random, ICollection<Extruder> extruders, ICollection<Order> orders)
+        public RandomStartPopulationGenerator(Random random, ICollection<ProductionLine> extruders, ICollection<Order> orders)
         {
             _random = random ?? throw new ArgumentNullException(nameof(random));
             _extruders = extruders ?? throw new ArgumentNullException(nameof(extruders));
@@ -42,7 +42,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerato
 
             foreach(var extruder in _extruders)
             {
-                result.ProductionLineQueues.Add(new ProductionLineQueue { Extruder = extruder, Orders = new List<Order>() });
+                result.ProductionLineQueues.Add(new ProductionLineQueue { ProductionLine = extruder, Orders = new List<Order>() });
             }
 
             foreach(var order in _random.NextElements(_orders))

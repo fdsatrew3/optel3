@@ -26,7 +26,7 @@ namespace OPTEL.Entity.Persistance
         private IRepository<FilmRecipe> _filmRecipeRepository;
         private IRepository<Customer> _customerRepository;
         private IRepository<Order> _orderRepository;
-        private IRepository<Extruder> _extruderRepository;
+        private IRepository<ProductionLine> _productionLineRepository;
         private IRepository<FilmTypesChange> _filmRecipeChangeRepository;
         private IRepository<NozzleChange> _nozzleChangeRepository;
         private IRepository<CalibrationChange> _calibrationChangeRepository;
@@ -48,8 +48,8 @@ namespace OPTEL.Entity.Persistance
         public IRepository<Order> OrderRepository =>
             _orderRepository ?? (_orderRepository = new EFRepository<Order, DatabaseContext>(_context));
 
-        public IRepository<Extruder> ExtruderRepository =>
-            _extruderRepository ?? (_extruderRepository = new EFRepository<Extruder, DatabaseContext>(_context));
+        public IRepository<ProductionLine> ProductionLineRepository =>
+            _productionLineRepository ?? (_productionLineRepository = new EFRepository<ProductionLine, DatabaseContext>(_context));
 
         public IRepository<FilmTypesChange> FilmRecipeChangeRepository =>
             _filmRecipeChangeRepository ?? (_filmRecipeChangeRepository = new EFRepository<FilmTypesChange, DatabaseContext>(_context));

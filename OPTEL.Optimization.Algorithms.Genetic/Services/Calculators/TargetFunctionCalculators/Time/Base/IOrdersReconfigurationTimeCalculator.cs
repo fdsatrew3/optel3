@@ -4,6 +4,6 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
 {
     public interface IOrdersReconfigurationTimeCalculator
     {
-        double Calculate(Extruder productionLine, Order orderFrom, Order orderTo);
+        double Calculate(ProductionLine productionLine, Order orderFrom, Order orderTo);
     }
 }

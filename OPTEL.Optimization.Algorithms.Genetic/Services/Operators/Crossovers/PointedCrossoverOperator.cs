@@ -69,7 +69,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
                 {
                     RemoveOrderFromPlan(children, order);
 
-                    var targetQueue = children.ProductionLineQueues.First(x => x.Extruder == queue.Extruder);
+                    var targetQueue = children.ProductionLineQueues.First(x => x.ProductionLine == queue.ProductionLine);
 
                     if (targetQueue.Orders.Count > index)
                         targetQueue.Orders.Add(order);

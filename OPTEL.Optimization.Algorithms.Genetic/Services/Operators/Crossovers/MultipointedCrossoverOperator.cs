@@ -81,7 +81,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
                 foreach (var productionLine in interval.Select(x => x.ProductionLine).GroupBy(x => x))
                 {
                     var productionLineInterval = interval.Where(x => x.ProductionLine == productionLine).ToArray();
-                    var queue = result.ProductionLineQueues.First(x => x.Extruder == productionLine);
+                    var queue = result.ProductionLineQueues.First(x => x.ProductionLine == productionLine);
                     var orders = productionLineInterval.Select(x => x.Order).ToArray();
 
                     queue.Orders.RemoveAll(x => productionLineInterval.Any(y => y.Order == x));

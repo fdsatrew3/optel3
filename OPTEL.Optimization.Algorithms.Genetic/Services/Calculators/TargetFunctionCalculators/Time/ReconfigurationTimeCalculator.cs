@@ -21,7 +21,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
 
             for (int i = 0; i < productionLineQueue.Orders.Count - 1; i++)
             {
-                result += OrdersReconfigurationTimeCalculator.Calculate(productionLineQueue.Extruder,
+                result += OrdersReconfigurationTimeCalculator.Calculate(productionLineQueue.ProductionLine,
                     productionLineQueue.Orders.ElementAt(i),
                     productionLineQueue.Orders.ElementAt(i + 1));
             }

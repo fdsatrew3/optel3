@@ -10,8 +10,8 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Util
     {
         public void Swap(ProductionPlan productionPlan, OrderPosition firstElement, OrderPosition secondElement)
         {
-            var queueFirst = productionPlan.ProductionLineQueues.First(x => x.Extruder == firstElement.ProductionLine);
-            var queueSecond = productionPlan.ProductionLineQueues.First(x => x.Extruder == secondElement.ProductionLine);
+            var queueFirst = productionPlan.ProductionLineQueues.First(x => x.ProductionLine == firstElement.ProductionLine);
+            var queueSecond = productionPlan.ProductionLineQueues.First(x => x.ProductionLine == secondElement.ProductionLine);
 
             queueFirst.Orders.Remove(firstElement.Order);
             queueSecond.Orders.Remove(secondElement.Order);

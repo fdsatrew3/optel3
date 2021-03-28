@@ -16,6 +16,6 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
         }
 
         public double Calculate(ProductionLineQueue productionLineQueue) 
-            => (TimeCalculator.Calculate(productionLineQueue) / 3600) * Convert.ToDouble(productionLineQueue.Extruder.HourCost);
+            => (TimeCalculator.Calculate(productionLineQueue) / 3600) * Convert.ToDouble(productionLineQueue.ProductionLine.HourCost);
     }
 }

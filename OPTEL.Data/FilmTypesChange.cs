@@ -18,6 +18,6 @@ namespace OPTEL.Data
         public decimal ReconfigurationTime { get; set; }
 
         [Required]
-        public virtual Extruder ParentExtruder { get; set; }
+        public virtual ProductionLine ParentProductionLine { get; set; }
     }
 }

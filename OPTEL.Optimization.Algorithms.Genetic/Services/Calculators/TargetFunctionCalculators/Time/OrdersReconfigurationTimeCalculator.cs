@@ -8,14 +8,14 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
 {
     public class OrdersReconfigurationTimeCalculator : IOrdersReconfigurationTimeCalculator
     {
-        public double Calculate(Extruder productionLine, Order orderFrom, Order orderTo)
+        public double Calculate(ProductionLine productionLine, Order orderFrom, Order orderTo)
         {
             decimal result = 0;
 
             if (orderFrom.FilmRecipe.FilmType != orderTo.FilmRecipe.FilmType)
             {
                 var change = productionLine.FilmTypesChanges?
-                    .Where(x => x.ParentExtruder == productionLine)?
+                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.FilmTypeFrom == orderFrom.FilmRecipe.FilmType && x.FilmTypeTo == orderTo.FilmRecipe.FilmType);
 
                 if (productionLine != null)
@@ -25,7 +25,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
             if (!orderFrom.FilmRecipe.CoolingLip.Equals(orderTo.FilmRecipe.CoolingLip))
             {
                 var change = productionLine.CoolingLipChanges?
-                    .Where(x => x.ParentExtruder == productionLine)?
+                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.CoolingLipToChange.Equals(orderTo.FilmRecipe.CoolingLip));
 
                 if (productionLine != null)
@@ -35,7 +35,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
             if (!orderFrom.FilmRecipe.Calibration.Equals(orderTo.FilmRecipe.Calibration))
             {
                 var change = productionLine.CalibrationChanges?
-                    .Where(x => x.ParentExtruder == productionLine)?
+                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.CalibrationToChange.Equals(orderTo.FilmRecipe.Calibration));
 
                 if (productionLine != null)
@@ -45,7 +45,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunct
             if (!orderFrom.FilmRecipe.Nozzle.Equals(orderTo.FilmRecipe.Nozzle))
             {
                 var change = productionLine.NozzleChanges?
-                    .Where(x => x.ParentExtruder == productionLine)?
+                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.NozzleToChange.Equals(orderTo.FilmRecipe.Nozzle));
 
                 if (productionLine != null)
