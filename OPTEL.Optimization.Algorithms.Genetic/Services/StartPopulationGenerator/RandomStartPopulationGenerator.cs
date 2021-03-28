@@ -16,12 +16,22 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerato
         private readonly Random _random;
         private readonly ICollection<ProductionLine> _extruders;
         private readonly ICollection<Order> _orders;
+        private readonly ITargetFunctionCalculator<ProductionPlan> _targetFunctionCalculator;
+        private readonly IFitnessFunctionCalculator<ProductionPlan> _fitnessFunctionCalculator;
 
-        public RandomStartPopulationGenerator(Random random, ICollection<ProductionLine> extruders, ICollection<Order> orders)
+        public RandomStartPopulationGenerator(
+            Random random, 
+            ICollection<ProductionLine> extruders, 
+            ICollection<Order> orders, 
+            ITargetFunctionCalculator<ProductionPlan> targetFunctionCalculator, 
+            IFitnessFunctionCalculator<ProductionPlan> fitnessFunctionCalculator
+            )
         {
             _random = random ?? throw new ArgumentNullException(nameof(random));
             _extruders = extruders ?? throw new ArgumentNullException(nameof(extruders));
             _orders = orders ?? throw new ArgumentNullException(nameof(orders));
+            _targetFunctionCalculator = targetFunctionCalculator ?? throw new ArgumentNullException(nameof(targetFunctionCalculator));
+            _fitnessFunctionCalculator = fitnessFunctionCalculator ?? throw new ArgumentNullException(nameof(fitnessFunctionCalculator));
         }
 
         public IPopulation<ProductionPlan> CreateStartPopulation(int count)
@@ -38,7 +48,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerato
 
         private ProductionPlan GenerateRandomProductionPlan()
         {
-            var result = new ProductionPlan { ProductionLineQueues = new List<ProductionLineQueue>() };
+            var result = new ProductionPlan(_targetFunctionCalculator, _fitnessFunctionCalculator) { ProductionLineQueues = new List<ProductionLineQueue>() };
 
             foreach(var extruder in _extruders)
             {
