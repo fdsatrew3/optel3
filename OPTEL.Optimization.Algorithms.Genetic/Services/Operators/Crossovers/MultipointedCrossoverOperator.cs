@@ -5,8 +5,9 @@ using Optimization.Algorithms.Genetic.Data;
 using Optimization.Algorithms.Genetic.Operators.Crossovers;
 using Optimization.Algorithms.Genetic.Services.Operators.Crossovers;
 
-using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.Genetic.Data;
+using OPTEL.Optimization.Algorithms.Genetic.Services.Util.Base;
+using OPTEL.Optimization.Algorithms.Genetic.Services.Util.Data;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
 {
@@ -14,8 +15,9 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
     {
         private readonly int _pointCount;
         private readonly Random _random;
+        private readonly IProductionPlanUnwarper _productionPlanUnwarper;
 
-        public MultipointedCrossoverOperator(int pointCount, Random random, ICrossoverOperatorSelector<ProductionPlan> crossoverOperatorSelector) 
+        public MultipointedCrossoverOperator(int pointCount, Random random, IProductionPlanUnwarper productionPlanUnwarper, ICrossoverOperatorSelector<ProductionPlan> crossoverOperatorSelector) 
             : base(crossoverOperatorSelector)
         {
             if (pointCount < 1)
@@ -23,6 +25,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
 
             _pointCount = pointCount;
             _random = random ?? throw new ArgumentNullException(nameof(random));
+            _productionPlanUnwarper = productionPlanUnwarper ?? throw new ArgumentNullException(nameof(productionPlanUnwarper));
         }
 
         protected override IEnumerable<ProductionPlan> CreateChildren(Parents<ProductionPlan> parents)
@@ -49,25 +52,10 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
 
         private ProductionPlan CreateChild(ProductionPlan firstParent, ProductionPlan secondParent, int[] points, bool useOddIntervals)
         {
-            var convertedProductionPlan = ConvertProductionPlan(firstParent);
+            var convertedProductionPlan = _productionPlanUnwarper.Unwarp(firstParent);
             var intervals = GetOrdersIntervals(convertedProductionPlan, points);
 
             return CreateChild(secondParent, intervals, useOddIntervals);
-        }
-
-        private ICollection<OrderPosition> ConvertProductionPlan(ProductionPlan productionPlan)
-        {
-            var result = new List<OrderPosition>();
-
-            foreach (var productionLineQueue in productionPlan.ProductionLineQueues)
-            {
-                for (int i = 0; i < productionLineQueue.Orders.Count; i++)
-                {
-                    result.Add(new OrderPosition { ProductionLine = productionLineQueue.Extruder, Order = productionLineQueue.Orders[i], Position = i });
-                }
-            }
-
-            return result;
         }
 
         private ICollection<ICollection<OrderPosition>> GetOrdersIntervals(ICollection<OrderPosition> orderPositions, int[] points)
@@ -102,15 +90,6 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
             }
 
             return result;
-        }
-
-        private class OrderPosition
-        {
-            public Extruder ProductionLine { get; set; }
-
-            public Order Order { get; set; }
-
-            public int Position { get; set; }
         }
     }
 }
