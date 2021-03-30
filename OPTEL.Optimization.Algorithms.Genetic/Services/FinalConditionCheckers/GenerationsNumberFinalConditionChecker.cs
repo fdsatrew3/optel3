@@ -14,7 +14,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.FinalConditionCheckers
         public GenerationsNumberFinalConditionChecker(int generationCount)
         {
             if (generationCount < 1)
-                throw new ArgumentOutOfRangeException(nameof(generationCount), "Generation coune should be greater than 1");
+                throw new ArgumentOutOfRangeException(nameof(generationCount), "Generation count should be greater than 1");
 
             GenerationCount = generationCount;
         }
