@@ -7,7 +7,7 @@ using OPTEL.Data.Validation.ValidationEnums;
 
 namespace OPTEL.Data
 {
-    public class Extruder : Core.IDataObject
+    public class ProductionLine : Core.IDataObject
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }   
@@ -43,10 +43,13 @@ namespace OPTEL.Data
 
         public decimal LengthMax { get; set; }
 
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Width change time should be greater than or equal to 0")]
+        public decimal WidthChangeTime { get; set; }
+
         [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Thickness change time should be greater than or equal to 0")]
         public decimal ThicknessChangeTime { get; set; }
 
-        public virtual ICollection<FilmRecipeChange> FilmRecipeChanges { get; set; }
+        public virtual ICollection<FilmTypesChange> FilmTypesChanges { get; set; }
 
         public virtual ICollection<NozzleChange> NozzleChanges { get; set; }
 

@@ -63,9 +63,9 @@ namespace OPTEL.Entity
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<Extruder> Extruders { get; set; }
+        public DbSet<ProductionLine> ProductionLines { get; set; }
 
-        public DbSet<FilmRecipeChange> FilmRecipeChanges { get; set; }
+        public DbSet<FilmTypesChange> FilmRecipeChanges { get; set; }
 
         public DbSet<NozzleChange> NozzleChanges { get; set; }
 

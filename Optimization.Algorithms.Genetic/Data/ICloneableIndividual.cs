@@ -2,7 +2,7 @@
 
 namespace Optimization.Algorithms.Genetic.Data
 {
-    public interface IIndividual : ICloneable
+    public interface ICloneableIndividual : IIndividual, ICloneable
     {
 
     }
