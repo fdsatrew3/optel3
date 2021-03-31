@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using OPTEL.Data;
 using OPTEL.Data.Core;
+
+using OPTEL.Entity.Helpers.Validation;
 
 namespace OPTEL.Entity.Core
 {
@@ -31,7 +32,9 @@ namespace OPTEL.Entity.Core
         #endregion
 
         void Save();
+
         void SaveAsync();
+
         void RejectAllChanges();
 
         void RejectChanges<TEntity>()

@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 using OPTEL.Data.Validation.ValidationEnums;
 
@@ -8,8 +6,7 @@ namespace OPTEL.Data
 {
     public class FilmRecipe : Core.IDataObject
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ID { get; set; }
+        public int ID { get; set; }
 
         [Required]
         public string Name { get; set; }

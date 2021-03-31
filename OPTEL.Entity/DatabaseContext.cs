@@ -1,14 +1,23 @@
-﻿using System.Data.Entity;
-
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using OPTEL.Data;
+using OPTEL.Data.Core;
+
+using OPTEL.Entity.Helpers.Ensurers;
+using OPTEL.Entity.Helpers.Exceptions;
+using OPTEL.Entity.Helpers.Validation;
 
 namespace OPTEL.Entity
 {
     internal class DatabaseContext : DbContext
     {
-        public DatabaseContext()
-            : base("DefaultConnection")
+        public DatabaseContext(IDataBaseEnsurer ensurer)
         {
+            ensurer.Ensure(Database);
         }
 
         #region Public methods
@@ -32,7 +41,7 @@ namespace OPTEL.Entity
         }
 
         public void RejectChanges<TEntity>()
-            where TEntity : class, Data.Core.IDataObject
+            where TEntity : class, IDataObject
         {
             foreach (var entry in ChangeTracker.Entries<TEntity>())
             {
@@ -46,6 +55,31 @@ namespace OPTEL.Entity
                     case EntityState.Added:
                         entry.State = EntityState.Detached;
                         break;
+                }
+            }
+        }
+
+        public void ValidateContext()
+        {
+            var result = GetValidationErrors().ToList();
+
+            if (result.Count > 0)
+                throw new DbEntityValidationException(result);
+        }
+
+        public IEnumerable<DbEntityValidationResult> GetValidationErrors()
+        {
+            var entries = ChangeTracker.Entries()
+                .Where(s => s.State == EntityState.Added || s.State == EntityState.Modified);
+
+            foreach (var entry in entries)
+            {
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(entry.Entity);
+
+                if (!Validator.TryValidateObject(entry.Entity, validationContext, validationResults, true))
+                {
+                    yield return new DbEntityValidationResult(entry, validationResults);
                 }
             }
         }
@@ -77,6 +111,13 @@ namespace OPTEL.Entity
 
         #region Overrides of DbContext
 
+        public override int SaveChanges()
+        {
+            ValidateContext();
+
+            return base.SaveChanges();
+        }
+
         private void Log(string message)
         {
 #if LogConsole
@@ -88,11 +129,13 @@ namespace OPTEL.Entity
 #endif
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-#if  LogConsole || LogFile
-            Database.Log += Log;
+            optionsBuilder.UseSqlite(@$"Data Source={Path.Combine(Environment.CurrentDirectory, "Databases", "DungeonsDatabase.db")}");
+#if LogConsole || LogFile
+            optionsBuilder.LogTo(Log);
 #endif
+            base.OnConfiguring(optionsBuilder);
         }
 
         #endregion
