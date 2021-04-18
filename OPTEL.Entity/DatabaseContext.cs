@@ -119,6 +119,18 @@ namespace OPTEL.Entity
             return base.SaveChanges();
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            EnsureDirectoryCreated("Databases");
+            optionsBuilder.UseSqlite(@$"Data Source={Path.Combine(Environment.CurrentDirectory, "Databases", "DungeonsDatabase.db")}");
+
+#if LogConsole || LogFile
+            optionsBuilder.LogTo(Log);
+#endif
+
+            base.OnConfiguring(optionsBuilder);
+        }
+
         private void Log(string message)
         {
 #if LogConsole
@@ -130,38 +142,10 @@ namespace OPTEL.Entity
 #endif
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            EnsureDirectoryCreated("Databases");
-            optionsBuilder.UseSqlite(@$"Data Source={Path.Combine(Environment.CurrentDirectory, "Databases", "DungeonsDatabase.db")}");
-#if LogConsole || LogFile
-            optionsBuilder.LogTo(Log);
-#endif
-            //ClearDirectory(ConfigurationManager.AppSettings["BLOBsPath"]);
-            base.OnConfiguring(optionsBuilder);
-        }
-        /*
-        private void ClearDirectory(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-                path = DatabaseFileConfig.DefaultDatabasePath;
-            var dirInfo = new DirectoryInfo(path);
-            if (!dirInfo.Exists)
-                return;
-            foreach (var file in dirInfo.EnumerateFiles())
-            {
-                file.Delete();
-            }
-
-            foreach (var directory in dirInfo.EnumerateDirectories())
-            {
-                directory.Delete(true);
-            }
-        }*/
-
         private void EnsureDirectoryCreated(string dirName)
         {
             var path = Path.Combine(Environment.CurrentDirectory, dirName);
+
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path).Create();
         }
