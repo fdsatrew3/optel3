@@ -379,7 +379,7 @@
             <!-- Support rows -->
             <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Gray"/>
             <Rectangle Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Gray"/>
-            <ScrollViewer Name="Scroller" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Grid.Row="2" Grid.ColumnSpan="3">
+            <ScrollViewer Name="Scroller" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.Row="2" Grid.ColumnSpan="3">
                 <Grid>
                     <!-- Gridlines -->
                     <ContentControl ContentTemplate="{StaticResource GanttTimeLineGridLines}" Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=GridLineTimeLine}" Margin="100,0,1,0"/>

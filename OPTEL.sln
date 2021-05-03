@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimization.Algorithms.Gen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Optimization.Algorithms.Utilities", "Optimization.Algorithms.Utilities\Optimization.Algorithms.Utilities.csproj", "{9D43B818-E29A-4249-B201-E511BE5DF9C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nGantt", "..\..\..\Desktop\nGantt-master\nGantt\nGantt.csproj", "{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nGantt", "nGantt\nGantt.csproj", "{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
