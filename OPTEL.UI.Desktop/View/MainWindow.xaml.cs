@@ -31,41 +31,14 @@ namespace OPTEL.UI.Desktop
             CreateData(minDate, maxDate);
         }
 
-        private void MainWindow_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-
-        private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void CommandBinding_Executed_1(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.CloseWindow(this);
-        }
-
-        private void CommandBinding_Executed_2(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MaximizeWindow(this);
-        }
-
-        private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(this);
-        }
-
         private void CreateData(DateTime minDate, DateTime maxDate)
         {
             // Set max and min dates
             ganttControl1.Initialize(minDate, maxDate);
 
             // Create timelines and define how they should be presented
-            ganttControl1.CreateTimeLine(new PeriodYearSplitter(minDate, maxDate), FormatYear);
-            ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonth);
+            ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonthAndYear);
             var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDay);
-            ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
 
             // Set the timeline to atatch gridlines to
             ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
@@ -85,20 +58,15 @@ namespace OPTEL.UI.Desktop
             ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-06-10"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 2:GanttTask 3", PercentageCompleted = 0.375 });
             ganttControl1.AddGanttTask(row3, new GanttTask() { Start = DateTime.Parse("2012-01-07"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 3:GanttTask 1", PercentageCompleted = 0.5 });
 
-            var rowgroup3 = ganttControl1.CreateGanttRowGroup();
+            var rowgroup3 = ganttControl1.CreateGanttRowGroup("MEX 09");
             var row4 = ganttControl1.CreateGanttRow(rowgroup3, "GanttRow 4");
             ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-02-14"), End = DateTime.Parse("2012-02-27"), Name = "GanttRow 4:GanttTask 1", PercentageCompleted = 1 });
             ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-04-8"), End = DateTime.Parse("2012-09-19"), Name = "GanttRow 4:GanttTask 2" });
         }
 
-        private string FormatYear(Period period)
+        private string FormatMonthAndYear(Period period)
         {
-            return period.Start.Year.ToString();
-        }
-
-        private string FormatMonth(Period period)
-        {
-            return period.Start.Month.ToString();
+            return period.Start.ToString("MMMM yyyy");
         }
 
         private string FormatDay(Period period)
@@ -106,11 +74,10 @@ namespace OPTEL.UI.Desktop
             return period.Start.Day.ToString();
         }
 
-        private string FormatDayName(Period period)
+        private System.Windows.Media.Brush DetermineBackground(TimeLineItem timeLineItem)
         {
-            return period.Start.DayOfWeek.ToString();
+            return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent);
         }
-
 
         private void NewClicked(Period selectionPeriod)
         {
@@ -137,12 +104,5 @@ namespace OPTEL.UI.Desktop
             MessageBox.Show(e.SelectionStart.ToString() + " -> " + e.SelectionEnd.ToString());
         }
 
-        private System.Windows.Media.Brush DetermineBackground(TimeLineItem timeLineItem)
-        {
-            if (timeLineItem.End.Date.DayOfWeek == DayOfWeek.Saturday || timeLineItem.End.Date.DayOfWeek == DayOfWeek.Sunday)
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightBlue);
-            else
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent);
-        }
     }
 }
