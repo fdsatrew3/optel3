@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Optimization.Algorithms.Genetic.Data;
+using Optimization.Algorithms;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time.Base;

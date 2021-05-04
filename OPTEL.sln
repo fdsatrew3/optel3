@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPTEL.Optimization.Algorith
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPTEL.Optimization.Algorithms.Bruteforce.Test", "OPTEL.Optimization.Algorithms.Bruteforce.Test\OPTEL.Optimization.Algorithms.Bruteforce.Test.csproj", "{70231AE5-2682-4028-9189-6690EF3EDB90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimization.Algorithms.Bruteforce", "Optimization.Algorithms.Bruteforce\Optimization.Algorithms.Bruteforce.csproj", "{8D3DC309-22EF-441B-9CEC-CFA50572B9D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimization.Algorithms.Bruteforce.Test", "Optimization.Algorithms.Bruteforce.Test\Optimization.Algorithms.Bruteforce.Test.csproj", "{16C2B7C1-C714-4A01-A168-26CF9F182C19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{70231AE5-2682-4028-9189-6690EF3EDB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70231AE5-2682-4028-9189-6690EF3EDB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70231AE5-2682-4028-9189-6690EF3EDB90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D3DC309-22EF-441B-9CEC-CFA50572B9D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D3DC309-22EF-441B-9CEC-CFA50572B9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D3DC309-22EF-441B-9CEC-CFA50572B9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D3DC309-22EF-441B-9CEC-CFA50572B9D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C2B7C1-C714-4A01-A168-26CF9F182C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C2B7C1-C714-4A01-A168-26CF9F182C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C2B7C1-C714-4A01-A168-26CF9F182C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C2B7C1-C714-4A01-A168-26CF9F182C19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

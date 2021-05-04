@@ -1,10 +1,8 @@
-﻿using Optimization.Algorithms.Genetic.Core;
-
-using OPTEL.Optimization.Algorithms.Genetic.Data;
+﻿using OPTEL.Optimization.Algorithms.Genetic.Data;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.FitnessFunctionCalculators
 {
-    public class MaxFitnessFunctionCalculator : IFitnessFunctionCalculator<ProductionPlan>
+    public class MaxFitnessCalculator : IFitnessCalculator<ProductionPlan>
     {
         public double Calculate(ProductionPlan individual)
         {

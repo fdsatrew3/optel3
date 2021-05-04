@@ -1,6 +1,5 @@
 ﻿using System;
-
-using OPTEL.Optimization.Algorithms.Genetic.Data;
+using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Cost.Base;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time.Base;
 

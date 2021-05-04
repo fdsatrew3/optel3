@@ -1,6 +1,6 @@
 ﻿using System;
+using OPTEL.Data;
 
-using OPTEL.Optimization.Algorithms.Genetic.Data;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time.Base;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time

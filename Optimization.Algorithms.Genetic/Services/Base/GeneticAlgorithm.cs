@@ -34,7 +34,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
 
                 currentPopulation = GeneticAlgorithmSetting.PopulationSelector.SelectPopulation(currentPopulation);
 
-                if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsPopulationIsFinal(currentPopulation)))
+                if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsStateFinal(currentPopulation)))
                     break;
             }
 
@@ -59,7 +59,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
 
                 currentPopulation = GeneticAlgorithmSetting.PopulationSelector.SelectPopulation(currentPopulation);
 
-                if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsPopulationIsFinal(currentPopulation)))
+                if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsStateFinal(currentPopulation)))
                     break;
                 else
                     yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation).Clone() as I;

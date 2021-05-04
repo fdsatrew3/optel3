@@ -1,40 +1,44 @@
-﻿using OPTEL.Data;
-using OPTEL.Optimization.Algorithms.Bruteforce.Core;
-using OPTEL.Optimization.Algorithms.Bruteforce.Data;
-using Optimization.Algorithms.Utilities.Extensions;
-using Optimization.Algorithms.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OPTEL.Data;
+using Optimization.Algorithms.Core;
+using Optimization.Algorithms.Bruteforce;
 
 namespace OPTEL.Optimization.Algorithms.Bruteforce
 {
     public class BruteforceAlgorithm : IOptimizationAlgorithm<ProductionPlan>, IOptimizationAlgorithmDecisions<ProductionPlan>
     {
+        private readonly IOrderBruteforceAlgorithm _orderBruteforceAlgorithm;
         private readonly ICollection<Order> _orders;
         private readonly ICollection<ProductionLine> _productionLines;
-        private readonly IFitnessFunctionCalculator<ProductionPlan> _fitnessFunctionCalculator;
+        private readonly IFitnessCalculator<ProductionPlan> _fitnessCalculator;
 
-        public BruteforceAlgorithm(ICollection<Order> orders, ICollection<ProductionLine> productionLines, IFitnessFunctionCalculator<ProductionPlan> fitnessFunctionCalculator)
+        public BruteforceAlgorithm(IOrderBruteforceAlgorithm orderBruteforceAlgorithm,
+            ICollection<Order> orders,
+            ICollection<ProductionLine> productionLines,
+            IFitnessCalculator<ProductionPlan> fitnessCalculator)
         {
+            _orderBruteforceAlgorithm = orderBruteforceAlgorithm ?? throw new ArgumentNullException(nameof(orderBruteforceAlgorithm));
             _orders = orders ?? throw new ArgumentNullException(nameof(orders));
             _productionLines = productionLines ?? throw new ArgumentNullException(nameof(productionLines));
-            _fitnessFunctionCalculator = fitnessFunctionCalculator ?? throw new ArgumentNullException(nameof(fitnessFunctionCalculator));
+            _fitnessCalculator = fitnessCalculator ?? throw new ArgumentNullException(nameof(fitnessCalculator));
         }
 
         public IEnumerable<ProductionPlan> GetResolve()
         {
             double? bestFitness = null;
-            ProductionPlan bestPlan = null;
+            ProductionPlan bestPlan;
 
-            var productionLinesOrders = BruteforceOrder(_productionLines.Count).ToArray();
+            var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
+            var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
 
-            foreach (var ordersOrders in BruteforceOrder(_orders.Count))
+            foreach (var orderOrders in ordersOrders)
             {
                 foreach (var productionLinesOrder in productionLinesOrders)
                 {
-                    var plan = MakeProductionLineQueue(productionLinesOrder, ordersOrders);
-                    var testFitness = _fitnessFunctionCalculator.Calculate(plan);
+                    var plan = MakeProductionLineQueue(productionLinesOrder, orderOrders);
+                    var testFitness = _fitnessCalculator.Calculate(plan);
 
                     if (bestFitness is null || testFitness > bestFitness)
                     {
@@ -52,14 +56,15 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             double? bestFitness = null;
             ProductionPlan bestPlan = null;
 
-            var productionLinesOrders = BruteforceOrder(_productionLines.Count).ToArray();
+            var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
+            var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
 
-            foreach (var ordersOrders in BruteforceOrder(_orders.Count))
+            foreach (var orderOrders in ordersOrders)
             {
                 foreach (var productionLinesOrder in productionLinesOrders)
                 {
-                    var plan = MakeProductionLineQueue(productionLinesOrder, ordersOrders);
-                    var testFitness = _fitnessFunctionCalculator.Calculate(plan);
+                    var plan = MakeProductionLineQueue(productionLinesOrder, orderOrders);
+                    var testFitness = _fitnessCalculator.Calculate(plan);
 
                     if (bestFitness is null || testFitness > bestFitness)
                     {
@@ -71,38 +76,6 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             }
 
             return bestPlan;
-        }
-
-        public static IEnumerable<int[]> BruteforceOrder(int count)
-        {
-            var orderVariation = new int[count];
-
-            for (int i = 0; i < orderVariation.Length; i++)
-            {
-                orderVariation[i] = i;
-            }
-
-            var counts = new int[orderVariation.Length];
-
-            int j = orderVariation.Length - 2;
-
-            yield return orderVariation.ToArray();
-
-            while (j >= 0)
-            {
-                if (counts.Length - 1 - j > counts[j])
-                {
-                    counts[j]++;
-                    orderVariation.Swap(j, orderVariation.Length - 1);
-                    yield return orderVariation.ToArray();
-                    j = orderVariation.Length - 2;
-                }
-                else
-                {
-                    counts[j] = 0;
-                    j--;
-                }
-            }
         }
 
         private ProductionPlan MakeProductionLineQueue(int[] productionLinesOrders, int[] ordersOrders)

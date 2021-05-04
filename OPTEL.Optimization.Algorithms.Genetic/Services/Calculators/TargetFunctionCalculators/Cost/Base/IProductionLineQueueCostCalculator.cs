@@ -1,4 +1,4 @@
-﻿using OPTEL.Optimization.Algorithms.Genetic.Data;
+﻿using OPTEL.Data;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Cost.Base
 {
