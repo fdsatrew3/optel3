@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using OPTEL.Data;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
 using Optimization.Algorithms;
+using System;
+using System.Linq;
 
-using OPTEL.Optimization.Algorithms.Genetic.Data;
-using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time.Base;
-
-namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time
+namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
 {
     public class TimeFunctionCalculator : ITargetFunctionCalculator<ProductionPlan>
     {

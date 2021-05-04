@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using OPTEL.Data;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost.Base;
 using Optimization.Algorithms;
+using System;
+using System.Linq;
 
-using OPTEL.Optimization.Algorithms.Genetic.Data;
-using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Cost.Base;
-
-namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Cost
+namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost
 {
     public class CostFunctionCalculator : ITargetFunctionCalculator<ProductionPlan>
     {

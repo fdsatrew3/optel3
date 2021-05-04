@@ -1,6 +1,6 @@
 ﻿using OPTEL.Data;
 
-namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time.Base
+namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base
 {
     public interface IExecutionTimeCalculator
     {

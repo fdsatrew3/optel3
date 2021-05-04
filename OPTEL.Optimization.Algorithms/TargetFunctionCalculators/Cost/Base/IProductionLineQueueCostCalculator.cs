@@ -1,6 +1,6 @@
 ﻿using OPTEL.Data;
 
-namespace OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Cost.Base
+namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost.Base
 {
     public interface IProductionLineQueueCostCalculator
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
 using Optimization.Algorithms;
 using Optimization.Algorithms.Genetic.Core;
 using Optimization.Algorithms.Genetic.Data;
@@ -7,7 +8,6 @@ using Optimization.Algorithms.Genetic.Services.Base;
 using Optimization.Algorithms.Utilities.Extensions;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
-using OPTEL.Optimization.Algorithms.Genetic.Services.Calculators.TargetFunctionCalculators.Time.Base;
 using ProductionLine = OPTEL.Data.ProductionLine;
 using Order = OPTEL.Data.Order;
 using ProductionLineQueue = OPTEL.Data.ProductionLineQueue;
