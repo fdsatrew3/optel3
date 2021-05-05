@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using OPTEL.Data;
 using Optimization.Algorithms.Genetic.Data;
 using Optimization.Algorithms.Genetic.Operators.Crossovers;
 using Optimization.Algorithms.Genetic.Services.Operators.Crossovers;
@@ -43,7 +42,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
             return children;
         }
 
-        private IEnumerable<Order> SelectOrdersToCrossover(ProductionPlan productionPlan)
+        private IEnumerable<OPTEL.Data.Order> SelectOrdersToCrossover(ProductionPlan productionPlan)
         {
             var productionLineQueues = productionPlan.ProductionLineQueues.ToList();
 
@@ -59,11 +58,11 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
             }
         }
 
-        private void ReplaceOrder(ProductionPlan children, ProductionPlan secondParent, Order order)
+        private void ReplaceOrder(ProductionPlan children, ProductionPlan secondParent, OPTEL.Data.Order order)
         {
             foreach(var queue in secondParent.ProductionLineQueues)
             {
-                var index = queue.Orders.IndexOf(order);
+                var index = queue.Orders.ListIndexOf(order);
 
                 if (index >= 0)
                 {
@@ -74,12 +73,12 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
                     if (targetQueue.Orders.Count > index)
                         targetQueue.Orders.Add(order);
                     else
-                        targetQueue.Orders.Insert(index, order);
+                        targetQueue.Orders.ListInsert(index, order);
                 }
             }
         }
 
-        private void RemoveOrderFromPlan(ProductionPlan productionPlan, Order order)
+        private void RemoveOrderFromPlan(ProductionPlan productionPlan, OPTEL.Data.Order order)
         {
             foreach (var queue in productionPlan.ProductionLineQueues)
             {

@@ -4,9 +4,9 @@ using System.Linq;
 using Optimization.Algorithms.Genetic.Core;
 using Optimization.Algorithms.Genetic.Services.Operators.Mutations;
 using Optimization.Algorithms.Utilities.Extensions;
-using OPTEL.Data;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
+using Order = OPTEL.Data.Order;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Mutations
 {

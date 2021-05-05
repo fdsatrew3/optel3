@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Optimization.Algorithms.Utilities.Extensions;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Util.Base;
@@ -16,8 +17,8 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Util
             queueFirst.Orders.Remove(firstElement.Order);
             queueSecond.Orders.Remove(secondElement.Order);
 
-            queueFirst.Orders.Insert(firstElement.Position, secondElement.Order);
-            queueFirst.Orders.Insert(secondElement.Position, firstElement.Order);
+            queueFirst.Orders.ListInsert(firstElement.Position, secondElement.Order);
+            queueFirst.Orders.ListInsert(secondElement.Position, firstElement.Order);
         }
     }
 }
