@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gantt="clr-namespace:Braincase.GanttChart;assembly=GanttChart"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop"
-        xmlns:gantt="clr-namespace:nGantt;assembly=nGantt"
         mc:Ignorable="d"
         Title="Optel - Username" 
         ResizeMode="CanResize"
@@ -13,7 +13,7 @@
         Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -56,6 +56,8 @@
                 <MenuItem Header="Go away"></MenuItem>
             </MenuItem>
         </Menu>
-        <gantt:GanttControl Grid.Column="0" Grid.Row="1" x:Name="ganttControl1"></gantt:GanttControl>
+        <WindowsFormsHost Grid.Column="0" Grid.Row="1">
+            <gantt:Chart x:Name="GanttChart"/>
+        </WindowsFormsHost>
     </Grid>
 </Window>

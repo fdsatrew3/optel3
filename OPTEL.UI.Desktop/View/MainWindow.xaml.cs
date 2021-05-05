@@ -1,19 +1,7 @@
-﻿using nGantt.GanttChart;
-using nGantt.PeriodSplitter;
+﻿using Braincase.GanttChart;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace OPTEL.UI.Desktop
 {
@@ -24,85 +12,116 @@ namespace OPTEL.UI.Desktop
     {
         public MainWindow()
         {
-            int GanttLenght = 50;
             InitializeComponent();
-            DateTime minDate = DateTime.Parse("2012-02-01");
-            DateTime maxDate = minDate.AddDays(GanttLenght);
-            CreateData(minDate, maxDate);
-        }
+            ProjectManager _mManager = null;
+            _mManager = new ProjectManager();
+            var work = new MyTask(_mManager) { Name = "Prepare for Work" };
+            var wake = new MyTask(_mManager) { Name = "Wake Up" };
+            var teeth = new MyTask(_mManager) { Name = "Brush Teeth" };
+            var shower = new MyTask(_mManager) { Name = "Shower" };
+            var clothes = new MyTask(_mManager) { Name = "Change into New Clothes" };
+            var hair = new MyTask(_mManager) { Name = "Blow My Hair" };
+            var pack = new MyTask(_mManager) { Name = "Pack the Suitcase" };
 
-        private void CreateData(DateTime minDate, DateTime maxDate)
-        {
-            // Set max and min dates
-            ganttControl1.Initialize(minDate, maxDate);
+            _mManager.Add(work);
+            _mManager.Add(wake);
+            _mManager.Add(teeth);
+            _mManager.Add(shower);
+            _mManager.Add(clothes);
+            _mManager.Add(hair);
+            _mManager.Add(pack);
 
-            // Create timelines and define how they should be presented
-            ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonthAndYear);
-            var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDay);
+            // Create another 1000 tasks for stress testing
+            Random rand = new Random();
+            for (int i = 0; i < 1000; i++)
+            {
+                var task = new MyTask(_mManager) { Name = string.Format("New Task {0}", i.ToString()) };
+                _mManager.Add(task);
+                _mManager.SetStart(task, TimeSpan.FromDays(rand.Next(300)));
+                _mManager.SetDuration(task, TimeSpan.FromDays(rand.Next(50)));
+            }
 
-            // Set the timeline to atatch gridlines to
-            ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
+            // Set task durations, e.g. using ProjectManager methods 
+            _mManager.SetDuration(wake, TimeSpan.FromDays(3));
+            _mManager.SetDuration(teeth, TimeSpan.FromDays(5));
+            _mManager.SetDuration(shower, TimeSpan.FromDays(7));
+            _mManager.SetDuration(clothes, TimeSpan.FromDays(4));
+            _mManager.SetDuration(hair, TimeSpan.FromDays(3));
+            _mManager.SetDuration(pack, TimeSpan.FromDays(5));
 
-            // Create and data
-            var rowgroup1 = ganttControl1.CreateGanttRowGroup("HeaderdGanttRowGroup");
-            var row1 = ganttControl1.CreateGanttRow(rowgroup1, "GanttRow 1");
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-02-01"), End = DateTime.Parse("2012-03-01"), Name = "GanttRow 1:GanttTask 1", TaskProgressVisibility = System.Windows.Visibility.Hidden });
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-03-05"), End = DateTime.Parse("2012-05-01"), Name = "GanttRow 1:GanttTask 2" });
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-06-01"), End = DateTime.Parse("2012-06-15"), Name = "GanttRow 1:GanttTask 3" });
+            // demostrate splitting a task
+            _mManager.Split(pack, new MyTask(_mManager), new MyTask(_mManager), TimeSpan.FromDays(2));
 
-            var rowgroup2 = ganttControl1.CreateGanttRowGroup("ExpandableGanttRowGroup", true);
-            var row2 = ganttControl1.CreateGanttRow(rowgroup2, "GanttRow 2");
-            var row3 = ganttControl1.CreateGanttRow(rowgroup2, "GanttRow 3");
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-02-10"), End = DateTime.Parse("2012-03-10"), Name = "GanttRow 2:GanttTask 1" });
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-03-25"), End = DateTime.Parse("2012-05-10"), Name = "GanttRow 2:GanttTask 2" });
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-06-10"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 2:GanttTask 3", PercentageCompleted = 0.375 });
-            ganttControl1.AddGanttTask(row3, new GanttTask() { Start = DateTime.Parse("2012-01-07"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 3:GanttTask 1", PercentageCompleted = 0.5 });
+            // Set task complete status, e.g. using newly created properties
+            wake.Complete = 0.9f;
+            teeth.Complete = 0.5f;
+            shower.Complete = 0.4f;
 
-            var rowgroup3 = ganttControl1.CreateGanttRowGroup("MEX 09");
-            var row4 = ganttControl1.CreateGanttRow(rowgroup3, "GanttRow 4");
-            ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-02-14"), End = DateTime.Parse("2012-02-27"), Name = "GanttRow 4:GanttTask 1", PercentageCompleted = 1 });
-            ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-04-8"), End = DateTime.Parse("2012-09-19"), Name = "GanttRow 4:GanttTask 2" });
-        }
+            // Give the Tasks some organisation, setting group and precedents
+            _mManager.Group(work, wake);
+            _mManager.Group(work, teeth);
+            _mManager.Group(work, shower);
+            _mManager.Group(work, clothes);
+            _mManager.Group(work, hair);
+            _mManager.Group(work, pack);
+            _mManager.Relate(wake, teeth);
+            _mManager.Relate(wake, shower);
+            _mManager.Relate(shower, clothes);
+            _mManager.Relate(shower, hair);
+            _mManager.Relate(hair, pack);
+            _mManager.Relate(clothes, pack);
 
-        private string FormatMonthAndYear(Period period)
-        {
-            return period.Start.ToString("MMMM yyyy");
-        }
+            // Create and assign Resources.
+            // MyResource is just custom user class. The API can accept any object as resource.
+            var jake = new MyResource() { Name = "Jake" };
+            var peter = new MyResource() { Name = "Peter" };
+            var john = new MyResource() { Name = "John" };
+            var lucas = new MyResource() { Name = "Lucas" };
+            var james = new MyResource() { Name = "James" };
+            var mary = new MyResource() { Name = "Mary" };
+            // Add some resources
+            _mManager.Assign(wake, jake);
+            _mManager.Assign(wake, peter);
+            _mManager.Assign(wake, john);
+            _mManager.Assign(teeth, jake);
+            _mManager.Assign(teeth, james);
+            _mManager.Assign(pack, james);
+            _mManager.Assign(pack, lucas);
+            _mManager.Assign(shower, mary);
+            _mManager.Assign(shower, lucas);
+            _mManager.Assign(shower, john);
 
-        private string FormatDay(Period period)
-        {
-            return period.Start.Day.ToString();
-        }
-
-        private System.Windows.Media.Brush DetermineBackground(TimeLineItem timeLineItem)
-        {
-            return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent);
-        }
-
-        private void NewClicked(Period selectionPeriod)
-        {
-            MessageBox.Show("New clicked for task " + selectionPeriod.Start.ToString() + " -> " + selectionPeriod.End.ToString());
-        }
-
-        private void ViewClicked(GanttTask ganttTask)
-        {
-            MessageBox.Show("New clicked for task " + ganttTask.Name);
-        }
-
-        private void EditClicked(GanttTask ganttTask)
-        {
-            MessageBox.Show("Edit clicked for task " + ganttTask.Name);
-        }
-
-        private void DeleteClicked(GanttTask ganttTask)
-        {
-            MessageBox.Show("Delete clicked for task " + ganttTask.Name);
-        }
-
-        void ganttControl1_GanttRowAreaSelected(object sender, PeriodEventArgs e)
-        {
-            MessageBox.Show(e.SelectionStart.ToString() + " -> " + e.SelectionEnd.ToString());
-        }
-
+            // Initialize the Chart with our ProjectManager and CreateTaskDelegate
+            GanttChart.Init(_mManager);
+        }        
     }
+    #region custom task and resource
+    /// <summary>
+    /// A custom resource of your own type (optional)
+    /// </summary>
+    [Serializable]
+    public class MyResource
+    {
+        public string Name { get; set; }
+    }
+    /// <summary>
+    /// A custom task of your own type deriving from the Task interface (optional)
+    /// </summary>
+    [Serializable]
+    public class MyTask : Task
+    {
+        public MyTask(ProjectManager manager)
+            : base()
+        {
+            Manager = manager;
+        }
+
+        private ProjectManager Manager { get; set; }
+
+        public new TimeSpan Start { get { return base.Start; } set { Manager.SetStart(this, value); } }
+        public new TimeSpan End { get { return base.End; } set { Manager.SetEnd(this, value); } }
+        public new TimeSpan Duration { get { return base.Duration; } set { Manager.SetDuration(this, value); } }
+        public new float Complete { get { return base.Complete; } set { Manager.SetComplete(this, value); } }
+    }
+    #endregion custom task and resource
 }

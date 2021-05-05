@@ -1,0 +1,245 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
+	x:Class="SCADAServis.Controls.testExpander"
+	x:Name="Window"
+	Title="testExpander"
+	Width="640" Height="480">
+
+	<Window.Resources>
+<Style x:Key="ganttExpander" TargetType="{x:Type Expander}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <Border SnapsToDevicePixels="True" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="0">
+                        <DockPanel>
+                            <ToggleButton x:Name="HeaderSite" Margin="1" MinHeight="0" MinWidth="0" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" FontFamily="{TemplateBinding FontFamily}" FontSize="17" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" Foreground="white" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" DockPanel.Dock="Top" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border Padding="0">
+                                                        <Grid SnapsToDevicePixels="False" Background="gray">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="21"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Microsoft_Windows_Themes:ClassicBorderDecorator x:Name="Bd" Width="19" Height="19" SnapsToDevicePixels="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderStyle="None" BorderThickness="0" Margin="0">
+                                                                <Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                    <SolidColorBrush/>
+                                                                </Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                <Path x:Name="arrow" StrokeThickness="1.5" HorizontalAlignment="Center" VerticalAlignment="Bottom" SnapsToDevicePixels="False" Data="M1,1.5L4.5,5 8,1.5" Stroke="Black" RenderTransformOrigin="-0.145,0.202" Margin="0,0,0,6.469"/>
+                                                            </Microsoft_Windows_Themes:ClassicBorderDecorator>
+                                                            <ContentPresenter HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" SnapsToDevicePixels="True" Grid.Column="1" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
+                                                        </Grid>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinRaised"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinPressed"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.Style>
+                                <ToggleButton.FocusVisualStyle>
+                                    <Style>
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Border>
+                                                        <Rectangle Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1" Margin="0" SnapsToDevicePixels="True"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.FocusVisualStyle>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ExpandSite" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Focusable="False" Visibility="Collapsed" DockPanel.Dock="Bottom" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Right">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                            <Setter Property="Style" TargetName="HeaderSite">
+                                <Setter.Value>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border Padding="{TemplateBinding Padding}">
+                                                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="19"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Microsoft_Windows_Themes:ClassicBorderDecorator x:Name="Bd" Width="19" Height="19" SnapsToDevicePixels="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderStyle="None" BorderThickness="1">
+                                                                <Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                    <SolidColorBrush/>
+                                                                </Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                <Path x:Name="arrow" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="False" Data="M1,1.5L4.5,5 8,1.5">
+                                                                    <Path.LayoutTransform>
+                                                                        <RotateTransform Angle="-90"/>
+                                                                    </Path.LayoutTransform>
+                                                                </Path>
+                                                            </Microsoft_Windows_Themes:ClassicBorderDecorator>
+                                                            <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" SnapsToDevicePixels="True" Grid.Row="1" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
+                                                        </Grid>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinRaised"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinPressed"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Up">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                            <Setter Property="Style" TargetName="HeaderSite">
+                                <Setter.Value>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border Padding="{TemplateBinding Padding}">
+                                                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="19"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Microsoft_Windows_Themes:ClassicBorderDecorator x:Name="Bd" Width="19" Height="19" SnapsToDevicePixels="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderStyle="None" BorderThickness="1">
+                                                                <Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                    <SolidColorBrush/>
+                                                                </Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                <Path x:Name="arrow" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="False" Data="M1,1.5L4.5,5 8,1.5">
+                                                                    <Path.LayoutTransform>
+                                                                        <RotateTransform Angle="180"/>
+                                                                    </Path.LayoutTransform>
+                                                                </Path>
+                                                            </Microsoft_Windows_Themes:ClassicBorderDecorator>
+                                                            <ContentPresenter HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" SnapsToDevicePixels="True" Grid.Column="1" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
+                                                        </Grid>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinRaised"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinPressed"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="ExpandDirection" Value="Left">
+                            <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
+                            <Setter Property="Style" TargetName="HeaderSite">
+                                <Setter.Value>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border Padding="{TemplateBinding Padding}">
+                                                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="19"/>
+                                                                <RowDefinition Height="*"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Microsoft_Windows_Themes:ClassicBorderDecorator x:Name="Bd" Width="19" Height="19" SnapsToDevicePixels="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderStyle="None" BorderThickness="1">
+                                                                <Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                    <SolidColorBrush/>
+                                                                </Microsoft_Windows_Themes:ClassicBorderDecorator.BorderBrush>
+                                                                <Path x:Name="arrow" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="False" Data="M1,1.5L4.5,5 8,1.5">
+                                                                    <Path.LayoutTransform>
+                                                                        <RotateTransform Angle="90"/>
+                                                                    </Path.LayoutTransform>
+                                                                </Path>
+                                                            </Microsoft_Windows_Themes:ClassicBorderDecorator>
+                                                            <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" SnapsToDevicePixels="True" Grid.Row="1" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True"/>
+                                                        </Grid>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinRaised"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="BorderStyle" TargetName="Bd" Value="ThinPressed"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+	</Window.Resources>
+
+	<Grid x:Name="LayoutRoot">
+		<Expander IsExpanded="True" HorizontalAlignment="Left" Margin="56,120,0,0" VerticalAlignment="Top" Header="Expander" Style="{DynamicResource ganttExpander}">
+			<TextBlock><Run Text="testík"/></TextBlock>
+		</Expander>
+		<Border Margin="130,203,231,71" BorderBrush="#FF875555" BorderThickness="2">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="0.25*"/>
+					<ColumnDefinition Width="0.75*"/>
+				</Grid.ColumnDefinitions>
+				<Rectangle Fill="#FFDEDEDE" />
+			</Grid>
+		</Border>
+	</Grid>
+</Window>

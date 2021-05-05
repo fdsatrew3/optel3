@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\optel.ico</ApplicationIcon>
     <StartupObject>OPTEL.UI.Desktop.App</StartupObject>
   </PropertyGroup>
@@ -26,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\nGantt\nGantt.csproj" />
+    <ProjectReference Include="..\GanttChart\GanttChart.csproj" />
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
