@@ -1,126 +1,110 @@
-﻿using OPTEL.Data;
-using OPTEL.Entity.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using OPTEL.Data;
+using Optimization.Algorithms.Core;
 
 namespace OPTEL.Optimization.Algorithms.Best
 {
-    public class BestAlgorithm : IDisposable
+    public class BestAlgorithm : IOptimizationAlgorithm<ProductionPlan>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly ICollection<ProductionLine> _productionLines;
-        private readonly ICollection<Order> _orders;
+        private readonly IEnumerable<ProductionLine> _productionLines;
+        private readonly IEnumerable<Order> _orders;
+        private readonly IEnumerable<FilmTypesChange> _filmTypesChanges;
 
-        public BestAlgorithm(IUnitOfWork unitOfWork, ICollection<ProductionLine> productionLines, ICollection<Order> orders)
+        public BestAlgorithm(IEnumerable<ProductionLine> productionLines, IEnumerable<Order> orders, IEnumerable<FilmTypesChange> filmTypesChanges)
         {
-            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _productionLines = productionLines ?? throw new ArgumentNullException(nameof(productionLines));
             _orders = orders ?? throw new ArgumentNullException(nameof(orders));
+            _filmTypesChanges = filmTypesChanges ?? throw new ArgumentNullException(nameof(filmTypesChanges));
         }
-        /*
-        public ProductionPlan Start(List<Extruder> extruderLine, List<Order> ordersToExecute, List<SliceLine> slinesBundle)
+
+        public ProductionPlan GetResolve()
         {
-            //создаем план
-            ProductionPlan productionPlan = new ProductionPlan();
-            productionPlan.OrdersToLineConformity = new List<OrdersOnExtruderLine>();
+            var result = new ProductionPlan { ProductionLineQueues = new List<ProductionLineQueue>() };
+            var ordersByTime = _orders.OrderByDescending(order => order.PredefinedTime).ToArray();
 
-            ordersToExecute = ordersToExecute.OrderByDescending(order => order.ProductionTime).ToList();
-
-            for (int i = 0; i < extruderLine.Count; i++)
+            for (int i = 0; i < _productionLines.Count(); i++)
             {
-                List<Order> orders = new List<Order>();
+                var orders = new List<Order>();
 
-                for (int j = i; j < ordersToExecute.Count; j += extruderLine.Count)
+                for (int j = i; j < ordersByTime.Length; j += _productionLines.Count())
                 {
-                    orders.Add(ordersToExecute[j]);
+                    orders.Add(ordersByTime[j]);
                 }
 
-                if (ordersToExecute.Count % extruderLine.Count != 0 && ordersToExecute.Count % extruderLine.Count <= i)
+                if (ordersByTime.Length % _productionLines.Count() != 0 && ordersByTime.Length % _productionLines.Count() <= i)
                 {
-                    int index = ordersToExecute.Count / extruderLine.Count;
+                    int index = ordersByTime.Length / _productionLines.Count();
 
-                    orders.Add(ordersToExecute[index + i]);
+                    orders.Add(ordersByTime[index + i]);
                 }
 
-                productionPlan.OrdersToLineConformity.Add(BestProdactionPlan(extruderLine[i], orders, slinesBundle));
+                result.ProductionLineQueues.Add(BestProdactionPlan(_productionLines.ElementAt(i), orders));
             }
 
-            return productionPlan;
+            return result;
         }
-
-        /*
-        public ProductionPlan Start(List<Extruder> extruderLine, List<Order> ordersToExecute, List<SliceLine> slinesBundle)
+                
+        private ProductionLineQueue BestProdactionPlan(ProductionLine productionLine, List<Order> orders)
         {
-            // работаем только для одной линии (например, первой)
-            Extruder extruderLines = extruderLine.First();
-
             //берем все перенастройки
-            List<ExtruderRecipeChange> extruderRecipeChange = db.ExtruderRecipeChanges.ToList();
-            List<ExtruderCalibrationChange> extruderCalibrationChanges = db.ExtruderCalibrationChanges.ToList();
-            List<ExtruderCoolingLipChange> extruderCoolingLipChanges = db.ExtruderCoolingLipChanges.ToList();
-            List<ExtruderNozzleChange> extruderNozzleChanges = db.ExtruderNozzleChanges.ToList();
+            var result = new ProductionLineQueue() { ProductionLine = productionLine };
 
-            //создаем план
-            ProductionPlan productionPlan = new ProductionPlan();
-            productionPlan.OrdersToLineConformity = new List<OrdersOnExtruderLine>();
-            productionPlan.OrdersToLineConformity.Add(new OrdersOnExtruderLine() { Line = extruderLines });
-            productionPlan.OrdersToLineConformity.First().Orders = new List<Order>();
+            var extruderRecipeChange = _filmTypesChanges.OrderByDescending(x => x.ReconfigurationTime).ToArray();
 
-            extruderRecipeChange = extruderRecipeChange.OrderByDescending(change => change.Duration).ToList();
-
-            if (extruderRecipeChange.Count == 0)
+            if (extruderRecipeChange.Length == 0)
                 throw new Exception("Нет перенастроек");
 
             // для начала смотрим все перенастройки в поисках заказов, которые могли бы выполняться
-            for (int i = 0; i < extruderRecipeChange.Count; i++)
+            foreach (var change in extruderRecipeChange)
             {
                 // если в списке заказов есть хотя бы один заказ по такому рецепту
-                if (ordersToExecute.Where(order => order.FilmRecipe.Recipe.Equals(extruderRecipeChange[i].On)).Count() > 0)
+                if (orders.Where(order => order.FilmRecipe.FilmType.Equals(change.FilmTypeTo)).Count() > 0)
                 {
                     // выбираем все заказы по такому рецепту
-                    List<Order> orders = ordersToExecute.Where(or => or.FilmRecipe.Recipe.Equals(extruderRecipeChange[i].On)).OrderBy(order => order.FilmRecipe.NozzleInsert).ThenBy(order => order.FilmRecipe.CalibrationDiameter).ThenBy(order => order.FilmRecipe.CoolingLip).ToList();
-
-                    // и вставляем их в план
-                    for (int j = 0; j < orders.Count; j++)
+                    foreach (var order in orders.Where(or => or.FilmRecipe.FilmType.Equals(change.FilmTypeTo))
+                        .OrderBy(order => order.FilmRecipe.Nozzle)
+                        .ThenBy(order => order.FilmRecipe.Calibration)
+                        .ThenBy(order => order.FilmRecipe.CoolingLip))
                     {
-                        productionPlan.OrdersToLineConformity.First().Orders.Add(orders[j]);
+                        result.Orders.Add(order); // и вставляем их в план
                     }
 
                     break; // заказы выбраны - сваливаем
                 }
             }
 
-            if (productionPlan.OrdersToLineConformity.First().Orders.Count == 0)
+            if (result.Orders.Count == 0)
                 throw new Exception("Нет заказов");
 
             int l = 0;
 
             // Теперь будем вставлять остальные заказы в план в зависимости от рецепта предыдущего заказа (пока все заказы не забьем в план)
-            while (productionPlan.OrdersToLineConformity.First().Orders.Count < ordersToExecute.Count && l < 2000)
+            while (result.Orders.Count < orders.Count && l < 2000)
             {
                 // берем последний тип пленки в плане
-                FilmRecipe lastFilmRecipe = productionPlan.OrdersToLineConformity.First().Orders.Last().FilmRecipe;
+                var lastFilmRecipe = result.Orders.Last().FilmRecipe;
 
                 // находим все перенастройки с этого рецепта (отсортируем их по возрастанию сразу)
-                List<ExtruderRecipeChange> recipeChanges = extruderRecipeChange.Where(change => change.From.Equals(lastFilmRecipe.Recipe)).OrderBy(change => change.Duration).ToList();
+                var recipeChanges = extruderRecipeChange.Where(change => change.FilmTypeFrom.Equals(lastFilmRecipe.FilmType)).OrderBy(change => change.ReconfigurationTime);
 
                 // идем от наименьшего времени перенастройки к большему, ищем заказы
-                for (int k = 0; k < recipeChanges.Count; k++)
+                foreach(var change in recipeChanges)
                 {
                     // если есть заказы с таким типом пленки
-                    if (ordersToExecute.Where(order => order.FilmRecipe.Recipe.Equals(recipeChanges[k].On)).Count() > 0)
+                    if (orders.Where(order => order.FilmRecipe.FilmType.Equals(change.FilmTypeTo)).Any())
                     {
                         // и такого типа пленки еще не было в плане
-                        if (productionPlan.OrdersToLineConformity.First().Orders.Where(x => x.FilmRecipe.Recipe.Equals(recipeChanges[k].On)).Count() == 0)
+                        if (!result.Orders.Where(x => x.FilmRecipe.FilmType.Equals(change.FilmTypeTo)).Any())
                         {
                             // выбираем все заказы с таким типом пленки
-                            List<Order> _orders = ordersToExecute.Where(or => or.FilmRecipe.Recipe.Equals(recipeChanges[k].On)).OrderBy(order => order.FilmRecipe.NozzleInsert).ThenBy(order => order.FilmRecipe.CalibrationDiameter).ThenBy(order => order.FilmRecipe.CoolingLip).ToList();
-
-                            // кидаем их в план
-                            for (int j = 0; j < _orders.Count; j++)
+                            foreach (var order in orders.Where(or => or.FilmRecipe.FilmType.Equals(change.FilmTypeTo))
+                                .OrderBy(order => order.FilmRecipe.Nozzle)
+                                .ThenBy(order => order.FilmRecipe.Calibration)
+                                .ThenBy(order => order.FilmRecipe.CoolingLip))
                             {
-                                productionPlan.OrdersToLineConformity.First().Orders.Add(_orders[j]);
+                                result.Orders.Add(order); // кидаем их в план
                             }
 
                             break; // заказы нашлись - здесь больше делать нечего, смотрим следующий тип пленки (возвращаемся в while)
@@ -131,93 +115,7 @@ namespace OPTEL.Optimization.Algorithms.Best
                 l++;
             }
 
-            //productionPlan.OrdersToLineConformity.First().Orders.Remove(productionPlan.OrdersToLineConformity.First().Orders.Last());
-
-            return productionPlan;
-        }*/
-        /*
-        private OrdersOnExtruderLine BestProdactionPlan(Extruder extruderLine, List<Order> ordersToExecute, List<SliceLine> slinesBundle)
-        {
-            //берем все перенастройки
-            List<ExtruderRecipeChange> extruderRecipeChange = db.ExtruderRecipeChanges.ToList();
-            List<ExtruderCalibrationChange> extruderCalibrationChanges = db.ExtruderCalibrationChanges.ToList();
-            List<ExtruderCoolingLipChange> extruderCoolingLipChanges = db.ExtruderCoolingLipChanges.ToList();
-            List<ExtruderNozzleChange> extruderNozzleChanges = db.ExtruderNozzleChanges.ToList();
-
-            OrdersOnExtruderLine OrdersToLineConformity = new OrdersOnExtruderLine() { Line = extruderLine };
-
-            extruderRecipeChange = extruderRecipeChange.OrderByDescending(change => change.Duration).ToList();
-
-            if (extruderRecipeChange.Count == 0)
-                throw new Exception("Нет перенастроек");
-
-            // для начала смотрим все перенастройки в поисках заказов, которые могли бы выполняться
-            for (int i = 0; i < extruderRecipeChange.Count; i++)
-            {
-                // если в списке заказов есть хотя бы один заказ по такому рецепту
-                if (ordersToExecute.Where(order => order.FilmRecipe.Recipe.Equals(extruderRecipeChange[i].On)).Count() > 0)
-                {
-                    // выбираем все заказы по такому рецепту
-                    List<Order> orders = ordersToExecute.Where(or => or.FilmRecipe.Recipe.Equals(extruderRecipeChange[i].On)).OrderBy(order => order.FilmRecipe.NozzleInsert).ThenBy(order => order.FilmRecipe.CalibrationDiameter).ThenBy(order => order.FilmRecipe.CoolingLip).ToList();
-
-                    // и вставляем их в план
-                    for (int j = 0; j < orders.Count; j++)
-                    {
-                        OrdersToLineConformity.Orders.Add(orders[j]);
-                    }
-
-                    break; // заказы выбраны - сваливаем
-                }
-            }
-
-            if (OrdersToLineConformity.Orders.Count == 0)
-                throw new Exception("Нет заказов");
-
-            int l = 0;
-
-            // Теперь будем вставлять остальные заказы в план в зависимости от рецепта предыдущего заказа (пока все заказы не забьем в план)
-            while (OrdersToLineConformity.Orders.Count < ordersToExecute.Count && l < 2000)
-            {
-                // берем последний тип пленки в плане
-                FilmRecipe lastFilmRecipe = OrdersToLineConformity.Orders.Last().FilmRecipe;
-
-                // находим все перенастройки с этого рецепта (отсортируем их по возрастанию сразу)
-                List<ExtruderRecipeChange> recipeChanges = extruderRecipeChange.Where(change => change.From.Equals(lastFilmRecipe.Recipe)).OrderBy(change => change.Duration).ToList();
-
-                // идем от наименьшего времени перенастройки к большему, ищем заказы
-                for (int k = 0; k < recipeChanges.Count; k++)
-                {
-                    // если есть заказы с таким типом пленки
-                    if (ordersToExecute.Where(order => order.FilmRecipe.Recipe.Equals(recipeChanges[k].On)).Count() > 0)
-                    {
-                        // и такого типа пленки еще не было в плане
-                        if (OrdersToLineConformity.Orders.Where(x => x.FilmRecipe.Recipe.Equals(recipeChanges[k].On)).Count() == 0)
-                        {
-                            // выбираем все заказы с таким типом пленки
-                            List<Order> _orders = ordersToExecute.Where(or => or.FilmRecipe.Recipe.Equals(recipeChanges[k].On)).OrderBy(order => order.FilmRecipe.NozzleInsert).ThenBy(order => order.FilmRecipe.CalibrationDiameter).ThenBy(order => order.FilmRecipe.CoolingLip).ToList();
-
-                            // кидаем их в план
-                            for (int j = 0; j < _orders.Count; j++)
-                            {
-                                OrdersToLineConformity.Orders.Add(_orders[j]);
-                            }
-
-                            break; // заказы нашлись - здесь больше делать нечего, смотрим следующий тип пленки (возвращаемся в while)
-                        }
-                    }
-                }
-
-                l++;
-            }
-
-            //productionPlan.OrdersToLineConformity.First().Orders.Remove(productionPlan.OrdersToLineConformity.First().Orders.Last());
-
-            return OrdersToLineConformity;
-        }
-        */
-        public void Dispose()
-        {
-            _unitOfWork.Dispose();
+            return result;
         }
     }
 }
