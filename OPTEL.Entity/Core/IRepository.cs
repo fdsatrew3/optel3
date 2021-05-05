@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OPTEL.Entity.Core
 {
@@ -16,11 +15,11 @@ namespace OPTEL.Entity.Core
 
         void Delete(TEntity entity);
 
-        void Delete(Guid id);
+        void Delete(int id);
 
         void DeleteRange(IEnumerable<TEntity> entities);
 
-        void DeleteRange(IEnumerable<Guid> ids);
+        void DeleteRange(IEnumerable<int> ids);
 
         void SetEntityEntryStateModified(TEntity entity);
 

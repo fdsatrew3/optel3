@@ -1,14 +1,23 @@
-﻿using System.Data.Entity;
-
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using OPTEL.Data;
+using OPTEL.Data.Core;
+
+using OPTEL.Entity.Helpers.Ensurers;
+using OPTEL.Entity.Helpers.Exceptions;
+using OPTEL.Entity.Helpers.Validation;
 
 namespace OPTEL.Entity
 {
     internal class DatabaseContext : DbContext
     {
-        public DatabaseContext()
-            : base("DefaultConnection")
+        public DatabaseContext(IDataBaseEnsurer ensurer)
         {
+            ensurer.Ensure(Database);
         }
 
         #region Public methods
@@ -32,7 +41,7 @@ namespace OPTEL.Entity
         }
 
         public void RejectChanges<TEntity>()
-            where TEntity : class, Data.Core.IDataObject
+            where TEntity : class, IDataObject
         {
             foreach (var entry in ChangeTracker.Entries<TEntity>())
             {
@@ -50,6 +59,31 @@ namespace OPTEL.Entity
             }
         }
 
+        public void ValidateContext()
+        {
+            var result = GetValidationErrors().ToList();
+
+            if (result.Count > 0)
+                throw new DbEntityValidationException(result);
+        }
+
+        public IEnumerable<DbEntityValidationResult> GetValidationErrors()
+        {
+            var entries = ChangeTracker.Entries()
+                .Where(s => s.State == EntityState.Added || s.State == EntityState.Modified);
+
+            foreach (var entry in entries)
+            {
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(entry.Entity);
+
+                if (!Validator.TryValidateObject(entry.Entity, validationContext, validationResults, true))
+                {
+                    yield return new DbEntityValidationResult(entry, validationResults);
+                }
+            }
+        }
+
 
         #endregion
 
@@ -63,9 +97,9 @@ namespace OPTEL.Entity
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<Extruder> Extruders { get; set; }
+        public DbSet<ProductionLine> ProductionLines { get; set; }
 
-        public DbSet<FilmRecipeChange> FilmRecipeChanges { get; set; }
+        public DbSet<FilmTypesChange> FilmRecipeChanges { get; set; }
 
         public DbSet<NozzleChange> NozzleChanges { get; set; }
 
@@ -76,6 +110,25 @@ namespace OPTEL.Entity
         #endregion
 
         #region Overrides of DbContext
+
+        public override int SaveChanges()
+        {
+            ValidateContext();
+
+            return base.SaveChanges();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            EnsureDirectoryCreated("Databases");
+            optionsBuilder.UseSqlite(@$"Data Source={Path.Combine(Environment.CurrentDirectory, "Databases", "DungeonsDatabase.db")}");
+
+#if LogConsole || LogFile
+            optionsBuilder.LogTo(Log);
+#endif
+
+            base.OnConfiguring(optionsBuilder);
+        }
 
         private void Log(string message)
         {
@@ -88,11 +141,12 @@ namespace OPTEL.Entity
 #endif
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        private void EnsureDirectoryCreated(string dirName)
         {
-#if  LogConsole || LogFile
-            Database.Log += Log;
-#endif
+            var path = Path.Combine(Environment.CurrentDirectory, dirName);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path).Create();
         }
 
         #endregion

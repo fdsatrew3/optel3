@@ -9,7 +9,7 @@ using Optimization.Algorithms.Genetic.Data;
 namespace Optimization.Algorithms.Genetic.Services.Base
 {
     public class GeneticAlgorithm<I> : IGeneticAlgorithm<I>, IGeneticAlgorithmsDecisions<I>
-        where I : class, ICalculatedIndividual
+        where I : class, ICalculatedIndividual, ICloneableIndividual
     {
         protected IGeneticAlgorithmSetting<I> GeneticAlgorithmSetting { get; }
 
@@ -62,7 +62,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
                 if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsPopulationIsFinal(currentPopulation)))
                     break;
                 else
-                    yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation);
+                    yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation).Clone() as I;
             }
 
             yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation);

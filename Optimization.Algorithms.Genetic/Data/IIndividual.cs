@@ -1,6 +1,8 @@
-﻿namespace Optimization.Algorithms.Genetic.Data
+﻿using System;
+
+namespace Optimization.Algorithms.Genetic.Data
 {
-    public interface IIndividual
+    public interface IIndividual : ICloneable
     {
 
     }
