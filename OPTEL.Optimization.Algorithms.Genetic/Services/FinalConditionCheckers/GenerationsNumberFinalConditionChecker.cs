@@ -1,10 +1,10 @@
 ﻿using System;
-using Optimization.Algorithms.Genetic.Core;
+using Optimization.Algorithms;
 using Optimization.Algorithms.Genetic.Data;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.FinalConditionCheckers
 {
-    public class GenerationsNumberFinalConditionChecker<I> : IFinalCoditionChecker<I>
+    public class GenerationsNumberFinalConditionChecker<I> : IFinalCoditionChecker<IPopulation<I>>
         where I : ICalculatedIndividual
     {
         protected int GenerationCount { get; }
@@ -32,7 +32,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.FinalConditionCheckers
         /// </summary>
         /// <param name="currentPopulation">Current population</param>
         /// <returns>If that is final operation</returns>
-        public bool IsPopulationIsFinal(IPopulation<I> currentPopulation)
+        public bool IsStateFinal(IPopulation<I> currentPopulation)
         {
             _currentGeneration++;
 

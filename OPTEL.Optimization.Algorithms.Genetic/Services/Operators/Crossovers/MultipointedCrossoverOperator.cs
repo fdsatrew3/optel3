@@ -4,6 +4,7 @@ using System.Linq;
 using Optimization.Algorithms.Genetic.Data;
 using Optimization.Algorithms.Genetic.Operators.Crossovers;
 using Optimization.Algorithms.Genetic.Services.Operators.Crossovers;
+using Optimization.Algorithms.Utilities.Extensions;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Util.Base;
@@ -84,8 +85,8 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers
                     var queue = result.ProductionLineQueues.First(x => x.ProductionLine == productionLine);
                     var orders = productionLineInterval.Select(x => x.Order).ToArray();
 
-                    queue.Orders.RemoveAll(x => productionLineInterval.Any(y => y.Order == x));
-                    queue.Orders.InsertRange(productionLineInterval.First().Position, orders);
+                    queue.Orders.ListRemoveAll(x => productionLineInterval.Any(y => y.Order == x));
+                    queue.Orders.ListInsertRange(productionLineInterval.First().Position, orders);
                 }
             }
 
