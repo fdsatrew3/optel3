@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\Menu\Controls\add_button.png" />
+    <None Remove="Resources\Icons\Menu\Controls\delete_button.png" />
     <None Remove="Resources\Icons\Menu\excel.ico" />
     <None Remove="Resources\Icons\Menu\options.ico" />
     <None Remove="Resources\optel.ico" />
@@ -38,6 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\Menu\Controls\add_button.png" />
+    <Resource Include="Resources\Icons\Menu\Controls\delete_button.png" />
     <Resource Include="Resources\Icons\Menu\excel.ico" />
     <Resource Include="Resources\Icons\Menu\options.ico" />
     <Resource Include="Resources\Icons\optel.ico" />
