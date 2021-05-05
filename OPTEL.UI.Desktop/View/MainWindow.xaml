@@ -1,10 +1,10 @@
-﻿<Window x:Class="OPTEL.UI.Desktop.MainWindow"
+﻿<Window x:Class="OPTEL.UI.Desktop.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gantt="clr-namespace:Braincase.GanttChart;assembly=GanttChart"
-        xmlns:local="clr-namespace:OPTEL.UI.Desktop"
+        xmlns:local="clr-namespace:OPTEL.UI.Desktop.View"
         mc:Ignorable="d"
         Title="Optel - Username" 
         ResizeMode="CanResize"
@@ -20,17 +20,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Menu Height="25" Grid.Column="0" Grid.Row="0" Background="Transparent">
-            <MenuItem Header="File">
-                <MenuItem Header="Import Excel file">
-                    <MenuItem.Icon>
-                        <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/excel.ico" Width="20" Height="20"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator />
-                <MenuItem Header="Exit"></MenuItem>
-            </MenuItem>
             <MenuItem Header="Data">
-                <MenuItem Header="Extruder calibrations"></MenuItem>
+                <MenuItem Header="Extruder calibrations" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
                 <MenuItem Header="Extruder nozzles"></MenuItem>
                 <MenuItem Header="Extruder cooling lips"></MenuItem>
                 <MenuItem Header="Extruder recipes"></MenuItem>
@@ -41,6 +32,11 @@
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Generate Excel template"></MenuItem>
+                <MenuItem Header="Import Excel file">
+                    <MenuItem.Icon>
+                        <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/excel.ico" Width="20" Height="20"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="Export data to Excel">
                     <MenuItem.Icon>
                         <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/excel.ico" Width="20" Height="20"></Image>
