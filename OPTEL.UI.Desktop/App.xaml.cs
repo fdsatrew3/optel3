@@ -17,23 +17,7 @@ namespace OPTEL.UI.Desktop
         {
             base.OnStartup(e);
             LoadLocalizationFiles();
-            UnitOfWork.instance = new Entity.Persistance.UnitOfWork(new ProductionDataBaseEnsurer());
-            Data.FilmRecipe filmRecipe = new Data.FilmRecipe
-            {
-                ID = 0,
-                FilmType = UnitOfWork.instance.FilmTypeRepository.GetFirst(),
-                Calibration = 2,
-                CoolingLip = 3,
-                MaterialCost = 4,
-                Name = "123",
-                Nozzle = 5,
-                ProductionSpeed = 6,
-                Thickness = 7
-            };
-            UnitOfWork.instance.FilmRecipeRepository.Add(filmRecipe);
-            UnitOfWork.instance.Save();
-
-            //UnitOfWork.instance.CalibrationChangeRepository.Add(new Data.CalibrationChange { CalibrationToChange = 100, ID = 0, ParentProductionLine = productionLine, ReconfigurationTime = 20 });
+            Database.instance = new Entity.Persistance.UnitOfWork(new ProductionDataBaseEnsurer());
         }
 
         private void LoadLocalizationFiles()

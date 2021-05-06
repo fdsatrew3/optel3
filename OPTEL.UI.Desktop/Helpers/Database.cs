@@ -1,6 +1,6 @@
 ﻿namespace OPTEL.UI.Desktop
 {
-    public static class UnitOfWork
+    public static class Database
     {
         public static Entity.Persistance.UnitOfWork instance;
     }

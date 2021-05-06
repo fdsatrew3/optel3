@@ -10,7 +10,7 @@ namespace OPTEL.UI.Desktop.Views
         public ExtruderCalibrationsWindow()
         {
             InitializeComponent();
-            this.DataContext = UnitOfWork.instance.CalibrationChangeRepository;
+            this.DataContext = Database.instance.CalibrationChangeRepository;
         }
     }
 }
