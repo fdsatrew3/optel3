@@ -8,10 +8,6 @@
         mc:Ignorable="d"
         Title="Extruder calibrations" Height="450" Width="800"
         Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico">
-    <Window.Resources>
-        <Image x:Key="AddButtonImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/add_button.png"/>
-        <Image x:Key="RemoveButtonImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/delete_button.png"/>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -30,45 +26,41 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5">
-                <!--
-                <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/add_button.png" Width="20" Height="20"/>
-                <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/delete_button.png" Width="20" Height="20"/> 
-                -->
-                <Button Content="{StaticResource AddButtonImage}" Width="20" Height="20"/>
-                <Button Content="{StaticResource RemoveButtonImage}" Width="20" Height="20"/>
+                <Button Content="{StaticResource AddButtonImage}" Width="24" Height="24" Margin="0,0,2,0"/>
+                <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24"/>
             </StackPanel>
-            <ListBox Grid.Column="0" Grid.Row="1">
-                <ListBox.ContextMenu>
+            <ListView ItemsSource="{Binding list}" Name="ElementsList" Grid.Column="0" Grid.Row="1">
+                <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Add">
                             <MenuItem.Icon>
-                                <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/add_button.png" Width="20" Height="20"/>
+                                <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="Remove">
                             <MenuItem.Icon>
-                                <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/delete_button.png" Width="20" Height="20"/>
+                                <Image Source="{StaticResource RemoveButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Copy">
+                        <MenuItem Header="Clone">
                             <MenuItem.Icon>
-                                <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/add_button.png" Width="20" Height="20"/>
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem Header="Paste">
-                            <MenuItem.Icon>
-                                <Image Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/Controls/add_button.png" Width="20" Height="20"/>
+                                <Image Source="{StaticResource CloneButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>
-                </ListBox.ContextMenu>
-            </ListBox>
+                </ListView.ContextMenu>
+            </ListView>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
             <optelui:LabelTextBox Title="Calibration to change, mk" Text="0" x:Name="extruderCalibrationValueTextBox"/>
             <optelui:LabelTextBox Title="Time to reconfiguration, min" Text="0" x:Name="extruderReconfigurationTimeTextBox"/>
             <optelui:LabelTextBox Title="Target extruder" Text="0" x:Name="extruderNameTimeTextBox"/>
         </StackPanel>
-        <Button Content="Save changes and close this window" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="205" Margin="5,5,5,5"/>
+        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Width="auto">
+                <Image Source="{StaticResource SaveButtonBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                <TextBlock Text="Save changes and close this window" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>
