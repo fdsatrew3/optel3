@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="OPTEL.UI.Desktop.Helpers.UI.LabelTextBox"
+﻿<UserControl x:Class="OPTEL.UI.Desktop.UserControls.LabelTextBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OPTEL.UI.Desktop.Helpers.UI"
+             xmlns:local="clr-namespace:OPTEL.UI.Desktop.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="49" d:DesignWidth="314">
     <Grid>

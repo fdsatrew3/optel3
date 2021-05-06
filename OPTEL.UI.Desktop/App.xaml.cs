@@ -1,5 +1,6 @@
 ﻿using EasyLocalization.Localization;
 using EasyLocalization.Readers;
+using OPTEL.Entity.Helpers.Ensurers;
 using System;
 using System.Globalization;
 using System.IO;
@@ -16,6 +17,23 @@ namespace OPTEL.UI.Desktop
         {
             base.OnStartup(e);
             LoadLocalizationFiles();
+            UnitOfWork.instance = new Entity.Persistance.UnitOfWork(new ProductionDataBaseEnsurer());
+            Data.FilmRecipe filmRecipe = new Data.FilmRecipe
+            {
+                ID = 0,
+                FilmType = UnitOfWork.instance.FilmTypeRepository.GetFirst(),
+                Calibration = 2m,
+                CoolingLip = 3m,
+                MaterialCost = 4m,
+                Name = "123",
+                Nozzle = 5m,
+                ProductionSpeed = 6m,
+                Thickness = 7m
+            };
+            UnitOfWork.instance.FilmRecipeRepository.Add(filmRecipe);
+            UnitOfWork.instance.Save();
+
+            //UnitOfWork.instance.CalibrationChangeRepository.Add(new Data.CalibrationChange { CalibrationToChange = 100, ID = 0, ParentProductionLine = productionLine, ReconfigurationTime = 20 });
         }
 
         private void LoadLocalizationFiles()

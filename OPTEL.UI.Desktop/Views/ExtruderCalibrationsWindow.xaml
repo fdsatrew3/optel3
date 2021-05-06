@@ -1,10 +1,10 @@
-﻿<Window x:Class="OPTEL.UI.Desktop.View.ExtruderCalibrationsWindow"
+﻿<Window x:Class="OPTEL.UI.Desktop.Views.ExtruderCalibrationsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OPTEL.UI.Desktop.View"
-        xmlns:optelui="clr-namespace:OPTEL.UI.Desktop.Helpers.UI"
+        xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
+        xmlns:optelui="clr-namespace:OPTEL.UI.Desktop.UserControls"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         mc:Ignorable="d"
         Title="Extruder calibrations" Height="450" Width="800"
@@ -53,12 +53,11 @@
             </ListView>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
-            <Label Content="{localization:Localize Test}"/>
             <optelui:LabelTextBox Title="{localization:Localize Test}" Text="0" x:Name="extruderCalibrationValueTextBox"/>
             <optelui:LabelTextBox Title="Time to reconfiguration, min" Text="0" x:Name="extruderReconfigurationTimeTextBox"/>
             <optelui:LabelTextBox Title="Target extruder" Text="0" x:Name="extruderNameTimeTextBox"/>
         </StackPanel>
-        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center" Click="Button_Click">
+        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Width="auto">
                 <Image Source="{StaticResource SaveButtonBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
                 <TextBlock Text="Save changes and close this window" VerticalAlignment="Center"/>

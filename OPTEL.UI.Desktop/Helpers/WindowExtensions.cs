@@ -1,5 +1,4 @@
-﻿using OPTEL.UI.Desktop.View;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 

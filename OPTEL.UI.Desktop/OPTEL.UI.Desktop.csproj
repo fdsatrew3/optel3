@@ -39,10 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Resources\Icons\Controls\add.png" />
     <Resource Include="Resources\Icons\Controls\clone.png" />
     <Resource Include="Resources\Icons\Controls\remove.png" />

@@ -1,10 +1,9 @@
 ﻿using Braincase.GanttChart;
-using OPTEL.UI.Desktop.ViewModel;
+using OPTEL.UI.Desktop.ViewModels;
 using System;
 using System.Windows;
 
-
-namespace OPTEL.UI.Desktop.View
+namespace OPTEL.UI.Desktop.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -97,11 +96,6 @@ namespace OPTEL.UI.Desktop.View
             // Initialize the Chart with our ProjectManager and CreateTaskDelegate
             GanttChart.Init(_mManager);
             Application.Current.MainWindow = this;
-        }
-
-        private object MainWindowViewModel()
-        {
-            throw new NotImplementedException();
         }
     }
     #region custom task and resource

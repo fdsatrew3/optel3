@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
 
-namespace OPTEL.UI.Desktop.Helpers.UI
+namespace OPTEL.UI.Desktop.UserControls
 {
     /// <summary>
     /// Логика взаимодействия для LabelTextBox.xaml

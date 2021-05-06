@@ -1,5 +1,29 @@
 ﻿{
-  "Test": {
-    "Value": "Тест"
+  "Menu.data": {
+    "Value": "Данные"
+  },
+  "Menu.data.extruder.calibration.changes": {
+    "Value": "Extruder calibration changes"
+  },
+  "Menu.data.extruder.nozzle.changes": {
+    "Value": "Extruder nozzle changes"
+  },
+  "Menu.data.extruder.cooling_lip.changes": {
+    "Value": "Extruder cooling lip changes"
+  },
+  "Menu.data.extruder.recipe.changes": {
+    "Value": "Extruder recipe changes"
+  },
+  "Menu.data.extruders": {
+    "Value": "Extruders"
+  },
+  "Menu.data.film.recipes": {
+    "Value": "Film recipes"
+  },
+  "Menu.data.film.articles": {
+    "Value": "Film articles"
+  },
+  "Menu.data.orders": {
+    "Value": "Orders"
   }
 }
