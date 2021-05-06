@@ -1,29 +1,53 @@
 ﻿{
-  "Menu.data": {
+  "Menu.Data": {
     "Value": "Data"
   },
-  "Menu.data.extruder.calibration.changes": {
+  "Menu.Data.Extruder.Calibration.Changes": {
     "Value": "Extruder calibration changes"
   },
-  "Menu.data.extruder.nozzle.changes": {
+  "Menu.Data.Extruder.Nozzle.Changes": {
     "Value": "Extruder nozzle changes"
   },
-  "Menu.data.extruder.cooling_lip.changes": {
+  "Menu.Data.Extruder.Coolinglip.Changes": {
     "Value": "Extruder cooling lip changes"
   },
-  "Menu.data.extruder.recipe.changes": {
+  "Menu.Data.Extruder.Recipe.Changes": {
     "Value": "Extruder recipe changes"
   },
-  "Menu.data.extruders": {
+  "Menu.Data.Extruders": {
     "Value": "Extruders"
   },
-  "Menu.data.film.recipes": {
+  "Menu.Data.Film.Recipes": {
     "Value": "Film recipes"
   },
-  "Menu.data.film.articles": {
+  "Menu.Data.Film.Articles": {
     "Value": "Film articles"
   },
-  "Menu.data.orders": {
+  "Menu.Data.Orders": {
     "Value": "Orders"
+  },
+  "Window.Global.SaveChanges": {
+    "Value": "Save changes"
+  },
+  "Window.Global.ContextMenu.Add": {
+    "Value": "Add new entry"
+  },
+  "Window.Global.ContextMenu.Remove": {
+    "Value": "Remove selected entry"
+  },
+  "Window.Global.ContextMenu.Clone": {
+    "Value": "Clone selected entry"
+  },
+  "Window.ExtruderCalibrations.Title": {
+    "Value": "Extruder calibrations"
+  },
+  "Window.ExtruderCalibrations.CalibrationToChange": {
+    "Value": "Calibration to change"
+  },
+  "Window.ExtruderCalibrations.ReconfigurationTime": {
+    "Value": "Time to reconfiguration, min"
+  },
+  "Window.ExtruderCalibrations.TargetExtruder": {
+    "Value": "Target Extruder"
   }
 }

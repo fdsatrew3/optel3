@@ -7,7 +7,7 @@
         xmlns:optelui="clr-namespace:OPTEL.UI.Desktop.UserControls"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         mc:Ignorable="d"
-        Title="Extruder calibrations" Height="450" Width="800"
+        Title="{localization:Localize Key=Window.ExtruderCalibrations.Title}" Height="450" Width="800"
         Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico">
     <Grid>
         <Grid.RowDefinitions>
@@ -27,9 +27,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5">
-                <Button Content="{StaticResource AddButtonImage}" Width="24" Height="24" Margin="0,0,2,0"/>
-                <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0"/>
-                <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24"/>
+                <Button Content="{StaticResource AddButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Add}"/>
+                <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}"/>
+                <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}"/>
             </StackPanel>
             <ListBox ItemsSource="{Binding ExtruderCalibrations}" Name="ElementsList" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration}">
                 <ListBox.ItemTemplate>
@@ -43,17 +43,17 @@
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Add">
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Add}">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Remove">
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Remove}">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource RemoveButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Clone">
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Clone}">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource CloneButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
@@ -63,14 +63,14 @@
             </ListBox>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" DataContext="{Binding SelectedExtruderCalibration}">
-            <optelui:LabelDoubleUpDown Title="{localization:Localize Test}" Value="{Binding CalibrationToChange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <optelui:LabelDoubleUpDown Title="Time to reconfiguration, min" Value="{Binding ReconfigurationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <optelui:LabelComboBox Title="Target extruder"/>
+            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}" Value="{Binding CalibrationToChange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}" Value="{Binding ReconfigurationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <optelui:LabelComboBox Title="{localization:Localize Key=Window.ExtruderCalibrations.TargetExtruder}"/>
         </StackPanel>
         <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Width="auto">
                 <Image Source="{StaticResource SaveButtonBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
-                <TextBlock Text="Save changes and close this window" VerticalAlignment="Center"/>
+                <TextBlock Text="{localization:Localize Key=Window.Global.SaveChanges}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
     </Grid>

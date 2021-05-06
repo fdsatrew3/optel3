@@ -21,15 +21,15 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Menu Height="25" Grid.Column="0" Grid.Row="0" Background="Transparent">
-            <MenuItem Header="{localization:Localize Key=Menu.data}">
-                <MenuItem Header="{localization:Localize Key=Menu.data.extruder.calibration.changes}" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.data.extruder.nozzle.changes}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.data.extruder.cooling_lip.changes}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.data.extruder.recipe.changes}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.data.extruders}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.data.film.recipes}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.data.film.articles}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.data.orders}"></MenuItem>
+            <MenuItem Header="{localization:Localize Key=Menu.Data}">
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Calibration.Changes}" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzle.Changes}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLip.Changes}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Recipe.Changes}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruders}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Recipes}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Articles}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Orders}"></MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Generate Excel template"></MenuItem>

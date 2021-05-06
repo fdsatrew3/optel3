@@ -48,7 +48,7 @@ namespace EasyLocalization.Localization
 
             var multiBinding = new MultiBinding
             {
-                Converter = new LocalizationConverter(Key, alternativeKey),
+                Converter = new LocalizationConverter(Key, Key),
                 NotifyOnSourceUpdated = true
             };
 
