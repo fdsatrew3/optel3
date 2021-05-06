@@ -8,7 +8,7 @@
   "Menu.Data.Extruder.Nozzle.Changes": {
     "Value": "Extruder nozzle changes"
   },
-  "Menu.Data.Extruder.Coolinglip.Changes": {
+  "Menu.Data.Extruder.CoolingLip.Changes": {
     "Value": "Extruder cooling lip changes"
   },
   "Menu.Data.Extruder.Recipe.Changes": {
