@@ -1,7 +1,7 @@
-﻿using OPTEL.Data;
+﻿using System.Linq;
+using OPTEL.Data;
+
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
-using System;
-using System.Linq;
 
 namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
 {
@@ -9,7 +9,7 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
     {
         public double Calculate(ProductionLine productionLine, Order orderFrom, Order orderTo)
         {
-            decimal result = 0;
+            double result = 0;
 
             if (orderFrom.FilmRecipe.FilmType != orderTo.FilmRecipe.FilmType)
             {
@@ -57,7 +57,7 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
             if (!orderFrom.FilmRecipe.Thickness.Equals(orderTo.FilmRecipe.Thickness))
                 result += productionLine.ThicknessChangeTime;
 
-            return Convert.ToDouble(result);
+            return result;
         }
     }
 }

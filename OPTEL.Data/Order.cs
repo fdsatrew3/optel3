@@ -10,17 +10,17 @@ namespace OPTEL.Data
         [Required]
         public string OrderNumber { get; set; }
 
-        public decimal Width { get; set; }
+        public double Width { get; set; }
 
-        public decimal QuantityInRunningMeter { get; set; }
+        public double QuantityInRunningMeter { get; set; }
 
         public virtual FilmRecipe FilmRecipe { get; set; }
 
         public DateTime PlanningEndDate { get; set; }
 
-        public decimal PriceOverdue { get; set; }
+        public double PriceOverdue { get; set; }
 
-        public decimal PredefinedTime { get; set; }
+        public double PredefinedTime { get; set; }
 
         public virtual Customer ParentCustomer { get; set; }
     }

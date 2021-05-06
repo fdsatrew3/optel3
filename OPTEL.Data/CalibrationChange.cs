@@ -6,9 +6,9 @@ namespace OPTEL.Data
     {
         public int ID { get; set; }
 
-        public decimal CalibrationToChange { get; set; }
+        public double CalibrationToChange { get; set; }
 
-        public decimal ReconfigurationTime { get; set; }
+        public double ReconfigurationTime { get; set; }
 
         [Required]
         public virtual ProductionLine ParentProductionLine { get; set; }
