@@ -31,6 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EasyLocalization\EasyLocalization.csproj" />
     <ProjectReference Include="..\GanttChart\GanttChart.csproj" />
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />

@@ -22,13 +22,13 @@ namespace OPTEL.UI.Desktop
             {
                 ID = 0,
                 FilmType = UnitOfWork.instance.FilmTypeRepository.GetFirst(),
-                Calibration = 2m,
-                CoolingLip = 3m,
-                MaterialCost = 4m,
+                Calibration = 2,
+                CoolingLip = 3,
+                MaterialCost = 4,
                 Name = "123",
-                Nozzle = 5m,
-                ProductionSpeed = 6m,
-                Thickness = 7m
+                Nozzle = 5,
+                ProductionSpeed = 6,
+                Thickness = 7
             };
             UnitOfWork.instance.FilmRecipeRepository.Add(filmRecipe);
             UnitOfWork.instance.Save();
