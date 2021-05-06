@@ -7,9 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Services\ExcelDataReaders\ExcelParsers\CalibrationChangesExcelParser.cs~RF42b4a42d.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
   </ItemGroup>
 
 </Project>

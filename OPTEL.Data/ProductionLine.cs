@@ -14,37 +14,37 @@ namespace OPTEL.Data
 
         public string Code { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Hour cost should be greater than or equal to 0")]
-        public decimal HourCost { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Hour cost should be greater than or equal to 0")]
+        public double HourCost { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0, ErrorMessage = "Max production speed should be greater than 0")]
-        public decimal MaxProductionSpeed { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0d, ErrorMessage = "Max production speed should be greater than 0")]
+        public double MaxProductionSpeed { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Min width should be greater than or equal to 0")]
-        public decimal WidthMin { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Min width should be greater than or equal to 0")]
+        public double WidthMin { get; set; }
 
-        public decimal WidthMax { get; set; }
+        public double WidthMax { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Min thickness should be greater than or equal to 0")]
-        public decimal ThicknessMin { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Min thickness should be greater than or equal to 0")]
+        public double ThicknessMin { get; set; }
 
-        public decimal ThicknessMax { get; set; }
+        public double ThicknessMax { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Min weight should be greater than or equal to 0")]
-        public decimal WeightMin { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Min weight should be greater than or equal to 0")]
+        public double WeightMin { get; set; }
 
-        public decimal WeightMax { get; set; }
+        public double WeightMax { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Min length should be greater than or equal to 0")]
-        public decimal LengthMin { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Min length should be greater than or equal to 0")]
+        public double LengthMin { get; set; }
 
-        public decimal LengthMax { get; set; }
+        public double LengthMax { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Width change time should be greater than or equal to 0")]
-        public decimal WidthChangeTime { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Width change time should be greater than or equal to 0")]
+        public double WidthChangeTime { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0, ErrorMessage = "Thickness change time should be greater than or equal to 0")]
-        public decimal ThicknessChangeTime { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Thickness change time should be greater than or equal to 0")]
+        public double ThicknessChangeTime { get; set; }
 
         public virtual ICollection<FilmTypesChange> FilmTypesChanges { get; set; }
 

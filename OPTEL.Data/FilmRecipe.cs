@@ -14,22 +14,22 @@ namespace OPTEL.Data
         [Required]
         public virtual FilmType FilmType { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0, ErrorMessage = "Thickness should be greater than 0")]
-        public decimal Thickness { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0d, ErrorMessage = "Thickness should be greater than 0")]
+        public double Thickness { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0, ErrorMessage = "Production speed should be greater than 0")]
-        public decimal ProductionSpeed { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0d, ErrorMessage = "Production speed should be greater than 0")]
+        public double ProductionSpeed { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0, ErrorMessage = "Material cost should be greater than 0")]
-        public decimal MaterialCost { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0d, ErrorMessage = "Material cost should be greater than 0")]
+        public double MaterialCost { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0, ErrorMessage = "Nozzle should be greater than 0")]
-        public decimal Nozzle { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0d, ErrorMessage = "Nozzle should be greater than 0")]
+        public double Nozzle { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0, ErrorMessage = "Calibration should be greater than 0")]
-        public decimal Calibration { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0d, ErrorMessage = "Calibration should be greater than 0")]
+        public double Calibration { get; set; }
 
-        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0, ErrorMessage = "Cooling lip should be greater than 0")]
-        public decimal CoolingLip { get; set; }
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThan, 0d, ErrorMessage = "Cooling lip should be greater than 0")]
+        public double CoolingLip { get; set; }
     }
 }
