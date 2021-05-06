@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OPTEL.Optimization.Algorithms;
 
 using Optimization.Algorithms.Genetic.Core;
 using Optimization.Algorithms.Genetic.Data;
@@ -9,8 +10,6 @@ namespace Optimization.Algorithms.Genetic.Services.Operators.Crossovers.Selector
     public class InbreedinganCrossoverOperatorSelector<I> : CrossoverOperatorSelector<I>
         where I : ICalculatedIndividual
     {
-        protected IFitnessFunctionCalculator<I> FitnessFunctionCalculation { get; }
-
         public InbreedinganCrossoverOperatorSelector(IIndividualsSelector<I> individualsSelector) : base(individualsSelector)
         {
 

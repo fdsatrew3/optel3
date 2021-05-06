@@ -12,7 +12,7 @@ namespace OPTEL.Data
         [Required]
         public virtual FilmType FilmTypeTo { get; set; }
 
-        public decimal ReconfigurationTime { get; set; }
+        public double ReconfigurationTime { get; set; }
 
         [Required]
         public virtual ProductionLine ParentProductionLine { get; set; }

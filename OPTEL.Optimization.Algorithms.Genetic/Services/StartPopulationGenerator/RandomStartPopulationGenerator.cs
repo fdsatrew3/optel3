@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using OPTEL.Data;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
+using Optimization.Algorithms;
 using Optimization.Algorithms.Genetic.Core;
 using Optimization.Algorithms.Genetic.Data;
 using Optimization.Algorithms.Genetic.Services.Base;
 using Optimization.Algorithms.Utilities.Extensions;
 
 using OPTEL.Optimization.Algorithms.Genetic.Data;
+using ProductionLine = OPTEL.Data.ProductionLine;
+using Order = OPTEL.Data.Order;
+using ProductionLineQueue = OPTEL.Data.ProductionLineQueue;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerator
 {
@@ -17,21 +20,22 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerato
         private readonly ICollection<ProductionLine> _extruders;
         private readonly ICollection<Order> _orders;
         private readonly ITargetFunctionCalculator<ProductionPlan> _targetFunctionCalculator;
-        private readonly IFitnessFunctionCalculator<ProductionPlan> _fitnessFunctionCalculator;
+        private readonly IFitnessCalculator<ProductionPlan> _fitnessCalculator;
+        private readonly IProductionLineQueueTimeCalculator _productionLineQueueTimeCalculator;
 
-        public RandomStartPopulationGenerator(
-            Random random, 
+        public RandomStartPopulationGenerator(Random random, 
             ICollection<ProductionLine> extruders, 
             ICollection<Order> orders, 
             ITargetFunctionCalculator<ProductionPlan> targetFunctionCalculator, 
-            IFitnessFunctionCalculator<ProductionPlan> fitnessFunctionCalculator
-            )
+            IFitnessCalculator<ProductionPlan> fitnessCalculator, 
+            IProductionLineQueueTimeCalculator productionLineQueueTimeCalculator)
         {
             _random = random ?? throw new ArgumentNullException(nameof(random));
             _extruders = extruders ?? throw new ArgumentNullException(nameof(extruders));
             _orders = orders ?? throw new ArgumentNullException(nameof(orders));
             _targetFunctionCalculator = targetFunctionCalculator ?? throw new ArgumentNullException(nameof(targetFunctionCalculator));
-            _fitnessFunctionCalculator = fitnessFunctionCalculator ?? throw new ArgumentNullException(nameof(fitnessFunctionCalculator));
+            _fitnessCalculator = fitnessCalculator ?? throw new ArgumentNullException(nameof(fitnessCalculator));
+            _productionLineQueueTimeCalculator = productionLineQueueTimeCalculator ?? throw new ArgumentNullException(nameof(productionLineQueueTimeCalculator));
         }
 
         public IPopulation<ProductionPlan> CreateStartPopulation(int count)
@@ -48,7 +52,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerato
 
         private ProductionPlan GenerateRandomProductionPlan()
         {
-            var result = new ProductionPlan(_targetFunctionCalculator, _fitnessFunctionCalculator) { ProductionLineQueues = new List<ProductionLineQueue>() };
+            var result = new ProductionPlan(_targetFunctionCalculator, _fitnessCalculator) { ProductionLineQueues = new List<ProductionLineQueue>() };
 
             foreach(var extruder in _extruders)
             {
@@ -66,9 +70,7 @@ namespace OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerato
 
         private ProductionLineQueue GetShortestProductionLineQueue(IEnumerable<ProductionLineQueue> productionLineQueues)
         {
-            var minValue = productionLineQueues.Min(x => x.SummaryTime);
-            
-            return productionLineQueues.FirstOrDefault(x => x.SummaryTime == minValue);
+            return productionLineQueues.GetMinElement(x => _productionLineQueueTimeCalculator.Calculate(x));
         }
     }
 }

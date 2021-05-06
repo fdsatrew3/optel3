@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OPTEL.Data
 {
@@ -7,9 +6,9 @@ namespace OPTEL.Data
     {
         public int ID { get; set; }
 
-        public decimal NozzleToChange { get; set; }
+        public double NozzleToChange { get; set; }
 
-        public decimal ReconfigurationTime { get; set; }
+        public double ReconfigurationTime { get; set; }
 
         [Required]
         public virtual ProductionLine ParentProductionLine { get; set; }
