@@ -11,6 +11,8 @@ namespace OPTEL.Data
         [Required]
         public string Name { get; set; }
 
+        public int FilmTypeID { get; set; }
+
         [Required]
         public virtual FilmType FilmType { get; set; }
 

@@ -14,6 +14,8 @@ namespace OPTEL.Data
 
         public double ReconfigurationTime { get; set; }
 
+        public int ParentProductionLineID { get; set; }
+
         [Required]
         public virtual ProductionLine ParentProductionLine { get; set; }
     }
