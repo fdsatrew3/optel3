@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using OPTEL.UI.Desktop.ViewModels;
+using System.Windows;
 
 namespace OPTEL.UI.Desktop.Views
 {
@@ -10,7 +11,7 @@ namespace OPTEL.UI.Desktop.Views
         public ExtruderCalibrationsWindow()
         {
             InitializeComponent();
-            this.DataContext = Database.instance.CalibrationChangeRepository;
+            this.DataContext = new ExtruderCalibrationsViewModel();
         }
     }
 }

@@ -28,10 +28,20 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5">
                 <Button Content="{StaticResource AddButtonImage}" Width="24" Height="24" Margin="0,0,2,0"/>
-                <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24"/>
+                <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0"/>
+                <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24"/>
             </StackPanel>
-            <ListView ItemsSource="{Binding list}" Name="ElementsList" Grid.Column="0" Grid.Row="1">
-                <ListView.ContextMenu>
+            <ListBox ItemsSource="{Binding ExtruderCalibrations}" Name="ElementsList" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18" Text="{Binding Path=CalibrationToChange}" />
+                            <TextBlock Text="{Binding Path=ReconfigurationTime}" />
+                            <TextBlock Text="{Binding Path=ParentProductionLine.Name}"  />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Add">
                             <MenuItem.Icon>
@@ -49,13 +59,13 @@
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>
-                </ListView.ContextMenu>
-            </ListView>
+                </ListBox.ContextMenu>
+            </ListBox>
         </Grid>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
-            <optelui:LabelTextBox Title="{localization:Localize Test}" Text="0" x:Name="extruderCalibrationValueTextBox"/>
-            <optelui:LabelTextBox Title="Time to reconfiguration, min" Text="0" x:Name="extruderReconfigurationTimeTextBox"/>
-            <optelui:LabelTextBox Title="Target extruder" Text="0" x:Name="extruderNameTimeTextBox"/>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" DataContext="{Binding SelectedExtruderCalibration}">
+            <optelui:LabelDoubleUpDown Title="{localization:Localize Test}" Value="{Binding CalibrationToChange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <optelui:LabelDoubleUpDown Title="Time to reconfiguration, min" Value="{Binding ReconfigurationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <optelui:LabelComboBox Title="Target extruder"/>
         </StackPanel>
         <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Width="auto">

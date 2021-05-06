@@ -1,6 +1,6 @@
-﻿using OPTEL.UI.Desktop.Helpers;
-using OPTEL.UI.Desktop.Models;
-using OPTEL.UI.Desktop.Views;
+﻿using OPTEL.Data;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,31 +9,15 @@ namespace OPTEL.UI.Desktop.ViewModels
 {
     public class ExtruderCalibrationsViewModel
     {
-        private ExtruderCalibration _selectedExtruderCalibration;
+        private CalibrationChange _selectedExtruderCalibration;
 
-        public ObservableCollection<ExtruderCalibration> Phones { get; set; }
+        public CalibrationChange SelectedExtruderCalibration { get => _selectedExtruderCalibration; set => _selectedExtruderCalibration = value; }
 
-        public ExtruderCalibration SelectedExtruderCalibration
-        {
-            get { return _selectedExtruderCalibration; }
-            set
-            {
-                _selectedExtruderCalibration = value;
-                OnPropertyChanged("SelectedExtruderCalibration");
-            }
-        }
+        public IEnumerable<CalibrationChange> ExtruderCalibrations { get; set; }
 
         public ExtruderCalibrationsViewModel()
         {
-
+            ExtruderCalibrations = Database.instance.CalibrationChangeRepository.GetAll();
         }
-        #region PropertyChangedEventHandler
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-        #endregion
     }
 }
