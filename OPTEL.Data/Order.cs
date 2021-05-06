@@ -14,6 +14,8 @@ namespace OPTEL.Data
 
         public double QuantityInRunningMeter { get; set; }
 
+        public int FilmRecipeID { get; set; }
+
         public virtual FilmRecipe FilmRecipe { get; set; }
 
         public DateTime PlanningEndDate { get; set; }
@@ -21,6 +23,8 @@ namespace OPTEL.Data
         public double PriceOverdue { get; set; }
 
         public double PredefinedTime { get; set; }
+
+        public int ParentCustomerID { get; set; }
 
         public virtual Customer ParentCustomer { get; set; }
     }
