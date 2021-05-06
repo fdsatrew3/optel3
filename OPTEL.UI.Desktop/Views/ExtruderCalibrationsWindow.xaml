@@ -6,9 +6,15 @@
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
         xmlns:optelui="clr-namespace:OPTEL.UI.Desktop.UserControls"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
+        xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="{localization:Localize Key=Window.ExtruderCalibrations.Title}" Height="450" Width="800"
         Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding SelectFirstListBoxEntryIfExists}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -31,7 +37,7 @@
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}"/>
             </StackPanel>
-            <ListBox ItemsSource="{Binding ExtruderCalibrations}" Name="ElementsList" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration}">
+            <ListBox ItemsSource="{Binding ExtruderCalibrations}" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
