@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EasyLocalization\EasyLocalization.csproj" />
     <ProjectReference Include="..\GanttChart\GanttChart.csproj" />
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
@@ -49,6 +50,15 @@
     <Resource Include="Resources\Icons\Menu\options.ico" />
     <Resource Include="Resources\Icons\Menu\save.png" />
     <Resource Include="Resources\Icons\optel.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Localization\en-US.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Localization\ru-RU.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
