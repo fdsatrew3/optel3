@@ -118,5 +118,113 @@
   },
   "Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull": {
     "Value": "Film type from of extruder recipes change #{0} can't be empty!"
+  },
+  "Window.Extruders.Title": {
+    "Value": "Extruder recipes changes"
+  },
+  "Window.Extruders.ID": {
+    "Value": "#"
+  },
+  "Window.Extruders.Name": {
+    "Value": "Name"
+  },
+  "Window.Extruders.Code": {
+    "Value": "Code"
+  },
+  "Window.Extruders.HourCost": {
+    "Value": "Hour cost, €"
+  },
+  "Window.Extruders.MaxProductionSpeed": {
+    "Value": "Max production speed"
+  },
+  "Window.Extruders.Width": {
+    "Value": "Width"
+  },
+  "Window.Extruders.WidthMin": {
+    "Value": "Min width"
+  },
+  "Window.Extruders.WidthMax": {
+    "Value": "Max width"
+  },
+  "Window.Extruders.Thickness": {
+    "Value": "Thickness"
+  },
+  "Window.Extruders.ThicknessMin": {
+    "Value": "Min thickness"
+  },
+  "Window.Extruders.ThicknessMax": {
+    "Value": "Max thickness"
+  },
+  "Window.Extruders.Weight": {
+    "Value": "Weight"
+  },
+  "Window.Extruders.WeightMin": {
+    "Value": "Min weight"
+  },
+  "Window.Extruders.WeightMax": {
+    "Value": "Max weight"
+  },
+  "Window.Extruders.Length": {
+    "Value": "Length"
+  },
+  "Window.Extruders.LengthMin": {
+    "Value": "Min length"
+  },
+  "Window.Extruders.LengthMax": {
+    "Value": "Max length"
+  },
+  "Window.Extruders.WidthChangeTime": {
+    "Value": "Time to change width, m"
+  },
+  "Window.Extruders.ThicknessChangeTime": {
+    "Value": "Time to change thickness, m"
+  },
+  "Window.Extruders.Errors.HourCostIsNegative": {
+    "Value": "Hour cost of extruder #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.MaxProductionSpeedIsNegative": {
+    "Value": "Max production speed of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.WidthMinIsNegative": {
+    "Value": "Min width of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.WidthMaxIsNegative": {
+    "Value": "Max width of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.WidthMinIsGreaterThanWidthMax": {
+    "Value": "Min width can't be greater than max width of extruder #{0}!"
+  },
+  "Window.Extruders.Errors.ThicknessMinIsNegative": {
+    "Value": "Min thickness of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.ThicknessMaxIsNegative": {
+    "Value": "Max thickness of extruder nozzle #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.ThicknessMinIsGreaterThanThicknessMax": {
+    "Value": "Min thickness can't be greater than max thickness of extruder #{0}!"
+  },
+  "Window.Extruders.Errors.WeightMinIsNegative": {
+    "Value": "Min weight of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.WeightMaxIsNegative": {
+    "Value": "Max weight of extrude #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.WeightMinIsGreaterThanWeightMax": {
+    "Value": "Min weight can't be greater than max weight of extruder #{0}!"
+  },
+  "Window.Extruders.Errors.LengthMinIsNegative": {
+    "Value": "Min length of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.LengthMaxIsNegative": {
+    "Value": "Max length of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.LengthMinIsGreaterThanLengthMax": {
+    "Value": "Min length can't be greater than max length of extruder #{0}!"
+  },
+  "Window.Extruders.Errors.WidthChangeTimeIsNegative": {
+    "Value": "Time to change width of extruder #{0} can't be negative!"
+  },
+  "Window.Extruders.Errors.ThicknessChangeTimeIsNegative": {
+    "Value": "Time to change thickness of extruder #{0} can't be negative!"
   }
 }

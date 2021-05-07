@@ -25,7 +25,7 @@
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzle.Changes}" Command="{Binding OpenExtruderNozzlesWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLip.Changes}" Command="{Binding OpenExtruderCoolingLipsWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Recipe.Changes}" Command="{Binding OpenExtruderRecipesWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruders}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruders}" Command="{Binding OpenExtrudersWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Recipes}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Articles}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Orders}"></MenuItem>
