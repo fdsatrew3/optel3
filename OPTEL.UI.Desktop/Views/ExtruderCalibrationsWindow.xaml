@@ -47,8 +47,8 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5">
                 <Button Content="{StaticResource AddButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Add}" Command="{Binding AddEntity}"/>
-                <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}"/>
-                <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}"/>
+                <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntity}" CommandParameter="{Binding SelectedExtruderCalibration}"/>
+                <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntity}" CommandParameter="{Binding SelectedExtruderCalibration}"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding ExtruderCalibrations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
@@ -60,7 +60,7 @@
                       Grid.Column="0" Grid.Row="1"
                       SelectedItem="{Binding SelectedExtruderCalibration, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       AlternationCount="{Binding ExtruderCalibrations.Count}"
-                      Name="ElementsList">
+                      x:Name="ElementsList">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Header="{localization:Localize Key=Window.ExtruderCalibrations.ID}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=CalibrationToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}" Width="*" IsReadOnly="True"/>
@@ -74,12 +74,12 @@
                                 <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Remove}">
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntity}" CommandParameter="{Binding SelectedExtruderCalibration}">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource RemoveButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Clone}">
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntity}" CommandParameter="{Binding SelectedExtruderCalibration}">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource CloneButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>

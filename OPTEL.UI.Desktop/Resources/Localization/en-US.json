@@ -67,5 +67,8 @@
   },
   "Window.ExtruderCalibrations.TargetExtruder": {
     "Value": "Target Extruder"
+  },
+  "Window.ExtruderCalibrations.Errors.TargetExtruderIsNull": {
+    "Value": "Target Extruder of extruder calibration #{0} can't be empty!"
   }
 }

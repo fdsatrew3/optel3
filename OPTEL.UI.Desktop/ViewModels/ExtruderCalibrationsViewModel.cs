@@ -1,4 +1,5 @@
-﻿using OPTEL.Data;
+﻿using EasyLocalization.Localization;
+using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
@@ -61,38 +62,53 @@ namespace OPTEL.UI.Desktop.ViewModels
                     SelectedExtruderCalibration = calibration;
                 });
             }
-        } /*
-        public RelayCommand RemoveEntityCommand
+        }
+
+        private RelayCommand _removeEntity;
+
+        public RelayCommand RemoveEntity
         {
             get
             {
-                return _removeEntityCommand ??= new RelayCommand(obj =>
+                return _removeEntity ??= new RelayCommand(obj =>
                 {
-                    RemoveEntity();
-                }, CanExecuteRemoveEntity);
+                    Database.instance.CalibrationChangeRepository.Delete(SelectedExtruderCalibration);
+                    ExtruderCalibrations.Remove(SelectedExtruderCalibration);
+                    SelectFirstListBoxEntryIfExists.Execute(null);
+                }, (obj) => SelectedExtruderCalibration != null);
             }
         }
-        public RelayCommand CloneEntityCommand
+
+        private RelayCommand _cloneEntity;
+
+        public RelayCommand CloneEntity
         {
             get
             {
-                return _cloneEntityCommand ??= new RelayCommand(obj =>
+                return _cloneEntity ??= new RelayCommand(obj =>
                 {
-                    CloneEntity();
-                });
+                    CalibrationChange calibration = new CalibrationChange();
+                    calibration.CalibrationToChange = SelectedExtruderCalibration.CalibrationToChange;
+                    calibration.ParentProductionLine = SelectedExtruderCalibration.ParentProductionLine;
+                    calibration.ParentProductionLineID = SelectedExtruderCalibration.ParentProductionLineID;
+                    calibration.ReconfigurationTime = SelectedExtruderCalibration.ReconfigurationTime;
+                    ExtruderCalibrations.Add(calibration);
+                    Database.instance.CalibrationChangeRepository.Add(calibration);
+                    SelectedExtruderCalibration = calibration;
+                }, (obj) => SelectedExtruderCalibration != null);
             }
-        } */
+        }
         #endregion
 
         public override string CheckForCustomErrors()
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
-            foreach (CalibrationChange calibration in ExtruderCalibrations)
+            for (int i = 0; i < ExtruderCalibrations.Count; i++)
             {
-                if (calibration.ParentProductionLine == null)
+                if (ExtruderCalibrations[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine("123");
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.TargetExtruderIsNull"), i));
                 }
             }
             return sb.ToString();

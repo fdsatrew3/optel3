@@ -39,6 +39,9 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private bool _isSavingChanges;
         private bool _isCloseAllowed;
 
+        private string _windowTitle;
+        private string _baseWindowTitle;
+
         private RelayCommand _markEntityDataAsChanged;
         private RelayCommand _saveChanges;
         private RelayCommand _checkForUnsavedChangesOnWindowClosing;
