@@ -56,9 +56,6 @@
   "Window.ExtruderCalibrations.Title": {
     "Value": "Extruder calibrations changes"
   },
-  "Window.ExtruderCalibrations.ID": {
-    "Value": "#"
-  },
   "Window.ExtruderCalibrations.CalibrationToChange": {
     "Value": "Calibration to change"
   },
@@ -74,9 +71,6 @@
   "Window.ExtruderNozzles.Title": {
     "Value": "Extruder nozzles changes"
   },
-  "Window.ExtruderNozzles.ID": {
-    "Value": "#"
-  },
   "Window.ExtruderNozzles.NozzleToChange": {
     "Value": "Nozzle to change"
   },
@@ -91,9 +85,6 @@
   },
   "Window.ExtruderRecipesChange.Title": {
     "Value": "Extruder recipes changes"
-  },
-  "Window.ExtruderRecipesChange.ID": {
-    "Value": "#"
   },
   "Window.ExtruderRecipesChange.FilmTypeTo": {
     "Value": "Film type to"
@@ -121,9 +112,6 @@
   },
   "Window.Extruders.Title": {
     "Value": "Extruder recipes changes"
-  },
-  "Window.Extruders.ID": {
-    "Value": "#"
   },
   "Window.Extruders.Name": {
     "Value": "Name"
@@ -229,9 +217,6 @@
   },
   "Window.FilmTypes.Title": {
     "Value": "Film articles"
-  },
-  "Window.FilmTypes.ID": {
-    "Value": "#"
   },
   "Window.FilmTypes.Article": {
     "Value": "Article"
