@@ -66,9 +66,27 @@
     "Value": "Time to reconfiguration, min"
   },
   "Window.ExtruderCalibrations.TargetExtruder": {
-    "Value": "Target Extruder"
+    "Value": "Target extruder"
   },
   "Window.ExtruderCalibrations.Errors.TargetExtruderIsNull": {
-    "Value": "Target Extruder of extruder calibration #{0} can't be empty!"
+    "Value": "Target extruder of extruder calibration #{0} can't be empty!"
+  },
+  "Window.ExtruderNozzles.Title": {
+    "Value": "Extruder nozzles"
+  },
+  "Window.ExtruderNozzles.ID": {
+    "Value": "#"
+  },
+  "Window.ExtruderNozzles.NozzleToChange": {
+    "Value": "Nozzle to change"
+  },
+  "Window.ExtruderNozzles.ReconfigurationTime": {
+    "Value": "Time to reconfiguration, min"
+  },
+  "Window.ExtruderNozzles.TargetExtruder": {
+    "Value": "Target extruder"
+  },
+  "Window.ExtruderNozzles.Errors.TargetExtruderIsNull": {
+    "Value": "Target extruder of extruder nozzle #{0} can't be empty!"
   }
 }
