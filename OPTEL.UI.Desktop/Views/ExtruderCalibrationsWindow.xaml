@@ -37,7 +37,7 @@
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}"/>
             </StackPanel>
-            <ListBox ItemsSource="{Binding ExtruderCalibrations}" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration, Mode=TwoWay}">
+            <ListBox ItemsSource="{Binding ExtruderCalibrations}" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
@@ -68,10 +68,10 @@
                 </ListBox.ContextMenu>
             </ListBox>
         </Grid>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" DataContext="{Binding SelectedExtruderCalibration}">
-            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}" Value="{Binding CalibrationToChange, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}" Value="{Binding ReconfigurationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <optelui:LabelComboBox Title="{localization:Localize Key=Window.ExtruderCalibrations.TargetExtruder}"/>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
+            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}" Value="{Binding Path=SelectedExtruderCalibration.CalibrationToChange, Mode=TwoWay}"/>
+            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}" Value="{Binding Path=SelectedExtruderCalibration.ReconfigurationTime, Mode=TwoWay}"/>
+            <optelui:LabelComboBox Title="{localization:Localize Key=Window.ExtruderCalibrations.TargetExtruder}" Entries="{Binding Extruders}" SelectedEntry="{Binding Path=SelectedExtruderCalibration.ParentProductionLine, Mode=TwoWay}"/>
         </StackPanel>
         <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Width="auto">

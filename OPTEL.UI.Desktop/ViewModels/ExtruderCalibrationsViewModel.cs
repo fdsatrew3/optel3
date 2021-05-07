@@ -11,6 +11,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Properties
         public CalibrationChange SelectedExtruderCalibration { get => _selectedExtruderCalibration; set => _selectedExtruderCalibration = value; }
         public IEnumerable<CalibrationChange> ExtruderCalibrations { get; set; }
+        public IEnumerable<ProductionLine> Extruders { get; set; }
         #endregion
         #region Fields
         private CalibrationChange _selectedExtruderCalibration;
@@ -41,6 +42,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         public ExtruderCalibrationsViewModel()
         {
             ExtruderCalibrations = Database.instance.CalibrationChangeRepository.GetAll();
+            Extruders = Database.instance.ProductionLineRepository.GetAll();
         }
     }
 }

@@ -68,6 +68,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Resources\Dictionaries\DataTemplateResourceDicitionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="UserControls\LabelComboBox.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

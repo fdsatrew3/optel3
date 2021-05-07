@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -36,13 +35,13 @@ namespace OPTEL.UI.Desktop.UserControls
             }
         }
 
-        public static readonly DependencyProperty EntriesProperty = DependencyProperty.Register("Entries", typeof(ObservableCollection<string>), typeof(LabelComboBox), new FrameworkPropertyMetadata(default(ObservableCollection<string>), onTextChanged));
+        public static readonly DependencyProperty EntriesProperty = DependencyProperty.Register("Entries", typeof(IEnumerable<object>), typeof(LabelComboBox), new FrameworkPropertyMetadata(default(IEnumerable<object>), onEntriesChanged));
 
-        public ObservableCollection<string> Entries
+        public IEnumerable<object> Entries
         {
             get
             {
-                return (ObservableCollection<string>)GetValue(EntriesProperty);
+                return (IEnumerable<object>)GetValue(EntriesProperty);
             }
             set
             {
@@ -50,12 +49,35 @@ namespace OPTEL.UI.Desktop.UserControls
             }
         }
 
-        private static void onTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void onEntriesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             LabelComboBox control = d as LabelComboBox;
             if (d != null)
             {
                 control.BaseComboBox.ItemsSource = (System.Collections.IEnumerable)e.NewValue;
+            }
+        }
+
+        public static readonly DependencyProperty SelectedEntryProperty = DependencyProperty.Register("SelectedEntry", typeof(object), typeof(LabelComboBox), new FrameworkPropertyMetadata(default(object), onSelectedEntryChanged));
+
+        public object SelectedEntry
+        {
+            get
+            {
+                return (object)GetValue(SelectedEntryProperty);
+            }
+            set
+            {
+                SetValue(SelectedEntryProperty, value);
+            }
+        }
+
+        private static void onSelectedEntryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            LabelComboBox control = d as LabelComboBox;
+            if (d != null)
+            {
+                control.BaseComboBox.SelectedItem = e.NewValue;
             }
         }
     }
