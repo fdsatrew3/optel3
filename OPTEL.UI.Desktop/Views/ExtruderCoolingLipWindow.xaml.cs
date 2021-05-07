@@ -11,7 +11,7 @@ namespace OPTEL.UI.Desktop.Views
         public ExtruderCoolingLipWindow()
         {
             InitializeComponent();
-            this.DataContext = new ExtruderCalibrationsViewModel();
+            this.DataContext = new ExtruderCoolingLipsViewModel();
         }
 
         public override void SetSelectedItem(object item)

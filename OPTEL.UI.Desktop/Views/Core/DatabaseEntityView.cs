@@ -47,7 +47,6 @@ namespace OPTEL.UI.Desktop.Views.Core
                     dep = VisualTreeHelper.GetParent(dep);
                 }
                 DataGridRow row = dep as DataGridRow;
-                //ElementsList.SelectedItem = row.DataContext;
                 SetSelectedItem(row.DataContext);
             }
         }
