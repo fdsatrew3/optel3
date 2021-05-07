@@ -226,5 +226,14 @@
   },
   "Window.Extruders.Errors.ThicknessChangeTimeIsNegative": {
     "Value": "Time to change thickness of extruder #{0} can't be negative!"
+  },
+  "Window.FilmTypes.Title": {
+    "Value": "Film articles"
+  },
+  "Window.FilmTypes.ID": {
+    "Value": "#"
+  },
+  "Window.FilmTypes.Article": {
+    "Value": "Article"
   }
 }

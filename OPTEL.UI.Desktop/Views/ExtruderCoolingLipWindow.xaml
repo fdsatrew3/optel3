@@ -5,6 +5,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behaviors="clr-namespace:OPTEL.UI.Desktop.Behaviours"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
@@ -60,10 +61,9 @@
                       AutoGenerateColumns="False"
                       Grid.Column="0" Grid.Row="1"
                       SelectedItem="{Binding SelectedExtruderCoolingLip, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                      AlternationCount="{Binding ExtruderCoolingLips.Count}"
-                      x:Name="ElementsList">
+                      x:Name="ElementsList"
+                      behaviors:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.ID}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=CoolingLipToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.CoolingLipToChange}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.ReconfigurationTime}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.TargetExtruder}" Width="*" IsReadOnly="True"/>

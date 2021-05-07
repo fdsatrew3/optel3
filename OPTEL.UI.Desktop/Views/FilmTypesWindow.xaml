@@ -6,6 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
+        xmlns:behaviours="clr-namespace:OPTEL.UI.Desktop.Behaviours"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -60,10 +61,9 @@
                       AutoGenerateColumns="False"
                       Grid.Column="0" Grid.Row="1"
                       SelectedItem="{Binding SelectedFilmType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                      AlternationCount="{Binding Path=FilmTypes.Count}"
-                      x:Name="ElementsList">
+                      x:Name="ElementsList"
+                      behaviours:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Header="{localization:Localize Key=Window.FilmTypes.ID}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmTypes.Article}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>

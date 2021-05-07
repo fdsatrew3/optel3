@@ -6,7 +6,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
+        xmlns:behaviours="clr-namespace:OPTEL.UI.Desktop.Behaviours"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
+        xmlns:behaviors="clr-namespace:OPTEL.UI.Desktop.Behaviours"
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
@@ -60,10 +62,9 @@
                       AutoGenerateColumns="False"
                       Grid.Column="0" Grid.Row="1"
                       SelectedItem="{Binding SelectedExtruder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                      AlternationCount="{Binding Path=Extruders.Count}"
-                      x:Name="ElementsList">
+                      x:Name="ElementsList"
+                      behaviors:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Header="{localization:Localize Key=Window.Extruders.ID}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="*" IsReadOnly="True"/>
