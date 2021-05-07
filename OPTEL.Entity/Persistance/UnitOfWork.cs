@@ -103,10 +103,12 @@ namespace OPTEL.Entity.Persistance
             }
         }
 
-        public async void SaveAsync()
+        public async Task SaveAsync()
         {
             await Task.Run(async () =>
             {
+                await Task.Delay(4000);
+                throw new Exception("Fail");
                 using var transaction = await _context.Database.BeginTransactionAsync();
 
                 try
@@ -119,11 +121,11 @@ namespace OPTEL.Entity.Persistance
                     await transaction.RollbackAsync();
                     ThrowUpdatedValidationException(ex);
                 }
-                catch
+                catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
                     _context.RejectAllChanges();
-                    throw;
+                    throw ex;
                 }
             });
         }

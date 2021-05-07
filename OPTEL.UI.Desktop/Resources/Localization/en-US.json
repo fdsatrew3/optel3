@@ -29,6 +29,9 @@
   "Window.Global.SaveChanges": {
     "Value": "Save changes"
   },
+  "Window.Global.ProgressBar.SavingChanges": {
+    "Value": "Saving changes..."
+  },
   "Window.Global.ContextMenu.Add": {
     "Value": "Add new entry"
   },
@@ -37,6 +40,9 @@
   },
   "Window.Global.ContextMenu.Clone": {
     "Value": "Clone selected entry"
+  },
+  "Window.Global.MessageBox.Error.Title": {
+    "Value": "Error"
   },
   "Window.ExtruderCalibrations.Title": {
     "Value": "Extruder calibrations"

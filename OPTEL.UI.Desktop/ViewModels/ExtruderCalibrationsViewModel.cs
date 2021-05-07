@@ -1,10 +1,12 @@
-﻿using OPTEL.Data;
+﻿using EasyLocalization.Localization;
+using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -49,23 +51,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
-        private RelayCommand _saveChanges;
-        public RelayCommand SaveChanges
-        {
-            get
-            {
-                return _saveChanges ??= new RelayCommand(async obj =>
-                {
-                    try
-                    {
-                        //await Database.instance.SaveAsync();
-                    } catch (Exception ex)
-                    {
-                        Console.WriteLine("Kekw");
-                    }
-                });
-            }
-        }
         private RelayCommand _checkForUnsavedChangesOnWindowClosing;
         public RelayCommand CheckForUnsavedChangesOnWindowClosing
         {
@@ -73,11 +58,11 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 return _checkForUnsavedChangesOnWindowClosing ??= new RelayCommand(obj =>
                 {
-                    if(IsDataChanged == false)
+                    if (IsDataChanged == false)
                     {
                         return;
                     }
-                    
+
                 });
             }
         }
