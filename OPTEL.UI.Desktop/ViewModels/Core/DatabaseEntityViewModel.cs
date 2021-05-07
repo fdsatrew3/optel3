@@ -38,10 +38,13 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private bool _isDataChanged;
         private bool _isSavingChanges;
         private bool _isCloseAllowed;
+
+        private RelayCommand _markEntityDataAsChanged;
+        private RelayCommand _saveChanges;
+        private RelayCommand _checkForUnsavedChangesOnWindowClosing;
         #endregion
 
         #region Commands
-        private RelayCommand _markEntityDataAsChanged;
         public RelayCommand MarkEntityDataAsChanged
         {
             get
@@ -52,18 +55,6 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 });
             }
         }
-
-        public virtual void ActionsBeforeSavingChanges()
-        {
-            IsSavingChanges = true;
-        }
-
-        public virtual void ActionsAfterSavingChanges()
-        {
-            IsSavingChanges = false;
-        }
-
-        private RelayCommand _saveChanges;
         public RelayCommand SaveChanges
         {
             get
@@ -71,32 +62,49 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 return _saveChanges ??= new RelayCommand(async obj =>
                 {
                     bool error = false;
-                    ActionsBeforeSavingChanges();
-                    try
+                    string customError = CheckForCustomErrors();
+                    if (customError.Length > 0)
                     {
-                        await Database.instance.SaveAsync();
+                        error = true;
                     }
-                    catch (Exception ex)
+                    if (error == true)
                     {
-                        MessageBox.Show(ex.Message,
+                        MessageBox.Show(customError,
                             LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
                             MessageBoxButton.OK,
                             MessageBoxImage.Error);
-                        error = true;
                     }
-                    if(!error)
+                    else
                     {
-                        IsDataChanged = false;
-                    } else
-                    {
-                        Database.instance.RejectAllChanges();
+                        IsSavingChanges = true;
+                        try
+                        {
+                            await Database.instance.SaveAsync();
+                        }
+                        catch (Exception ex)
+                        {
+                            Exception currentException = ex;
+                            string errorMessage = ex.Message;
+                            while (currentException.InnerException != null)
+                            {
+                                errorMessage += "\n" + currentException.InnerException.Message;
+                                currentException = currentException.InnerException;
+                            }
+                            MessageBox.Show(errorMessage,
+                                LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                            error = true;
+                        }
+                        if (!error)
+                        {
+                            IsDataChanged = false;
+                        }
+                        IsSavingChanges = false;
                     }
-                    ActionsAfterSavingChanges();
                 });
             }
         }
-
-        private RelayCommand _checkForUnsavedChangesOnWindowClosing;
         public RelayCommand CheckForUnsavedChangesOnWindowClosing
         {
             get
@@ -118,21 +126,24 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                             LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Warning.Global.Title"),
                             MessageBoxButton.YesNoCancel,
                             MessageBoxImage.Warning);
-                        if(result == MessageBoxResult.Yes)
+                        if (result == MessageBoxResult.Yes)
                         {
                             SaveChanges.Execute(null);
                             return;
                         }
-                        if(result == MessageBoxResult.Cancel)
+                        if (result == MessageBoxResult.No)
+                        {
+                            Database.instance.RejectAllChanges();
+                        }
+                        if (result == MessageBoxResult.Cancel)
                         {
                             return;
-                        } 
+                        }
                     }
                     IsCloseAllowed = true;
                 });
             }
         }
-
         #endregion
 
         public DatabaseEntityViewModel()
@@ -142,6 +153,10 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             IsCloseAllowed = false;
         }
 
+        public virtual string CheckForCustomErrors()
+        {
+            return string.Empty;
+        }
         #region PropertyChangedEventHandler
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)

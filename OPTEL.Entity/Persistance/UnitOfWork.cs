@@ -98,8 +98,7 @@ namespace OPTEL.Entity.Persistance
             catch (Exception ex)
             {
                 transaction.Rollback();
-                _context.RejectAllChanges();
-                throw;
+                throw ex;
             }
         }
 
@@ -107,8 +106,6 @@ namespace OPTEL.Entity.Persistance
         {
             await Task.Run(async () =>
             {
-                await Task.Delay(4000);
-                throw new Exception("Fail");
                 using var transaction = await _context.Database.BeginTransactionAsync();
 
                 try
@@ -124,7 +121,6 @@ namespace OPTEL.Entity.Persistance
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    _context.RejectAllChanges();
                     throw ex;
                 }
             });

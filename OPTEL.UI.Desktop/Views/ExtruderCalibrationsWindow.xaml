@@ -46,23 +46,30 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5">
-                <Button Content="{StaticResource AddButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Add}"/>
+                <Button Content="{StaticResource AddButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Add}" Command="{Binding AddEntity}"/>
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}"/>
             </StackPanel>
-            <ListBox Name="ElementsList" ItemsSource="{Binding ExtruderCalibrations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock FontSize="18" Text="{Binding Path=CalibrationToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ContextMenu>
+            <DataGrid ItemsSource="{Binding ExtruderCalibrations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+          CanUserReorderColumns="False" CanUserResizeColumns="False" 
+          CanUserResizeRows="False" CanUserSortColumns="False"
+                      CanUserAddRows="false"
+                      CanUserDeleteRows="false"
+                      SelectionMode="Single" SelectionUnit="FullRow"
+                      AutoGenerateColumns="False"
+                      Grid.Column="0" Grid.Row="1"
+                      SelectedItem="{Binding SelectedExtruderCalibration, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      AlternationCount="{Binding ExtruderCalibrations.Count}"
+                      Name="ElementsList">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Header="{localization:Localize Key=Window.ExtruderCalibrations.ID}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=CalibrationToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCalibrations.TargetExtruder}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Add}">
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Add}" Command="{Binding AddEntity}">
                             <MenuItem.Icon>
                                 <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
                             </MenuItem.Icon>
@@ -78,8 +85,8 @@
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>
-                </ListBox.ContextMenu>
-            </ListBox>
+                </DataGrid.ContextMenu>
+            </DataGrid>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
             <StackPanel.Style>

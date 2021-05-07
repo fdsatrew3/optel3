@@ -56,6 +56,9 @@
   "Window.ExtruderCalibrations.Title": {
     "Value": "Extruder calibrations"
   },
+  "Window.ExtruderCalibrations.ID": {
+    "Value": "#"
+  },
   "Window.ExtruderCalibrations.CalibrationToChange": {
     "Value": "Calibration to change"
   },
