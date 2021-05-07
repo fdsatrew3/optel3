@@ -26,9 +26,9 @@
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLip.Changes}" Command="{Binding OpenExtruderCoolingLipsWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Recipe.Changes}" Command="{Binding OpenExtruderRecipesWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruders}" Command="{Binding OpenExtrudersWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Recipes}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Articles}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Orders}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Recipes}" Command="{Binding OpenFilmRecipesWindow}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Articles}" Command="{Binding OpenFilmTypesWindow}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Orders}" Command="{Binding OpenOrdersWindow}"></MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Generate Excel template"></MenuItem>
