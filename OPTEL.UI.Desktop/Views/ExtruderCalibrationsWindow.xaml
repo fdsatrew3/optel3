@@ -4,15 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
-        xmlns:optelui="clr-namespace:OPTEL.UI.Desktop.UserControls"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="{localization:Localize Key=Window.ExtruderCalibrations.Title}" Height="450" Width="800"
-        Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico">
+        Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico"
+        Closing="Window_Closing">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
             <intr:InvokeCommandAction Command="{Binding SelectFirstListBoxEntryIfExists}"/>
+        </intr:EventTrigger>
+        <intr:EventTrigger EventName="Closing">
+            <intr:InvokeCommandAction Command="{Binding CheckForUnsavedChangesOnWindowClosing}" />
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
     <Grid>
@@ -37,13 +41,13 @@
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}"/>
             </StackPanel>
-            <ListBox ItemsSource="{Binding ExtruderCalibrations}" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ListBox Name="ElementsList" ItemsSource="{Binding ExtruderCalibrations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" SelectedItem="{Binding SelectedExtruderCalibration, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
-                            <TextBlock FontSize="18" Text="{Binding Path=CalibrationToChange}" />
-                            <TextBlock Text="{Binding Path=ReconfigurationTime}" />
-                            <TextBlock Text="{Binding Path=ParentProductionLine.Name}"  />
+                            <TextBlock FontSize="18" Text="{Binding Path=CalibrationToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -69,11 +73,43 @@
             </ListBox>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
-            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}" Value="{Binding Path=SelectedExtruderCalibration.CalibrationToChange, Mode=TwoWay}"/>
-            <optelui:LabelDoubleUpDown Title="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}" Value="{Binding Path=SelectedExtruderCalibration.ReconfigurationTime, Mode=TwoWay}"/>
-            <optelui:LabelComboBox Title="{localization:Localize Key=Window.ExtruderCalibrations.TargetExtruder}" Entries="{Binding Extruders}" SelectedEntry="{Binding Path=SelectedExtruderCalibration.ParentProductionLine, Mode=TwoWay}"/>
+            <StackPanel.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger 
+                     Binding ="{Binding ElementName=ElementsList, Path=SelectedIndex}" 
+                     Value="-1">
+                            <Setter Property="StackPanel.IsEnabled" Value="false"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Label Content="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderCalibration.CalibrationToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChanged}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderCalibration.ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChanged}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.ExtruderCalibrations.TargetExtruder}"/>
+            <ComboBox ItemsSource="{Binding Extruders}" SelectedItem="{Binding Path=SelectedExtruderCalibration.ParentProductionLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="SelectionChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChanged}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </ComboBox>
         </StackPanel>
-        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center">
+        <Button Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Center" Command="{Binding SaveChanges}">
             <StackPanel Orientation="Horizontal" Width="auto">
                 <Image Source="{StaticResource SaveButtonBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
                 <TextBlock Text="{localization:Localize Key=Window.Global.SaveChanges}" VerticalAlignment="Center"/>
