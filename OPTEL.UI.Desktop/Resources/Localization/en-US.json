@@ -41,8 +41,17 @@
   "Window.Global.ContextMenu.Clone": {
     "Value": "Clone selected entry"
   },
-  "Window.Global.MessageBox.Error.Title": {
+  "Window.Global.MessageBox.Warning.Global.Title": {
+    "Value": "Warning"
+  },
+  "Window.Global.MessageBox.Warning.UnsavedChanges.Content": {
+    "Value": "There are unsaved changes. Are you wish to save them before closing this window?"
+  },
+  "Window.Global.MessageBox.Error.Global.Title": {
     "Value": "Error"
+  },
+  "Window.Global.MessageBox.Error.SavingChanges.Content": {
+    "Value": "You can't close this window while changes saving into database."
   },
   "Window.ExtruderCalibrations.Title": {
     "Value": "Extruder calibrations"

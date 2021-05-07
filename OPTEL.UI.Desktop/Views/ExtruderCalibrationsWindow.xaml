@@ -15,11 +15,20 @@
         <intr:EventTrigger EventName="Loaded">
             <intr:InvokeCommandAction Command="{Binding SelectFirstListBoxEntryIfExists}"/>
         </intr:EventTrigger>
-        <intr:EventTrigger EventName="Closing">
-            <intr:InvokeCommandAction Command="{Binding CheckForUnsavedChangesOnWindowClosing}" />
-        </intr:EventTrigger>
     </intr:Interaction.Triggers>
     <Grid>
+        <Grid.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsSavingChanges}" Value="true">
+                        <Setter Property="Grid.IsEnabled" Value="false"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsSavingChanges}" Value="false">
+                        <Setter Property="Grid.IsEnabled" Value="true"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
@@ -113,10 +122,11 @@
             <Grid.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger 
-                     Binding ="{Binding ElementName=ElementsList, Path=SelectedIndex}" 
-                     Value="true">
+                        <DataTrigger Binding="{Binding Path=IsSavingChanges}" Value="false">
                             <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsSavingChanges}" Value="true">
+                            <Setter Property="Grid.Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -134,10 +144,11 @@
             <Button.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger 
-                     Binding ="{Binding ElementName=ElementsList, Path=SelectedIndex}" 
-                     Value="true">
+                        <DataTrigger Binding="{Binding Path=IsSavingChanges}" Value="true">
                             <Setter Property="Button.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsSavingChanges}" Value="false">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

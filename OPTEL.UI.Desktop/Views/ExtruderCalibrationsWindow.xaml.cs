@@ -1,4 +1,5 @@
 ﻿using OPTEL.UI.Desktop.ViewModels;
+using OPTEL.UI.Desktop.ViewModels.Core;
 using System.Windows;
 
 namespace OPTEL.UI.Desktop.Views
@@ -16,8 +17,13 @@ namespace OPTEL.UI.Desktop.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true;
-            return;
+            Window w = sender as Window;
+            if (w != null)
+            {
+                DatabaseEntityViewModel vm = (w.DataContext as DatabaseEntityViewModel);
+                vm.CheckForUnsavedChangesOnWindowClosing.Execute(null);
+                e.Cancel = !vm.IsCloseAllowed;
+            }
         }
     }
 }
