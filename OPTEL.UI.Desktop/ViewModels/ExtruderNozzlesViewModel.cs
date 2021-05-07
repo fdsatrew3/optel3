@@ -27,17 +27,17 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Fields
         private NozzleChange _selectedExtruderNozzle;
 
-        private RelayCommand _selectFirstDataEntryIfExists;
-        private RelayCommand _addEntity;
-        private RelayCommand _removeEntity;
-        private RelayCommand _cloneEntity;
+        private RelayCommand _selectFirstDataEntryIfExistsCommand;
+        private RelayCommand _addEntityCommand;
+        private RelayCommand _removeEntityCommand;
+        private RelayCommand _cloneEntityCommand;
         #endregion
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExists
+        public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
             get
             {
-                return _selectFirstDataEntryIfExists ??= new RelayCommand(obj =>
+                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
                 {
                     NozzleChange nozzleChange;
                     try
@@ -52,11 +52,11 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
-        public RelayCommand AddEntity
+        public RelayCommand AddEntityCommand
         {
             get
             {
-                return _addEntity ??= new RelayCommand(obj =>
+                return _addEntityCommand ??= new RelayCommand(obj =>
                 {
                     NozzleChange nozzle = new NozzleChange();
                     ExtruderNozzles.Add(nozzle);
@@ -65,23 +65,23 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
-        public RelayCommand RemoveEntity
+        public RelayCommand RemoveEntityCommand
         {
             get
             {
-                return _removeEntity ??= new RelayCommand(obj =>
+                return _removeEntityCommand ??= new RelayCommand(obj =>
                 {
                     Database.instance.NozzleChangeRepository.Delete(SelectedExtruderNozzle);
                     ExtruderNozzles.Remove(SelectedExtruderNozzle);
-                    SelectFirstDataEntryIfExists.Execute(null);
+                    SelectFirstDataEntryIfExistsCommand.Execute(null);
                 }, (obj) => SelectedExtruderNozzle != null);
             }
         }
-        public RelayCommand CloneEntity
+        public RelayCommand CloneEntityCommand
         {
             get
             {
-                return _cloneEntity ??= new RelayCommand(obj =>
+                return _cloneEntityCommand ??= new RelayCommand(obj =>
                 {
                     NozzleChange nozzle = new NozzleChange();
                     nozzle.NozzleToChange = SelectedExtruderNozzle.NozzleToChange;

@@ -15,13 +15,13 @@ namespace OPTEL.UI.Desktop.Views.Core
             MouseRightButtonUp += new MouseButtonEventHandler(OnWindowRightButtonUp);
         }
 
-        private void OnWindowClose(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OnWindowClose(object sender, CancelEventArgs e)
         {
             Window w = sender as Window;
             if (w != null)
             {
                 DatabaseEntityViewModel vm = (w.DataContext as DatabaseEntityViewModel);
-                vm.CheckForUnsavedChangesOnWindowClosing.Execute(null);
+                vm.CheckForUnsavedChangesOnWindowClosingCommand.Execute(null);
                 e.Cancel = !vm.IsCloseAllowed;
             }
         }

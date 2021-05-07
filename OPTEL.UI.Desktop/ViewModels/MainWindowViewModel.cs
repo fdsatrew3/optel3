@@ -52,5 +52,19 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
+
+        private RelayCommand _openExtruderCoolingLipsWindowCommand;
+
+        public RelayCommand OpenExtruderCoolingLipsWindowCommand
+        {
+            get
+            {
+                return _openExtruderCoolingLipsWindowCommand ??= new RelayCommand(obj =>
+                {
+                    ExtruderCoolingLipWindow window = new ExtruderCoolingLipWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
     }
 }

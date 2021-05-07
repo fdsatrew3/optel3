@@ -8,10 +8,9 @@
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
         mc:Ignorable="d"
         Title="Optel - Username" 
-        ResizeMode="CanResize"
         Width="800"
         Height="600" 
-        Icon="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico">
+        Icon="{StaticResource ApplicationIconBitmapImage}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -24,7 +23,7 @@
             <MenuItem Header="{localization:Localize Key=Menu.Data}">
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Calibration.Changes}" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzle.Changes}" Command="{Binding OpenExtruderNozzlesWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLip.Changes}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLip.Changes}" Command="{Binding OpenExtruderCoolingLipsWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Recipe.Changes}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruders}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Recipes}"></MenuItem>

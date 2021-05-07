@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Application icon -->
+    <BitmapImage x:Key="ApplicationIconBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/optel.ico"/>
     <!-- Context menu icons -->
     <!-- Add/Create icon -->
     <Image x:Key="AddButtonImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/Controls/add.png"/>

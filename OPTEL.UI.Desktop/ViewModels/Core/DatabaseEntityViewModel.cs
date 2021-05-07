@@ -39,27 +39,27 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private bool _isSavingChanges;
         private bool _isCloseAllowed;
 
-        private RelayCommand _markEntityDataAsChanged;
-        private RelayCommand _saveChanges;
-        private RelayCommand _checkForUnsavedChangesOnWindowClosing;
+        private RelayCommand _markEntityDataAsChangedCommand;
+        private RelayCommand _saveChangesCommand;
+        private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
         #endregion
 
         #region Commands
-        public RelayCommand MarkEntityDataAsChanged
+        public RelayCommand MarkEntityDataAsChangedCommand
         {
             get
             {
-                return _markEntityDataAsChanged ??= new RelayCommand(obj =>
+                return _markEntityDataAsChangedCommand ??= new RelayCommand(obj =>
                 {
                     IsDataChanged = true;
                 });
             }
         }
-        public RelayCommand SaveChanges
+        public RelayCommand SaveChangesCommand
         {
             get
             {
-                return _saveChanges ??= new RelayCommand(async obj =>
+                return _saveChangesCommand ??= new RelayCommand(async obj =>
                 {
                     bool error = false;
                     string customError = CheckForCustomErrors();
@@ -105,11 +105,11 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 });
             }
         }
-        public RelayCommand CheckForUnsavedChangesOnWindowClosing
+        public RelayCommand CheckForUnsavedChangesOnWindowClosingCommand
         {
             get
             {
-                return _checkForUnsavedChangesOnWindowClosing ??= new RelayCommand(obj =>
+                return _checkForUnsavedChangesOnWindowClosingCommand ??= new RelayCommand(obj =>
                 {
                     if (IsSavingChanges == true)
                     {
@@ -128,7 +128,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                             MessageBoxImage.Warning);
                         if (result == MessageBoxResult.Yes)
                         {
-                            SaveChanges.Execute(null);
+                            SaveChangesCommand.Execute(null);
                             return;
                         }
                         if (result == MessageBoxResult.No)
