@@ -3,16 +3,16 @@
     "Value": "Data"
   },
   "Menu.Data.Extruder.Calibration.Changes": {
-    "Value": "Extruder calibration changes"
+    "Value": "Extruder calibrations changes"
   },
   "Menu.Data.Extruder.Nozzle.Changes": {
-    "Value": "Extruder nozzle changes"
+    "Value": "Extruder nozzles changes"
   },
   "Menu.Data.Extruder.CoolingLip.Changes": {
-    "Value": "Extruder cooling lip changes"
+    "Value": "Extruder cooling lips changes"
   },
   "Menu.Data.Extruder.Recipe.Changes": {
-    "Value": "Extruder recipe changes"
+    "Value": "Extruder recipes changes"
   },
   "Menu.Data.Extruders": {
     "Value": "Extruders"
@@ -54,7 +54,7 @@
     "Value": "You can't close this window while changes saving into database."
   },
   "Window.ExtruderCalibrations.Title": {
-    "Value": "Extruder calibrations"
+    "Value": "Extruder calibrations changes"
   },
   "Window.ExtruderCalibrations.ID": {
     "Value": "#"
@@ -72,7 +72,7 @@
     "Value": "Target extruder of extruder calibration #{0} can't be empty!"
   },
   "Window.ExtruderNozzles.Title": {
-    "Value": "Extruder nozzles"
+    "Value": "Extruder nozzles changes"
   },
   "Window.ExtruderNozzles.ID": {
     "Value": "#"
@@ -88,5 +88,35 @@
   },
   "Window.ExtruderNozzles.Errors.TargetExtruderIsNull": {
     "Value": "Target extruder of extruder nozzle #{0} can't be empty!"
+  },
+  "Window.ExtruderRecipesChange.Title": {
+    "Value": "Extruder recipes changes"
+  },
+  "Window.ExtruderRecipesChange.ID": {
+    "Value": "#"
+  },
+  "Window.ExtruderRecipesChange.FilmTypeTo": {
+    "Value": "Film type to"
+  },
+  "Window.ExtruderRecipesChange.FilmTypeFrom": {
+    "Value": "Film type from"
+  },
+  "Window.ExtruderRecipesChange.ReconfigurationTime": {
+    "Value": "Time to reconfiguration, min"
+  },
+  "Window.ExtruderRecipesChange.TargetExtruder": {
+    "Value": "Target extruder"
+  },
+  "Window.ExtruderRecipesChange.Errors.TargetExtruderIsNull": {
+    "Value": "Target extruder of extruder nozzle #{0} can't be empty!"
+  },
+  "Window.ExtruderRecipesChange.Errors.FilmTypeToEqualToFilmTypeFrom": {
+    "Value": "Film type from can't be equal to film type to of extruder recipes change #{0}!"
+  },
+  "Window.ExtruderRecipesChange.Errors.FilmTypeToIsNull": {
+    "Value": "Film type to of extruder recipes change #{0} can't be empty!"
+  },
+  "Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull": {
+    "Value": "Film type from of extruder recipes change #{0} can't be empty!"
   }
 }

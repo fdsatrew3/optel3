@@ -4,4 +4,7 @@
     <DataTemplate DataType="{x:Type opteldata:ProductionLine}">
         <TextBlock Text="{Binding Name}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type opteldata:FilmType}">
+        <TextBlock Text="{Binding Article}"/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -9,6 +9,10 @@ namespace OPTEL.UI.Desktop.ViewModels
 {
     public class MainWindowViewModel
     {
+        private RelayCommand _openExtruderCalibrationsWindowCommand;
+        private RelayCommand _openExtruderNozzlesWindowCommand;
+        private RelayCommand _openExtruderCoolingLipsWindowCommand;
+        private RelayCommand _openExtruderRecipesWindowCommand;
         public MainWindowViewModel()
         {
             var availableCultures = LocalizationManager.Instance.AvailableCultures;
@@ -25,8 +29,6 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
 
-        private RelayCommand _openExtruderCalibrationsWindowCommand;
-
         public RelayCommand OpenExtruderCalibrationsWindowCommand
         {
             get
@@ -38,9 +40,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                                   });
             }
         }
-
-        private RelayCommand _openExtruderNozzlesWindowCommand;
-
         public RelayCommand OpenExtruderNozzlesWindowCommand
         {
             get
@@ -52,9 +51,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
-
-        private RelayCommand _openExtruderCoolingLipsWindowCommand;
-
         public RelayCommand OpenExtruderCoolingLipsWindowCommand
         {
             get
@@ -62,6 +58,17 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _openExtruderCoolingLipsWindowCommand ??= new RelayCommand(obj =>
                 {
                     ExtruderCoolingLipWindow window = new ExtruderCoolingLipWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+        public RelayCommand OpenExtruderRecipesWindowCommand
+        {
+            get
+            {
+                return _openExtruderRecipesWindowCommand ??= new RelayCommand(obj =>
+                {
+                    ExtruderRecipesChangeWindow window = new ExtruderRecipesChangeWindow();
                     window.ShowModalDialog();
                 });
             }
