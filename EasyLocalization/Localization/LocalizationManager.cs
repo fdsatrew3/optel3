@@ -80,7 +80,7 @@ namespace EasyLocalization.Localization
             }
         }
 
-        public string GetValue(string key, bool nullWhenUnfound = true)
+        public string GetValue(string key)
         {
             if (_languageEntries == null || CurrentCulture == null)
                 return key;
@@ -88,12 +88,12 @@ namespace EasyLocalization.Localization
             var entries = _languageEntries[CurrentCulture];
 
             if (key == null || !entries.ContainsKey(key))
-                return nullWhenUnfound ? null : key;
+                return key;
 
             return entries[key].Value;
         }
 
-        public string GetValue(string key, int count, bool nullWhenUnfound = true)
+        public string GetValue(string key, int count)
         {
             if (_languageEntries == null || CurrentCulture == null)
                 return key;
@@ -101,7 +101,7 @@ namespace EasyLocalization.Localization
             var entries = _languageEntries[CurrentCulture];
 
             if (key == null || !entries.ContainsKey(key))
-                return nullWhenUnfound ? null : key;
+                return key;
 
             var entry = entries[key];
             return count == 0 ? entry.ZeroValue : count == 1 ? entry.Value : string.Format(entry.PluralValue, count);

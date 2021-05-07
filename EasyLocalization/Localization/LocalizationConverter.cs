@@ -32,7 +32,7 @@ namespace EasyLocalization.Localization
             {
                 default:
                     // (1) CultureInfo
-                    return LocalizationManager.Instance.GetValue(_key) ?? LocalizationManager.Instance.GetValue(_alternativeKey, false);
+                    return LocalizationManager.Instance.GetValue(_key) ?? LocalizationManager.Instance.GetValue(_alternativeKey);
                 case 2:
                     // (2) CultureInfo + KeySource or CultureInfo + CountSource
                     key = values.FirstOrDefault(v => v is string);
@@ -41,18 +41,18 @@ namespace EasyLocalization.Localization
                     {
                         // CultureInfo + CountSource
                         count = System.Convert.ToInt32(values.First(v => !(v is CultureInfo)));
-                        return LocalizationManager.Instance.GetValue(_key, count) ?? LocalizationManager.Instance.GetValue(_alternativeKey, count, false);
+                        return LocalizationManager.Instance.GetValue(_key, count) ?? LocalizationManager.Instance.GetValue(_alternativeKey, count);
                     }
                     else
                     {
                         // CultureInfo + KeySource
-                        return LocalizationManager.Instance.GetValue(key.ToString()) ?? LocalizationManager.Instance.GetValue(_alternativeKey, false);
+                        return LocalizationManager.Instance.GetValue(key.ToString()) ?? LocalizationManager.Instance.GetValue(_alternativeKey);
                     }
                 case 3:
                     // (3) CultureInfo + KeySource + CountSource
                     key = values.First(v => v is string);
                     count = System.Convert.ToInt32(values.First(v => v != key && !(v is CultureInfo)));
-                    return LocalizationManager.Instance.GetValue(key.ToString(), count) ?? LocalizationManager.Instance.GetValue(_alternativeKey, count, false);
+                    return LocalizationManager.Instance.GetValue(key.ToString(), count) ?? LocalizationManager.Instance.GetValue(_alternativeKey, count);
             }
         }
 
