@@ -2,7 +2,6 @@
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.ViewModels.Core;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -27,14 +26,18 @@ namespace OPTEL.UI.Desktop.ViewModels
         #endregion
         #region Fields
         private CalibrationChange _selectedExtruderCalibration;
+
+        private RelayCommand _selectFirstDataEntryIfExists;
+        private RelayCommand _addEntity;
+        private RelayCommand _removeEntity;
+        private RelayCommand _cloneEntity;
         #endregion
         #region Commands
-        private RelayCommand _selectFirstListBoxEntryIfExists;
-        public RelayCommand SelectFirstListBoxEntryIfExists
+        public RelayCommand SelectFirstDataEntryIfExists
         {
             get
             {
-                return _selectFirstListBoxEntryIfExists ??= new RelayCommand(obj =>
+                return _selectFirstDataEntryIfExists ??= new RelayCommand(obj =>
                 {
                     CalibrationChange calibrationChange;
                     try
@@ -49,7 +52,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
-        private RelayCommand _addEntity;
         public RelayCommand AddEntity
         {
             get
@@ -63,9 +65,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
-
-        private RelayCommand _removeEntity;
-
         public RelayCommand RemoveEntity
         {
             get
@@ -74,13 +73,10 @@ namespace OPTEL.UI.Desktop.ViewModels
                 {
                     Database.instance.CalibrationChangeRepository.Delete(SelectedExtruderCalibration);
                     ExtruderCalibrations.Remove(SelectedExtruderCalibration);
-                    SelectFirstListBoxEntryIfExists.Execute(null);
+                    SelectFirstDataEntryIfExists.Execute(null);
                 }, (obj) => SelectedExtruderCalibration != null);
             }
         }
-
-        private RelayCommand _cloneEntity;
-
         public RelayCommand CloneEntity
         {
             get

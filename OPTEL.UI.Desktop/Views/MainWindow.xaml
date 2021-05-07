@@ -23,7 +23,7 @@
         <Menu Height="25" Grid.Column="0" Grid.Row="0" Background="Transparent">
             <MenuItem Header="{localization:Localize Key=Menu.Data}">
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Calibration.Changes}" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzle.Changes}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzle.Changes}" Command="{Binding OpenExtruderNozzlesWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLip.Changes}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Recipe.Changes}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruders}"></MenuItem>

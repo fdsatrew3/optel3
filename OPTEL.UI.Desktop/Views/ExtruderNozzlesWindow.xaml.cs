@@ -4,14 +4,14 @@ using OPTEL.UI.Desktop.Views.Core;
 namespace OPTEL.UI.Desktop.Views
 {
     /// <summary>
-    /// Логика взаимодействия для ExtruderCalibrationsWindow.xaml
+    /// Логика взаимодействия для ExtruderNozzlesWindow.xaml
     /// </summary>
-    public partial class ExtruderCalibrationsWindow : DatabaseEntityView
+    public partial class ExtruderNozzlesWindow : DatabaseEntityView
     {
-        public ExtruderCalibrationsWindow()
+        public ExtruderNozzlesWindow()
         {
             InitializeComponent();
-            this.DataContext = new ExtruderCalibrationsViewModel();
+            this.DataContext = new ExtruderNozzlesViewModel();
         }
 
         public override void SetSelectedItem(object item)

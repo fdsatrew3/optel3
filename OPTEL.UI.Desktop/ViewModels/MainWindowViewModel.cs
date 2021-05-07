@@ -38,5 +38,19 @@ namespace OPTEL.UI.Desktop.ViewModels
                                   });
             }
         }
+
+        private RelayCommand _openExtruderNozzlesWindowCommand;
+
+        public RelayCommand OpenExtruderNozzlesWindowCommand
+        {
+            get
+            {
+                return _openExtruderNozzlesWindowCommand ??= new RelayCommand(obj =>
+                {
+                    ExtruderNozzlesWindow window = new ExtruderNozzlesWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
     }
 }
