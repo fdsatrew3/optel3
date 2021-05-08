@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using OPTEL.UI.Desktop.Services.OpenFileDialogs;
+using OPTEL.UI.Desktop.ViewModels;
+using System.Windows;
 
 namespace OPTEL.UI.Desktop.Views
 {
@@ -9,6 +11,8 @@ namespace OPTEL.UI.Desktop.Views
     {
         public ImportExcelDataWindow()
         {
+            var ExcelOpenFileDialogService = new ExcelOpenFileDialogService(this);
+            DataContext = new ImportExcelViewModel(ExcelOpenFileDialogService);
             InitializeComponent();
         }
     }
