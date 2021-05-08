@@ -21,21 +21,21 @@
         </Grid.ColumnDefinitions>
         <Menu Height="25" Grid.Column="0" Grid.Row="0" Background="Transparent">
             <MenuItem Header="{localization:Localize Key=Menu.Data}">
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Calibration.Changes}" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzle.Changes}" Command="{Binding OpenExtruderNozzlesWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLip.Changes}" Command="{Binding OpenExtruderCoolingLipsWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Recipe.Changes}" Command="{Binding OpenExtruderRecipesWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Calibrations}" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzles}" Command="{Binding OpenExtruderNozzlesWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.CoolingLips}" Command="{Binding OpenExtruderCoolingLipsWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Recipes}" Command="{Binding OpenExtruderRecipesWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruders}" Command="{Binding OpenExtrudersWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Recipes}" Command="{Binding OpenFilmRecipesWindowCommand}"></MenuItem>
-                <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Articles}" Command="{Binding OpenFilmTypesWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.FilmRecipes}" Command="{Binding OpenFilmRecipesWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.FilmTypes}" Command="{Binding OpenFilmTypesWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Orders}" Command="{Binding OpenOrdersWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Customers}" Command="{Binding OpenCustomersWindowCommand}"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Tools">
-                <MenuItem Header="Generate excel file data template"></MenuItem>
-                <MenuItem Header="Import data from excel file" Command="{Binding OpenImportExcelWindowCommand}"/>
-                <MenuItem Header="Options">
-                    <MenuItem Header="Language" x:Name="languageMenuItem"/>
+            <MenuItem Header="{localization:Localize Key=Menu.Tools}">
+                <MenuItem Header="{localization:Localize Key=Menu.Tools.GenerateExcelTemplate}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Tools.ImportDataFromExcelFile}" Command="{Binding OpenImportExcelWindowCommand}"/>
+                <MenuItem Header="{localization:Localize Key=Menu.Tools.Options}">
+                    <MenuItem Header="{localization:Localize Key=Menu.Tools.Options.Languages}" x:Name="languageMenuItem"/>
                 </MenuItem>
             </MenuItem>
         </Menu>

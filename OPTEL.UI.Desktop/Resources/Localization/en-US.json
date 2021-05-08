@@ -2,25 +2,25 @@
   "Menu.Data": {
     "Value": "Data"
   },
-  "Menu.Data.Extruder.Calibration.Changes": {
+  "Menu.Data.Extruder.Calibrations": {
     "Value": "Production line calibrations changes"
   },
-  "Menu.Data.Extruder.Nozzle.Changes": {
+  "Menu.Data.Extruder.Nozzles": {
     "Value": "Production line nozzles changes"
   },
-  "Menu.Data.Extruder.CoolingLip.Changes": {
+  "Menu.Data.Extruder.CoolingLips": {
     "Value": "Production line cooling lips changes"
   },
-  "Menu.Data.Extruder.Recipe.Changes": {
+  "Menu.Data.Extruder.Recipes": {
     "Value": "Production line film recipes changes"
   },
   "Menu.Data.Extruders": {
     "Value": "Production lines"
   },
-  "Menu.Data.Film.Recipes": {
+  "Menu.Data.FilmRecipes": {
     "Value": "Film recipes"
   },
-  "Menu.Data.Film.Articles": {
+  "Menu.Data.FilmTypes": {
     "Value": "Film articles"
   },
   "Menu.Data.Orders": {
@@ -28,6 +28,21 @@
   },
   "Menu.Data.Customers": {
     "Value": "Customers"
+  },
+  "Menu.Tools": {
+    "Value": "Tools"
+  },
+  "Menu.Tools.GenerateExcelTemplate": {
+    "Value": "Generate excel file template"
+  },
+  "Menu.Tools.ImportDataFromExcelFile": {
+    "Value": "Import data from excel file"
+  },
+  "Menu.Tools.Options": {
+    "Value": "Options"
+  },
+  "Menu.Tools.Options.Languages": {
+    "Value": "Languages"
   },
   "Window.Global.SaveChanges": {
     "Value": "Save changes"
