@@ -14,9 +14,9 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _openExtruderCoolingLipsWindowCommand;
         private RelayCommand _openExtruderRecipesWindowCommand;
         private RelayCommand _openExtrudersWindowCommand;
-        private RelayCommand _openFilmTypesWindow;
-        private RelayCommand _openFilmRecipesWindow;
-
+        private RelayCommand _openFilmTypesWindowCommand;
+        private RelayCommand _openFilmRecipesWindowCommand;
+        private RelayCommand _openCustomersWindowCommand;
         public MainWindowViewModel()
         {
             var availableCultures = LocalizationManager.Instance.AvailableCultures;
@@ -89,11 +89,11 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
 
-        public RelayCommand OpenFilmTypesWindow
+        public RelayCommand OpenFilmTypesWindowCommand
         {
             get
             {
-                return _openFilmTypesWindow ??= new RelayCommand(obj =>
+                return _openFilmTypesWindowCommand ??= new RelayCommand(obj =>
                 {
                     FilmTypesWindow window = new FilmTypesWindow();
                     window.ShowModalDialog();
@@ -101,13 +101,24 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
 
-        public RelayCommand OpenFilmRecipesWindow
+        public RelayCommand OpenFilmRecipesWindowCommand
         {
             get
             {
-                return _openFilmRecipesWindow ??= new RelayCommand(obj =>
+                return _openFilmRecipesWindowCommand ??= new RelayCommand(obj =>
                 {
                     FilmRecipesWindow window = new FilmRecipesWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+        public RelayCommand OpenCustomersWindowCommand
+        {
+            get
+            {
+                return _openCustomersWindowCommand ??= new RelayCommand(obj =>
+                {
+                    CustomersWindow window = new CustomersWindow();
                     window.ShowModalDialog();
                 });
             }
