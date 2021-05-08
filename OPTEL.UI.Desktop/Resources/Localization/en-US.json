@@ -283,5 +283,14 @@
   },
   "Window.FilmRecipes.Errors.ThicknessIsNegative": {
     "Value": "Thickness of film recipe #{0} can't be negative number!"
+  },
+  "Window.Customers.Title": {
+    "Value": "Customers"
+  },
+  "Window.Customers.Name": {
+    "Value": "Name"
+  },
+  "Window.Customers.Errors.NameIsNull": {
+    "Value": "Name of customer #{0} can't be empty!"
   }
 }
