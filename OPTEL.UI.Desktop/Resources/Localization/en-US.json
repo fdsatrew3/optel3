@@ -3,19 +3,19 @@
     "Value": "Data"
   },
   "Menu.Data.Extruder.Calibration.Changes": {
-    "Value": "Extruder calibrations changes"
+    "Value": "Production line calibrations changes"
   },
   "Menu.Data.Extruder.Nozzle.Changes": {
-    "Value": "Extruder nozzles changes"
+    "Value": "Production line nozzles changes"
   },
   "Menu.Data.Extruder.CoolingLip.Changes": {
-    "Value": "Extruder cooling lips changes"
+    "Value": "Production line cooling lips changes"
   },
   "Menu.Data.Extruder.Recipe.Changes": {
-    "Value": "Extruder recipes changes"
+    "Value": "Production line film recipes changes"
   },
   "Menu.Data.Extruders": {
-    "Value": "Extruders"
+    "Value": "Production lines"
   },
   "Menu.Data.Film.Recipes": {
     "Value": "Film recipes"
@@ -25,6 +25,9 @@
   },
   "Menu.Data.Orders": {
     "Value": "Orders"
+  },
+  "Menu.Data.Customers": {
+    "Value": "Customers"
   },
   "Window.Global.SaveChanges": {
     "Value": "Save changes"
@@ -54,64 +57,64 @@
     "Value": "You can't close this window while changes saving into database."
   },
   "Window.ExtruderCalibrations.Title": {
-    "Value": "Extruder calibrations changes"
+    "Value": "Production line calibrations changes"
   },
   "Window.ExtruderCalibrations.CalibrationToChange": {
-    "Value": "Calibration to change"
+    "Value": "Target calibration"
   },
   "Window.ExtruderCalibrations.ReconfigurationTime": {
     "Value": "Time to reconfiguration, min"
   },
   "Window.ExtruderCalibrations.TargetExtruder": {
-    "Value": "Target extruder"
+    "Value": "Target production line"
   },
   "Window.ExtruderCalibrations.Errors.TargetExtruderIsNull": {
-    "Value": "Target extruder of extruder calibration #{0} can't be empty!"
+    "Value": "Target production line of production line calibration #{0} can't be empty!"
   },
   "Window.ExtruderNozzles.Title": {
-    "Value": "Extruder nozzles changes"
+    "Value": "Production line nozzles changes"
   },
   "Window.ExtruderNozzles.NozzleToChange": {
-    "Value": "Nozzle to change"
+    "Value": "Target nozzle"
   },
   "Window.ExtruderNozzles.ReconfigurationTime": {
     "Value": "Time to reconfiguration, min"
   },
   "Window.ExtruderNozzles.TargetExtruder": {
-    "Value": "Target extruder"
+    "Value": "Target production line"
   },
   "Window.ExtruderNozzles.Errors.TargetExtruderIsNull": {
-    "Value": "Target extruder of extruder nozzle #{0} can't be empty!"
+    "Value": "Target production line of production line nozzle #{0} can't be empty!"
   },
   "Window.ExtruderRecipesChange.Title": {
-    "Value": "Extruder recipes changes"
+    "Value": "Production line film recipes changes"
   },
   "Window.ExtruderRecipesChange.FilmTypeTo": {
-    "Value": "Film type to"
+    "Value": "Target film type"
   },
   "Window.ExtruderRecipesChange.FilmTypeFrom": {
-    "Value": "Film type from"
+    "Value": "Source film type"
   },
   "Window.ExtruderRecipesChange.ReconfigurationTime": {
     "Value": "Time to reconfiguration, min"
   },
   "Window.ExtruderRecipesChange.TargetExtruder": {
-    "Value": "Target extruder"
+    "Value": "Target production line"
   },
   "Window.ExtruderRecipesChange.Errors.TargetExtruderIsNull": {
-    "Value": "Target extruder of extruder nozzle #{0} can't be empty!"
+    "Value": "Target production line of production line nozzle #{0} can't be empty!"
   },
   "Window.ExtruderRecipesChange.Errors.FilmTypeToEqualToFilmTypeFrom": {
-    "Value": "Film type from can't be equal to film type to of extruder recipes change #{0}!"
+    "Value": "Film type from can't be equal to film type to of production line recipes change #{0}!"
   },
   "Window.ExtruderRecipesChange.Errors.FilmTypeToIsNull": {
-    "Value": "Film type to of extruder recipes change #{0} can't be empty!"
+    "Value": "Film type to of production line recipes change #{0} can't be empty!"
   },
   "Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull": {
-    "Value": "Film type from of extruder recipes change #{0} can't be empty!"
+    "Value": "Film type from of production line recipes change #{0} can't be empty!"
   },
   "Window.Extruders.Title": {
-    "Value": "Extruder recipes changes"
+    "Value": "Production line recipes changes"
   },
   "Window.Extruders.Name": {
     "Value": "Name"
@@ -168,52 +171,52 @@
     "Value": "Time to change thickness, m"
   },
   "Window.Extruders.Errors.HourCostIsNegative": {
-    "Value": "Hour cost of extruder #{0} can't be negative number!"
+    "Value": "Hour cost of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.MaxProductionSpeedIsNegative": {
-    "Value": "Max production speed of extruder #{0} can't be negative number!"
+    "Value": "Max production speed of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.WidthMinIsNegative": {
-    "Value": "Min width of extruder #{0} can't be negative number!"
+    "Value": "Min width of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.WidthMaxIsNegative": {
-    "Value": "Max width of extruder #{0} can't be negative number!"
+    "Value": "Max width of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.WidthMinIsGreaterThanWidthMax": {
-    "Value": "Min width can't be greater than max width of extruder #{0}!"
+    "Value": "Min width can't be greater than max width of production line #{0}!"
   },
   "Window.Extruders.Errors.ThicknessMinIsNegative": {
-    "Value": "Min thickness of extruder #{0} can't be negative number!"
+    "Value": "Min thickness of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.ThicknessMaxIsNegative": {
-    "Value": "Max thickness of extruder nozzle #{0} can't be negative number!"
+    "Value": "Max thickness of production line nozzle #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.ThicknessMinIsGreaterThanThicknessMax": {
-    "Value": "Min thickness can't be greater than max thickness of extruder #{0}!"
+    "Value": "Min thickness can't be greater than max thickness of production line #{0}!"
   },
   "Window.Extruders.Errors.WeightMinIsNegative": {
-    "Value": "Min weight of extruder #{0} can't be negative number!"
+    "Value": "Min weight of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.WeightMaxIsNegative": {
     "Value": "Max weight of extrude #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.WeightMinIsGreaterThanWeightMax": {
-    "Value": "Min weight can't be greater than max weight of extruder #{0}!"
+    "Value": "Min weight can't be greater than max weight of production line #{0}!"
   },
   "Window.Extruders.Errors.LengthMinIsNegative": {
-    "Value": "Min length of extruder #{0} can't be negative number!"
+    "Value": "Min length of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.LengthMaxIsNegative": {
-    "Value": "Max length of extruder #{0} can't be negative number!"
+    "Value": "Max length of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.LengthMinIsGreaterThanLengthMax": {
-    "Value": "Min length can't be greater than max length of extruder #{0}!"
+    "Value": "Min length can't be greater than max length of production line #{0}!"
   },
   "Window.Extruders.Errors.WidthChangeTimeIsNegative": {
-    "Value": "Time to change width of extruder #{0} can't be negative number!"
+    "Value": "Time to change width of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.ThicknessChangeTimeIsNegative": {
-    "Value": "Time to change thickness of extruder #{0} can't be negative number!"
+    "Value": "Time to change thickness of production line #{0} can't be negative number!"
   },
   "Window.FilmTypes.Title": {
     "Value": "Film articles"
@@ -228,10 +231,10 @@
     "Value": "Name"
   },
   "Window.FilmRecipes.FilmType": {
-    "Value": "Film type"
+    "Value": "Film article"
   },
   "Window.FilmRecipes.Thickness": {
-    "Value": "Thickenss"
+    "Value": "Thickness"
   },
   "Window.FilmRecipes.ProductionSpeed": {
     "Value": "Production speed"

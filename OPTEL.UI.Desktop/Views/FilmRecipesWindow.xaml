@@ -11,7 +11,7 @@
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.FilmRecipes.Title}" Height="450" Width="800"
+        Title="{localization:Localize Key=Window.FilmRecipes.Title}" Height="470" Width="800"
         Icon="{StaticResource ApplicationIconBitmapImage}">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">

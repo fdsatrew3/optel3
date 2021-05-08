@@ -29,6 +29,7 @@
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Recipes}" Command="{Binding OpenFilmRecipesWindow}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Film.Articles}" Command="{Binding OpenFilmTypesWindow}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Orders}" Command="{Binding OpenOrdersWindow}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Customers}" Command="{Binding OpenCustomersWindow}"></MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Generate Excel template"></MenuItem>
