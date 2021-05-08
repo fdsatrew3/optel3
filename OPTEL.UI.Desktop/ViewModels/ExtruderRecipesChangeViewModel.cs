@@ -3,6 +3,7 @@ using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.ViewModels.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -127,6 +128,10 @@ namespace OPTEL.UI.Desktop.ViewModels
                 if (ExtruderRecipes[i].FilmTypeFrom == null)
                 {
                     sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull"), i));
+                }
+                if (Math.Sign(ExtruderRecipes[i].ReconfigurationTime) < 0)
+                {
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.ReconfigurationTimeIsNegative"), i));
                 }
             }
             return sb.ToString();

@@ -6,9 +6,9 @@ namespace OPTEL.UI.Desktop.Views
     /// <summary>
     /// Логика взаимодействия для ExtruderCoolingLipWindow.xaml
     /// </summary>
-    public partial class ExtruderCoolingLipWindow : DatabaseEntityView
+    public partial class ExtruderCoolingLipsWindow : DatabaseEntityView
     {
-        public ExtruderCoolingLipWindow()
+        public ExtruderCoolingLipsWindow()
         {
             InitializeComponent();
             this.DataContext = new ExtruderCoolingLipsViewModel();

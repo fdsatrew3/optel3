@@ -91,7 +91,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\ExtruderCoolingLipWindow.xaml">
+    <Page Update="Views\ExtruderCoolingLipsWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Views\ExtruderNozzlesWindow.xaml">

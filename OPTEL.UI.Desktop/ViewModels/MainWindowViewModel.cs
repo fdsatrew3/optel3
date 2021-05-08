@@ -64,7 +64,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 return _openExtruderCoolingLipsWindowCommand ??= new RelayCommand(obj =>
                 {
-                    ExtruderCoolingLipWindow window = new ExtruderCoolingLipWindow();
+                    ExtruderCoolingLipsWindow window = new ExtruderCoolingLipsWindow();
                     window.ShowModalDialog();
                 });
             }

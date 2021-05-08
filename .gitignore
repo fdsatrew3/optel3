@@ -86,3 +86,4 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+/OPTEL.UI.Desktop.Test

@@ -2,6 +2,7 @@
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.ViewModels.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -112,6 +113,14 @@ namespace OPTEL.UI.Desktop.ViewModels
                 if (ExtruderNozzles[i].ParentProductionLine == null)
                 {
                     sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.TargetExtruderIsNull"), i));
+                }
+                if (Math.Sign(ExtruderNozzles[i].ReconfigurationTime) < 0)
+                {
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.ReconfigurationTimeIsNegative"), i));
+                }
+                if (Math.Sign(ExtruderNozzles[i].NozzleToChange) < 0)
+                {
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.NozzleToChangeIsNegative"), i));
                 }
             }
             return sb.ToString();
