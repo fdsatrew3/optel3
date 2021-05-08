@@ -15,6 +15,8 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _openExtruderRecipesWindowCommand;
         private RelayCommand _openExtrudersWindowCommand;
         private RelayCommand _openFilmTypesWindow;
+        private RelayCommand _openFilmRecipesWindow;
+
         public MainWindowViewModel()
         {
             var availableCultures = LocalizationManager.Instance.AvailableCultures;
@@ -94,6 +96,18 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _openFilmTypesWindow ??= new RelayCommand(obj =>
                 {
                     FilmTypesWindow window = new FilmTypesWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+
+        public RelayCommand OpenFilmRecipesWindow
+        {
+            get
+            {
+                return _openFilmRecipesWindow ??= new RelayCommand(obj =>
+                {
+                    FilmRecipesWindow window = new FilmRecipesWindow();
                     window.ShowModalDialog();
                 });
             }
