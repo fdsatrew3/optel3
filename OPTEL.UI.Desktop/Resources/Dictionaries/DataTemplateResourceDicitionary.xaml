@@ -7,4 +7,10 @@
     <DataTemplate DataType="{x:Type opteldata:FilmType}">
         <TextBlock Text="{Binding Article}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type opteldata:Customer}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type opteldata:FilmRecipe}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
 </ResourceDictionary>

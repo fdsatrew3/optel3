@@ -18,6 +18,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _openFilmTypesWindowCommand;
         private RelayCommand _openFilmRecipesWindowCommand;
         private RelayCommand _openCustomersWindowCommand;
+        private RelayCommand _openOrdersWindowCommand;
         #endregion
         public MainWindowViewModel()
         {
@@ -121,6 +122,17 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _openCustomersWindowCommand ??= new RelayCommand(obj =>
                 {
                     CustomersWindow window = new CustomersWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+        public RelayCommand OpenOrdersWindowCommand
+        {
+            get
+            {
+                return _openOrdersWindowCommand ??= new RelayCommand(obj =>
+                {
+                    OrdersWindow window = new OrdersWindow();
                     window.ShowModalDialog();
                 });
             }

@@ -68,7 +68,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 return _saveChangesCommand ??= new RelayCommand(async obj =>
                 {
                     bool error = false;
-                    string customError = GetCustomErrors();
+                    string customError = GetCustomErrorString();
                     if (customError.Length > 0)
                     {
                         error = true;
@@ -152,7 +152,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         }
         #endregion
 
-        public virtual string GetCustomErrors()
+        public virtual string GetCustomErrorString()
         {
             return string.Empty;
         }

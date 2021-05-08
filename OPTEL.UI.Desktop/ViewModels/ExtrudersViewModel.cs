@@ -115,7 +115,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
         #endregion
 
-        public override string GetCustomErrors()
+        public override string GetCustomErrorString()
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
