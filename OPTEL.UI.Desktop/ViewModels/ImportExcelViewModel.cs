@@ -1,6 +1,12 @@
-﻿using OPTEL.UI.Desktop.Helpers;
+﻿using EasyLocalization.Localization;
+using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.ExcelDataReaders.Base;
 using OPTEL.UI.Desktop.Services.OpenFileDialogs.Base;
+using System;
 using System.ComponentModel;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -14,7 +20,10 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private IOpenFileDialogService _openFileDialogService;
 
+        private IExcelEntityReader _excelReaderService;
+
         private RelayCommand _openFileDialogCommand;
+        private RelayCommand _beginExcelFileImportCommand;
         #endregion
 
         #region Properties
@@ -46,9 +55,10 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
-        public ImportExcelViewModel(IOpenFileDialogService openFileDialogService)
+        public ImportExcelViewModel(IOpenFileDialogService openFileDialogService, IExcelEntityReader excelReaderService)
         {
             _openFileDialogService = openFileDialogService;
+            _excelReaderService = excelReaderService;
             IsImportingData = false;
             IsDeleteAllCheckBoxChecked = false;
         }
@@ -64,6 +74,70 @@ namespace OPTEL.UI.Desktop.ViewModels
                     if (fileName != null)
                     {
                         SelectedExcelFile = fileName;
+                    }
+                });
+            }
+        }
+        public RelayCommand BeginExcelFileImportCommand
+        {
+            get
+            {
+                return _beginExcelFileImportCommand ??= new RelayCommand(async obj =>
+                {
+                    IsImportingData = true;
+                    if (SelectedExcelFile == null)
+                    {
+                        IsImportingData = false;
+                        MessageBox.Show(
+                            LocalizationManager.Instance.GetValue("Window.ImportExcel.Errors.SelectedExcelFileIsNull"),
+                            LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        return;
+                    }
+                    bool error = false;
+                    StringBuilder errorMessage = new StringBuilder();
+                    Exception currentException = null;
+                    try
+                    {
+                        await Task.Run(() =>
+                        {
+                            foreach (var actionResult in _excelReaderService.ReadFile(SelectedExcelFile))
+                            {
+                                if (actionResult.HasException)
+                                {
+                                    error = true;
+                                    currentException = actionResult.Exception;
+                                    while (currentException != null)
+                                    {
+                                        errorMessage.AppendLine(currentException.Message);
+                                        currentException = currentException.InnerException;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        error = true;
+                        currentException = ex;
+                        while (currentException != null)
+                        {
+                            errorMessage.AppendLine(currentException.Message);
+                            currentException = currentException.InnerException;
+                        }
+                    }
+                    IsImportingData = false;
+                    if (error)
+                    {
+                        Database.instance.RejectAllChanges();
+                        MessageBox.Show(
+                            errorMessage.ToString().Substring(0, 512),
+                            LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        Console.WriteLine(1);
+                        return;
                     }
                 });
             }

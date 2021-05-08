@@ -23,7 +23,20 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Row="0">
             <Label Content="{localization:Localize Key=Window.ImportExcel.FileForImport}"/>
-            <Button Content="{localization:Localize Key=Window.ImportExcel.Select}" HorizontalAlignment="Right" Command="{Binding OpenFileDialogCommand}"/>
+            <Button Content="{localization:Localize Key=Window.ImportExcel.Select}" HorizontalAlignment="Right" Command="{Binding OpenFileDialogCommand}">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsImportingData}" Value="true">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsImportingData}" Value="false">
+                                <Setter Property="Button.IsEnabled" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </DockPanel>
         <TextBox Grid.Row="1" IsReadOnly="True" Text="{Binding SelectedExcelFile}"/>
         <StackPanel Grid.Row="2" Orientation="Vertical">
@@ -53,7 +66,7 @@
             <TextBlock Grid.Row="0" Grid.Column="0" Text="{localization:Localize Key=Window.ImportExcel.ImportingData}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <DockPanel Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding }">
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding BeginExcelFileImportCommand}">
                 <Button.Style>
                     <Style>
                         <Style.Triggers>

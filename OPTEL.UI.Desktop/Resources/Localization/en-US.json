@@ -400,5 +400,8 @@
   },
   "Window.ImportExcel.Import": {
     "Value": "Import"
+  },
+  "Window.ImportExcel.Errors.SelectedExcelFileIsNull": {
+    "Value": "You must choose excel file to import first!"
   }
 }
