@@ -13,6 +13,6 @@
     <Image x:Key="CloneButtonImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/Controls/clone.png"/>
     <BitmapImage x:Key="CloneButtonBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/Controls/clone.png"/>
     <!-- Save icon -->
-    <Image x:Key="SaveButtonImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/save.png"/>
-    <BitmapImage x:Key="SaveButtonBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/Menu/save.png"/>
+    <Image x:Key="SaveButtonImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/save.png"/>
+    <BitmapImage x:Key="SaveButtonBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/save.png"/>
 </ResourceDictionary>
