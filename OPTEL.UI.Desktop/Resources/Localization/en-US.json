@@ -2,25 +2,25 @@
   "Menu.Data": {
     "Value": "Data"
   },
-  "Menu.Data.Extruder.Calibration.Changes": {
+  "Menu.Data.Extruder.Calibrations": {
     "Value": "Production line calibrations changes"
   },
-  "Menu.Data.Extruder.Nozzle.Changes": {
+  "Menu.Data.Extruder.Nozzles": {
     "Value": "Production line nozzles changes"
   },
-  "Menu.Data.Extruder.CoolingLip.Changes": {
+  "Menu.Data.Extruder.CoolingLips": {
     "Value": "Production line cooling lips changes"
   },
-  "Menu.Data.Extruder.Recipe.Changes": {
+  "Menu.Data.Extruder.Recipes": {
     "Value": "Production line film recipes changes"
   },
   "Menu.Data.Extruders": {
     "Value": "Production lines"
   },
-  "Menu.Data.Film.Recipes": {
+  "Menu.Data.FilmRecipes": {
     "Value": "Film recipes"
   },
-  "Menu.Data.Film.Articles": {
+  "Menu.Data.FilmTypes": {
     "Value": "Film articles"
   },
   "Menu.Data.Orders": {
@@ -28,6 +28,21 @@
   },
   "Menu.Data.Customers": {
     "Value": "Customers"
+  },
+  "Menu.Tools": {
+    "Value": "Tools"
+  },
+  "Menu.Tools.GenerateExcelTemplate": {
+    "Value": "Generate excel file template"
+  },
+  "Menu.Tools.ImportDataFromExcelFile": {
+    "Value": "Import data from excel file"
+  },
+  "Menu.Tools.Options": {
+    "Value": "Options"
+  },
+  "Menu.Tools.Options.Languages": {
+    "Value": "Languages"
   },
   "Window.Global.SaveChanges": {
     "Value": "Save changes"
@@ -379,5 +394,29 @@
   },
   "Window.Orders.Errors.WidthIsNegative": {
     "Value": "Width of order #{0} can't be negative number!"
+  },
+  "Window.ImportExcel.Title": {
+    "Value": "Import excel file"
+  },
+  "Window.ImportExcel.FileForImport": {
+    "Value": "Excel file for import:"
+  },
+  "Window.ImportExcel.Select": {
+    "Value": "Select"
+  },
+  "Window.ImportExcel.ImportOptions": {
+    "Value": "Import options:"
+  },
+  "Window.ImportExcel.ImportOptions.ClearDatabaseBeforeImport": {
+    "Value": "Remove all exisiting data before importing:"
+  },
+  "Window.ImportExcel.ImportingData": {
+    "Value": "Importing data..."
+  },
+  "Window.ImportExcel.Import": {
+    "Value": "Import"
+  },
+  "Window.ImportExcel.Errors.SelectedExcelFileIsNull": {
+    "Value": "You must choose excel file to import first!"
   }
 }

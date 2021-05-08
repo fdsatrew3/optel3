@@ -25,4 +25,10 @@
     <ProjectReference Include="..\OPTEL.UI.Desktop\OPTEL.UI.Desktop.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestExample.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
