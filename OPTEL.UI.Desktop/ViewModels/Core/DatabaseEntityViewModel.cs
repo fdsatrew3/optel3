@@ -43,6 +43,12 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private RelayCommand _saveChangesCommand;
         private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
         #endregion
+        public DatabaseEntityViewModel()
+        {
+            IsDataChanged = false;
+            IsSavingChanges = false;
+            IsCloseAllowed = false;
+        }
 
         #region Commands
         public RelayCommand MarkEntityDataAsChangedCommand
@@ -146,17 +152,11 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         }
         #endregion
 
-        public DatabaseEntityViewModel()
-        {
-            IsDataChanged = false;
-            IsSavingChanges = false;
-            IsCloseAllowed = false;
-        }
-
         public virtual string GetCustomErrors()
         {
             return string.Empty;
         }
+
         #region PropertyChangedEventHandler
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)

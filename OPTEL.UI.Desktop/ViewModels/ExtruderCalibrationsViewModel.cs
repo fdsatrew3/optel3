@@ -32,6 +32,12 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
+        public ExtruderCalibrationsViewModel()
+        {
+            ExtruderCalibrations = new ObservableCollection<CalibrationChange>(Database.instance.CalibrationChangeRepository.GetAll());
+            Extruders = Database.instance.ProductionLineRepository.GetAll();
+        }
+
         #region Commands
         public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
@@ -108,11 +114,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return sb.ToString();
-        }
-        public ExtruderCalibrationsViewModel()
-        {
-            ExtruderCalibrations = new ObservableCollection<CalibrationChange>(Database.instance.CalibrationChangeRepository.GetAll());
-            Extruders = Database.instance.ProductionLineRepository.GetAll();
         }
     }
 }

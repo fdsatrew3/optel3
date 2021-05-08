@@ -1,8 +1,10 @@
-﻿using OPTEL.Data;
+﻿using EasyLocalization.Localization;
+using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -28,6 +30,12 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
+
+        public CustomersViewModel()
+        {
+            Customers = new ObservableCollection<Customer>(Database.instance.CustomerRepository.GetAll());
+        }
+
         #region Commands
         public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
@@ -89,10 +97,18 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
-
-        public CustomersViewModel()
+        public override string GetCustomErrors()
         {
-            Customers = new ObservableCollection<Customer>(Database.instance.CustomerRepository.GetAll());
+            string result = string.Empty;
+            StringBuilder sb = new StringBuilder(result);
+            for (int i = 0; i < Customers.Count; i++)
+            {
+                if (Customers[i].Name == null || Customers[i].Name.Length == 0)
+                {
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Customers.Errors.NameIsNull"), i));
+                }
+            }
+            return sb.ToString();
         }
     }
 }

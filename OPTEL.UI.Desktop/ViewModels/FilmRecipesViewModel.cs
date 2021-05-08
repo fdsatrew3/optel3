@@ -33,6 +33,12 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
+        public FilmRecipesViewModel()
+        {
+            FilmRecipes = new ObservableCollection<FilmRecipe>(Database.instance.FilmRecipeRepository.GetAll());
+            FilmTypes = Database.instance.FilmTypeRepository.GetAll();
+        }
+
         #region Commands
         public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
@@ -123,7 +129,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                 {
                     sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.MaterialCostIsNegative"), i));
                 }
-                if (FilmRecipes[i].Name == null)
+                if (FilmRecipes[i].Name == null || FilmRecipes[i].Name.Length == 0)
                 {
                     sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NameIsNull"), i));
                 }
@@ -141,12 +147,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return sb.ToString();
-        }
-
-        public FilmRecipesViewModel()
-        {
-            FilmRecipes = new ObservableCollection<FilmRecipe>(Database.instance.FilmRecipeRepository.GetAll());
-            FilmTypes = Database.instance.FilmTypeRepository.GetAll();
         }
     }
 }

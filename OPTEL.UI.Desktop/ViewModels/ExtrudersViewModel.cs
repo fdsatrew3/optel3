@@ -32,6 +32,11 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
+        public ExtrudersViewModel()
+        {
+            Extruders = new ObservableCollection<ProductionLine>(Database.instance.ProductionLineRepository.GetAll());
+        }
+
         #region Commands
         public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
@@ -116,6 +121,14 @@ namespace OPTEL.UI.Desktop.ViewModels
             StringBuilder sb = new StringBuilder(result);
             for (int i = 0; i < Extruders.Count; i++)
             {
+                if (Extruders[i].Name == null || Extruders[i].Name.Length == 0)
+                {
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.NameIsNull"), i));
+                }
+                if (Extruders[i].Code == null || Extruders[i].Code.Length == 0)
+                {
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.CodeIsNull"), i));
+                }
                 if (Math.Sign(Extruders[i].HourCost) < 0)
                 {
                     sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.HourCostIsNegative"), i));
@@ -182,10 +195,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return sb.ToString();
-        }
-        public ExtrudersViewModel()
-        {
-            Extruders = new ObservableCollection<ProductionLine>(Database.instance.ProductionLineRepository.GetAll());
         }
     }
 }

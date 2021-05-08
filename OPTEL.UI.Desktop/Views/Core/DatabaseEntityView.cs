@@ -14,7 +14,6 @@ namespace OPTEL.UI.Desktop.Views.Core
             Closing += new CancelEventHandler(OnWindowClose);
             MouseRightButtonUp += new MouseButtonEventHandler(OnWindowRightButtonUp);
         }
-
         private void OnWindowClose(object sender, CancelEventArgs e)
         {
             Window w = sender as Window;
@@ -50,7 +49,6 @@ namespace OPTEL.UI.Desktop.Views.Core
                 SetSelectedItem(row.DataContext);
             }
         }
-
         public virtual void SetSelectedItem(object item) {}
     }
 }

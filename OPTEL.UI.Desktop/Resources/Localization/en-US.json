@@ -218,11 +218,20 @@
   "Window.Extruders.Errors.ThicknessChangeTimeIsNegative": {
     "Value": "Time to change thickness of production line #{0} can't be negative number!"
   },
+  "Window.Extruders.Errors.NameIsNull": {
+    "Value": "Name of production line #{0} can't be empty!"
+  },
+  "Window.Extruders.Errors.CodeIsNull": {
+    "Value": "Code of production line #{0} can't be empty!"
+  },
   "Window.FilmTypes.Title": {
     "Value": "Film articles"
   },
   "Window.FilmTypes.Article": {
     "Value": "Article"
+  },
+  "Window.FilmTypes.Errors.ArticleIsNull": {
+    "Value": "Article of film article #{0} can't be empty!"
   },
   "Window.FilmRecipes.Title": {
     "Value": "Film recipes"

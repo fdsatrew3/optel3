@@ -1,8 +1,10 @@
-﻿using OPTEL.Data;
+﻿using EasyLocalization.Localization;
+using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -28,6 +30,12 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
+
+        public FilmTypesViewModel()
+        {
+            FilmTypes = new ObservableCollection<FilmType>(Database.instance.FilmTypeRepository.GetAll());
+        }
+
         #region Commands
         public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
@@ -88,10 +96,18 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
-
-        public FilmTypesViewModel()
+        public override string GetCustomErrors()
         {
-            FilmTypes = new ObservableCollection<FilmType>(Database.instance.FilmTypeRepository.GetAll());
+            string result = string.Empty;
+            StringBuilder sb = new StringBuilder(result);
+            for (int i = 0; i < FilmTypes.Count; i++)
+            {
+                if (FilmTypes[i].Article == null || FilmTypes[i].Article.Length == 0)
+                {
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmTypes.Errors.ArticleIsNull"), i));
+                }
+            }
+            return sb.ToString();
         }
     }
 }

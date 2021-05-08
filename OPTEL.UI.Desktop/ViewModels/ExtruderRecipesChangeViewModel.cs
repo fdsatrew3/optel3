@@ -34,6 +34,13 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
+        public ExtruderRecipesChangeViewModel()
+        {
+            ExtruderRecipes = new ObservableCollection<FilmTypesChange>(Database.instance.FilmRecipeChangeRepository.GetAll());
+            Extruders = Database.instance.ProductionLineRepository.GetAll();
+            FilmTypes = Database.instance.FilmTypeRepository.GetAll();
+        }
+
         #region Commands
         public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
@@ -123,12 +130,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return sb.ToString();
-        }
-        public ExtruderRecipesChangeViewModel()
-        {
-            ExtruderRecipes = new ObservableCollection<FilmTypesChange>(Database.instance.FilmRecipeChangeRepository.GetAll());
-            Extruders = Database.instance.ProductionLineRepository.GetAll();
-            FilmTypes = Database.instance.FilmTypeRepository.GetAll();
         }
     }
 }

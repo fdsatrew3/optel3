@@ -9,6 +9,7 @@ namespace OPTEL.UI.Desktop.ViewModels
 {
     public class MainWindowViewModel
     {
+        #region Fields
         private RelayCommand _openExtruderCalibrationsWindowCommand;
         private RelayCommand _openExtruderNozzlesWindowCommand;
         private RelayCommand _openExtruderCoolingLipsWindowCommand;
@@ -17,6 +18,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _openFilmTypesWindowCommand;
         private RelayCommand _openFilmRecipesWindowCommand;
         private RelayCommand _openCustomersWindowCommand;
+        #endregion
         public MainWindowViewModel()
         {
             var availableCultures = LocalizationManager.Instance.AvailableCultures;
@@ -32,7 +34,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                 (Application.Current.MainWindow as MainWindow).languageMenuItem.Items.Add(languageMenuItem);
             }
         }
-
+        #region Commands
         public RelayCommand OpenExtruderCalibrationsWindowCommand
         {
             get
@@ -123,5 +125,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 });
             }
         }
+        #endregion
     }
 }
