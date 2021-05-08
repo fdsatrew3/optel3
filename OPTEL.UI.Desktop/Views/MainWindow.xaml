@@ -33,7 +33,7 @@
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Generate excel file data template"></MenuItem>
-                <MenuItem Header="Import data from excel file"/>
+                <MenuItem Header="Import data from excel file" Command="{Binding OpenImportExcelWindowCommand}"/>
                 <MenuItem Header="Options">
                     <MenuItem Header="Language" x:Name="languageMenuItem"/>
                 </MenuItem>
