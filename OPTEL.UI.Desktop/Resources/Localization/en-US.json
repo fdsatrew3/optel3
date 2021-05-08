@@ -292,5 +292,56 @@
   },
   "Window.Customers.Errors.NameIsNull": {
     "Value": "Name of customer #{0} can't be empty!"
+  },
+  "Window.Orders.Title": {
+    "Value": "Orders"
+  },
+  "Window.Orders.OrderNumber": {
+    "Value": "Number"
+  },
+  "Window.Orders.Width": {
+    "Value": "Width"
+  },
+  "Window.Orders.QuantityInRunningMeter": {
+    "Value": "Quanity in running meter"
+  },
+  "Window.Orders.FilmRecipe": {
+    "Value": "Film recipe"
+  },
+  "Window.Orders.PlanningEndDate": {
+    "Value": "Planning end date"
+  },
+  "Window.Orders.PriceOverdue": {
+    "Value": "Price overdue"
+  },
+  "Window.Orders.PredefinedTime": {
+    "Value": "Predefined time"
+  },
+  "Window.Orders.ParentCustomer": {
+    "Value": "Customer"
+  },
+  "Window.Orders.Errors.FilmRecipeIsNull": {
+    "Value": "Film recipe of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.OrderNumberIsNull": {
+    "Value": "Number of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.ParentCustomerIsNull": {
+    "Value": "Customer of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.PlanningEndDateIsNull": {
+    "Value": "Planning end date of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.PredefinedTimeIsNegative": {
+    "Value": "Predefined time of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.PriceOverdueIsNegative": {
+    "Value": "Price overdue of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.QuantityInRunningMeterIsNegative": {
+    "Value": "Quanity in running meter of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.WidthIsNegative": {
+    "Value": "Width of order #{0} can't be negative number!"
   }
 }

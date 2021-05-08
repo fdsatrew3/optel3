@@ -69,6 +69,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _addEntityCommand ??= new RelayCommand(obj =>
                 {
                     Order change = new Order();
+                    change.PlanningEndDate = DateTime.Now;
                     Orders.Add(change);
                     Database.instance.OrderRepository.Add(change);
                     SelectedOrder = change;

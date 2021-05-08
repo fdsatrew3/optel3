@@ -11,7 +11,7 @@
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Windows.Orders.Title}" Height="470" Width="800"
+        Title="{localization:Localize Key=Window.Orders.Title}" Height="470" Width="800"
         Icon="{StaticResource ApplicationIconBitmapImage}">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
@@ -64,14 +64,14 @@
                       x:Name="ElementsList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.OrderNumber}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.Width}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.QuantityInRunningMeter}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.FilmRecipe}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.PlanningEndDate}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.PriceOverdue}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.PredefinedTime}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Windows.Orders.ParentCustomer}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
@@ -106,7 +106,7 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            <Label Content="{localization:Localize Key=Windows.Orders.OrderNumber}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.OrderNumber}"/>
             <TextBox Text="{Binding Path=SelectedOrder.OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="TextChanged">
@@ -114,7 +114,7 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </TextBox>
-            <Label Content="{localization:Localize Key=Windows.Orders.Width}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.Width}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedOrder.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
@@ -122,7 +122,7 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DoubleUpDown>
-            <Label Content="{localization:Localize Key=Windows.Orders.QuantityInRunningMeter}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedOrder.QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
@@ -130,7 +130,7 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DoubleUpDown>
-            <Label Content="{localization:Localize Key=Windows.Orders.FilmRecipe}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.FilmRecipe}"/>
             <ComboBox ItemsSource="{Binding FilmRecipes}" SelectedItem="{Binding Path=SelectedOrder.FilmRecipe, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="SelectionChanged">
@@ -138,7 +138,7 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </ComboBox>
-            <Label Content="{localization:Localize Key=Windows.Orders.PlanningEndDate}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.PlanningEndDate}"/>
             <xctk:DateTimePicker Value="{Binding Path=SelectedOrder.PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
@@ -146,7 +146,7 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DateTimePicker>
-            <Label Content="{localization:Localize Key=Windows.Orders.PriceOverdue}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.PriceOverdue}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedOrder.PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
@@ -154,7 +154,7 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DoubleUpDown>
-            <Label Content="{localization:Localize Key=Windows.Orders.PredefinedTime}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.PredefinedTime}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedOrder.PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
@@ -162,7 +162,7 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DoubleUpDown>
-            <Label Content="{localization:Localize Key=Windows.Orders.ParentCustomer}"/>
+            <Label Content="{localization:Localize Key=Window.Orders.ParentCustomer}"/>
             <ComboBox ItemsSource="{Binding Customers}" SelectedItem="{Binding Path=SelectedOrder.ParentCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="SelectionChanged">
