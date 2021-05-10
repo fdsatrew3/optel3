@@ -11,7 +11,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.Planning.Title}" Height="380" Width="612"
+        Title="{localization:Localize Key=Window.Planning.Title}" Height="409" Width="761"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
         WindowStartupLocation="CenterOwner">
     <Grid>
@@ -19,9 +19,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="413*"/>
+            <ColumnDefinition Width="199*"/>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.Column="0" Grid.Row="0" SelectedIndex="0">
+        <TabControl Grid.Column="0" Grid.Row="0" SelectedIndex="{Binding CurrentSelectedTabIndex}" x:Name="tabControl" Grid.ColumnSpan="2">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Style.Triggers>
@@ -50,14 +51,13 @@
                         <ComboBox/>
                     </StackPanel>
                     <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
-                        <!--
-                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}" IsEnabled="false">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
                                 <TextBlock Text="Previous step" VerticalAlignment="Center"/>
                             </StackPanel>
-                        </Button> -->
-                        <Button HorizontalAlignment="Center">
+                        </Button>
+                        <Button HorizontalAlignment="Center" Command="{Binding MoveToNextTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Next step" VerticalAlignment="Center"/>
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
@@ -89,23 +89,29 @@
                       x:Name="OrdersList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="auto" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <xctk:DateTimePicker Value="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="true"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="auto" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
-                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0,0,5,0"/>
                                 <TextBlock Text="Previous step" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button HorizontalAlignment="Center">
+                        <Button HorizontalAlignment="Center"  Command="{Binding MoveToNextTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Next step" VerticalAlignment="Center"/>
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
@@ -125,7 +131,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Step 3 of 4: Select production lines to be used in calculation of optimal production plan" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
-                    <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <DataGrid ItemsSource="{Binding Path=Extruders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
@@ -173,18 +179,18 @@
                                     </MultiBinding>
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="auto" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
-                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
                                 <TextBlock Text="Previous step" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button HorizontalAlignment="Center">
+                        <Button HorizontalAlignment="Center" Command="{Binding MoveToNextTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Next step" VerticalAlignment="Center"/>
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16" Margin="5,0,0,0"/>
@@ -212,13 +218,13 @@
                         <CheckBox Content="Display decision tree" Margin="5,5,0,0"/>
                     </StackPanel>
                     <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
-                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
                                 <TextBlock Text="Previous step" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button HorizontalAlignment="Center">
+                        <Button HorizontalAlignment="Center" Command="{Binding StartPlanningCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource ApplicationIconBitmapImage}" Height="16" Margin="0,0,5,0"/>
                                 <TextBlock Text="Find optimal production plan" VerticalAlignment="Center"/>

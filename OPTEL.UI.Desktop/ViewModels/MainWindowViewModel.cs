@@ -157,7 +157,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 return _openPlanningWindowCommand ??= new RelayCommand(obj =>
                 {
-                    PlanningWindow window = new PlanningWindow();
+                    PlanningConfigWindow window = new PlanningConfigWindow();
                     window.ShowModalDialog();
                 });
             }

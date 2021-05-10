@@ -16,7 +16,7 @@ namespace OPTEL.UI.Desktop.Views
         {
             InitializeComponent();
             var errorsListWindowService = new DefaultErrorListWindowService(this);
-            DataContext = new PlanningConfigViewModel(errorsListWindowService);
+            DataContext = new PlanningConfigViewModel(errorsListWindowService, this.tabControl.Items.Count - 1);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
