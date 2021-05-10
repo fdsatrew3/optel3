@@ -72,6 +72,27 @@ namespace OPTEL.UI.Desktop.ViewModels
                 OnPropertyChanged("PlanningEndDate");
             }
         }
+
+        public PlanningAlgorithm SelectedPlanningAlgorithm
+        {
+            get => _selectedPlanningAlgorithm;
+            set
+            {
+                _selectedPlanningAlgorithm = value;
+                OnPropertyChanged("SelectedPlanningAlgorithm");
+            }
+        }
+        public bool IsBuildDecisionTreeChecked
+        {
+            get => _isBuildDecisionTreeChecked;
+            set
+            {
+                _isBuildDecisionTreeChecked = value;
+                OnPropertyChanged("BuildDecisionTree");
+            }
+        }
+        public ObservableCollection<PlanningAlgorithm> PlanningAlgorithms { get; set; }
+
         public ObservableCollection<PlanningConfigOrder> Orders { get; set; }
         public ObservableCollection<PlanningConfigProductionLine> ProductionLines { get; set; }
         public ObservableCollection<ObjectiveFunction> ObjectiveFunctions { get; set; }
@@ -81,9 +102,13 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private PlanningConfigProductionLine _selectedProductionLine;
 
+        private PlanningAlgorithm _selectedPlanningAlgorithm;
+
         private ObjectiveFunction _selectedObjectiveFunction;
 
         private int _currentSelectedTabIndex, _maxSelectedTabIndex;
+
+        private bool _isBuildDecisionTreeChecked;
 
         private DateTime? _planningStartDate, _planningEndDate;
 
@@ -119,11 +144,27 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             };
             SelectedObjectiveFunction = ObjectiveFunctions[0];
+            PlanningAlgorithms = new ObservableCollection<PlanningAlgorithm>
+            {
+                new PlanningAlgorithm
+                {
+                    Name = "Genetic"
+                },
+                new PlanningAlgorithm
+                {
+                    Name = "Bruteforce"
+                },
+                new PlanningAlgorithm
+                {
+                    Name = "Best"
+                }
+            };
+            SelectedPlanningAlgorithm = PlanningAlgorithms[0];
             Orders = new ObservableCollection<PlanningConfigOrder>();
             IEnumerable<Order> orders = Database.instance.OrderRepository.GetAll();
             foreach (Order order in orders)
             {
-                Orders.Add(planningConfigOrderConverterService.Convert(order));
+                Orders.Add(_planningConfigOrderConverterService.Convert(order));
             }
             ProductionLines = new ObservableCollection<PlanningConfigProductionLine>();
             IEnumerable<ProductionLine> productionLines = Database.instance.ProductionLineRepository.GetAll();
@@ -131,6 +172,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 ProductionLines.Add(_planningConfigProductionLineConverterService.Convert(productionLine));
             }
+            IsBuildDecisionTreeChecked = true;
         }
 
         #region Commands
