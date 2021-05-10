@@ -3,6 +3,7 @@ using OPTEL.Data;
 using OPTEL.Entity.Core;
 
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
+using OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils;
 using Convert = System.Convert;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
@@ -22,14 +23,14 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
         {
             return new FilmRecipe
             {
-                Name = excelDataReader.GetValue((int)ColumnIndexes.Name).ToString(),
-                FilmType = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetValue((int)ColumnIndexes.FilmType).ToString()),
-                Thickness = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.Thickness)),
-                ProductionSpeed = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.ProductionSpeed)),
-                MaterialCost = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.MaterialCost)),
-                Nozzle = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.Nozzle)),
-                Calibration = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.Calibration)),
-                CoolingLip = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.CoolingLip))
+                Name = excelDataReader.GetFormattedValue(ColumnIndexes.Name),
+                FilmType = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetFormattedValue(ColumnIndexes.FilmType)),
+                Thickness = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Thickness)),
+                ProductionSpeed = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ProductionSpeed)),
+                MaterialCost = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.MaterialCost)),
+                Nozzle = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Nozzle)),
+                Calibration = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Calibration)),
+                CoolingLip = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.CoolingLip))
             };
         }
     }

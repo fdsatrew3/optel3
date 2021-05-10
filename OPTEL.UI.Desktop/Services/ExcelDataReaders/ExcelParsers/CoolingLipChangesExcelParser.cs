@@ -3,6 +3,7 @@ using OPTEL.Data;
 using OPTEL.Entity.Core;
 
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
+using OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils;
 using Convert = System.Convert;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
@@ -22,9 +23,9 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
         {
             return new CoolingLipChange
             {
-                ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetValue((int)ColumnIndexes.ParentProductionLine).ToString()),
-                CoolingLipToChange = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.CoolingLipToChange)),
-                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.ReconfigurationTime))
+                ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentProductionLine)),
+                CoolingLipToChange = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.CoolingLipToChange)),
+                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime))
             };
         }
     }

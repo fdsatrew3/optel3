@@ -3,6 +3,7 @@ using OPTEL.Data;
 using OPTEL.Entity.Core;
 
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
+using OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils;
 using Convert = System.Convert;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
@@ -22,13 +23,13 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
         {
             return new Order
             {
-                OrderNumber = excelDataReader.GetValue((int)ColumnIndexes.OrderNumber).ToString(),
-                Width = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.Width).ToString()),
-                QuantityInRunningMeter = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.QuantityInRunningMeter)),
-                FilmRecipe = UnitOfWork.FilmRecipeRepository.GetSingle(x => x.Name == excelDataReader.GetValue((int)ColumnIndexes.FilmRecipe).ToString()),
-                PlanningEndDate = System.DateTime.Parse(excelDataReader.GetValue((int)ColumnIndexes.PlanningEndDate).ToString()),
-                PriceOverdue = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.PriceOverdue)),
-                ParentCustomer = UnitOfWork.CustomerRepository.GetSingle(x => x.Name == excelDataReader.GetValue((int)ColumnIndexes.ParentCustomer).ToString())
+                OrderNumber = excelDataReader.GetFormattedValue(ColumnIndexes.OrderNumber),
+                Width = Convert.ToDouble(excelDataReader.GetFormattedValue(ColumnIndexes.Width)),
+                QuantityInRunningMeter = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.QuantityInRunningMeter)),
+                FilmRecipe = UnitOfWork.FilmRecipeRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue((int)ColumnIndexes.FilmRecipe)),
+                PlanningEndDate = System.DateTime.Parse(excelDataReader.GetValue(ColumnIndexes.PlanningEndDate).ToString()),
+                PriceOverdue = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.PriceOverdue)),
+                ParentCustomer = UnitOfWork.CustomerRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentCustomer))
             };
         }
     }

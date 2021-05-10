@@ -3,6 +3,7 @@ using OPTEL.Data;
 using OPTEL.Entity.Core;
 
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
+using OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils;
 using Convert = System.Convert;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
@@ -22,10 +23,10 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
         {
             return new FilmTypesChange
             {
-                ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetValue((int)ColumnIndexes.ParentProductionLine).ToString()),
-                FilmTypeFrom = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetValue((int)ColumnIndexes.FilmTypeFrom).ToString()),
-                FilmTypeTo = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetValue((int)ColumnIndexes.FilmTypeTo).ToString()),
-                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue((int)ColumnIndexes.ReconfigurationTime))
+                ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentProductionLine)),
+                FilmTypeFrom = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetFormattedValue(ColumnIndexes.FilmTypeFrom)),
+                FilmTypeTo = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetFormattedValue(ColumnIndexes.FilmTypeTo)),
+                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime))
             };
         }
     }
