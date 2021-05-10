@@ -9,6 +9,7 @@
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
         mc:Ignorable="d"
         Title="{localization:Localize Key=Window.Planning.Title}" Height="380" Width="612"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
@@ -20,7 +21,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.Column="0" Grid.Row="0" SelectedIndex="2">
+        <TabControl Grid.Column="0" Grid.Row="0" SelectedIndex="3">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Style.Triggers>
@@ -58,7 +59,7 @@
                         <Button HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Next step" VerticalAlignment="Center"/>
-                                <Image Source="{StaticResource RightBitmapImage}" Height="16"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
                     </DockPanel>
@@ -106,7 +107,7 @@
                         <Button HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Next step" VerticalAlignment="Center"/>
-                                <Image Source="{StaticResource RightBitmapImage}" Height="16"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
                     </DockPanel>
@@ -131,7 +132,7 @@
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
                       Grid.Column="0" Grid.Row="1"
-                      SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedExtruder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="ProductionLinesList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                         <DataGrid.Columns>
@@ -185,7 +186,41 @@
                         <Button HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Next step" VerticalAlignment="Center"/>
-                                <Image Source="{StaticResource RightBitmapImage}" Height="16"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
+                        <TextBlock Text="Step 4 of 4: Select planning algorithm" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Planning algorithm"/>
+                            <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="Planning help"/>
+                        </StackPanel>
+                        <ComboBox/>
+                        <CheckBox Content="Display decision tree" Margin="5,5,0,0"/>
+                    </StackPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource ApplicationIconBitmapImage}" Height="16" Margin="0,0,5,0"/>
+                                <TextBlock Text="Find optimal production plan" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </DockPanel>
