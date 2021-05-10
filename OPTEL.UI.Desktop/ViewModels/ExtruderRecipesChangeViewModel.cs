@@ -1,7 +1,7 @@
-﻿
-using EasyLocalization.Localization;
+﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedExtruderRecipe = value;
                 OnPropertyChanged("SelectedExtruderRecipe");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<FilmTypesChange> ExtruderRecipes { get; set; }
@@ -35,7 +36,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtruderRecipesChangeViewModel()
+        public ExtruderRecipesChangeViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             ExtruderRecipes = new ObservableCollection<FilmTypesChange>(Database.instance.FilmRecipeChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();

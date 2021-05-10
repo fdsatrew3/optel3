@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _selectedExtruderCalibration = value;
                 OnPropertyChanged("SelectedExtruderCalibration");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<CalibrationChange> ExtruderCalibrations { get; set; }
@@ -33,7 +35,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtruderCalibrationsViewModel()
+        public ExtruderCalibrationsViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             ExtruderCalibrations = new ObservableCollection<CalibrationChange>(Database.instance.CalibrationChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();

@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedCustomer = value;
                 OnPropertyChanged("SelectedCustomer");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<Customer> Customers { get; set; }
@@ -31,7 +33,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public CustomersViewModel()
+        public CustomersViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             Customers = new ObservableCollection<Customer>(Database.instance.CustomerRepository.GetAll());
         }

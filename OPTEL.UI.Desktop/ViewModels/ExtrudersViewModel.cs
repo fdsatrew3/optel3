@@ -1,9 +1,9 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -20,6 +20,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedExtruder = value;
                 OnPropertyChanged("SelectedExtruder");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<ProductionLine> Extruders { get; set; }
@@ -32,7 +33,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtrudersViewModel()
+        public ExtrudersViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             Extruders = new ObservableCollection<ProductionLine>(Database.instance.ProductionLineRepository.GetAll());
         }

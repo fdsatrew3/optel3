@@ -2,6 +2,7 @@
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.Base;
 using OPTEL.UI.Desktop.Services.OpenFileDialogs.Base;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using System;
 using System.ComponentModel;
 using System.Text;
@@ -14,6 +15,8 @@ namespace OPTEL.UI.Desktop.ViewModels
     {
         #region Fields
         private bool _isImportingData;
+        private bool _isCloseAllowed;
+
         private bool? _isDeleteAllCheckBoxChecked;
 
         private string _selectedExcelFile;
@@ -21,6 +24,8 @@ namespace OPTEL.UI.Desktop.ViewModels
         private IOpenFileDialogService _openFileDialogService;
 
         private IExcelEntityReader _excelReaderService;
+
+        private IWindowCloseService _windowCloseService;
 
         private RelayCommand _openFileDialogCommand;
         private RelayCommand _beginExcelFileImportCommand;
@@ -54,11 +59,14 @@ namespace OPTEL.UI.Desktop.ViewModels
                 OnPropertyChanged("IsDeleteAllCheckBoxChecked");
             }
         }
+
+        public bool IsCloseAllowed { get => _isCloseAllowed; set => _isCloseAllowed = value; }
         #endregion
-        public ImportExcelViewModel(IOpenFileDialogService openFileDialogService, IExcelEntityReader excelReaderService)
+        public ImportExcelViewModel(IOpenFileDialogService openFileDialogService, IExcelEntityReader excelReaderService, IWindowCloseService windowCloseService)
         {
             _openFileDialogService = openFileDialogService;
             _excelReaderService = excelReaderService;
+            _windowCloseService = windowCloseService;
             IsImportingData = false;
             IsDeleteAllCheckBoxChecked = false;
         }
@@ -84,6 +92,8 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 return _beginExcelFileImportCommand ??= new RelayCommand(async obj =>
                 {
+                    _windowCloseService.SetAllowWindowClosing(false);
+                    _windowCloseService.SetReasonMessage("Sadge");
                     IsImportingData = true;
                     if (SelectedExcelFile == null)
                     {
@@ -101,32 +111,27 @@ namespace OPTEL.UI.Desktop.ViewModels
                     try
                     {
                         await Task.Run(() =>
-                        {
-                            foreach (var actionResult in _excelReaderService.ReadFile(SelectedExcelFile))
                             {
-                                if (actionResult.HasException)
+                                foreach (var actionResult in _excelReaderService.ReadFile(SelectedExcelFile))
                                 {
-                                    error = true;
-                                    currentException = actionResult.Exception;
-                                    while (currentException != null)
+                                    if (actionResult.HasException)
                                     {
-                                        errorMessage.AppendLine(currentException.Message);
-                                        currentException = currentException.InnerException;
+                                        error = true;
+                                        currentException = actionResult.Exception;
+                                        while (currentException != null)
+                                        {
+                                            errorMessage.AppendLine(currentException.Message);
+                                            currentException = currentException.InnerException;
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        error = true;
-                        currentException = ex;
-                        while (currentException != null)
-                        {
-                            errorMessage.AppendLine(currentException.Message);
-                            currentException = currentException.InnerException;
-                        }
+
                     }
+                    _windowCloseService.SetAllowWindowClosing(true);
                     IsImportingData = false;
                     if (error)
                     {

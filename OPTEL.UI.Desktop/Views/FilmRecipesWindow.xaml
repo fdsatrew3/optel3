@@ -12,7 +12,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="{localization:Localize Key=Window.FilmRecipes.Title}" Height="470" Width="800"
-        Icon="{StaticResource ApplicationIconBitmapImage}">
+        Icon="{StaticResource ApplicationIconBitmapImage}"        
+        WindowStartupLocation="CenterOwner">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
             <intr:InvokeCommandAction Command="{Binding SelectFirstDataEntryIfExistsCommand}"/>

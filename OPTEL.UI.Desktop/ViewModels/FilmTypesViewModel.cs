@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedFilmType = value;
                 OnPropertyChanged("SelectedFilmType");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<FilmType> FilmTypes { get; set; }
@@ -31,7 +33,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public FilmTypesViewModel()
+        public FilmTypesViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             FilmTypes = new ObservableCollection<FilmType>(Database.instance.FilmTypeRepository.GetAll());
         }

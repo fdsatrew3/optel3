@@ -62,13 +62,13 @@
   "Window.Global.MessageBox.Warning.Global.Title": {
     "Value": "Warning"
   },
-  "Window.Global.MessageBox.Warning.UnsavedChanges.Content": {
+  "Window.Global.MessageBox.Warning.UnsavedChanges": {
     "Value": "There are unsaved changes. Are you wish to save them before closing this window?"
   },
   "Window.Global.MessageBox.Error.Global.Title": {
     "Value": "Error"
   },
-  "Window.Global.MessageBox.Error.SavingChanges.Content": {
+  "Window.Global.MessageBox.Error.SavingChanges": {
     "Value": "You can't close this window while changes saving into database."
   },
   "Window.ExtruderCalibrations.Title": {
@@ -408,7 +408,7 @@
     "Value": "Import options:"
   },
   "Window.ImportExcel.ImportOptions.ClearDatabaseBeforeImport": {
-    "Value": "Remove all exisiting data before importing:"
+    "Value": "Remove all exisiting data before importing"
   },
   "Window.ImportExcel.ImportingData": {
     "Value": "Importing data..."

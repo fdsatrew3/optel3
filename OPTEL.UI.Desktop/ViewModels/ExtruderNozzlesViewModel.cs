@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _selectedExtruderNozzle = value;
                 OnPropertyChanged("SelectedExtruderNozzle");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<NozzleChange> ExtruderNozzles { get; set; }
@@ -34,7 +36,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public ExtruderNozzlesViewModel()
+        public ExtruderNozzlesViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             ExtruderNozzles = new ObservableCollection<NozzleChange>(Database.instance.NozzleChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();

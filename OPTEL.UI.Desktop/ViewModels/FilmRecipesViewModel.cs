@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedFilmRecipe = value;
                 OnPropertyChanged("SelectedFilmRecipe");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<FilmRecipe> FilmRecipes { get; set; }
@@ -33,7 +35,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public FilmRecipesViewModel()
+        public FilmRecipesViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             FilmRecipes = new ObservableCollection<FilmRecipe>(Database.instance.FilmRecipeRepository.GetAll());
             FilmTypes = Database.instance.FilmTypeRepository.GetAll();
