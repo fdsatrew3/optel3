@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
@@ -115,48 +116,71 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
-        public override string GetCustomErrorString()
+        public override ObservableCollection<Error> GetCustomErrors()
         {
-            string result = string.Empty;
-            StringBuilder sb = new StringBuilder(result);
+            ObservableCollection<Error> errors = new ObservableCollection<Error>();
             int entryIndex = 0;
             for (int i = 0; i < Orders.Count; i++)
             {
                 entryIndex = i + 1;
                 if (Orders[i].FilmRecipe == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.FilmRecipeIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.FilmRecipeIsNull"), entryIndex)
+                    });
                 }
                 if (Orders[i].OrderNumber == null || Orders[i].OrderNumber.Length == 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.OrderNumberIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.OrderNumberIsNull"), entryIndex)
+                    });
                 }
                 if (Orders[i].ParentCustomer == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.ParentCustomerIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.ParentCustomerIsNull"), entryIndex)
+                    });
                 }
                 if (Orders[i].PlanningEndDate == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PlanningEndDateIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PlanningEndDateIsNull"), entryIndex)
+                    });
                 }
                 if (Math.Sign(Orders[i].PredefinedTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PredefinedTimeIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PredefinedTimeIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(Orders[i].PriceOverdue) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PriceOverdueIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PriceOverdueIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(Orders[i].QuantityInRunningMeter) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.QuantityInRunningMeterIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.QuantityInRunningMeterIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(Orders[i].Width) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.WidthIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.WidthIsNegative"), entryIndex)
+                    });
                 }
             }
-            return sb.ToString();
+            return errors;
         }
     }
 }

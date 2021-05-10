@@ -418,5 +418,8 @@
   },
   "Window.ImportExcel.Errors.SelectedExcelFileIsNull": {
     "Value": "You must choose excel file to import first!"
+  },
+  "Window.ErrorsList.Summary": {
+    "Value": "There are {0} error(s) shown below that need to be adressed before continuing current operation."
   }
 }

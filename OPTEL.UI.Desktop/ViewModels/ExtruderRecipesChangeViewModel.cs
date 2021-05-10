@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
@@ -109,36 +110,50 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
         #endregion
 
-        public override string GetCustomErrorString()
+        public override ObservableCollection<Error> GetCustomErrors()
         {
-            string result = string.Empty;
-            StringBuilder sb = new StringBuilder(result);
+            ObservableCollection<Error> errors = new ObservableCollection<Error>();
             int entryIndex = 0;
             for (int i = 0; i < ExtruderRecipes.Count; i++)
             {
                 entryIndex = i + 1;
                 if (ExtruderRecipes[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.TargetExtruderIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.TargetExtruderIsNull"), entryIndex)
+                    });
                 }
                 if (ExtruderRecipes[i].FilmTypeTo == ExtruderRecipes[i].FilmTypeFrom)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToEqualToFilmTypeFrom"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToEqualToFilmTypeFrom"), entryIndex)
+                    });
                 }
                 if (ExtruderRecipes[i].FilmTypeTo == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToIsNull"), entryIndex)
+                    });
                 }
                 if (ExtruderRecipes[i].FilmTypeFrom == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull"), entryIndex)
+                    });
                 }
                 if (Math.Sign(ExtruderRecipes[i].ReconfigurationTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.ReconfigurationTimeIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.ReconfigurationTimeIsNegative"), entryIndex)
+                    });
                 }
             }
-            return sb.ToString();
+            return errors;
         }
     }
 }

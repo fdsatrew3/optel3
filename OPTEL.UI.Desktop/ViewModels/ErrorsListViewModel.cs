@@ -1,4 +1,5 @@
-﻿using OPTEL.UI.Desktop.Helpers;
+﻿using EasyLocalization.Localization;
+using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,10 +20,21 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
 
+        public string Summary
+        {
+            get => _summary;
+            set
+            {
+                _summary = value;
+                OnPropertyChanged("Summary");
+            }
+        }
         public ObservableCollection<Error> Errors { get; set; }
         #endregion
         #region Fields
         private Error _SelectedError;
+
+        private string _summary;
 
         private RelayCommand _selectFirstDataEntryIfExistsCommand;
         #endregion
@@ -30,6 +42,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         public ErrorsListViewModel(ObservableCollection<Error> errorsList)
         {
             Errors = errorsList;
+            Summary = string.Format(LocalizationManager.Instance.GetValue("Window.ErrorsList.Summary"), Errors.Count);
         }
 
         #region Commands

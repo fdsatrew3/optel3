@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
@@ -110,48 +111,71 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
-        public override string GetCustomErrorString()
+        public override ObservableCollection<Error> GetCustomErrors()
         {
-            string result = string.Empty;
-            StringBuilder sb = new StringBuilder(result);
+            ObservableCollection<Error> errors = new ObservableCollection<Error>();
             int entryIndex = 0;
             for (int i = 0; i < FilmRecipes.Count; i++)
             {
                 entryIndex = i + 1;
                 if (Math.Sign(FilmRecipes[i].Calibration) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CalibrationIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CalibrationIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(FilmRecipes[i].CoolingLip) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CoolingLipIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CoolingLipIsNegative"), entryIndex)
+                    });
                 }
                 if (FilmRecipes[i].FilmType == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.FilmTypeIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.FilmTypeIsNull"), entryIndex)
+                    });
                 }
                 if (Math.Sign(FilmRecipes[i].MaterialCost) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.MaterialCostIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.MaterialCostIsNegative"), entryIndex)
+                    });
                 }
                 if (FilmRecipes[i].Name == null || FilmRecipes[i].Name.Length == 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NameIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NameIsNull"), entryIndex)
+                    });
                 }
                 if (Math.Sign(FilmRecipes[i].Nozzle) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NozzleIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NozzleIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(FilmRecipes[i].ProductionSpeed) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ProductionSpeedIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ProductionSpeedIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(FilmRecipes[i].Thickness) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ThicknessIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ThicknessIsNegative"), entryIndex)
+                    });
                 }
             }
-            return sb.ToString();
+            return errors;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
@@ -42,7 +43,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             ExtruderCoolingLips = new ObservableCollection<CoolingLipChange>(Database.instance.CoolingLipChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();
         }
-        
+
         #region Commands
         public RelayCommand SelectFirstDataEntryIfExistsCommand
         {
@@ -107,28 +108,36 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
         #endregion
 
-        public override string GetCustomErrorString()
+        public override ObservableCollection<Error> GetCustomErrors()
         {
-            string result = string.Empty;
-            StringBuilder sb = new StringBuilder(result);
+            ObservableCollection<Error> errors = new ObservableCollection<Error>();
             var entryIndex = 0;
             for (int i = 0; i < ExtruderCoolingLips.Count; i++)
             {
                 entryIndex = i + 1;
                 if (ExtruderCoolingLips[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.TargetExtruderIsNull"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.TargetExtruderIsNull"), entryIndex)
+                    });
                 }
                 if (Math.Sign(ExtruderCoolingLips[i].ReconfigurationTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.ReconfigurationTimeIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.ReconfigurationTimeIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(ExtruderCoolingLips[i].CoolingLipToChange) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.CoolingLipToChangeIsNegative"), entryIndex));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.CoolingLipToChangeIsNegative"), entryIndex)
+                    });
                 }
             }
-            return sb.ToString();
+            return errors;
         }
     }
 }

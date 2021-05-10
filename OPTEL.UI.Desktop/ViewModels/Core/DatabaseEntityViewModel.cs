@@ -1,8 +1,10 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 
@@ -29,6 +31,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 OnPropertyChanged("IsSavingChanges");
             }
         }
+        public IErrorsListWindowService ErrorsListService { get => _errorsListService; set => _errorsListService = value; }
         #endregion
 
         #region Fields
@@ -70,46 +73,39 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 return _saveChangesCommand ??= new RelayCommand(async obj =>
                 {
                     bool error = false;
-                    string customError = GetCustomErrorString();
-                    if (customError.Length > 0)
+                    ObservableCollection<Error> customErrors = GetCustomErrors();
+                    if (customErrors.Count > 0)
                     {
                         error = true;
                     }
                     if (error == true)
                     {
-                        MessageBox.Show(customError,
-                            LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        ErrorsListService.SetErrorsForDisplay(customErrors);
+                        ErrorsListService.ShowErrorsListWindow();
+                        return;
                     }
-                    else
+                    IsSavingChanges = true;
+                    try
                     {
-                        IsSavingChanges = true;
-                        try
-                        {
-                            await Database.instance.SaveAsync();
-                        }
-                        catch (Exception ex)
-                        {
-                            Exception currentException = ex;
-                            string errorMessage = ex.Message;
-                            while (currentException.InnerException != null)
-                            {
-                                errorMessage += "\n" + currentException.InnerException.Message;
-                                currentException = currentException.InnerException;
-                            }
-                            MessageBox.Show(errorMessage,
-                                LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-                            error = true;
-                        }
-                        if (!error)
-                        {
-                            IsDataChanged = false;
-                        }
-                        IsSavingChanges = false;
+                        await Database.instance.SaveAsync();
                     }
+                    catch (Exception ex)
+                    {
+                        Exception currentException = ex;
+                        customErrors.Add(new Error { Content = ex.Message });
+                        while (currentException.InnerException != null)
+                        {
+                            customErrors.Add(new Error { Content = currentException.InnerException.Message });
+                            currentException = currentException.InnerException;
+                        }
+                        ErrorsListService.ShowErrorsListWindow();
+                        error = true;
+                    }
+                    if (!error)
+                    {
+                        IsDataChanged = false;
+                    }
+                    IsSavingChanges = false;
                 });
             }
         }
@@ -153,9 +149,9 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         }
         #endregion
 
-        public virtual string GetCustomErrorString()
+        public virtual ObservableCollection<Error> GetCustomErrors()
         {
-            return string.Empty;
+            return new ObservableCollection<Error>();
         }
 
         #region PropertyChangedEventHandler

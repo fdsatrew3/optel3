@@ -10,7 +10,7 @@
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.Orders.Title}" Height="470" Width="800"
+        Title="{localization:Localize Key=Window.Global.MessageBox.Error.Global.Title}" Height="470" Width="800"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
         WindowStartupLocation="CenterOwner">
     <intr:Interaction.Triggers>
@@ -26,7 +26,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock TextWrapping="Wrap" Text="There are 21344 error(s) shown below that need to be adressed before continue current operation."  Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+        <TextBlock Text="{Binding Path=Summary, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
         <DataGrid ItemsSource="{Binding Path=Errors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
