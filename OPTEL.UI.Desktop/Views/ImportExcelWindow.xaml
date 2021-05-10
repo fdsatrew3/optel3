@@ -8,12 +8,12 @@
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.ImportExcel.Title}" Height="180" Width="397"
+        Title="{localization:Localize Key=Window.ImportExcel.Title}" Height="127" Width="397"
         ResizeMode="NoResize"
-        Icon="{StaticResource ApplicationIconBitmapImage}">
+        Icon="{StaticResource ApplicationIconBitmapImage}"
+        WindowStartupLocation="CenterOwner">
     <Grid Margin="5,10,5,10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -39,11 +39,7 @@
             </Button>
         </DockPanel>
         <TextBox Grid.Row="1" IsReadOnly="True" Text="{Binding SelectedExcelFile}"/>
-        <StackPanel Grid.Row="2" Orientation="Vertical">
-            <Label Content="{localization:Localize Key=Window.ImportExcel.ImportOptions}"/>
-            <CheckBox Content="{localization:Localize Key=Window.ImportExcel.ImportOptions.ClearDatabaseBeforeImport}" IsChecked="{Binding IsDeleteAllCheckBoxChecked}"/>
-        </StackPanel>
-        <Grid Grid.Row="3" VerticalAlignment="Bottom">
+        <Grid Grid.Row="2" VerticalAlignment="Bottom">
             <Grid.Style>
                 <Style>
                     <Style.Triggers>
@@ -65,7 +61,7 @@
             <ProgressBar Grid.Row="0" Grid.Column="0" Height="25"  Minimum="0" Maximum="100" IsIndeterminate="True" Name="pbStatus"/>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="{localization:Localize Key=Window.ImportExcel.ImportingData}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <DockPanel Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+        <DockPanel Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding BeginExcelFileImportCommand}">
                 <Button.Style>
                     <Style>
