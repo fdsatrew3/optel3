@@ -32,7 +32,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtrudersViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
+        public ExtrudersViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             Extruders = new ObservableCollection<ProductionLine>(Database.instance.ProductionLineRepository.GetAll());
         }

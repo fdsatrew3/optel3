@@ -32,7 +32,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public CustomersViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
+        public CustomersViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             Customers = new ObservableCollection<Customer>(Database.instance.CustomerRepository.GetAll());
         }

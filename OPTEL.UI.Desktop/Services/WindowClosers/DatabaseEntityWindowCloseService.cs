@@ -1,18 +1,22 @@
 ﻿using EasyLocalization.Localization;
+using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using System.ComponentModel;
 using System.Windows;
 
 namespace OPTEL.UI.Desktop.Services.WindowClosers
 {
-    public class DialogWindowCloseService : IWindowCloseService
+    public class DatabaseEntityWindowCloseService : IDatabaseEntityWindowCloseService
     {
         private Window _parent;
 
         private string _message;
 
         private bool _isCloseAllowed;
-        public DialogWindowCloseService(Window parent)
+
+        private RelayCommand _checkForUnsavedChangesCommand;
+
+        public DatabaseEntityWindowCloseService(Window parent)
         {
             _parent = parent;
             _isCloseAllowed = true;
@@ -22,24 +26,25 @@ namespace OPTEL.UI.Desktop.Services.WindowClosers
 
         private void OnWindowClose(object sender, CancelEventArgs e)
         {
-            Window w = sender as Window;
-            if (w != null)
+            if (_checkForUnsavedChangesCommand != null)
             {
-                if (!IsCloseAllowed())
+                _checkForUnsavedChangesCommand.Execute(null);
+            }
+            if (!IsCloseAllowed())
+            {
+                e.Cancel = true;
+                if (_message.Length > 0)
                 {
-                    e.Cancel = true;
-                    if (_message.Length > 0)
-                    {
-                        MessageBox.Show(_parent,
-                        LocalizationManager.Instance.GetValue(_message),
-                        LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error);
-                    }
-                } else
-                {
-                    e.Cancel = false;
+                    MessageBox.Show(_parent,
+                    LocalizationManager.Instance.GetValue(_message),
+                    LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 }
+            }
+            else
+            {
+                e.Cancel = false;
             }
         }
 
@@ -68,6 +73,11 @@ namespace OPTEL.UI.Desktop.Services.WindowClosers
         public void SetReasonMessage(string msg)
         {
             _message = msg;
+        }
+
+        public void SetCheckForUnsavedChangesCommand(RelayCommand command)
+        {
+            _checkForUnsavedChangesCommand = command;
         }
     }
 }

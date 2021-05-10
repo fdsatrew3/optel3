@@ -12,7 +12,7 @@ namespace OPTEL.UI.Desktop.Views
         public ExtruderRecipesChangeWindow()
         {
             InitializeComponent();
-            var windowCloseService = new DialogWindowCloseService(this);
+            var windowCloseService = new DatabaseEntityWindowCloseService(this);
             this.DataContext = new ExtruderRecipesChangeViewModel(windowCloseService);
         }
 

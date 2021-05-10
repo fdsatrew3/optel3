@@ -35,7 +35,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtruderRecipesChangeViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
+        public ExtruderRecipesChangeViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             ExtruderRecipes = new ObservableCollection<FilmTypesChange>(Database.instance.FilmRecipeChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();

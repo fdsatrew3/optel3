@@ -35,7 +35,7 @@ namespace OPTEL.UI.Desktop.Views
                  coolingLipChangesExcelParser);
 
             var excelOpenFileDialogService = new ExcelOpenFileDialogService(this);
-            var windowCloseService = new DialogWindowCloseService(this);
+            var windowCloseService = new DatabaseEntityWindowCloseService(this);
             DataContext = new ImportExcelViewModel(excelOpenFileDialogService, excelDataReaderService, windowCloseService);
             InitializeComponent();
         }

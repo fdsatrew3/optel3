@@ -32,7 +32,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public FilmTypesViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
+        public FilmTypesViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             FilmTypes = new ObservableCollection<FilmType>(Database.instance.FilmTypeRepository.GetAll());
         }

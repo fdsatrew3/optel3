@@ -1,4 +1,6 @@
-﻿namespace OPTEL.UI.Desktop.Services.WindowClosers.Base
+﻿using OPTEL.UI.Desktop.Helpers;
+
+namespace OPTEL.UI.Desktop.Services.WindowClosers.Base
 {
     public interface IWindowCloseService
     {

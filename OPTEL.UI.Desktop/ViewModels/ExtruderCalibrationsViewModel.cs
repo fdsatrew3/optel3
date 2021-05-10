@@ -34,7 +34,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtruderCalibrationsViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
+        public ExtruderCalibrationsViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             ExtruderCalibrations = new ObservableCollection<CalibrationChange>(Database.instance.CalibrationChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();

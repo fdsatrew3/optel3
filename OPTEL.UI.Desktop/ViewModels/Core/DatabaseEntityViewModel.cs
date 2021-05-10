@@ -38,13 +38,14 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private RelayCommand _saveChangesCommand;
         private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
 
-        private IWindowCloseService _windowCloseService;
+        private IDatabaseEntityWindowCloseService _windowCloseService;
         #endregion
-        public DatabaseEntityViewModel(IWindowCloseService windowCloseService)
+        public DatabaseEntityViewModel(IDatabaseEntityWindowCloseService windowCloseService)
         {
             IsDataChanged = false;
             IsSavingChanges = false;
             _windowCloseService = windowCloseService;
+            _windowCloseService.SetCheckForUnsavedChangesCommand(CheckForUnsavedChangesOnWindowClosingCommand);
         }
 
         #region Commands
@@ -64,7 +65,6 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             {
                 return _saveChangesCommand ??= new RelayCommand(async obj =>
                 {
-                    _windowCloseService.SetAllowWindowClosing(false);
                     bool error = false;
                     string customError = GetCustomErrorString();
                     if (customError.Length > 0)
@@ -105,7 +105,6 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                             IsDataChanged = false;
                         }
                         IsSavingChanges = false;
-                        _windowCloseService.SetAllowWindowClosing(true);
                     }
                 });
             }
@@ -143,8 +142,8 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                         {
                             return;
                         }
-                        _windowCloseService.SetAllowWindowClosing(true);
                     }
+                    _windowCloseService.SetAllowWindowClosing(true);
                 });
             }
         }

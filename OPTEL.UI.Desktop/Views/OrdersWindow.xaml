@@ -18,9 +18,6 @@
         <intr:EventTrigger EventName="Loaded">
             <intr:InvokeCommandAction Command="{Binding SelectFirstDataEntryIfExistsCommand}"/>
         </intr:EventTrigger>
-        <intr:EventTrigger EventName="Closing">
-            <intr:InvokeCommandAction Command="{Binding CheckForUnsavedChangesOnWindowClosingCommand}"/>
-        </intr:EventTrigger>
     </intr:Interaction.Triggers>
     <Grid>
         <Grid.Style>

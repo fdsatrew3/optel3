@@ -35,7 +35,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public ExtruderNozzlesViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
+        public ExtruderNozzlesViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
         {
             ExtruderNozzles = new ObservableCollection<NozzleChange>(Database.instance.NozzleChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();
