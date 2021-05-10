@@ -1,5 +1,6 @@
 ﻿using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using System;
 using System.Collections.ObjectModel;
@@ -12,13 +13,24 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Properties
         public Order SelectedOrder
         {
-            get => _SelectedOrder;
+            get => _selectedOrder;
             set
             {
-                _SelectedOrder = value;
+                _selectedOrder = value;
                 OnPropertyChanged("SelectedOrder");
             }
         }
+
+        public ObjectiveFunction SelectedObjectiveFunction
+        {
+            get => _selectedObjectiveFunction;
+            set
+            {
+                _selectedObjectiveFunction = value;
+                OnPropertyChanged("SelectedObjectiveFunction");
+            }
+        }
+
         public int CurrentSelectedTabIndex
         {
             get => _currentSelectedTabIndex;
@@ -28,13 +40,37 @@ namespace OPTEL.UI.Desktop.ViewModels
                 OnPropertyChanged("CurrentSelectedTabIndex");
             }
         }
+
+        public DateTime? PlanningStartDate
+        {
+            get => _planningStartDate;
+            set
+            {
+                _planningStartDate = value;
+                OnPropertyChanged("PlanningStartDate");
+            }
+        }
+
+        public DateTime? PlanningEndDate
+        {
+            get => _planningEndDate;
+            set
+            {
+                _planningEndDate = value;
+                OnPropertyChanged("PlanningEndDate");
+            }
+        }
         public ObservableCollection<Order> Orders { get; set; }
+        public ObservableCollection<ObjectiveFunction> ObjectiveFunctions { get; set; }
         #endregion
         #region Fields
-        private Order _SelectedOrder;
+        private Order _selectedOrder;
 
-        private int _currentSelectedTabIndex;
-        private int _maxSelectedTabIndex;
+        private ObjectiveFunction _selectedObjectiveFunction;
+
+        private int _currentSelectedTabIndex, _maxSelectedTabIndex;
+
+        private DateTime? _planningStartDate, _planningEndDate;
 
         private IErrorsListWindowService _errorsListWindowService;
 
@@ -49,6 +85,20 @@ namespace OPTEL.UI.Desktop.ViewModels
             _errorsListWindowService = errorsListWindowService;
             _currentSelectedTabIndex = 0;
             _maxSelectedTabIndex = maxSelectedTabIndex;
+            PlanningStartDate = DateTime.Now;
+            PlanningEndDate = PlanningStartDate;
+            ObjectiveFunctions = new ObservableCollection<ObjectiveFunction>
+            {
+                new ObjectiveFunction
+                {
+                    Name = "Time",
+                },
+                new ObjectiveFunction
+                {
+                    Name = "Cost"
+                }
+            };
+            SelectedObjectiveFunction = ObjectiveFunctions[0];
         }
 
         #region Commands
