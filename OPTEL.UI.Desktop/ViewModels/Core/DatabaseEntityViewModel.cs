@@ -1,12 +1,9 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
-
 
 namespace OPTEL.UI.Desktop.ViewModels.Core
 {
@@ -31,23 +28,23 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 OnPropertyChanged("IsSavingChanges");
             }
         }
-        public bool IsCloseAllowed { get => _isCloseAllowed; set => _isCloseAllowed = value; }
         #endregion
 
         #region Fields
         private bool _isDataChanged;
         private bool _isSavingChanges;
-        private bool _isCloseAllowed;
 
         private RelayCommand _markEntityDataAsChangedCommand;
         private RelayCommand _saveChangesCommand;
         private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
+
+        private IWindowCloseService _windowCloseService;
         #endregion
-        public DatabaseEntityViewModel()
+        public DatabaseEntityViewModel(IWindowCloseService windowCloseService)
         {
             IsDataChanged = false;
             IsSavingChanges = false;
-            IsCloseAllowed = false;
+            _windowCloseService = windowCloseService;
         }
 
         #region Commands
@@ -67,6 +64,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             {
                 return _saveChangesCommand ??= new RelayCommand(async obj =>
                 {
+                    _windowCloseService.SetAllowWindowClosing(false);
                     bool error = false;
                     string customError = GetCustomErrorString();
                     if (customError.Length > 0)
@@ -107,6 +105,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                             IsDataChanged = false;
                         }
                         IsSavingChanges = false;
+                        _windowCloseService.SetAllowWindowClosing(true);
                     }
                 });
             }
@@ -117,18 +116,16 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             {
                 return _checkForUnsavedChangesOnWindowClosingCommand ??= new RelayCommand(obj =>
                 {
+                    _windowCloseService.SetAllowWindowClosing(false);
                     if (IsSavingChanges == true)
                     {
-                        MessageBox.Show(LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.SavingChanges.Content"),
-                            LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        _windowCloseService.SetReasonMessage("Window.Global.MessageBox.Error.SavingChanges");
                         return;
                     }
                     if (IsDataChanged == true)
                     {
                         MessageBoxResult result = MessageBox.Show(
-                            LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Warning.UnsavedChanges.Content"),
+                            LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Warning.UnsavedChanges"),
                             LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Warning.Global.Title"),
                             MessageBoxButton.YesNoCancel,
                             MessageBoxImage.Warning);
@@ -139,14 +136,15 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                         }
                         if (result == MessageBoxResult.No)
                         {
+                            IsDataChanged = false;
                             Database.instance.RejectAllChanges();
                         }
                         if (result == MessageBoxResult.Cancel)
                         {
                             return;
                         }
+                        _windowCloseService.SetAllowWindowClosing(true);
                     }
-                    IsCloseAllowed = true;
                 });
             }
         }

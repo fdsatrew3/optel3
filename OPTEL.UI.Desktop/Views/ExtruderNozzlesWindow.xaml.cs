@@ -1,4 +1,5 @@
-﻿using OPTEL.UI.Desktop.ViewModels;
+﻿using OPTEL.UI.Desktop.Services.WindowClosers;
+using OPTEL.UI.Desktop.ViewModels;
 using OPTEL.UI.Desktop.Views.Core;
 
 namespace OPTEL.UI.Desktop.Views
@@ -11,7 +12,8 @@ namespace OPTEL.UI.Desktop.Views
         public ExtruderNozzlesWindow()
         {
             InitializeComponent();
-            this.DataContext = new ExtruderNozzlesViewModel();
+            var windowCloseService = new DialogWindowCloseService(this);
+            this.DataContext = new ExtruderNozzlesViewModel(windowCloseService);
         }
 
         public override void SetSelectedItem(object item)

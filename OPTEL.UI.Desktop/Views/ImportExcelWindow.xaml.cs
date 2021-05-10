@@ -1,6 +1,7 @@
 ﻿using OPTEL.UI.Desktop.Services.ExcelDataReaders;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers;
 using OPTEL.UI.Desktop.Services.OpenFileDialogs;
+using OPTEL.UI.Desktop.Services.WindowClosers;
 using OPTEL.UI.Desktop.ViewModels;
 using System.Windows;
 
@@ -34,7 +35,8 @@ namespace OPTEL.UI.Desktop.Views
                  coolingLipChangesExcelParser);
 
             var excelOpenFileDialogService = new ExcelOpenFileDialogService(this);
-            DataContext = new ImportExcelViewModel(excelOpenFileDialogService, excelDataReaderService);
+            var windowCloseService = new DialogWindowCloseService(this);
+            DataContext = new ImportExcelViewModel(excelOpenFileDialogService, excelDataReaderService, windowCloseService);
             InitializeComponent();
         }
     }

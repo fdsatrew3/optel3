@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public ExtruderCoolingLipsViewModel()
+        public ExtruderCoolingLipsViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
         {
             ExtruderCoolingLips = new ObservableCollection<CoolingLipChange>(Database.instance.CoolingLipChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();

@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public OrdersViewModel()
+        public OrdersViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
         {
             Orders = new ObservableCollection<Order>(Database.instance.OrderRepository.GetAll());
             FilmRecipes = Database.instance.FilmRecipeRepository.GetAll();

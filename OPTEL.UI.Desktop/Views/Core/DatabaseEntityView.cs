@@ -1,6 +1,4 @@
-﻿using OPTEL.UI.Desktop.ViewModels.Core;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -11,19 +9,9 @@ namespace OPTEL.UI.Desktop.Views.Core
     {
         public DatabaseEntityView()
         {
-            Closing += new CancelEventHandler(OnWindowClose);
             MouseRightButtonUp += new MouseButtonEventHandler(OnWindowRightButtonUp);
         }
-        private void OnWindowClose(object sender, CancelEventArgs e)
-        {
-            Window w = sender as Window;
-            if (w != null)
-            {
-                DatabaseEntityViewModel vm = (w.DataContext as DatabaseEntityViewModel);
-                vm.CheckForUnsavedChangesOnWindowClosingCommand.Execute(null);
-                e.Cancel = !vm.IsCloseAllowed;
-            }
-        }
+
         private void OnWindowRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
@@ -49,6 +37,6 @@ namespace OPTEL.UI.Desktop.Views.Core
                 SetSelectedItem(row.DataContext);
             }
         }
-        public virtual void SetSelectedItem(object item) {}
+        public virtual void SetSelectedItem(object item) { }
     }
 }

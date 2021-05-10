@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _cloneEntityCommand;
         #endregion
 
-        public FilmTypesViewModel()
+        public FilmTypesViewModel(IWindowCloseService windowCloseService) : base(windowCloseService)
         {
             FilmTypes = new ObservableCollection<FilmType>(Database.instance.FilmTypeRepository.GetAll());
         }
