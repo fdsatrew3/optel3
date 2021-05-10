@@ -6,8 +6,9 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Dictionaries/ImageResourceDictionary.xaml"/>
-                <ResourceDictionary Source="Resources/Dictionaries/DataTemplateResourceDicitionary.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/ConvertersResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/ImagesResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/DataTemplatesResourceDicitionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

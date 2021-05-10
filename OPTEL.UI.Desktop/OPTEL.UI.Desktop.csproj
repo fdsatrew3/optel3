@@ -59,10 +59,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Resources\Dictionaries\DataTemplateResourceDicitionary.xaml">
+    <Page Update="Resources\Dictionaries\DataTemplatesResourceDicitionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Resources\Dictionaries\ConvertersResourceDictionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Views\ImportExcelWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ErrorsListWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

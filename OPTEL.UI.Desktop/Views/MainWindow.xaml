@@ -32,7 +32,7 @@
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Customers}" Command="{Binding OpenCustomersWindowCommand}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{localization:Localize Key=Menu.Tools}">
-                <MenuItem Header="{localization:Localize Key=Menu.Tools.GenerateExcelTemplate}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Tools.GenerateExcelTemplate}" Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Tools.ImportDataFromExcelFile}" Command="{Binding OpenImportExcelWindowCommand}"/>
                 <MenuItem Header="{localization:Localize Key=Menu.Tools.Options}">
                     <MenuItem Header="{localization:Localize Key=Menu.Tools.Options.Languages}" x:Name="languageMenuItem"/>
