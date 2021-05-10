@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -127,6 +128,7 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private ObjectiveFunction _selectedObjectiveFunction;
 
+        private DataGrid _ordersDataGrid, _productionLinesDataGrid;
         private int _currentSelectedTabIndex, _maxSelectedTabIndex;
 
         private bool _isBuildDecisionTreeChecked;
@@ -145,14 +147,18 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _moveToNextTabCommand;
         private RelayCommand _moveToPreviousTabCommand;
         private RelayCommand _startPlanningCommand;
+        private RelayCommand _selectAllOrdersCommand;
+        private RelayCommand _selectAllProductionLinesCommand;
         #endregion
 
-        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, int maxSelectedTabIndex)
+        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, int maxSelectedTabIndex, DataGrid ordersDataGrid, DataGrid productionLinesDataGrid)
         {
             _errorsListWindowService = errorsListWindowService;
             _planningConfigOrderConverterService = planningConfigOrderConverterService;
             _planningConfigProductionLineConverterService = planningConfigProductionLineConverterService;
             _ganttChartManagerService = ganttChartManagerService;
+            _ordersDataGrid = ordersDataGrid;
+            _productionLinesDataGrid = productionLinesDataGrid;
             _currentSelectedTabIndex = 0;
             _maxSelectedTabIndex = maxSelectedTabIndex;
             PlanningStartDate = DateTime.Now;
@@ -219,6 +225,34 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _moveToPreviousTabCommand ??= new RelayCommand(obj =>
                 {
                     CurrentSelectedTabIndex = Math.Max(CurrentSelectedTabIndex - 1, 0);
+                });
+            }
+        }
+        public RelayCommand SelectAllOrdersCommand
+        {
+            get
+            {
+                return _selectAllOrdersCommand ??= new RelayCommand(obj =>
+                {
+                    foreach (PlanningConfigOrder order in Orders)
+                    {
+                        order.IsSelected = true;
+                    }
+                    _ordersDataGrid.Items.Refresh();
+                });
+            }
+        }
+        public RelayCommand SelectAllProductionLinesCommand
+        {
+            get
+            {
+                return _selectAllProductionLinesCommand ??= new RelayCommand(obj =>
+                {
+                    foreach (PlanningConfigProductionLine productionLine in ProductionLines)
+                    {
+                        productionLine.IsSelected = true;
+                    }
+                    _productionLinesDataGrid.Items.Refresh();
                 });
             }
         }

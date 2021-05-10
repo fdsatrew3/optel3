@@ -11,7 +11,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.Planning.Title}" Height="409" Width="761"
+        Title="{localization:Localize Key=Window.Planning.Title}" Height="420" Width="761"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
         WindowStartupLocation="CenterOwner">
     <Grid>
@@ -119,6 +119,11 @@
                             </StackPanel>
                         </Button>
                     </DockPanel>
+                    <Button Grid.Column="0" Grid.Row="2" Command="{Binding SelectAllOrdersCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Select all orders" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -199,6 +204,11 @@
                             </StackPanel>
                         </Button>
                     </DockPanel>
+                    <Button Grid.Column="0" Grid.Row="2" Command="{Binding SelectAllProductionLinesCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Select all production lines" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                 </Grid>
             </TabItem>
             <TabItem>

@@ -26,7 +26,7 @@ namespace OPTEL.UI.Desktop.Views
             var orderExecutionCalculatorServer = new OrderExcecutionTimeCalculator();
             var ordersReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
             var ganttChartManagerService = new MainWindowGanttChartManagerService(mainWindow.GanttChart, orderExecutionCalculatorServer, ordersReconfigurationTimeCalculator);
-            DataContext = new PlanningConfigViewModel(errorsListWindowService, planningConfigOrderConverterService, planningConfigProductionLineConverterService, ganttChartManagerService, this.tabControl.Items.Count - 1);
+            DataContext = new PlanningConfigViewModel(errorsListWindowService, planningConfigOrderConverterService, planningConfigProductionLineConverterService, ganttChartManagerService, this.tabControl.Items.Count - 1, this.OrdersList, this.ProductionLinesList);
         }
     }
 }
