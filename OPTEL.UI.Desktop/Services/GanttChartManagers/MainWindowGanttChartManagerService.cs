@@ -45,13 +45,15 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             Task lastOrderTask;
             Order lastOrder;
             Debug.WriteLine("=========================================== 2 NOCHI BLYAT");
+            Debug.WriteLine("Time of Travel: {0:dd\\.hh\\:mm\\:ss} days", productionPlanDuration);
             foreach (ProductionLineQueue queue in plan.ProductionLineQueues)
             {
                 Task productionLineTask = new Task();
                 productionLineTask.Name = queue.ProductionLine.Name;
                 _projectManager.SetStart(productionLineTask, TimeSpan.FromHours(0));
                 _projectManager.SetDuration(productionLineTask, productionPlanDuration);
-                lastOrderTask = productionLineTask;
+                _projectManager.SetEnd(productionLineTask, productionPlanDuration);
+                /*lastOrderTask = productionLineTask;
                 currentTimeSpanOffset = TimeSpan.FromSeconds(0);
                 lastOrder = null;
                 foreach (Order order in queue.Orders)
@@ -73,7 +75,7 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                     _projectManager.Group(productionLineTask, orderTask);
                     _projectManager.Relate(lastOrderTask, orderTask);
                     lastOrderTask = orderTask;
-                }
+                } */
             }
             /*
             ProjectManager _mManager = null;
