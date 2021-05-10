@@ -16,7 +16,10 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils
                 var format = new NumberFormat(formatString);
                 return format.Format(value, CultureInfo.CurrentCulture);
             }
-
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return value.ToString();
         }
 
