@@ -20,7 +20,10 @@ namespace OPTEL.Entity.Test
         {
             // Arrange
             var customer = new Customer { Name = "I am customer" };
-            var order = new Order { OrderNumber = "Some number", ParentCustomer = customer };
+            var filmType = new FilmType { Article = "I am film type" };
+            var filmRecipe = new FilmRecipe { Name = "I am film recipe", FilmType = filmType, Thickness = 1, Calibration = 1, CoolingLip = 1, MaterialCost = 1, Nozzle = 1, ProductionSpeed = 1 };
+            var order = new Order { OrderNumber = "Some number", FilmRecipe = filmRecipe, ParentCustomer = customer };
+            
             _unitOfWork.OrderRepository.Add(order);
 
             // Act
