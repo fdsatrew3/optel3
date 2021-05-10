@@ -44,11 +44,11 @@
                     <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
                         <TextBlock Text="Step 1 of 4: Select planning interval and objective function" TextWrapping="Wrap"/>
                         <Label Content="Planning start date"/>
-                        <DatePicker/>
+                        <DatePicker SelectedDate="{Binding Path=PlanningStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="Planning end date"/>
-                        <DatePicker/>
+                        <DatePicker SelectedDate="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="Objective function"/>
-                        <ComboBox/>
+                        <ComboBox ItemsSource="{Binding ObjectiveFunctions}" SelectedItem="{Binding SelectedObjectiveFunction}"/>
                     </StackPanel>
                     <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}" IsEnabled="false">
