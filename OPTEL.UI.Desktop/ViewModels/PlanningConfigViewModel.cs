@@ -2,6 +2,7 @@
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
+using OPTEL.UI.Desktop.Services.GanttChartManagers.Base;
 using OPTEL.UI.Desktop.Services.ModelsConverter.Base;
 using System;
 using System.Collections.Generic;
@@ -118,16 +119,19 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private IModelConverterService<PlanningConfigProductionLine, ProductionLine> _planningConfigProductionLineConverterService;
 
+        private IGanttChartManagerService _ganttChartManagerService;
+
         private RelayCommand _moveToNextTabCommand;
         private RelayCommand _moveToPreviousTabCommand;
         private RelayCommand _startPlanningCommand;
         #endregion
 
-        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, int maxSelectedTabIndex)
+        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, int maxSelectedTabIndex)
         {
             _errorsListWindowService = errorsListWindowService;
             _planningConfigOrderConverterService = planningConfigOrderConverterService;
             _planningConfigProductionLineConverterService = planningConfigProductionLineConverterService;
+            _ganttChartManagerService = ganttChartManagerService;
             _currentSelectedTabIndex = 0;
             _maxSelectedTabIndex = maxSelectedTabIndex;
             PlanningStartDate = DateTime.Now;
