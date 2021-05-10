@@ -12,8 +12,8 @@ namespace OPTEL.UI.Desktop.Views
     {
         public ErrorsListWindow(ObservableCollection<Error> errors)
         {
-            DataContext = new ErrorsListViewModel(errors);
             InitializeComponent();
+            DataContext = new ErrorsListViewModel(errors);
         }
     }
 }
