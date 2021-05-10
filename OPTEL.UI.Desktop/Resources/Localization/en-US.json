@@ -38,6 +38,9 @@
   "Menu.Tools.ImportDataFromExcelFile": {
     "Value": "Import data from excel file"
   },
+  "Menu.Tools.Planning": {
+    "Value": "Planning"
+  },
   "Menu.Tools.Options": {
     "Value": "Options"
   },
@@ -424,5 +427,29 @@
   },
   "Window.ErrorsList.Summary": {
     "Value": "There are {0} error(s) shown below that need to be adressed before continuing current operation."
+  },
+  "Window.PlanningConfig.Title": {
+    "Value": "Planning config"
+  },
+  "Window.PlanningConfig.Errors.PlanningStartDateIsGreaterThanPlanningEndDate": {
+    "Value": "Planning start date must be earlier than planning end date."
+  },
+  "Window.PlanningConfig.Errors.OrdersListIsNotEnough": {
+    "Value": "You need to select at least two orders to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.ProductionLinesListIsEmpty": {
+    "Value": "You need to select at least one production line to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.PlanningAlgorithmIsNull": {
+    "Value": "You need to select optimization algorithm to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.PlanningStartDateIsNull": {
+    "Value": "You need to select planning start date to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.PlanningEndDateIsNull": {
+    "Value": "You need to select planning end date to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.ObjectiveFunctionIsNull": {
+    "Value": "You need to select objective function to calculate production plan."
   }
 }
