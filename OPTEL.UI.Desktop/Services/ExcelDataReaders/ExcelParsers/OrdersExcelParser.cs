@@ -12,7 +12,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
     {
         protected override int WorkSheetIndex => 4;
 
-        private enum ColumnIndexes { OrderNumber, Width, QuantityInRunningMeter, FilmRecipe, PlanningEndDate, PriceOverdue, ParentCustomer }
+        private enum ColumnIndexes { OrderNumber, Width, QuantityInRunningMeter, FilmRecipe, PlanningEndDate, PriceOverdue, ParentCustomer, PredefinedTime }
 
         public OrdersExcelParser(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -29,7 +29,8 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
                 FilmRecipe = UnitOfWork.FilmRecipeRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue((int)ColumnIndexes.FilmRecipe)),
                 PlanningEndDate = System.DateTime.Parse(excelDataReader.GetValue(ColumnIndexes.PlanningEndDate).ToString()),
                 PriceOverdue = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.PriceOverdue)),
-                ParentCustomer = UnitOfWork.CustomerRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentCustomer))
+                ParentCustomer = UnitOfWork.CustomerRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentCustomer)),
+                PredefinedTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.PredefinedTime))
             };
         }
     }
