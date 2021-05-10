@@ -1,6 +1,7 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
@@ -33,7 +34,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtrudersViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
+        public ExtrudersViewModel(IDatabaseEntityWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             Extruders = new ObservableCollection<ProductionLine>(Database.instance.ProductionLineRepository.GetAll());
         }

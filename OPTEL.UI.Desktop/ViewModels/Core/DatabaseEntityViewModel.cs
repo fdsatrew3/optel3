@@ -1,5 +1,6 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using System;
 using System.ComponentModel;
@@ -39,13 +40,16 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
 
         private IDatabaseEntityWindowCloseService _windowCloseService;
+
+        private IErrorsListWindowService _errorsListService;
         #endregion
-        public DatabaseEntityViewModel(IDatabaseEntityWindowCloseService windowCloseService)
+        public DatabaseEntityViewModel(IDatabaseEntityWindowCloseService windowCloseService, IErrorsListWindowService errorsListService)
         {
             IsDataChanged = false;
             IsSavingChanges = false;
             _windowCloseService = windowCloseService;
             _windowCloseService.SetCheckForUnsavedChangesCommand(CheckForUnsavedChangesOnWindowClosingCommand);
+            _errorsListService = errorsListService;
         }
 
         #region Commands

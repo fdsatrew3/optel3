@@ -99,20 +99,6 @@ namespace OPTEL.UI.Desktop.Views
             GanttChart.Init(_mManager);
             Application.Current.MainWindow = this;
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            ObservableCollection<Error> errors = new ObservableCollection<Error>
-            {
-                new Error{Content = "Test1" },
-                new Error{Content = "Very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong test error" },
-                new Error{Content = "._."},
-                new Error{Content = "Optimization.Algorithms.FuckThis"}
-            };
-            ErrorsListWindow window = new ErrorsListWindow(errors);
-            window.Owner = this;
-            window.ShowDialog();
-        }
     }
     #region custom task and resource
     /// <summary>
