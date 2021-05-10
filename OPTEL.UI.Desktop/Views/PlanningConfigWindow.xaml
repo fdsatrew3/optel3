@@ -50,7 +50,7 @@
                         <Label Content="Objective function"/>
                         <ComboBox ItemsSource="{Binding ObjectiveFunctions}" SelectedItem="{Binding SelectedObjectiveFunction}"/>
                     </StackPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
+                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}" IsEnabled="false">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>

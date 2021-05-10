@@ -137,10 +137,12 @@ namespace OPTEL.UI.Desktop.ViewModels
                 new ObjectiveFunction
                 {
                     Name = "Time",
+                    Type = ObjectiveFunction.Types.Time
                 },
                 new ObjectiveFunction
                 {
-                    Name = "Cost"
+                    Name = "Cost",
+                    Type = ObjectiveFunction.Types.Cost
                 }
             };
             SelectedObjectiveFunction = ObjectiveFunctions[0];
@@ -148,15 +150,18 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 new PlanningAlgorithm
                 {
-                    Name = "Genetic"
+                    Name = "Genetic",
+                    Type = PlanningAlgorithm.Types.Genetic
                 },
                 new PlanningAlgorithm
                 {
-                    Name = "Bruteforce"
+                    Name = "Bruteforce",
+                    Type = PlanningAlgorithm.Types.Bruteforce
                 },
                 new PlanningAlgorithm
                 {
-                    Name = "Best"
+                    Name = "Best",
+                    Type = PlanningAlgorithm.Types.Best
                 }
             };
             SelectedPlanningAlgorithm = PlanningAlgorithms[0];
