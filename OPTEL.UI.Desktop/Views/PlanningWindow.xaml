@@ -1,0 +1,24 @@
+﻿<Window  
+        x:Class="OPTEL.UI.Desktop.Views.PlanningWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
+        xmlns:behaviours="clr-namespace:OPTEL.UI.Desktop.Behaviours"
+        xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
+        xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="{localization:Localize Key=Window.Customers.Title}" Height="450" Width="800"
+        Icon="{StaticResource ApplicationIconBitmapImage}"        
+        WindowStartupLocation="CenterOwner">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding SelectFirstDataEntryIfExistsCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+    <Grid>
+        <Button Click="Button_Click"                />
+    </Grid>
+</Window>
