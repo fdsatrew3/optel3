@@ -113,27 +113,29 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            int entryIndex = 0;
             for (int i = 0; i < ExtruderRecipes.Count; i++)
             {
+                entryIndex = i + 1;
                 if (ExtruderRecipes[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.TargetExtruderIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.TargetExtruderIsNull"), entryIndex));
                 }
                 if (ExtruderRecipes[i].FilmTypeTo == ExtruderRecipes[i].FilmTypeFrom)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToEqualToFilmTypeFrom"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToEqualToFilmTypeFrom"), entryIndex));
                 }
                 if (ExtruderRecipes[i].FilmTypeTo == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeToIsNull"), entryIndex));
                 }
                 if (ExtruderRecipes[i].FilmTypeFrom == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull"), entryIndex));
                 }
                 if (Math.Sign(ExtruderRecipes[i].ReconfigurationTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.ReconfigurationTimeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderRecipesChange.Errors.ReconfigurationTimeIsNegative"), entryIndex));
                 }
             }
             return sb.ToString();

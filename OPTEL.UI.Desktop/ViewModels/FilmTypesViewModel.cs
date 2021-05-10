@@ -103,11 +103,13 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            int entryIndex = 0;
             for (int i = 0; i < FilmTypes.Count; i++)
             {
+                entryIndex = i + 1;
                 if (FilmTypes[i].Article == null || FilmTypes[i].Article.Length == 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmTypes.Errors.ArticleIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmTypes.Errors.ArticleIsNull"), entryIndex));
                 }
             }
             return sb.ToString();

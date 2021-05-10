@@ -110,19 +110,21 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            int entryIndex = 0;
             for (int i = 0; i < ExtruderCalibrations.Count; i++)
             {
+                entryIndex = i + 1;
                 if (ExtruderCalibrations[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.TargetExtruderIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.TargetExtruderIsNull"), entryIndex));
                 }
                 if (Math.Sign(ExtruderCalibrations[i].ReconfigurationTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.ReconfigurationTimeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.ReconfigurationTimeIsNegative"), entryIndex));
                 }
                 if (Math.Sign(ExtruderCalibrations[i].CalibrationToChange) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.CalibrationToChangeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.CalibrationToChangeIsNegative"), entryIndex));
                 }
             }
             return sb.ToString();

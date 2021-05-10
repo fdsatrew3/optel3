@@ -104,11 +104,13 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            int entryIndex = 0;
             for (int i = 0; i < Customers.Count; i++)
             {
+                entryIndex = i + 1;
                 if (Customers[i].Name == null || Customers[i].Name.Length == 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Customers.Errors.NameIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Customers.Errors.NameIsNull"), entryIndex));
                 }
             }
             return sb.ToString();

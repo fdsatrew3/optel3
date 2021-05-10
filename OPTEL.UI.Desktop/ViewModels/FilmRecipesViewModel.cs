@@ -114,39 +114,41 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            int entryIndex = 0;
             for (int i = 0; i < FilmRecipes.Count; i++)
             {
+                entryIndex = i + 1;
                 if (Math.Sign(FilmRecipes[i].Calibration) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CalibrationIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CalibrationIsNegative"), entryIndex));
                 }
                 if (Math.Sign(FilmRecipes[i].CoolingLip) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CoolingLipIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.CoolingLipIsNegative"), entryIndex));
                 }
                 if (FilmRecipes[i].FilmType == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.FilmTypeIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.FilmTypeIsNull"), entryIndex));
                 }
                 if (Math.Sign(FilmRecipes[i].MaterialCost) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.MaterialCostIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.MaterialCostIsNegative"), entryIndex));
                 }
                 if (FilmRecipes[i].Name == null || FilmRecipes[i].Name.Length == 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NameIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NameIsNull"), entryIndex));
                 }
                 if (Math.Sign(FilmRecipes[i].Nozzle) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NozzleIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.NozzleIsNegative"), entryIndex));
                 }
                 if (Math.Sign(FilmRecipes[i].ProductionSpeed) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ProductionSpeedIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ProductionSpeedIsNegative"), entryIndex));
                 }
                 if (Math.Sign(FilmRecipes[i].Thickness) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ThicknessIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.FilmRecipes.Errors.ThicknessIsNegative"), entryIndex));
                 }
             }
             return sb.ToString();

@@ -111,19 +111,21 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            int entryIndex = 0;
             for (int i = 0; i < ExtruderNozzles.Count; i++)
             {
+                entryIndex = i + 1;
                 if (ExtruderNozzles[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.TargetExtruderIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.TargetExtruderIsNull"), entryIndex));
                 }
                 if (Math.Sign(ExtruderNozzles[i].ReconfigurationTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.ReconfigurationTimeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.ReconfigurationTimeIsNegative"), entryIndex));
                 }
                 if (Math.Sign(ExtruderNozzles[i].NozzleToChange) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.NozzleToChangeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderNozzles.Errors.NozzleToChangeIsNegative"), entryIndex));
                 }
             }
             return sb.ToString();

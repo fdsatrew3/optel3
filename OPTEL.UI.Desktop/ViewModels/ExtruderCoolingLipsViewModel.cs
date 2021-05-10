@@ -111,19 +111,21 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            var entryIndex = 0;
             for (int i = 0; i < ExtruderCoolingLips.Count; i++)
             {
+                entryIndex = i + 1;
                 if (ExtruderCoolingLips[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.TargetExtruderIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.TargetExtruderIsNull"), entryIndex));
                 }
                 if (Math.Sign(ExtruderCoolingLips[i].ReconfigurationTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.ReconfigurationTimeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.ReconfigurationTimeIsNegative"), entryIndex));
                 }
                 if (Math.Sign(ExtruderCoolingLips[i].CoolingLipToChange) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.CoolingLipToChangeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.CoolingLipToChangeIsNegative"), entryIndex));
                 }
             }
             return sb.ToString();

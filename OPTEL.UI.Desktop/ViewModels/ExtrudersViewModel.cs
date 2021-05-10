@@ -121,79 +121,81 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             string result = string.Empty;
             StringBuilder sb = new StringBuilder(result);
+            int entryIndex = 0;
             for (int i = 0; i < Extruders.Count; i++)
             {
+                entryIndex = i + 1;
                 if (Extruders[i].Name == null || Extruders[i].Name.Length == 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.NameIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.NameIsNull"), entryIndex));
                 }
                 if (Extruders[i].Code == null || Extruders[i].Code.Length == 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.CodeIsNull"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.CodeIsNull"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].HourCost) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.HourCostIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.HourCostIsNegative"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].MaxProductionSpeed) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.MaxProductionSpeedIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.MaxProductionSpeedIsNegative"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].WidthMin) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthMinIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthMinIsNegative"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].WidthMax) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthMaxIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthMaxIsNegative"), entryIndex));
                 }
                 if (Extruders[i].WidthMin > Extruders[i].WidthMax)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthMinIsGreaterThanWidthMax"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthMinIsGreaterThanWidthMax"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].ThicknessMin) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessMinIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessMinIsNegative"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].ThicknessMax) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessMaxIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessMaxIsNegative"), entryIndex));
                 }
                 if (Extruders[i].ThicknessMin > Extruders[i].ThicknessMax)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessMinIsGreaterThanThicknessMax"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessMinIsGreaterThanThicknessMax"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].WeightMin) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WeightMinIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WeightMinIsNegative"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].WeightMax) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WeightMaxIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WeightMaxIsNegative"), entryIndex));
                 }
                 if (Extruders[i].WeightMin > Extruders[i].WeightMax)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WeightMinIsGreaterThanWeightMax"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WeightMinIsGreaterThanWeightMax"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].LengthMin) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.LengthMinIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.LengthMinIsNegative"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].LengthMax) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.LengthMaxIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.LengthMaxIsNegative"), entryIndex));
                 }
                 if (Extruders[i].LengthMin > Extruders[i].LengthMax)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.LengthMinIsGreaterThanLengthMax"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.LengthMinIsGreaterThanLengthMax"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].WidthChangeTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthChangeTimeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthChangeTimeIsNegative"), entryIndex));
                 }
                 if (Math.Sign(Extruders[i].ThicknessChangeTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessChangeTimeIsNegative"), i));
+                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessChangeTimeIsNegative"), entryIndex));
                 }
             }
             return sb.ToString();
