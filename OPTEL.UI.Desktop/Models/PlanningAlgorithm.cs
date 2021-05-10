@@ -7,8 +7,7 @@ namespace OPTEL.UI.Desktop.Models
         public enum Types
         {
             Genetic = 0,
-            Bruteforce = 1,
-            Best = 2
+            Bruteforce = 1
         }
         public string Name { get; set; }
         public Types Type { get; set; }

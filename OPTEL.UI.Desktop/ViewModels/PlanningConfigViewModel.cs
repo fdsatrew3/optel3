@@ -1,12 +1,23 @@
-﻿using OPTEL.Data;
+﻿using EasyLocalization.Localization;
+using OPTEL.Data;
+using OPTEL.Optimization.Algorithms.Best;
+using OPTEL.Optimization.Algorithms.Bruteforce;
+using OPTEL.Optimization.Algorithms.FitnessFunctionCalculators;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
+using OPTEL.UI.Desktop.Services.GanttChartManagers.Base;
 using OPTEL.UI.Desktop.Services.ModelsConverter.Base;
+using Optimization.Algorithms;
+using Optimization.Algorithms.Bruteforce;
+using Optimization.Algorithms.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -88,7 +99,17 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _isBuildDecisionTreeChecked = value;
-                OnPropertyChanged("BuildDecisionTree");
+                OnPropertyChanged("IsBuildDecisionTreeChecked");
+            }
+        }
+
+        public bool IsBuildingProductionPlan
+        {
+            get => _isBuildingProductionPlan;
+            set
+            {
+                _isBuildingProductionPlan = value;
+                OnPropertyChanged("IsBuildingProductionPlan");
             }
         }
         public ObservableCollection<PlanningAlgorithm> PlanningAlgorithms { get; set; }
@@ -109,6 +130,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private int _currentSelectedTabIndex, _maxSelectedTabIndex;
 
         private bool _isBuildDecisionTreeChecked;
+        private bool _isBuildingProductionPlan;
 
         private DateTime? _planningStartDate, _planningEndDate;
 
@@ -118,16 +140,19 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private IModelConverterService<PlanningConfigProductionLine, ProductionLine> _planningConfigProductionLineConverterService;
 
+        private IGanttChartManagerService _ganttChartManagerService;
+
         private RelayCommand _moveToNextTabCommand;
         private RelayCommand _moveToPreviousTabCommand;
         private RelayCommand _startPlanningCommand;
         #endregion
 
-        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, int maxSelectedTabIndex)
+        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, int maxSelectedTabIndex)
         {
             _errorsListWindowService = errorsListWindowService;
             _planningConfigOrderConverterService = planningConfigOrderConverterService;
             _planningConfigProductionLineConverterService = planningConfigProductionLineConverterService;
+            _ganttChartManagerService = ganttChartManagerService;
             _currentSelectedTabIndex = 0;
             _maxSelectedTabIndex = maxSelectedTabIndex;
             PlanningStartDate = DateTime.Now;
@@ -157,11 +182,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 {
                     Name = "Bruteforce",
                     Type = PlanningAlgorithm.Types.Bruteforce
-                },
-                new PlanningAlgorithm
-                {
-                    Name = "Best",
-                    Type = PlanningAlgorithm.Types.Best
                 }
             };
             SelectedPlanningAlgorithm = PlanningAlgorithms[0];
@@ -178,6 +198,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                 ProductionLines.Add(_planningConfigProductionLineConverterService.Convert(productionLine));
             }
             IsBuildDecisionTreeChecked = true;
+            IsBuildingProductionPlan = false;
         }
 
         #region Commands
@@ -205,9 +226,170 @@ namespace OPTEL.UI.Desktop.ViewModels
         {
             get
             {
-                return _startPlanningCommand ??= new RelayCommand(obj =>
+                return _startPlanningCommand ??= new RelayCommand(async obj =>
                 {
-
+                    IsBuildingProductionPlan = true;
+                    ObservableCollection<Error> errors = new ObservableCollection<Error>();
+                    ObservableCollection<Order> orders = new ObservableCollection<Order>();
+                    ObservableCollection<ProductionLine> productionLines = new ObservableCollection<ProductionLine>();
+                    foreach (PlanningConfigOrder order in Orders)
+                    {
+                        if (order.IsSelected == true)
+                        {
+                            orders.Add(_planningConfigOrderConverterService.ConvertBack(order));
+                        }
+                    }
+                    foreach (PlanningConfigProductionLine productionLine in ProductionLines)
+                    {
+                        if (productionLine.IsSelected == true)
+                        {
+                            productionLines.Add(_planningConfigProductionLineConverterService.ConvertBack(productionLine));
+                        }
+                    }
+                    if (PlanningStartDate == null)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.PlanningStartDateIsNull")
+                        });
+                    }
+                    if (PlanningEndDate == null)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.PlanningEndDateIsNull")
+                        });
+                    }
+                    if (PlanningStartDate != null && PlanningEndDate != null && PlanningStartDate > PlanningEndDate)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.PlanningStartDateIsGreaterThanPlanningEndDate")
+                        });
+                    }
+                    if (orders.Count < 3)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.OrdersListIsNotEnough")
+                        });
+                    }
+                    if (productionLines.Count == 0)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.ProductionLinesListIsEmpty")
+                        });
+                    }
+                    if (SelectedPlanningAlgorithm == null)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.PlanningAlgorithmIsNull")
+                        });
+                    }
+                    if (SelectedObjectiveFunction == null)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.ObjectiveFunctionIsNull")
+                        });
+                    }
+                    var filmChanges = Database.instance.FilmRecipeChangeRepository.GetAll();
+                    IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = null;
+                    ProductionPlan optimalProductionPlan = null;
+                    try
+                    {
+                        switch (SelectedPlanningAlgorithm.Type)
+                        {
+                            case PlanningAlgorithm.Types.Bruteforce:
+                                var orderBruteforceAlgorithm = new OrderBruteforceAlgorithm();
+                                ITargetFunctionCalculator<ProductionPlan> targetFunctionCalculator = null;
+                                var orderExecutionTimeCalculator = new OrderExcecutionTimeCalculator();
+                                var orderReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
+                                var executionTimeCalculator = new ExecutionTimeCalculator(orderExecutionTimeCalculator);
+                                var reconfigurationTimeCalculator = new ReconfigurationTimeCalculator(orderReconfigurationTimeCalculator);
+                                var productionLineQueueTimeCalculator = new ProductionLineQueueTimeCalculator(executionTimeCalculator, reconfigurationTimeCalculator);
+                                switch (SelectedObjectiveFunction.Type)
+                                {
+                                    case ObjectiveFunction.Types.Cost:
+                                        var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(productionLineQueueTimeCalculator);
+                                        targetFunctionCalculator = new CostFunctionCalculator(productionLineQueueCostCalculator);
+                                        break;
+                                    case ObjectiveFunction.Types.Time:
+                                        targetFunctionCalculator = new TimeFunctionCalculator(productionLineQueueTimeCalculator);
+                                        break;
+                                }
+                                var fitnessCalculator = new MinFitnessCalculator(targetFunctionCalculator);
+                                planningAlgorithm = new BruteforceAlgorithm(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator);
+                                break;
+                            case PlanningAlgorithm.Types.Genetic:
+                                planningAlgorithm = new BestAlgorithm(productionLines, orders, filmChanges);
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = ex.Message
+                        });
+                    }
+                    if (planningAlgorithm != null)
+                    {
+                        await Task.Run(() =>
+                        {
+                            try
+                            {
+                                optimalProductionPlan = planningAlgorithm.GetResolve();
+                            }
+                            catch (Exception ex)
+                            {
+                                errors.Add(new Error
+                                {
+                                    Content = ex.Message
+                                });
+                            }
+                        });
+                    }
+                    else
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = "planningAlgorithm is null?"
+                        });
+                    }
+                    if (optimalProductionPlan == null)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = "optimalProductionPlan is null?"
+                        });
+                    }
+                    if (errors.Count == 0)
+                    {
+                        try
+                        {
+                            _ganttChartManagerService.SetDesiredInterval((DateTime)PlanningStartDate, (DateTime)PlanningEndDate);
+                            _ganttChartManagerService.SetProductionPlan(optimalProductionPlan);
+                            _ganttChartManagerService.UpdateChart();
+                        }
+                        catch (Exception ex)
+                        {
+                            errors.Add(new Error
+                            {
+                                Content = ex.Message
+                            });
+                            _errorsListWindowService.SetErrorsForDisplay(errors);
+                            _errorsListWindowService.ShowErrorsListWindow();
+                        }
+                    }
+                    else
+                    {
+                        _errorsListWindowService.SetErrorsForDisplay(errors);
+                        _errorsListWindowService.ShowErrorsListWindow();
+                    }
+                    IsBuildingProductionPlan = false;
                 });
             }
         }

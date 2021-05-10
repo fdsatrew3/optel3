@@ -63,7 +63,6 @@
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
-                        <Button  Grid.Column="0" Grid.Row="2"  Content="Click" Click="Button_Click"/>
                     </DockPanel>
                 </Grid>
             </TabItem>
@@ -220,7 +219,41 @@
                         <ComboBox ItemsSource="{Binding PlanningAlgorithms}" SelectedItem="{Binding SelectedPlanningAlgorithm}"/>
                         <CheckBox Content="Display decision tree" Margin="5,5,0,0" IsChecked="{Binding IsBuildDecisionTreeChecked}"/>
                     </StackPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
+                    <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom">
+                        <Grid.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="false">
+                                        <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="true">
+                                        <Setter Property="Grid.Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ProgressBar Grid.Row="0" Grid.Column="0" Height="25"  Minimum="0" Maximum="100" IsIndeterminate="True" Name="pbStatus"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{localization:Localize Key=Window.PlanningConfig.Planning}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <DockPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
+                        <DockPanel.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="true">
+                                        <Setter Property="DockPanel.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="false">
+                                        <Setter Property="DockPanel.Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DockPanel.Style>
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
