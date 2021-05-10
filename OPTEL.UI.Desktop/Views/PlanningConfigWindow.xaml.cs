@@ -24,7 +24,8 @@ namespace OPTEL.UI.Desktop.Views
             var planningConfigOrderConverterService = new PlanningConfigOrderToOrderConverterService();
             var planningConfigProductionLineConverterService = new PlanningConfigProductionLineToProductionLineConverterService();
             var orderExecutionCalculatorServer = new OrderExcecutionTimeCalculator();
-            var ganttChartManagerService = new MainWindowGanttChartManagerService(mainWindow.GanttChart, orderExecutionCalculatorServer);
+            var ordersReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
+            var ganttChartManagerService = new MainWindowGanttChartManagerService(mainWindow.GanttChart, orderExecutionCalculatorServer, ordersReconfigurationTimeCalculator);
             DataContext = new PlanningConfigViewModel(errorsListWindowService, planningConfigOrderConverterService, planningConfigProductionLineConverterService, ganttChartManagerService, this.tabControl.Items.Count - 1);
         }
     }

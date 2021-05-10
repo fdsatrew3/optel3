@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using OPTEL.Data;
 
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
@@ -17,8 +18,14 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
                     .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.FilmTypeFrom == orderFrom.FilmRecipe.FilmType && x.FilmTypeTo == orderTo.FilmRecipe.FilmType);
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from film type {0} to {1}", orderFrom.FilmRecipe.FilmType.Article, orderTo.FilmRecipe.FilmType.Article));
+                }
             }
 
             if (!orderFrom.FilmRecipe.CoolingLip.Equals(orderTo.FilmRecipe.CoolingLip))
@@ -27,8 +34,14 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
                     .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.CoolingLipToChange.Equals(orderTo.FilmRecipe.CoolingLip));
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from cooling lip {0} to {1}", orderFrom.FilmRecipe.CoolingLip, orderTo.FilmRecipe.CoolingLip));
+                }
             }
 
             if (!orderFrom.FilmRecipe.Calibration.Equals(orderTo.FilmRecipe.Calibration))
@@ -37,8 +50,14 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
                     .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.CalibrationToChange.Equals(orderTo.FilmRecipe.Calibration));
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from cooling lip {0} to {1}", orderFrom.FilmRecipe.Calibration, orderTo.FilmRecipe.Calibration));
+                }
             }
 
             if (!orderFrom.FilmRecipe.Nozzle.Equals(orderTo.FilmRecipe.Nozzle))
@@ -47,8 +66,14 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
                     .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.NozzleToChange.Equals(orderTo.FilmRecipe.Nozzle));
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from cooling lip {0} to {1}", orderFrom.FilmRecipe.Nozzle, orderTo.FilmRecipe.Nozzle));
+                }
             }
 
             if (!orderFrom.Width.Equals(orderTo.Width))
