@@ -1,4 +1,5 @@
-﻿using OPTEL.UI.Desktop.Services.ExcelDataReaders;
+﻿using OPTEL.UI.Desktop.Services.ErrorsListWindows;
+using OPTEL.UI.Desktop.Services.ExcelDataReaders;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers;
 using OPTEL.UI.Desktop.Services.OpenFileDialogs;
 using OPTEL.UI.Desktop.Services.WindowClosers;
@@ -14,6 +15,7 @@ namespace OPTEL.UI.Desktop.Views
     {
         public ImportExcelDataWindow()
         {
+            InitializeComponent();
             var filmTypesExcelParser = new FilmTypesExcelParser();
             var filmRecipesExcelParser = new FilmRecipesExcelParser(Database.instance);
             var customersExcelParser = new CustomersExcelParser();
@@ -36,8 +38,8 @@ namespace OPTEL.UI.Desktop.Views
 
             var excelOpenFileDialogService = new ExcelOpenFileDialogService(this);
             var windowCloseService = new DatabaseEntityWindowCloseService(this);
-            DataContext = new ImportExcelViewModel(excelOpenFileDialogService, excelDataReaderService, windowCloseService);
-            InitializeComponent();
+            var errorsListWindowService = new DefaultErrorListWindowService(this);
+            DataContext = new ImportExcelViewModel(excelOpenFileDialogService, excelDataReaderService, windowCloseService, errorsListWindowService);
         }
     }
 }

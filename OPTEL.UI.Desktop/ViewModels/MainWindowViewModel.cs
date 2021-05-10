@@ -20,6 +20,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _openCustomersWindowCommand;
         private RelayCommand _openOrdersWindowCommand;
         private RelayCommand _openImportExcelWindowCommand;
+        private RelayCommand _openPlanningWindowCommand;
         #endregion
         public MainWindowViewModel()
         {
@@ -145,6 +146,18 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _openImportExcelWindowCommand ??= new RelayCommand(obj =>
                 {
                     ImportExcelDataWindow window = new ImportExcelDataWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+
+        public RelayCommand OpenPlanningWindowCommand
+        {
+            get
+            {
+                return _openPlanningWindowCommand ??= new RelayCommand(obj =>
+                {
+                    PlanningConfigWindow window = new PlanningConfigWindow();
                     window.ShowModalDialog();
                 });
             }

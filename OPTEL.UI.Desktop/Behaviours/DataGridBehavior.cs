@@ -38,7 +38,7 @@ namespace OPTEL.UI.Desktop.Behaviours
                         dataGrid.LoadingRow -= loadedRowHandler;
                         return;
                     }
-                    ea.Row.Header = ea.Row.GetIndex();
+                    ea.Row.Header = ea.Row.GetIndex() + 1;
                 };
                 dataGrid.LoadingRow += loadedRowHandler;
 
@@ -51,7 +51,7 @@ namespace OPTEL.UI.Desktop.Behaviours
                         return;
                     }
                     GetVisualChildCollection<DataGridRow>(dataGrid).
-                        ForEach(d => d.Header = d.GetIndex());
+                        ForEach(d => d.Header = d.GetIndex() + 1);
                 };
                 dataGrid.ItemContainerGenerator.ItemsChanged += itemsChangedHandler;
             }

@@ -24,6 +24,8 @@
     <None Remove="Resources\Icons\Controls\add.png" />
     <None Remove="Resources\Icons\Controls\clone.png" />
     <None Remove="Resources\Icons\Controls\remove.png" />
+    <None Remove="Resources\Icons\left.png" />
+    <None Remove="Resources\Icons\right.png" />
     <None Remove="Resources\optel.ico" />
   </ItemGroup>
 
@@ -39,6 +41,9 @@
     <ProjectReference Include="..\GanttChart\GanttChart.csproj" />
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
+    <ProjectReference Include="..\OPTEL.Optimization.Algorithms.Best\OPTEL.Optimization.Algorithms.Best.csproj" />
+    <ProjectReference Include="..\OPTEL.Optimization.Algorithms.Bruteforce\OPTEL.Optimization.Algorithms.Bruteforce.csproj" />
+    <ProjectReference Include="..\OPTEL.Optimization.Algorithms\OPTEL.Optimization.Algorithms.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
   </ItemGroup>
 
@@ -46,6 +51,8 @@
     <Resource Include="Resources\Icons\Controls\add.png" />
     <Resource Include="Resources\Icons\Controls\clone.png" />
     <Resource Include="Resources\Icons\Controls\remove.png" />
+    <Resource Include="Resources\Icons\left.png" />
+    <Resource Include="Resources\Icons\right.png" />
     <Resource Include="Resources\Icons\save.png" />
     <Resource Include="Resources\Icons\optel.ico" />
   </ItemGroup>
@@ -60,10 +67,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Resources\Dictionaries\DataTemplateResourceDicitionary.xaml">
+    <Page Update="Resources\Dictionaries\DataTemplatesResourceDicitionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+    <Page Update="Resources\Dictionaries\ConvertersResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Views\PlanningConfigWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\ImportExcelWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ErrorsListWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

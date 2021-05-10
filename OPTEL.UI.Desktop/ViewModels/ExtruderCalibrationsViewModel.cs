@@ -1,6 +1,8 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
+using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
@@ -35,7 +37,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtruderCalibrationsViewModel(IDatabaseEntityWindowCloseService windowCloseService) : base(windowCloseService)
+        public ExtruderCalibrationsViewModel(IDatabaseEntityWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             ExtruderCalibrations = new ObservableCollection<CalibrationChange>(Database.instance.CalibrationChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();
@@ -105,26 +107,36 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
         #endregion
 
-        public override string GetCustomErrorString()
+        public override ObservableCollection<Error> GetCustomErrors()
         {
-            string result = string.Empty;
-            StringBuilder sb = new StringBuilder(result);
+            ObservableCollection<Error> errors = new ObservableCollection<Error>();
+            int entryIndex = 0;
             for (int i = 0; i < ExtruderCalibrations.Count; i++)
             {
+                entryIndex = i + 1;
                 if (ExtruderCalibrations[i].ParentProductionLine == null)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.TargetExtruderIsNull"), i));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.TargetExtruderIsNull"), entryIndex)
+                    });
                 }
                 if (Math.Sign(ExtruderCalibrations[i].ReconfigurationTime) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.ReconfigurationTimeIsNegative"), i));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.ReconfigurationTimeIsNegative"), entryIndex)
+                    });
                 }
                 if (Math.Sign(ExtruderCalibrations[i].CalibrationToChange) < 0)
                 {
-                    sb.AppendLine(string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.CalibrationToChangeIsNegative"), i));
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.CalibrationToChangeIsNegative"), entryIndex)
+                    });
                 }
             }
-            return sb.ToString();
+            return errors;
         }
     }
 }
