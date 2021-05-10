@@ -1,4 +1,5 @@
-﻿using OPTEL.Data;
+﻿using EasyLocalization.Localization;
+using OPTEL.Data;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
@@ -89,7 +90,17 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _isBuildDecisionTreeChecked = value;
-                OnPropertyChanged("BuildDecisionTree");
+                OnPropertyChanged("IsBuildDecisionTreeChecked");
+            }
+        }
+
+        public bool IsBuildingProductionPlan
+        {
+            get => _isBuildingProductionPlan;
+            set
+            {
+                _isBuildingProductionPlan = value;
+                OnPropertyChanged("IsBuildingProductionPlan");
             }
         }
         public ObservableCollection<PlanningAlgorithm> PlanningAlgorithms { get; set; }
@@ -110,6 +121,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private int _currentSelectedTabIndex, _maxSelectedTabIndex;
 
         private bool _isBuildDecisionTreeChecked;
+        private bool _isBuildingProductionPlan;
 
         private DateTime? _planningStartDate, _planningEndDate;
 
@@ -161,11 +173,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                 {
                     Name = "Bruteforce",
                     Type = PlanningAlgorithm.Types.Bruteforce
-                },
-                new PlanningAlgorithm
-                {
-                    Name = "Best",
-                    Type = PlanningAlgorithm.Types.Best
                 }
             };
             SelectedPlanningAlgorithm = PlanningAlgorithms[0];
@@ -182,6 +189,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                 ProductionLines.Add(_planningConfigProductionLineConverterService.Convert(productionLine));
             }
             IsBuildDecisionTreeChecked = true;
+            IsBuildingProductionPlan = false;
         }
 
         #region Commands
@@ -211,7 +219,52 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 return _startPlanningCommand ??= new RelayCommand(obj =>
                 {
-
+                    IsBuildingProductionPlan = true;
+                    ObservableCollection<Error> errors = new ObservableCollection<Error>();
+                    ObservableCollection<Order> orders = new ObservableCollection<Order>();
+                    ObservableCollection<ProductionLine> productionLines = new ObservableCollection<ProductionLine>();
+                    foreach (PlanningConfigOrder order in Orders)
+                    {
+                        if (order.IsSelected == true)
+                        {
+                            orders.Add(_planningConfigOrderConverterService.ConvertBack(order));
+                        }
+                    }
+                    foreach (PlanningConfigProductionLine productionLine in ProductionLines)
+                    {
+                        if (productionLine.IsSelected == true)
+                        {
+                            productionLines.Add(_planningConfigProductionLineConverterService.ConvertBack(productionLine));
+                        }
+                    }
+                    if (PlanningStartDate > PlanningEndDate)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.PlanningStartDateIsGreaterThanPlanningEndDate")
+                        });
+                    }
+                    if (orders.Count == 0)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.OrdersListIsEmpty")
+                        });
+                    }
+                    if (productionLines.Count == 0)
+                    {
+                        errors.Add(new Error
+                        {
+                            Content = LocalizationManager.Instance.GetValue("Window.PlanningConfig.Errors.ProductionLinesListIsEmpty")
+                        });
+                    }
+                    if (errors.Count > 0)
+                    {
+                        _errorsListWindowService.SetErrorsForDisplay(errors);
+                        _errorsListWindowService.ShowErrorsListWindow();
+                        return;
+                    }
+                    IsBuildingProductionPlan = false;
                 });
             }
         }
