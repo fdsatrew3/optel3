@@ -10,9 +10,9 @@ namespace OPTEL.UI.Desktop.Views
     /// <summary>
     /// Логика взаимодействия для PlanningConfigWindow.xaml.xaml
     /// </summary>
-    public partial class PlanningConfigWindow.xaml : Window
+    public partial class PlanningConfigWindow : Window
     {
-        public PlanningWindow()
+        public PlanningConfigWindow()
         {
             InitializeComponent();
             var errorsListWindowService = new DefaultErrorListWindowService(this);
