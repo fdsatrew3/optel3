@@ -26,7 +26,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
                 OrderNumber = excelDataReader.GetFormattedValue(ColumnIndexes.OrderNumber),
                 Width = Convert.ToDouble(excelDataReader.GetFormattedValue(ColumnIndexes.Width)),
                 QuantityInRunningMeter = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.QuantityInRunningMeter)),
-                FilmRecipe = UnitOfWork.FilmRecipeRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue((int)ColumnIndexes.FilmRecipe)),
+                FilmRecipe = UnitOfWork.FilmRecipeRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.FilmRecipe)),
                 PlanningEndDate = System.DateTime.Parse(excelDataReader.GetValue(ColumnIndexes.PlanningEndDate).ToString()),
                 PriceOverdue = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.PriceOverdue)),
                 ParentCustomer = UnitOfWork.CustomerRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentCustomer)),

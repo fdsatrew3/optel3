@@ -123,6 +123,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders
                     }
                     catch (Exception ex)
                     {
+                        _unitOfWork.RejectAllChanges();
                         result.Exception = new Exception($"(row:{i}) There is some error to save entity {exceptionName?.Invoke(actionResult.Result)}", ex);
                     }
                 }
