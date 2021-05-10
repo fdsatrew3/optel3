@@ -21,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedFilmRecipe = value;
                 OnPropertyChanged("SelectedFilmRecipe");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<FilmRecipe> FilmRecipes { get; set; }

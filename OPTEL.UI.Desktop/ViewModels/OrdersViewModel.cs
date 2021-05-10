@@ -21,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedOrder = value;
                 OnPropertyChanged("SelectedOrder");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<Order> Orders { get; set; }

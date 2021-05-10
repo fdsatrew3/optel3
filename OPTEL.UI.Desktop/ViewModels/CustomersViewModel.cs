@@ -19,6 +19,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedCustomer = value;
                 OnPropertyChanged("SelectedCustomer");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<Customer> Customers { get; set; }

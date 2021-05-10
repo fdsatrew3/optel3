@@ -21,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _selectedExtruderCoolingLip = value;
                 OnPropertyChanged("SelectedExtruderCoolingLip");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<CoolingLipChange> ExtruderCoolingLips { get; set; }

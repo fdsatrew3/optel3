@@ -19,6 +19,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _SelectedFilmType = value;
                 OnPropertyChanged("SelectedFilmType");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<FilmType> FilmTypes { get; set; }

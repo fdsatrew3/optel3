@@ -21,6 +21,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 _selectedExtruderNozzle = value;
                 OnPropertyChanged("SelectedExtruderNozzle");
+                IsDataChanged = false;
             }
         }
         public ObservableCollection<NozzleChange> ExtruderNozzles { get; set; }
