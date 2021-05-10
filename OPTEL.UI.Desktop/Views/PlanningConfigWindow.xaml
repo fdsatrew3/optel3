@@ -50,7 +50,7 @@
                         <Label Content="Objective function"/>
                         <ComboBox ItemsSource="{Binding ObjectiveFunctions}" SelectedItem="{Binding SelectedObjectiveFunction}"/>
                     </StackPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
+                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}" IsEnabled="false">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
@@ -90,6 +90,7 @@
                       x:Name="OrdersList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                         <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="auto" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="auto" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="auto" IsReadOnly="True"/>
@@ -132,7 +133,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Step 3 of 4: Select production lines to be used in calculation of optimal production plan" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
-                    <DataGrid ItemsSource="{Binding Path=Extruders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <DataGrid ItemsSource="{Binding Path=ProductionLines, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
@@ -140,10 +141,11 @@
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
                       Grid.Column="0" Grid.Row="1"
-                      SelectedItem="{Binding SelectedExtruder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedProductionLine, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="ProductionLinesList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                         <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="auto" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="auto" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="auto" IsReadOnly="True"/>
@@ -175,7 +177,7 @@
                             <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="auto" IsReadOnly="True">
                                 <DataGridTextColumn.Binding>
                                     <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="LengthtMin" />
+                                        <Binding Path="LengthMin" />
                                         <Binding Path="LengthMax" />
                                     </MultiBinding>
                                 </DataGridTextColumn.Binding>
@@ -215,8 +217,8 @@
                             <Label Content="Planning algorithm"/>
                             <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="Planning help"/>
                         </StackPanel>
-                        <ComboBox/>
-                        <CheckBox Content="Display decision tree" Margin="5,5,0,0"/>
+                        <ComboBox ItemsSource="{Binding PlanningAlgorithms}" SelectedItem="{Binding SelectedPlanningAlgorithm}"/>
+                        <CheckBox Content="Display decision tree" Margin="5,5,0,0" IsChecked="{Binding IsBuildDecisionTreeChecked}"/>
                     </StackPanel>
                     <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">

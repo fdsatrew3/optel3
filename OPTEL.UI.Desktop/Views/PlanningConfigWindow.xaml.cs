@@ -1,6 +1,8 @@
 ﻿using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.Best;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows;
+using OPTEL.UI.Desktop.Services.ModelsConverter;
 using OPTEL.UI.Desktop.ViewModels;
 using System;
 using System.Windows;
@@ -16,7 +18,9 @@ namespace OPTEL.UI.Desktop.Views
         {
             InitializeComponent();
             var errorsListWindowService = new DefaultErrorListWindowService(this);
-            DataContext = new PlanningConfigViewModel(errorsListWindowService, this.tabControl.Items.Count - 1);
+            var planningConfigOrderConverterService = new PlanningConfigOrderToOrderConverterService();
+            var planningConfigProductionLineConverterService = new PlanningConfigProductionLineToProductionLineConverterService();
+            DataContext = new PlanningConfigViewModel(errorsListWindowService, planningConfigOrderConverterService, planningConfigProductionLineConverterService, this.tabControl.Items.Count - 1);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

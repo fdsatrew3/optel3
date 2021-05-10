@@ -17,4 +17,7 @@
     <DataTemplate DataType="{x:Type optelmodels:ObjectiveFunction}">
         <TextBlock Text="{Binding Name}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type optelmodels:PlanningAlgorithm}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
 </ResourceDictionary>

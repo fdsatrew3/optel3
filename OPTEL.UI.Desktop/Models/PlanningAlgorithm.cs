@@ -2,12 +2,13 @@
 
 namespace OPTEL.UI.Desktop.Models
 {
-    public class ObjectiveFunction : IDataModel
+    public class PlanningAlgorithm : IDataModel
     {
         public enum Types
         {
-            Time = 0,
-            Cost = 1
+            Genetic = 0,
+            Bruteforce = 1,
+            Best = 2
         }
         public string Name { get; set; }
         public Types Type { get; set; }
