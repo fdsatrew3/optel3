@@ -10,4 +10,9 @@
     <BitmapImage x:Key="CloneButtonBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/Controls/clone.png"/>
     <Image x:Key="SaveButtonImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/save.png"/>
     <BitmapImage x:Key="SaveButtonBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/save.png"/>
+    <!-- Planning window icons -->
+    <Image x:Key="LeftImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/left.png"/>
+    <BitmapImage x:Key="LeftBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/left.png"/>
+    <Image x:Key="RightImage" Source="/OPTEL.UI.Desktop;component/Resources/Icons/right.png"/>
+    <BitmapImage x:Key="RightBitmapImage" UriSource="/OPTEL.UI.Desktop;component/Resources/Icons/right.png"/>
 </ResourceDictionary>

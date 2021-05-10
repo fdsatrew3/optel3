@@ -10,15 +10,187 @@
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.Customers.Title}" Height="450" Width="800"
+        Title="{localization:Localize Key=Window.Planning.Title}" Height="380" Width="612"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
         WindowStartupLocation="CenterOwner">
-    <intr:Interaction.Triggers>
-        <intr:EventTrigger EventName="Loaded">
-            <intr:InvokeCommandAction Command="{Binding SelectFirstDataEntryIfExistsCommand}"/>
-        </intr:EventTrigger>
-    </intr:Interaction.Triggers>
     <Grid>
-        <Button Click="Button_Click"                />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.Column="0" Grid.Row="0" SelectedIndex="2">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=Visibility}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
+                        <TextBlock Text="Step 1 of 4: Select planning interval and objective function" TextWrapping="Wrap"/>
+                        <Label Content="Planning start date"/>
+                        <DatePicker/>
+                        <Label Content="Planning end date"/>
+                        <DatePicker/>
+                        <Label Content="Objective function"/>
+                        <ComboBox/>
+                    </StackPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Next step" VerticalAlignment="Center"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Step 2 of 4: Select orders to be used in calculation of optimal production plan" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+                    <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+          CanUserReorderColumns="False" CanUserResizeColumns="False" 
+          CanUserResizeRows="False" CanUserSortColumns="False"
+                      CanUserAddRows="false"
+                      CanUserDeleteRows="false"
+                      SelectionMode="Single" SelectionUnit="FullRow"
+                      AutoGenerateColumns="False"
+                      Grid.Column="0" Grid.Row="1"
+                      SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      x:Name="OrdersList"
+                      behaviours:DataGridBehavior.DisplayRowNumber="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="*" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Next step" VerticalAlignment="Center"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Step 3 of 4: Select production lines to be used in calculation of optimal production plan" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+                    <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+          CanUserReorderColumns="False" CanUserResizeColumns="False" 
+          CanUserResizeRows="False" CanUserSortColumns="False"
+                      CanUserAddRows="false"
+                      CanUserDeleteRows="false"
+                      SelectionMode="Single" SelectionUnit="FullRow"
+                      AutoGenerateColumns="False"
+                      Grid.Column="0" Grid.Row="1"
+                      SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      x:Name="ProductionLinesList"
+                      behaviours:DataGridBehavior.DisplayRowNumber="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Width}" Width="auto" IsReadOnly="True">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="WidthMin" />
+                                        <Binding Path="WidthMax" />
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Thickness}" Width="auto" IsReadOnly="True">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="ThicknessMin" />
+                                        <Binding Path="ThicknessMax" />
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Weight}" Width="auto" IsReadOnly="True">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="WeightMin" />
+                                        <Binding Path="WeightMax" />
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="auto" IsReadOnly="True">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="LengthtMin" />
+                                        <Binding Path="LengthMax" />
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="*" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Next step" VerticalAlignment="Center"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
