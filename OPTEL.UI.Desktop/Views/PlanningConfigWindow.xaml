@@ -63,6 +63,7 @@
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
+                        <Button  Grid.Column="0" Grid.Row="2"  Content="Click" Click="Button_Click"/>
                     </DockPanel>
                 </Grid>
             </TabItem>
