@@ -1,9 +1,12 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Models;
+using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.Base;
 using OPTEL.UI.Desktop.Services.OpenFileDialogs.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +29,8 @@ namespace OPTEL.UI.Desktop.ViewModels
         private IExcelEntityReader _excelReaderService;
 
         private IWindowCloseService _windowCloseService;
+
+        private IErrorsListWindowService _errorsListWindowService;
 
         private RelayCommand _openFileDialogCommand;
         private RelayCommand _beginExcelFileImportCommand;
@@ -62,11 +67,12 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         public bool IsCloseAllowed { get => _isCloseAllowed; set => _isCloseAllowed = value; }
         #endregion
-        public ImportExcelViewModel(IOpenFileDialogService openFileDialogService, IExcelEntityReader excelReaderService, IWindowCloseService windowCloseService)
+        public ImportExcelViewModel(IOpenFileDialogService openFileDialogService, IExcelEntityReader excelReaderService, IWindowCloseService windowCloseService, IErrorsListWindowService errorsListWindowService)
         {
             _openFileDialogService = openFileDialogService;
             _excelReaderService = excelReaderService;
             _windowCloseService = windowCloseService;
+            _errorsListWindowService = errorsListWindowService;
             IsImportingData = false;
             IsDeleteAllCheckBoxChecked = false;
         }
@@ -92,12 +98,13 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 return _beginExcelFileImportCommand ??= new RelayCommand(async obj =>
                 {
-                    _windowCloseService.SetAllowWindowClosing(false);
-                    _windowCloseService.SetReasonMessage("Sadge");
                     IsImportingData = true;
+                    _windowCloseService.SetAllowWindowClosing(false);
+                    _windowCloseService.SetReasonMessage(LocalizationManager.Instance.GetValue("Window.ImportExcel.Errors.ClosingWhileImporting"));
                     if (SelectedExcelFile == null)
                     {
                         IsImportingData = false;
+                        _windowCloseService.SetAllowWindowClosing(true);
                         MessageBox.Show(
                             LocalizationManager.Instance.GetValue("Window.ImportExcel.Errors.SelectedExcelFileIsNull"),
                             LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
@@ -106,7 +113,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                         return;
                     }
                     bool error = false;
-                    StringBuilder errorMessage = new StringBuilder();
+                    ObservableCollection<Error> errors = new ObservableCollection<Error>();
                     Exception currentException = null;
                     try
                     {
@@ -120,28 +127,35 @@ namespace OPTEL.UI.Desktop.ViewModels
                                         currentException = actionResult.Exception;
                                         while (currentException != null)
                                         {
-                                            errorMessage.AppendLine(currentException.Message);
+                                            errors.Add(new Error
+                                            {
+                                                Content = currentException.Message
+                                            });
                                             currentException = currentException.InnerException;
                                         }
                                     }
                                 }
                             });
                     }
-                    catch
+                    catch(Exception ex)
                     {
-
+                        currentException = ex;
+                        while (currentException != null)
+                        {
+                            errors.Add(new Error
+                            {
+                                Content = currentException.Message
+                            });
+                            currentException = currentException.InnerException;
+                        }
                     }
                     _windowCloseService.SetAllowWindowClosing(true);
                     IsImportingData = false;
                     if (error)
                     {
                         Database.instance.RejectAllChanges();
-                        MessageBox.Show(
-                            errorMessage.ToString().Substring(0, 512),
-                            LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Error.Global.Title"),
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
-                        Console.WriteLine(1);
+                        _errorsListWindowService.SetErrorsForDisplay(errors);
+                        _errorsListWindowService.ShowErrorsListWindow();
                         return;
                     }
                 });
