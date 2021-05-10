@@ -49,7 +49,7 @@ namespace OPTEL.Optimization.Algorithms.Best
         private ProductionLineQueue BestProdactionPlan(ProductionLine productionLine, List<Order> orders)
         {
             //берем все перенастройки
-            var result = new ProductionLineQueue() { ProductionLine = productionLine };
+            var result = new ProductionLineQueue() { ProductionLine = productionLine, Orders = new List<Order>() };
 
             var extruderRecipeChange = _filmTypesChanges.OrderByDescending(x => x.ReconfigurationTime).ToArray();
 
