@@ -2,6 +2,7 @@
 using OPTEL.Data;
 
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
+using OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
 {
@@ -15,7 +16,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
         {
             return new Customer
             {
-                Name = excelDataReader.GetValue((int)ColumnIndexes.Name).ToString()
+                Name = excelDataReader.GetString(ColumnIndexes.Name)
             };
         }
     }
