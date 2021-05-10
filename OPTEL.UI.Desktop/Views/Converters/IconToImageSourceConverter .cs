@@ -8,7 +8,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace OPTEL.UI.Desktop.Converters
+namespace OPTEL.UI.Desktop.Views.Converters
 {
     public class IconToImageSourceConverter : IValueConverter
     {
