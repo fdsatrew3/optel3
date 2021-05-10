@@ -2,7 +2,9 @@
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
+using OPTEL.UI.Desktop.Services.ModelsConverter.Base;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -11,13 +13,23 @@ namespace OPTEL.UI.Desktop.ViewModels
     public class PlanningConfigViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public Order SelectedOrder
+        public PlanningConfigOrder SelectedOrder
         {
             get => _selectedOrder;
             set
             {
                 _selectedOrder = value;
                 OnPropertyChanged("SelectedOrder");
+            }
+        }
+
+        public PlanningConfigProductionLine SelectedProductionLine
+        {
+            get => _selectedProductionLine;
+            set
+            {
+                _selectedProductionLine = value;
+                OnPropertyChanged("SelectedProductionLine");
             }
         }
 
@@ -60,11 +72,14 @@ namespace OPTEL.UI.Desktop.ViewModels
                 OnPropertyChanged("PlanningEndDate");
             }
         }
-        public ObservableCollection<Order> Orders { get; set; }
+        public ObservableCollection<PlanningConfigOrder> Orders { get; set; }
+        public ObservableCollection<PlanningConfigProductionLine> ProductionLines { get; set; }
         public ObservableCollection<ObjectiveFunction> ObjectiveFunctions { get; set; }
         #endregion
         #region Fields
-        private Order _selectedOrder;
+        private PlanningConfigOrder _selectedOrder;
+
+        private PlanningConfigProductionLine _selectedProductionLine;
 
         private ObjectiveFunction _selectedObjectiveFunction;
 
@@ -74,15 +89,20 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private IErrorsListWindowService _errorsListWindowService;
 
+        private IModelConverterService<PlanningConfigOrder, Order> _planningConfigOrderConverterService;
+
+        private IModelConverterService<PlanningConfigProductionLine, ProductionLine> _planningConfigProductionLineConverterService;
+
         private RelayCommand _moveToNextTabCommand;
         private RelayCommand _moveToPreviousTabCommand;
         private RelayCommand _startPlanningCommand;
         #endregion
 
-        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, int maxSelectedTabIndex)
+        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, int maxSelectedTabIndex)
         {
-            Orders = new ObservableCollection<Order>(Database.instance.OrderRepository.GetAll());
             _errorsListWindowService = errorsListWindowService;
+            _planningConfigOrderConverterService = planningConfigOrderConverterService;
+            _planningConfigProductionLineConverterService = planningConfigProductionLineConverterService;
             _currentSelectedTabIndex = 0;
             _maxSelectedTabIndex = maxSelectedTabIndex;
             PlanningStartDate = DateTime.Now;
@@ -99,6 +119,18 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             };
             SelectedObjectiveFunction = ObjectiveFunctions[0];
+            Orders = new ObservableCollection<PlanningConfigOrder>();
+            IEnumerable<Order> orders = Database.instance.OrderRepository.GetAll();
+            foreach (Order order in orders)
+            {
+                Orders.Add(planningConfigOrderConverterService.Convert(order));
+            }
+            ProductionLines = new ObservableCollection<PlanningConfigProductionLine>();
+            IEnumerable<ProductionLine> productionLines = Database.instance.ProductionLineRepository.GetAll();
+            foreach (ProductionLine productionLine in productionLines)
+            {
+                ProductionLines.Add(_planningConfigProductionLineConverterService.Convert(productionLine));
+            }
         }
 
         #region Commands
