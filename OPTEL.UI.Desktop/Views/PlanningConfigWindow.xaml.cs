@@ -1,22 +1,22 @@
 ﻿using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.Best;
+using OPTEL.UI.Desktop.Services.ErrorsListWindows;
+using OPTEL.UI.Desktop.ViewModels;
 using System;
 using System.Windows;
 
 namespace OPTEL.UI.Desktop.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PlanningWindow.xaml
+    /// Логика взаимодействия для PlanningConfigWindow.xaml.xaml
     /// </summary>
-    public partial class PlanningWindow : Window
+    public partial class PlanningConfigWindow.xaml : Window
     {
         public PlanningWindow()
         {
             InitializeComponent();
-            //var windowCloseService = new DatabaseEntityWindowCloseService(this);
-            //var errorsListWindowService = new DefaultErrorListWindowService(this);
-            //DataContext = new CustomersViewModel(windowCloseService, errorsListWindowService);
-
+            var errorsListWindowService = new DefaultErrorListWindowService(this);
+            DataContext = new PlanningConfigViewModel(errorsListWindowService);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

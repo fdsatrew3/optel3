@@ -73,7 +73,7 @@
     <Page Update="Resources\Dictionaries\ConvertersResourceDictionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Views\PlanningWindow.xaml">
+    <Page Update="Views\PlanningConfigWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
