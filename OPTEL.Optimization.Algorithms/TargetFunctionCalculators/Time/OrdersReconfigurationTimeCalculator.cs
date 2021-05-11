@@ -57,7 +57,7 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
                 }
                 else
                 {
-                    Debug.WriteLine(string.Format("Can't find reconfiguration time from cooling lip {0} to {1}", orderFrom.FilmRecipe.Calibration, orderTo.FilmRecipe.Calibration));
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from calibration {0} to {1}", orderFrom.FilmRecipe.Calibration, orderTo.FilmRecipe.Calibration));
                 }
             }
 
@@ -73,7 +73,7 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
                 }
                 else
                 {
-                    Debug.WriteLine(string.Format("Can't find reconfiguration time from cooling lip {0} to {1}", orderFrom.FilmRecipe.Nozzle, orderTo.FilmRecipe.Nozzle));
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from nozzle {0} to {1}", orderFrom.FilmRecipe.Nozzle, orderTo.FilmRecipe.Nozzle));
                 }
             }
 

@@ -10,7 +10,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
 {
     public class CoolingLipChangesExcelParser : DatabaseExcelParcerBase<CoolingLipChange>
     {
-        protected override int WorkSheetIndex => 8;
+        protected override int WorkSheetIndex => 9;
 
         private enum ColumnIndexes { ParentProductionLine, CoolingLipToChange, ReconfigurationTime }
 

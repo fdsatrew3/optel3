@@ -96,7 +96,7 @@
     "Value": "Target production line of production line calibration change #{0} can't be empty!"
   },
   "Window.ExtruderCoolingLips.Title": {
-    "Value": "Production line recipes changes"
+    "Value": "Production line cooling lips changes"
   },
   "Window.ExtruderCoolingLips.CoolingLipToChange": {
     "Value": "Target cooling lip, mk"
