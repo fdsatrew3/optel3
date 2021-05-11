@@ -11,7 +11,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.Planning.Title}" Height="420" Width="761"
+        Title="{localization:Localize Key=Window.PlanningConfig.Title}" Height="420" Width="761"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
         WindowStartupLocation="CenterOwner">
     <Grid>
@@ -42,24 +42,24 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
-                        <TextBlock Text="Step 1 of 4: Select planning interval and objective function" TextWrapping="Wrap"/>
-                        <Label Content="Planning start date"/>
+                        <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step1}" TextWrapping="Wrap"/>
+                        <Label Content="{localization:Localize Key=Window.PlanningConfig.PlanningStartDate}"/>
                         <DatePicker SelectedDate="{Binding Path=PlanningStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Label Content="Planning end date"/>
+                        <Label Content="{localization:Localize Key=Window.PlanningConfig.PlanningEndDate}"/>
                         <DatePicker SelectedDate="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Label Content="Objective function"/>
+                        <Label Content="{localization:Localize Key=Window.PlanningConfig.TargetFunction}"/>
                         <ComboBox ItemsSource="{Binding ObjectiveFunctions}" SelectedItem="{Binding SelectedObjectiveFunction}"/>
                     </StackPanel>
                     <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}" IsEnabled="false">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
-                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                         <Button HorizontalAlignment="Center" Command="{Binding MoveToNextTabCommand}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Next step" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.NextStep}" VerticalAlignment="Center"/>
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
@@ -76,7 +76,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Step 2 of 4: Select orders to be used in calculation of optimal production plan" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+                    <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step2}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
                     <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
@@ -109,19 +109,19 @@
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0,0,5,0"/>
-                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                         <Button HorizontalAlignment="Center"  Command="{Binding MoveToNextTabCommand}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Next step" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.NextStep}" VerticalAlignment="Center"/>
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
                     </DockPanel>
                     <Button Grid.Column="0" Grid.Row="2" Command="{Binding SelectAllOrdersCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Select all orders" VerticalAlignment="Center"/>
+                            <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.SelectAllOrders}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Grid>
@@ -136,7 +136,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Step 3 of 4: Select production lines to be used in calculation of optimal production plan" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+                    <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step3}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
                     <DataGrid ItemsSource="{Binding Path=ProductionLines, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
@@ -194,19 +194,19 @@
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
-                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                         <Button HorizontalAlignment="Center" Command="{Binding MoveToNextTabCommand}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Next step" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.NextStep}" VerticalAlignment="Center"/>
                                 <Image Source="{StaticResource RightBitmapImage}" Height="16" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
                     </DockPanel>
                     <Button Grid.Column="0" Grid.Row="2" Command="{Binding SelectAllProductionLinesCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Select all production lines" VerticalAlignment="Center"/>
+                            <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.SelectAllProductionLines}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Grid>
@@ -221,13 +221,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
-                        <TextBlock Text="Step 4 of 4: Select planning algorithm" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step4}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"/>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Planning algorithm"/>
-                            <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="Planning help"/>
+                            <Label Content="{localization:Localize Key=Window.PlanningConfig.PlanningAlgorithm}"/>
+                            <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="{localization:Localize Key=Window.PlanningConfig.PlanningAlgorithm.Help}"/>
                         </StackPanel>
                         <ComboBox ItemsSource="{Binding PlanningAlgorithms}" SelectedItem="{Binding SelectedPlanningAlgorithm}"/>
-                        <CheckBox Content="Display decision tree" Margin="5,5,0,0" IsChecked="{Binding IsBuildDecisionTreeChecked}"/>
+                        <CheckBox Content="{localization:Localize Key=Window.PlanningConfig.DisplayDecisionTree}" Margin="5,5,0,0" IsChecked="{Binding IsBuildDecisionTreeChecked}"/>
                     </StackPanel>
                     <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom">
                         <Grid.Style>
@@ -249,7 +249,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <ProgressBar Grid.Row="0" Grid.Column="0" Height="25"  Minimum="0" Maximum="100" IsIndeterminate="True" Name="pbStatus"/>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{localization:Localize Key=Window.PlanningConfig.Planning}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{localization:Localize Key=Window.PlanningConfig.CalculatingProductionPlan}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     <DockPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
                         <DockPanel.Style>
@@ -267,13 +267,13 @@
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
-                                <TextBlock Text="Previous step" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                         <Button HorizontalAlignment="Center" Command="{Binding StartPlanningCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource ApplicationIconBitmapImage}" Height="16" Margin="0,0,5,0"/>
-                                <TextBlock Text="Find optimal production plan" VerticalAlignment="Center"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.CalculateProductionPlan}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </DockPanel>

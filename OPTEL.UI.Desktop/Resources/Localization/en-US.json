@@ -431,6 +431,54 @@
   "Window.PlanningConfig.Title": {
     "Value": "Planning config"
   },
+  "Window.PlanningConfig.Step1": {
+    "Value": "Step 1 of 4: Select planning interval and objective function"
+  },
+  "Window.PlanningConfig.PlanningStartDate": {
+    "Value": "Planning start date"
+  },
+  "Window.PlanningConfig.PlanningEndDate": {
+    "Value": "Planning end date"
+  },
+  "Window.PlanningConfig.TargetFunction": {
+    "Value": "Target function"
+  },
+  "Window.PlanningConfig.PreviousStep": {
+    "Value": "Previous step"
+  },
+  "Window.PlanningConfig.NextStep": {
+    "Value": "Next step"
+  },
+  "Window.PlanningConfig.Step2": {
+    "Value": "Step 2 of 4: Select planning interval and objective function"
+  },
+  "Window.PlanningConfig.SelectAllOrders": {
+    "Value": "Select all orders"
+  },
+  "Window.PlanningConfig.Step3": {
+    "Value": "Step 3 of 4: Select production lines to be used in calculation of optimal production plan"
+  },
+  "Window.PlanningConfig.SelectAllProductionLines": {
+    "Value": "Select all production lines"
+  },
+  "Window.PlanningConfig.Step4": {
+    "Value": "Step 3 of 4: Select planning algorithm"
+  },
+  "Window.PlanningConfig.PlanningAlgorithm": {
+    "Value": "Planning algorithm"
+  },
+  "Window.PlanningConfig.PlanningAlgorithm.Help": {
+    "Value": "Select Genetic planning algorithm, if you have large planning task.\nSelect Bruteforce planning algorithm, if you have small planning task."
+  },
+  "Window.PlanningConfig.DisplayDecisionTree": {
+    "Value": "Display decision tree"
+  },
+  "Window.PlanningConfig.CalculatingProductionPlan": {
+    "Value": "Calculating production plan..."
+  },
+  "Window.PlanningConfig.CalculateProductionPlan": {
+    "Value": "Calculate production plan"
+  },
   "Window.PlanningConfig.Errors.PlanningStartDateIsGreaterThanPlanningEndDate": {
     "Value": "Planning start date must be earlier than planning end date."
   },

@@ -56,6 +56,7 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                 _projectManager.Add(productionLineTask);
                 _projectManager.SetStart(productionLineTask, TimeSpan.FromHours(0));
                 _projectManager.SetDuration(productionLineTask, productionPlanDuration);
+                //_ganttChart.SetToolTip(productionLineTask, "Tooltip");
                 lastOrderTask = productionLineTask;
                 currentTimeSpanOffset = TimeSpan.FromSeconds(0);
                 lastOrder = null;
