@@ -492,7 +492,7 @@
     "Value": "Calculate production plan"
   },
   "Window.PlanningConfig.CalculationInProcess": {
-    "Value": "There are currently optimal plan calculations in process. Are you wish to cancel them and close this window?"
+    "Value": "You can't close this window while optimal plan calculations in process."
   },
   "Window.PlanningConfig.Errors.PlanningStartDateIsGreaterThanPlanningEndDate": {
     "Value": "Planning start date must be earlier than planning end date."
