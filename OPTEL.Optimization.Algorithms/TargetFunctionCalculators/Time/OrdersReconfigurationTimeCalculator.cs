@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System;
+using System.Linq;
 using OPTEL.Data;
 
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
@@ -14,50 +16,77 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
             if (orderFrom.FilmRecipe.FilmType != orderTo.FilmRecipe.FilmType)
             {
                 var change = productionLine.FilmTypesChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.FilmTypeFrom == orderFrom.FilmRecipe.FilmType && x.FilmTypeTo == orderTo.FilmRecipe.FilmType);
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from film type {0} to {1}", orderFrom.FilmRecipe.FilmType.Article, orderTo.FilmRecipe.FilmType.Article));
+                }
             }
 
-            if (!orderFrom.FilmRecipe.CoolingLip.Equals(orderTo.FilmRecipe.CoolingLip))
+            if (!IsEqual(orderFrom.FilmRecipe.CoolingLip, orderTo.FilmRecipe.CoolingLip))
             {
                 var change = productionLine.CoolingLipChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
-                    .FirstOrDefault(x => x.CoolingLipToChange.Equals(orderTo.FilmRecipe.CoolingLip));
+                    .FirstOrDefault(x => IsEqual(x.CoolingLipToChange, orderTo.FilmRecipe.CoolingLip));
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from cooling lip {0} to {1}", orderFrom.FilmRecipe.CoolingLip, orderTo.FilmRecipe.CoolingLip));
+                }
             }
 
-            if (!orderFrom.FilmRecipe.Calibration.Equals(orderTo.FilmRecipe.Calibration))
+            if (!IsEqual(orderFrom.FilmRecipe.Calibration, orderTo.FilmRecipe.Calibration))
             {
                 var change = productionLine.CalibrationChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
-                    .FirstOrDefault(x => x.CalibrationToChange.Equals(orderTo.FilmRecipe.Calibration));
+                    .FirstOrDefault(x => IsEqual(x.CalibrationToChange, orderTo.FilmRecipe.Calibration));
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from calibration {0} to {1}", orderFrom.FilmRecipe.Calibration, orderTo.FilmRecipe.Calibration));
+                }
             }
 
-            if (!orderFrom.FilmRecipe.Nozzle.Equals(orderTo.FilmRecipe.Nozzle))
+            if (!IsEqual(orderFrom.FilmRecipe.Nozzle, orderTo.FilmRecipe.Nozzle))
             {
                 var change = productionLine.NozzleChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
-                    .FirstOrDefault(x => x.NozzleToChange.Equals(orderTo.FilmRecipe.Nozzle));
+                    .FirstOrDefault(x => IsEqual(x.NozzleToChange, orderTo.FilmRecipe.Nozzle));
 
-                if (productionLine != null)
+                if (change != null)
+                {
                     result += change.ReconfigurationTime;
+                }
+                else
+                {
+                    Debug.WriteLine(string.Format("Can't find reconfiguration time from nozzle {0} to {1}", orderFrom.FilmRecipe.Nozzle, orderTo.FilmRecipe.Nozzle));
+                }
             }
 
-            if (!orderFrom.Width.Equals(orderTo.Width))
+            if (!IsEqual(orderFrom.Width, orderTo.Width))
                 result += productionLine.WidthChangeTime;
 
-            if (!orderFrom.FilmRecipe.Thickness.Equals(orderTo.FilmRecipe.Thickness))
+            if (!IsEqual(orderFrom.FilmRecipe.Thickness, orderTo.FilmRecipe.Thickness))
                 result += productionLine.ThicknessChangeTime;
 
             return result;
+        }
+
+        private static bool IsEqual(double value1, double value2)
+        {
+            double difference = Math.Abs(value1 * .00001);
+
+            return Math.Abs(value1 - value2) <= difference;
         }
     }
 }

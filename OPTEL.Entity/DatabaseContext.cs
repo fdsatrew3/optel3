@@ -121,7 +121,7 @@ namespace OPTEL.Entity
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             EnsureDirectoryCreated("Databases");
-            optionsBuilder.UseSqlite(@$"Data Source={Path.Combine(Environment.CurrentDirectory, "Databases", "DungeonsDatabase.db")}");
+            optionsBuilder.UseLazyLoadingProxies().UseSqlite(@$"Data Source={Path.Combine(Environment.CurrentDirectory, "Databases", "DungeonsDatabase.db")}");
 
 #if LogConsole || LogFile
             optionsBuilder.LogTo(Log);

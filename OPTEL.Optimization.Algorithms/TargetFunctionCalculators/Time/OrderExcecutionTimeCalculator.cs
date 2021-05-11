@@ -10,7 +10,7 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
         {
             if (order.PredefinedTime != 0)
             {
-                return Convert.ToDouble(order.PredefinedTime);
+                return Convert.ToDouble(order.PredefinedTime) * 60;
             }
             else
             {

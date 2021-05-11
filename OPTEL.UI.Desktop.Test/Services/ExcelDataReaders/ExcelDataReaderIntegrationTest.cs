@@ -1,19 +1,20 @@
-﻿using OPTEL.Data;
+﻿using System;
+using OPTEL.Data;
 using OPTEL.Entity.Core;
 using OPTEL.Entity.Helpers.Ensurers;
 using OPTEL.Entity.Persistance;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace OPTEL.UI.Desktop.Test.Services.ExcelDataReaders
 {
     public class ExcelDataReaderIntegrationTest
     {
+        private const string _projectName = "OPTEL.UI.Desktop.Test";
+        private static readonly string _directory = Environment.CurrentDirectory;
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExcelParcer<FilmType> _filmTypesExcelParser;
         private readonly IExcelParcer<FilmRecipe> _filmRecipesExcelParser;
@@ -51,14 +52,14 @@ namespace OPTEL.UI.Desktop.Test.Services.ExcelDataReaders
         }
 
         [Theory]
-        [InlineData(@"\Assets\TestExample.xlsx")]
-        public void ReadFile_WithTemplateFile_ReadAndSaveAllEntitiesInDatabase(string file)
+        [InlineData(@"\Assets\MariaSoelUploadDataTest.xlsx")]
+        public void ReadFile_ForMariaSoelUploadDataTest_ReadAndSaveAllEntitiesInDatabase(string file)
         {
             // Arrange
-            var path = Environment.CurrentDirectory + file;
+            var path = _directory.Substring(0, _directory.LastIndexOf(_projectName) + _projectName.Length) + file;
 
             // Act && Assert
-            foreach(var item in _excelDataReader.ReadFile(path))
+            foreach (var item in _excelDataReader.ReadFile(path))
             {
                 Assert.False(item.HasException);
             }

@@ -4,13 +4,41 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Resources\Icons\optel.ico</ApplicationIcon>
+    <StartupObject>OPTEL.UI.Desktop.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Services\ExcelDataReaders\ExcelParsers\CalibrationChangesExcelParser.cs~RF42b4a42d.TMP" />
+    <Compile Remove="nGantt\**" />
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="nGantt\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="nGantt\**" />
+    <None Remove="Properties\**" />
+    <Page Remove="nGantt\**" />
+    <Page Remove="Properties\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\Controls\add.png" />
+    <None Remove="Resources\Icons\Controls\clone.png" />
+    <None Remove="Resources\Icons\Controls\remove.png" />
+    <None Remove="Resources\Icons\left.png" />
+    <None Remove="Resources\Icons\right.png" />
+    <None Remove="Resources\optel.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelNumberFormat" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyLocalization\EasyLocalization.csproj" />
+    <ProjectReference Include="..\GanttChart\GanttChart.csproj" />
     <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
     <ProjectReference Include="..\OPTEL.Optimization.Algorithms.Best\OPTEL.Optimization.Algorithms.Best.csproj" />
@@ -21,7 +49,70 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <Resource Include="Resources\Icons\Controls\add.png" />
+    <Resource Include="Resources\Icons\Controls\clone.png" />
+    <Resource Include="Resources\Icons\Controls\remove.png" />
+    <Resource Include="Resources\Icons\left.png" />
+    <Resource Include="Resources\Icons\right.png" />
+    <Resource Include="Resources\Icons\save.png" />
+    <Resource Include="Resources\Icons\optel.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Localization\en-US.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Resources\Dictionaries\DataTemplatesResourceDicitionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Resources\Dictionaries\ConvertersResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Views\PlanningConfigWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ImportExcelWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ErrorsListWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\OrdersWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FilmRecipesWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CustomersWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FilmTypesWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ExtruderRecipesChangeWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ExtrudersWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ExtruderCoolingLipsWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Views\ExtruderNozzlesWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

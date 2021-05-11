@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OPTEL.Data;
 using OPTEL.Data.Core;
 
@@ -33,7 +34,7 @@ namespace OPTEL.Entity.Core
 
         void Save();
 
-        void SaveAsync();
+        Task SaveAsync();
 
         void RejectAllChanges();
 

@@ -98,12 +98,11 @@ namespace OPTEL.Entity.Persistance
             catch (Exception ex)
             {
                 transaction.Rollback();
-                _context.RejectAllChanges();
-                throw;
+                throw ex;
             }
         }
 
-        public async void SaveAsync()
+        public async Task SaveAsync()
         {
             await Task.Run(async () =>
             {
@@ -119,11 +118,10 @@ namespace OPTEL.Entity.Persistance
                     await transaction.RollbackAsync();
                     ThrowUpdatedValidationException(ex);
                 }
-                catch
+                catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    _context.RejectAllChanges();
-                    throw;
+                    throw ex;
                 }
             });
         }

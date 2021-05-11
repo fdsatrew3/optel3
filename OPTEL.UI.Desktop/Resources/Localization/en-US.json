@@ -1,0 +1,533 @@
+﻿{
+  "Menu.Data": {
+    "Value": "Data"
+  },
+  "Menu.Data.Extruder.Calibrations": {
+    "Value": "Production line calibrations changes"
+  },
+  "Menu.Data.Extruder.Nozzles": {
+    "Value": "Production line nozzles changes"
+  },
+  "Menu.Data.Extruder.CoolingLips": {
+    "Value": "Production line cooling lips changes"
+  },
+  "Menu.Data.Extruder.Recipes": {
+    "Value": "Production line film recipes changes"
+  },
+  "Menu.Data.Extruders": {
+    "Value": "Production lines"
+  },
+  "Menu.Data.FilmRecipes": {
+    "Value": "Film recipes"
+  },
+  "Menu.Data.FilmTypes": {
+    "Value": "Film articles"
+  },
+  "Menu.Data.Orders": {
+    "Value": "Orders"
+  },
+  "Menu.Data.Customers": {
+    "Value": "Customers"
+  },
+  "Menu.Tools": {
+    "Value": "Tools"
+  },
+  "Menu.Tools.ImportDataFromExcelFile": {
+    "Value": "Import data from excel file"
+  },
+  "Menu.Tools.Planning": {
+    "Value": "Planning"
+  },
+  "Menu.Tools.Options": {
+    "Value": "Options"
+  },
+  "Menu.Tools.Options.Languages": {
+    "Value": "Languages"
+  },
+  "Window.Global.SaveChanges": {
+    "Value": "Save changes"
+  },
+  "Window.Global.ProgressBar.SavingChanges": {
+    "Value": "Saving changes..."
+  },
+  "Window.Global.ContextMenu.Add": {
+    "Value": "Add new entry"
+  },
+  "Window.Global.ContextMenu.Remove": {
+    "Value": "Remove selected entry"
+  },
+  "Window.Global.ContextMenu.Clone": {
+    "Value": "Clone selected entry"
+  },
+  "Window.Global.MessageBox.Warning.Global.Title": {
+    "Value": "Warning"
+  },
+  "Window.Global.MessageBox.Warning.UnsavedChanges": {
+    "Value": "There are unsaved changes. Are you wish to save them before closing this window?"
+  },
+  "Window.Global.MessageBox.Error.Global.Title": {
+    "Value": "Error"
+  },
+  "Window.Global.MessageBox.Error.SavingChanges": {
+    "Value": "You can't close this window while changes saving into database."
+  },
+  "Window.Main.Title": {
+    "Value": "Optel"
+  },
+  "Window.Main.GanttChart.TimeTargetFunction": {
+    "Value": "Required time to execute production plan: {0} day(s) {1}"
+  },
+  "Window.Main.GanttChart.CostTargetFunction": {
+    "Value": "Required cost to execute production plan: {0} €"
+  },
+  "Window.ExtruderCalibrations.Title": {
+    "Value": "Production line calibrations changes"
+  },
+  "Window.ExtruderCalibrations.CalibrationToChange": {
+    "Value": "Target calibration, mk"
+  },
+  "Window.ExtruderCalibrations.ReconfigurationTime": {
+    "Value": "Required time for reconfiguration, min"
+  },
+  "Window.ExtruderCalibrations.TargetExtruder": {
+    "Value": "Target production line"
+  },
+  "Window.ExtruderCalibrations.Errors.CalibrationToChangeIsNegative": {
+    "Value": "Target calibration of production line calibration change #{0} can't be negative number!"
+  },
+  "Window.ExtruderCalibrations.Errors.ReconfigurationTimeIsNegative": {
+    "Value": "Required time for reconfiguration of production line calibration change #{0} can't be negative number!"
+  },
+  "Window.ExtruderCalibrations.Errors.TargetExtruderIsNull": {
+    "Value": "Target production line of production line calibration change #{0} can't be empty!"
+  },
+  "Window.ExtruderCoolingLips.Title": {
+    "Value": "Production line cooling lips changes"
+  },
+  "Window.ExtruderCoolingLips.CoolingLipToChange": {
+    "Value": "Target cooling lip, mk"
+  },
+  "Window.ExtruderCoolingLips.ReconfigurationTime": {
+    "Value": "Required time for reconfiguration, min"
+  },
+  "Window.ExtruderCoolingLips.TargetExtruder": {
+    "Value": "Target production line"
+  },
+  "Window.ExtruderCoolingLips.Errors.CoolingLipToChangeIsNegative": {
+    "Value": "Target cooling lip of production line cooling lip change #{0} can't be negative number!"
+  },
+  "Window.ExtruderCoolingLips.Errors.ReconfigurationTimeIsNegative": {
+    "Value": "Required time for reconfiguration of production line cooling lip change #{0} can't be negative number!"
+  },
+  "Window.ExtruderCoolingLips.Errors.TargetExtruderIsNull": {
+    "Value": "Target production line of production line cooling lip change #{0} can't be empty!"
+  },
+  "Window.ExtruderNozzles.Title": {
+    "Value": "Production line nozzles changes"
+  },
+  "Window.ExtruderNozzles.NozzleToChange": {
+    "Value": "Target nozzle, mk"
+  },
+  "Window.ExtruderNozzles.ReconfigurationTime": {
+    "Value": "Required time for reconfiguration, min"
+  },
+  "Window.ExtruderNozzles.TargetExtruder": {
+    "Value": "Target production line"
+  },
+  "Window.ExtruderNozzles.Errors.NozzleToChangeIsNegative": {
+    "Value": "Target nozzle of production line nozzle change #{0} can't be negative number!"
+  },
+  "Window.ExtruderNozzles.Errors.ReconfigurationTimeIsNegative": {
+    "Value": "Required time for reconfiguration of production line nozzle change #{0} can't be negative number!"
+  },
+  "Window.ExtruderNozzles.Errors.TargetExtruderIsNull": {
+    "Value": "Target production line of production line nozzle #{0} can't be empty!"
+  },
+  "Window.ExtruderRecipesChange.Title": {
+    "Value": "Production line film recipes changes"
+  },
+  "Window.ExtruderRecipesChange.FilmTypeTo": {
+    "Value": "Target film type"
+  },
+  "Window.ExtruderRecipesChange.FilmTypeFrom": {
+    "Value": "Source film type"
+  },
+  "Window.ExtruderRecipesChange.ReconfigurationTime": {
+    "Value": "Required time for reconfiguration, min"
+  },
+  "Window.ExtruderRecipesChange.TargetExtruder": {
+    "Value": "Target production line"
+  },
+  "Window.ExtruderRecipesChange.Errors.TargetExtruderIsNull": {
+    "Value": "Target production line of production line nozzle #{0} can't be empty!"
+  },
+  "Window.ExtruderRecipesChange.Errors.FilmTypeToEqualToFilmTypeFrom": {
+    "Value": "Film type from can't be equal to film type to of production line recipes change #{0}!"
+  },
+  "Window.ExtruderRecipesChange.Errors.FilmTypeToIsNull": {
+    "Value": "Film type to of production line recipes change #{0} can't be empty!"
+  },
+  "Window.ExtruderRecipesChange.Errors.FilmTypeFromIsNull": {
+    "Value": "Film type from of production line recipes change #{0} can't be empty!"
+  },
+  "Window.ExtruderRecipesChange.Errors.ReconfigurationTimeIsNegative": {
+    "Value": "Required time for reconfiguration of production line recipes change #{0} can't be negative number!"
+  },
+  "Window.Extruders.Title": {
+    "Value": "Production line recipes changes"
+  },
+  "Window.Extruders.Name": {
+    "Value": "Name"
+  },
+  "Window.Extruders.Code": {
+    "Value": "Code"
+  },
+  "Window.Extruders.HourCost": {
+    "Value": "Hour cost, €/h"
+  },
+  "Window.Extruders.MaxProductionSpeed": {
+    "Value": "Max production speed"
+  },
+  "Window.Extruders.Width": {
+    "Value": "Width, mm"
+  },
+  "Window.Extruders.WidthMin": {
+    "Value": "Min width, mm"
+  },
+  "Window.Extruders.WidthMax": {
+    "Value": "Max width, mm"
+  },
+  "Window.Extruders.Thickness": {
+    "Value": "Thickness, µm"
+  },
+  "Window.Extruders.ThicknessMin": {
+    "Value": "Min thickness, µm"
+  },
+  "Window.Extruders.ThicknessMax": {
+    "Value": "Max thickness, µm"
+  },
+  "Window.Extruders.Weight": {
+    "Value": "Weight, kg"
+  },
+  "Window.Extruders.WeightMin": {
+    "Value": "Min weight, kg"
+  },
+  "Window.Extruders.WeightMax": {
+    "Value": "Max weight, kg"
+  },
+  "Window.Extruders.Length": {
+    "Value": "Length, m"
+  },
+  "Window.Extruders.LengthMin": {
+    "Value": "Min length, m"
+  },
+  "Window.Extruders.LengthMax": {
+    "Value": "Max length, m"
+  },
+  "Window.Extruders.WidthChangeTime": {
+    "Value": "Required time to change width, min"
+  },
+  "Window.Extruders.ThicknessChangeTime": {
+    "Value": "Required time to change thickness, min"
+  },
+  "Window.Extruders.Errors.HourCostIsNegative": {
+    "Value": "Hour cost of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.MaxProductionSpeedIsNegative": {
+    "Value": "Max production speed of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.WidthMinIsNegative": {
+    "Value": "Min width of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.WidthMaxIsNegative": {
+    "Value": "Max width of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.WidthMinIsGreaterThanWidthMax": {
+    "Value": "Min width can't be greater than max width of production line #{0}!"
+  },
+  "Window.Extruders.Errors.ThicknessMinIsNegative": {
+    "Value": "Min thickness of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.ThicknessMaxIsNegative": {
+    "Value": "Max thickness of production line nozzle #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.ThicknessMinIsGreaterThanThicknessMax": {
+    "Value": "Min thickness can't be greater than max thickness of production line #{0}!"
+  },
+  "Window.Extruders.Errors.WeightMinIsNegative": {
+    "Value": "Min weight of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.WeightMaxIsNegative": {
+    "Value": "Max weight of extrude #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.WeightMinIsGreaterThanWeightMax": {
+    "Value": "Min weight can't be greater than max weight of production line #{0}!"
+  },
+  "Window.Extruders.Errors.LengthMinIsNegative": {
+    "Value": "Min length of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.LengthMaxIsNegative": {
+    "Value": "Max length of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.LengthMinIsGreaterThanLengthMax": {
+    "Value": "Min length can't be greater than max length of production line #{0}!"
+  },
+  "Window.Extruders.Errors.WidthChangeTimeIsNegative": {
+    "Value": "Required time to change width of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.ThicknessChangeTimeIsNegative": {
+    "Value": "Required time to change thickness of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.NameIsNull": {
+    "Value": "Name of production line #{0} can't be empty!"
+  },
+  "Window.Extruders.Errors.CodeIsNull": {
+    "Value": "Code of production line #{0} can't be empty!"
+  },
+  "Window.FilmTypes.Title": {
+    "Value": "Film articles"
+  },
+  "Window.FilmTypes.Article": {
+    "Value": "Article"
+  },
+  "Window.FilmTypes.Errors.ArticleIsNull": {
+    "Value": "Article of film article #{0} can't be empty!"
+  },
+  "Window.FilmRecipes.Title": {
+    "Value": "Film recipes"
+  },
+  "Window.FilmRecipes.Name": {
+    "Value": "Name"
+  },
+  "Window.FilmRecipes.FilmType": {
+    "Value": "Film article"
+  },
+  "Window.FilmRecipes.Thickness": {
+    "Value": "Thickness, µm"
+  },
+  "Window.FilmRecipes.ProductionSpeed": {
+    "Value": "Production speed, m/h"
+  },
+  "Window.FilmRecipes.MaterialCost": {
+    "Value": "Material cost, €/h"
+  },
+  "Window.FilmRecipes.Nozzle": {
+    "Value": "Nozzle, mk"
+  },
+  "Window.FilmRecipes.Calibration": {
+    "Value": "Calibration, mk"
+  },
+  "Window.FilmRecipes.CoolingLip": {
+    "Value": "Cooling lip, mk"
+  },
+  "Window.FilmRecipes.Errors.CalibrationIsNegative": {
+    "Value": "Calibration of film recipe #{0} can't be negative number!"
+  },
+  "Window.FilmRecipes.Errors.CoolingLipIsNegative": {
+    "Value": "Cooling of film recipe #{0} can't be negative number!"
+  },
+  "Window.FilmRecipes.Errors.FilmTypeIsNull": {
+    "Value": "Film type of film recipe #{0} can't be empty!"
+  },
+  "Window.FilmRecipes.Errors.MaterialCostIsNegative": {
+    "Value": "Material cost of film recipe #{0} can't be negative number!"
+  },
+  "Window.FilmRecipes.Errors.NameIsNull": {
+    "Value": "Name of film recipe #{0} can't be empty!"
+  },
+  "Window.FilmRecipes.Errors.NozzleIsNegative": {
+    "Value": "Nozzle of film recipe #{0} can't be negative number!"
+  },
+  "Window.FilmRecipes.Errors.ProductionSpeedIsNegative": {
+    "Value": "Production speed of film recipe #{0} can't be negative number!"
+  },
+  "Window.FilmRecipes.Errors.ThicknessIsNegative": {
+    "Value": "Thickness of film recipe #{0} can't be negative number!"
+  },
+  "Window.Customers.Title": {
+    "Value": "Customers"
+  },
+  "Window.Customers.Name": {
+    "Value": "Name"
+  },
+  "Window.Customers.Errors.NameIsNull": {
+    "Value": "Name of customer #{0} can't be empty!"
+  },
+  "Window.Orders.Title": {
+    "Value": "Orders"
+  },
+  "Window.Orders.OrderNumber": {
+    "Value": "Number"
+  },
+  "Window.Orders.Width": {
+    "Value": "Width, m"
+  },
+  "Window.Orders.QuantityInRunningMeter": {
+    "Value": "Quanity in running meter, m"
+  },
+  "Window.Orders.FilmRecipe": {
+    "Value": "Film recipe"
+  },
+  "Window.Orders.PlanningEndDate": {
+    "Value": "Planning end date"
+  },
+  "Window.Orders.PriceOverdue": {
+    "Value": "Price overdue, €/h"
+  },
+  "Window.Orders.PredefinedTime": {
+    "Value": "Predefined time, h"
+  },
+  "Window.Orders.ParentCustomer": {
+    "Value": "Customer"
+  },
+  "Window.Orders.Errors.FilmRecipeIsNull": {
+    "Value": "Film recipe of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.OrderNumberIsNull": {
+    "Value": "Number of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.ParentCustomerIsNull": {
+    "Value": "Customer of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.PlanningEndDateIsNull": {
+    "Value": "Planning end date of order #{0} can't be empty!"
+  },
+  "Window.Orders.Errors.PredefinedTimeIsNegative": {
+    "Value": "Predefined time of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.PriceOverdueIsNegative": {
+    "Value": "Price overdue of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.QuantityInRunningMeterIsNegative": {
+    "Value": "Quanity in running meter of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.WidthIsNegative": {
+    "Value": "Width of order #{0} can't be negative number!"
+  },
+  "Window.ImportExcel.Title": {
+    "Value": "Import excel file"
+  },
+  "Window.ImportExcel.FileForImport": {
+    "Value": "Excel file for import:"
+  },
+  "Window.ImportExcel.Select": {
+    "Value": "Select"
+  },
+  "Window.ImportExcel.ImportOptions": {
+    "Value": "Import options:"
+  },
+  "Window.ImportExcel.ImportOptions.ClearDatabaseBeforeImport": {
+    "Value": "Remove all exisiting data before importing"
+  },
+  "Window.ImportExcel.ImportingData": {
+    "Value": "Importing data..."
+  },
+  "Window.ImportExcel.DeletingData": {
+    "Value": "Deleting data..."
+  },
+  "Window.ImportExcel.Import": {
+    "Value": "Import"
+  },
+  "Window.ImportExcel.Warnings.DeleteAllDataFromDatabase": {
+    "Value": "This operation can't be reversed. Are you sure want to continue?"
+  },
+  "Window.ImportExcel.Errors.SelectedExcelFileIsNull": {
+    "Value": "You must choose excel file to import first!"
+  },
+  "Window.ImportExcel.Errors.ClosingWhileImporting": {
+    "Value": "You can't close this window until program finish importing Excel file!"
+  },
+  "Window.ErrorsList.Summary": {
+    "Value": "There are {0} error(s) shown below that need to be adressed before continuing current operation."
+  },
+  "Window.PlanningConfig.Title": {
+    "Value": "Planning config"
+  },
+  "Window.PlanningConfig.CostObjectiveFunction": {
+    "Value": "Cost"
+  },
+  "Window.PlanningConfig.TimeObjectiveFunction": {
+    "Value": "Time"
+  },
+  "Window.PlanningConfig.GeneticPlanningAlgorithm": {
+    "Value": "Genetic"
+  },
+  "Window.PlanningConfig.BruteforcePlanningAlgorithm": {
+    "Value": "Bruteforce"
+  },
+  "Window.PlanningConfig.Step1": {
+    "Value": "Step 1 of 4: Select planning interval and objective function"
+  },
+  "Window.PlanningConfig.PlanningStartDate": {
+    "Value": "Planning start date"
+  },
+  "Window.PlanningConfig.PlanningEndDate": {
+    "Value": "Planning end date"
+  },
+  "Window.PlanningConfig.TargetFunction": {
+    "Value": "Target function"
+  },
+  "Window.PlanningConfig.PreviousStep": {
+    "Value": "Previous step"
+  },
+  "Window.PlanningConfig.NextStep": {
+    "Value": "Next step"
+  },
+  "Window.PlanningConfig.Step2": {
+    "Value": "Step 2 of 4: Select planning interval and objective function"
+  },
+  "Window.PlanningConfig.SelectAllOrders": {
+    "Value": "Select all orders"
+  },
+  "Window.PlanningConfig.Step3": {
+    "Value": "Step 3 of 4: Select production lines to be used in calculation of optimal production plan"
+  },
+  "Window.PlanningConfig.SelectAllProductionLines": {
+    "Value": "Select all production lines"
+  },
+  "Window.PlanningConfig.Step4": {
+    "Value": "Step 4 of 4: Select planning algorithm"
+  },
+  "Window.PlanningConfig.PlanningAlgorithm": {
+    "Value": "Planning algorithm"
+  },
+  "Window.PlanningConfig.PlanningAlgorithm.Help": {
+    "Value": "Select Genetic planning algorithm, if you have large planning task (20 or more orders, one or more production lines).\nSelect Bruteforce planning algorithm, if you have small planning task (10-15 orders, 1-2 production lines)."
+  },
+  "Window.PlanningConfig.DisplayDecisionTree": {
+    "Value": "Display decision tree"
+  },
+  "Window.PlanningConfig.CalculatingProductionPlan": {
+    "Value": "Calculating production plan..."
+  },
+  "Window.PlanningConfig.CalculateProductionPlan": {
+    "Value": "Calculate production plan"
+  },
+  "Window.PlanningConfig.CalculationInProcess": {
+    "Value": "You can't close this window while optimal plan calculations in process."
+  },
+  "Window.PlanningConfig.Warnings.ProductionPlanNotFitPlanningInterval": {
+    "Value": "Calculated optimal production plan can't be executed in specified planning interval. Are you still wish to display it?"
+  },
+  "Window.PlanningConfig.Errors.PlanningStartDateIsGreaterThanPlanningEndDate": {
+    "Value": "Planning start date must be earlier than planning end date."
+  },
+  "Window.PlanningConfig.Errors.OrdersListIsNotEnough": {
+    "Value": "You need to select at least two orders to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.ProductionLinesListIsEmpty": {
+    "Value": "You need to select at least one production line to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.PlanningAlgorithmIsNull": {
+    "Value": "You need to select optimization algorithm to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.PlanningStartDateIsNull": {
+    "Value": "You need to select planning start date to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.PlanningEndDateIsNull": {
+    "Value": "You need to select planning end date to calculate production plan."
+  },
+  "Window.PlanningConfig.Errors.ObjectiveFunctionIsNull": {
+    "Value": "You need to select objective function to calculate production plan."
+  }
+}

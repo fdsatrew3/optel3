@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using ExcelDataReader;
 using OPTEL.Entity.Core;
 using OPTEL.Data;
 
 using OPTEL.UI.Desktop.Services.Data;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.Base;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
-using System.IO;
-using ExcelDataReader;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders
 {
@@ -123,6 +123,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders
                     }
                     catch (Exception ex)
                     {
+                        _unitOfWork.RejectAllChanges();
                         result.Exception = new Exception($"(row:{i}) There is some error to save entity {exceptionName?.Invoke(actionResult.Result)}", ex);
                     }
                 }

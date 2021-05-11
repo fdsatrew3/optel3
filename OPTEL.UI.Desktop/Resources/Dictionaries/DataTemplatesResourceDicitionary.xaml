@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:opteldata="clr-namespace:OPTEL.Data;assembly=OPTEL.Data"
+                    xmlns:optelmodels="clr-namespace:OPTEL.UI.Desktop.Models">
+    <DataTemplate DataType="{x:Type opteldata:ProductionLine}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type opteldata:FilmType}">
+        <TextBlock Text="{Binding Article}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type opteldata:Customer}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type opteldata:FilmRecipe}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type optelmodels:ObjectiveFunction}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type optelmodels:PlanningAlgorithm}">
+        <TextBlock Text="{Binding Name}"/>
+    </DataTemplate>
+</ResourceDictionary>
