@@ -227,7 +227,7 @@
                             <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="{localization:Localize Key=Window.PlanningConfig.PlanningAlgorithm.Help}"/>
                         </StackPanel>
                         <ComboBox ItemsSource="{Binding PlanningAlgorithms}" SelectedItem="{Binding SelectedPlanningAlgorithm}"/>
-                        <CheckBox Content="{localization:Localize Key=Window.PlanningConfig.DisplayDecisionTree}" Margin="5,5,0,0" IsChecked="{Binding IsBuildDecisionTreeChecked}"/>
+                        <CheckBox Content="{localization:Localize Key=Window.PlanningConfig.DisplayDecisionTree}" Margin="5,5,0,0" IsChecked="{Binding IsBuildDecisionTreeChecked}" IsEnabled="false"/>
                     </StackPanel>
                     <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom">
                         <Grid.Style>

@@ -416,8 +416,14 @@
   "Window.ImportExcel.ImportingData": {
     "Value": "Importing data..."
   },
+  "Window.ImportExcel.DeletingData": {
+    "Value": "Deleting data..."
+  },
   "Window.ImportExcel.Import": {
     "Value": "Import"
+  },
+  "Window.ImportExcel.Warnings.DeleteAllDataFromDatabase": {
+    "Value": "This operation can't be reversed. Are you sure want to continue?"
   },
   "Window.ImportExcel.Errors.SelectedExcelFileIsNull": {
     "Value": "You must choose excel file to import first!"
