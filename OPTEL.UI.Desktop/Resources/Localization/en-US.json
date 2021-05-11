@@ -375,7 +375,7 @@
     "Value": "Price overdue, €/h"
   },
   "Window.Orders.PredefinedTime": {
-    "Value": "Predefined time, min"
+    "Value": "Predefined time, h"
   },
   "Window.Orders.ParentCustomer": {
     "Value": "Customer"
