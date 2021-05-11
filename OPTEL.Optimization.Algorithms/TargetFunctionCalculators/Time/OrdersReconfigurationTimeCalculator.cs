@@ -16,7 +16,6 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
             if (orderFrom.FilmRecipe.FilmType != orderTo.FilmRecipe.FilmType)
             {
                 var change = productionLine.FilmTypesChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => x.FilmTypeFrom == orderFrom.FilmRecipe.FilmType && x.FilmTypeTo == orderTo.FilmRecipe.FilmType);
 
                 if (change != null)
@@ -32,7 +31,6 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
             if (!IsEqual(orderFrom.FilmRecipe.CoolingLip, orderTo.FilmRecipe.CoolingLip))
             {
                 var change = productionLine.CoolingLipChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => IsEqual(x.CoolingLipToChange, orderTo.FilmRecipe.CoolingLip));
 
                 if (change != null)
@@ -48,7 +46,6 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
             if (!IsEqual(orderFrom.FilmRecipe.Calibration, orderTo.FilmRecipe.Calibration))
             {
                 var change = productionLine.CalibrationChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => IsEqual(x.CalibrationToChange, orderTo.FilmRecipe.Calibration));
 
                 if (change != null)
@@ -64,7 +61,6 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
             if (!IsEqual(orderFrom.FilmRecipe.Nozzle, orderTo.FilmRecipe.Nozzle))
             {
                 var change = productionLine.NozzleChanges?
-                    .Where(x => x.ParentProductionLine == productionLine)?
                     .FirstOrDefault(x => IsEqual(x.NozzleToChange, orderTo.FilmRecipe.Nozzle));
 
                 if (change != null)
