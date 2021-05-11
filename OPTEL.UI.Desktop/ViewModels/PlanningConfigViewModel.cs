@@ -15,6 +15,7 @@ using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using Optimization.Algorithms;
 using Optimization.Algorithms.Bruteforce;
 using Optimization.Algorithms.Core;
+using Optimization.Algorithms.Genetic.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -364,7 +365,9 @@ namespace OPTEL.UI.Desktop.ViewModels
                                 planningAlgorithm = new BruteforceAlgorithm(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator);
                                 break;
                             case PlanningAlgorithm.Types.Genetic:
-                                planningAlgorithm = new BestAlgorithm(productionLines, orders, filmChanges);
+                                var algorithmSetting = new GeneticAlgorithmSetting<ProductionPlan>
+                                planningAlgorithm = new GeneticAlgorithm();
+                                // planningAlgorithm = new BestAlgorithm(productionLines, orders, filmChanges);
                                 break;
                         }
                     }
