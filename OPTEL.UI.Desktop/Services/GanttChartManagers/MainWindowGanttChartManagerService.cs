@@ -67,7 +67,7 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                 }
                 productionPlanExecutionPrice += currentQueueExecutionTime.TotalHours * queue.ProductionLine.HourCost;
                 _projectManager.SetDuration(productionLineTask, currentQueueExecutionTime);
-                //_ganttChart.SetToolTip(productionLineTask, "Tooltip");
+                //_ganttChart.SetToolTip(productionLineTask, (_projectManager.Start + productionLineTask.Start) + " - " + (_projectManager.Start + productionLineTask.End));
                 lastOrderTask = productionLineTask;
                 currentTimeSpanOffset = TimeSpan.FromSeconds(0);
                 lastOrder = null;
@@ -81,7 +81,6 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                     orderTask.Name = order.OrderNumber;
                     currentOrderExecutionTime = TimeSpan.FromMinutes(_orderExecutionTimeCalculator.Calculate(order));
                     currentOrderReconfigurationTime = TimeSpan.FromMinutes(_ordersReconfigurationTimeCalculator.Calculate(queue.ProductionLine, lastOrder, order));
-
                     currentTimeSpanOffset += currentOrderExecutionTime + currentOrderReconfigurationTime;
                     _projectManager.Add(orderTask);
                     _projectManager.SetStart(orderTask, currentTimeSpanOffset);
@@ -89,6 +88,10 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                     _projectManager.SetComplete(orderTask, 1.0f);
                     _projectManager.Group(productionLineTask, orderTask);
                     _projectManager.Relate(lastOrderTask, orderTask);
+                    if (lastOrderTask != productionLineTask)
+                    {
+                        _ganttChart.SetToolTip(lastOrderTask, (_projectManager.Start + lastOrderTask.Start) + " - " + (_projectManager.Start + lastOrderTask.End));
+                    }
                     lastOrderTask = orderTask;
                 }
             }
