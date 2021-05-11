@@ -42,16 +42,16 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private RelayCommand _saveChangesCommand;
         private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
 
-        private IDatabaseEntityWindowCloseService _windowCloseService;
+        private IWindowCloseService _windowCloseService;
 
         private IErrorsListWindowService _errorsListService;
         #endregion
-        public DatabaseEntityViewModel(IDatabaseEntityWindowCloseService windowCloseService, IErrorsListWindowService errorsListService)
+        public DatabaseEntityViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService)
         {
             IsDataChanged = false;
             IsSavingChanges = false;
             _windowCloseService = windowCloseService;
-            _windowCloseService.SetCheckForUnsavedChangesCommand(CheckForUnsavedChangesOnWindowClosingCommand);
+            _windowCloseService.SetDetermineCloseAllowedCommand(CheckForUnsavedChangesOnWindowClosingCommand);
             _errorsListService = errorsListService;
         }
 

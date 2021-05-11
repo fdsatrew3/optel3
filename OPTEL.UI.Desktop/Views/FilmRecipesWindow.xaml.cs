@@ -13,7 +13,7 @@ namespace OPTEL.UI.Desktop.Views
         public FilmRecipesWindow()
         {
             InitializeComponent();
-            var windowCloseService = new DatabaseEntityWindowCloseService(this);
+            var windowCloseService = new DefaultWindowCloseService(this);
             var errorsListWindowService = new DefaultErrorListWindowService(this);
             DataContext = new FilmRecipesViewModel(windowCloseService, errorsListWindowService);
         }

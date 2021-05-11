@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -37,7 +36,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public ExtruderCalibrationsViewModel(IDatabaseEntityWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
+        public ExtruderCalibrationsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             ExtruderCalibrations = new ObservableCollection<CalibrationChange>(Database.instance.CalibrationChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();

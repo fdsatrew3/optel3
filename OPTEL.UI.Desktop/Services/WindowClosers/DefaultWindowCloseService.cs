@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace OPTEL.UI.Desktop.Services.WindowClosers
 {
-    public class DatabaseEntityWindowCloseService : IDatabaseEntityWindowCloseService
+    public class DefaultWindowCloseService : IWindowCloseService
     {
         private Window _parent;
 
@@ -14,9 +14,9 @@ namespace OPTEL.UI.Desktop.Services.WindowClosers
 
         private bool _isCloseAllowed;
 
-        private RelayCommand _checkForUnsavedChangesCommand;
+        private RelayCommand _determineCloseAllowedCommand;
 
-        public DatabaseEntityWindowCloseService(Window parent)
+        public DefaultWindowCloseService(Window parent)
         {
             _parent = parent;
             _isCloseAllowed = true;
@@ -26,9 +26,9 @@ namespace OPTEL.UI.Desktop.Services.WindowClosers
 
         private void OnWindowClose(object sender, CancelEventArgs e)
         {
-            if (_checkForUnsavedChangesCommand != null)
+            if (_determineCloseAllowedCommand != null)
             {
-                _checkForUnsavedChangesCommand.Execute(null);
+                _determineCloseAllowedCommand.Execute(null);
             }
             if (!IsCloseAllowed())
             {
@@ -75,9 +75,9 @@ namespace OPTEL.UI.Desktop.Services.WindowClosers
             _message = msg;
         }
 
-        public void SetCheckForUnsavedChangesCommand(RelayCommand command)
+        public void SetDetermineCloseAllowedCommand(RelayCommand command)
         {
-            _checkForUnsavedChangesCommand = command;
+            _determineCloseAllowedCommand = command;
         }
     }
 }

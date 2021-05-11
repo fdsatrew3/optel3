@@ -37,7 +37,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
         #endregion
-        public FilmRecipesViewModel(IDatabaseEntityWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
+        public FilmRecipesViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             FilmRecipes = new ObservableCollection<FilmRecipe>(Database.instance.FilmRecipeRepository.GetAll());
             FilmTypes = Database.instance.FilmTypeRepository.GetAll();

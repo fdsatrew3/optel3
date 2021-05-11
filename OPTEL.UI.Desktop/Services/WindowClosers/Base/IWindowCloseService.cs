@@ -8,5 +8,6 @@ namespace OPTEL.UI.Desktop.Services.WindowClosers.Base
         public void SetAllowWindowClosing(bool allow);
         public bool IsCloseAllowed();
         public void CloseWindow();
+        public void SetDetermineCloseAllowedCommand(RelayCommand command);
     }
 }

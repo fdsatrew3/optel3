@@ -10,6 +10,7 @@ using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.GanttChartManagers.Base;
 using OPTEL.UI.Desktop.Services.ModelsConverter.Base;
+using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using Optimization.Algorithms;
 using Optimization.Algorithms.Bruteforce;
 using Optimization.Algorithms.Core;
@@ -17,7 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace OPTEL.UI.Desktop.ViewModels
@@ -144,25 +147,30 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private IGanttChartManagerService _ganttChartManagerService;
 
+        private IWindowCloseService _windowCloseService;
+
         private RelayCommand _moveToNextTabCommand;
         private RelayCommand _moveToPreviousTabCommand;
         private RelayCommand _startPlanningCommand;
         private RelayCommand _selectAllOrdersCommand;
         private RelayCommand _selectAllProductionLinesCommand;
+        private RelayCommand _determineCloseAllowedCommand;
         #endregion
 
-        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, int maxSelectedTabIndex, DataGrid ordersDataGrid, DataGrid productionLinesDataGrid)
+        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, IWindowCloseService windowCloseService, int maxSelectedTabIndex, DataGrid ordersDataGrid, DataGrid productionLinesDataGrid)
         {
             _errorsListWindowService = errorsListWindowService;
             _planningConfigOrderConverterService = planningConfigOrderConverterService;
             _planningConfigProductionLineConverterService = planningConfigProductionLineConverterService;
             _ganttChartManagerService = ganttChartManagerService;
+            _windowCloseService = windowCloseService;
             _ordersDataGrid = ordersDataGrid;
             _productionLinesDataGrid = productionLinesDataGrid;
             _currentSelectedTabIndex = 0;
             _maxSelectedTabIndex = maxSelectedTabIndex;
             PlanningStartDate = DateTime.Now;
             PlanningEndDate = PlanningStartDate;
+            _windowCloseService.SetDetermineCloseAllowedCommand(DetermineCloseAllowedCommand);
             ObjectiveFunctions = new ObservableCollection<ObjectiveFunction>
             {
                 new ObjectiveFunction
@@ -424,6 +432,25 @@ namespace OPTEL.UI.Desktop.ViewModels
                         _errorsListWindowService.ShowErrorsListWindow();
                     }
                     IsBuildingProductionPlan = false;
+                });
+            }
+        }
+
+        public RelayCommand DetermineCloseAllowedCommand
+        {
+            get
+            {
+                return _determineCloseAllowedCommand ??= new RelayCommand(obj =>
+                {
+                    if (IsBuildingProductionPlan == true)
+                    {
+                        _windowCloseService.SetAllowWindowClosing(false);
+                        _windowCloseService.SetReasonMessage("Window.PlanningConfig.CalculationInProcess");
+                    }
+                    else
+                    {
+                        _windowCloseService.SetAllowWindowClosing(true);
+                    }
                 });
             }
         }
