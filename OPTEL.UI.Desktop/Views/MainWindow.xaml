@@ -11,6 +11,18 @@
         Width="800"
         Height="600" 
         Icon="{StaticResource ApplicationIconBitmapImage}">
+    <Window.Resources>
+        <ControlTemplate TargetType="{x:Type MenuItem}" x:Key="MenuItemTemplate">
+            <Border x:Name="Border" Padding="0,2,10,5" BorderThickness="0" Margin="0">
+                <ContentPresenter ContentSource="Header" x:Name="HeaderHost" RecognizesAccessKey="True" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsHighlighted" Value="true">
+                    <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -20,6 +32,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Menu Height="25" Grid.Column="0" Grid.Row="0" Background="Transparent">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
             <MenuItem Header="{localization:Localize Key=Menu.Data}">
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Calibrations}" Command="{Binding OpenExtruderCalibrationsWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Extruder.Nozzles}" Command="{Binding OpenExtruderNozzlesWindowCommand}"></MenuItem>
@@ -38,6 +55,7 @@
                     <MenuItem Header="{localization:Localize Key=Menu.Tools.Options.Languages}" x:Name="languageMenuItem"/>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="{Binding TargetFunctionString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Right" Template="{StaticResource MenuItemTemplate}"/>
         </Menu>
         <WindowsFormsHost Grid.Column="0" Grid.Row="1">
             <gantt:Chart x:Name="GanttChart"/>

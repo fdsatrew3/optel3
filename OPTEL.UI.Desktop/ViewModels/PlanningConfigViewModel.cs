@@ -436,6 +436,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                         {
                             try
                             {
+                                _ganttChartManagerService.SetTargetFunction(SelectedObjectiveFunction);
                                 _ganttChartManagerService.SetDesiredInterval((DateTime)PlanningStartDate, (DateTime)PlanningEndDate);
                                 _ganttChartManagerService.SetProductionPlan(optimalProductionPlan);
                                 _ganttChartManagerService.UpdateChart();

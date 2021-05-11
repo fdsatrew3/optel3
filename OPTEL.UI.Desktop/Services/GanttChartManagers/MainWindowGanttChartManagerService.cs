@@ -1,8 +1,11 @@
 ﻿using Braincase.GanttChart;
+using EasyLocalization.Localization;
 using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
+using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.GanttChartManagers.Base;
+using OPTEL.UI.Desktop.ViewModels;
 using OPTEL.UI.Desktop.Views;
 using System;
 using System.Diagnostics;
@@ -17,14 +20,19 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
         DateTime _planningStartDate, _planningEndDate;
         IOrderExcecutionTimeCalculator _orderExecutionTimeCalculator;
         IOrdersReconfigurationTimeCalculator _ordersReconfigurationTimeCalculator;
+        MainWindowViewModel _viewModel;
+        ObjectiveFunction _productionPlanTargetFunction;
+        IProductionLineQueueTimeCalculator _productionLineQueueTimeCalculator;
 
-        public MainWindowGanttChartManagerService(Chart ganttChart, IOrderExcecutionTimeCalculator orderExecutionTimeCalculator, IOrdersReconfigurationTimeCalculator ordersReconfigurationTimeCalculator)
+        public MainWindowGanttChartManagerService(MainWindowViewModel viewModel, Chart ganttChart, IOrderExcecutionTimeCalculator orderExecutionTimeCalculator, IOrdersReconfigurationTimeCalculator ordersReconfigurationTimeCalculator, IProductionLineQueueTimeCalculator productionLineQueueTimeCalculator)
         {
             _ganttChart = ganttChart ?? throw new Exception("Chart is null");
             _planningStartDate = DateTime.MinValue;
             _planningEndDate = DateTime.MaxValue;
             _orderExecutionTimeCalculator = orderExecutionTimeCalculator ?? throw new Exception("IOrderExcecutionTimeCalculator is null");
             _ordersReconfigurationTimeCalculator = ordersReconfigurationTimeCalculator;
+            _productionLineQueueTimeCalculator = productionLineQueueTimeCalculator;
+            _viewModel = viewModel;
         }
 
         public void SetDesiredInterval(DateTime start, DateTime end)
@@ -44,13 +52,21 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             TimeSpan currentOrderExecutionTime, currentOrderReconfigurationTime;
             Task lastOrderTask;
             Order lastOrder;
+            TimeSpan productionPlanExecutionTime = TimeSpan.FromSeconds(0);
+            double productionPlanExecutionPrice = 0;
             foreach (ProductionLineQueue queue in plan.ProductionLineQueues)
             {
                 Task productionLineTask = new Task();
                 productionLineTask.Name = queue.ProductionLine.Name;
                 _projectManager.Add(productionLineTask);
                 _projectManager.SetStart(productionLineTask, TimeSpan.FromHours(0));
-                _projectManager.SetDuration(productionLineTask, productionPlanDuration);
+                TimeSpan currentQueueExecutionTime = TimeSpan.FromMinutes(_productionLineQueueTimeCalculator.Calculate(queue));
+                if (currentQueueExecutionTime > productionPlanExecutionTime)
+                {
+                    productionPlanExecutionTime = currentQueueExecutionTime;
+                }
+                productionPlanExecutionPrice += currentQueueExecutionTime.TotalHours * queue.ProductionLine.HourCost;
+                _projectManager.SetDuration(productionLineTask, currentQueueExecutionTime);
                 //_ganttChart.SetToolTip(productionLineTask, "Tooltip");
                 lastOrderTask = productionLineTask;
                 currentTimeSpanOffset = TimeSpan.FromSeconds(0);
@@ -76,6 +92,20 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                     lastOrderTask = orderTask;
                 }
             }
+            switch (_productionPlanTargetFunction.Type)
+            {
+                case ObjectiveFunction.Types.Cost:
+                    _viewModel.TargetFunctionString = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.CostTargetFunction"), Math.Round(productionPlanExecutionPrice, 2));
+                    break;
+                case ObjectiveFunction.Types.Time:
+                    _viewModel.TargetFunctionString = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.TimeTargetFunction"), productionPlanExecutionTime.ToString("dd"), productionPlanExecutionTime.ToString("hh\\:mm\\:ss"));
+                    break;
+            }
+        }
+
+        public void SetTargetFunction(ObjectiveFunction function)
+        {
+            _productionPlanTargetFunction = function;
         }
 
         public void UpdateChart()

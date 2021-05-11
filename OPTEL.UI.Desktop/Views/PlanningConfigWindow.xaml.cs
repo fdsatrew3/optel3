@@ -22,13 +22,13 @@ namespace OPTEL.UI.Desktop.Views
             var planningConfigProductionLineConverterService = new PlanningConfigProductionLineToProductionLineConverterService();
             var orderExecutionCalculatorServer = new OrderExcecutionTimeCalculator();
             var ordersReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
-            var ganttChartManagerService = new MainWindowGanttChartManagerService(mainWindow.GanttChart, orderExecutionCalculatorServer, ordersReconfigurationTimeCalculator);
             var windowCloseService = new DefaultWindowCloseService(this);
             var orderExecutionTimeCalculator = new OrderExcecutionTimeCalculator();
             var orderReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
             var executionTimeCalculator = new ExecutionTimeCalculator(orderExecutionTimeCalculator);
             var reconfigurationTimeCalculator = new ReconfigurationTimeCalculator(orderReconfigurationTimeCalculator);
             var productionLineQueueTimeCalculator = new ProductionLineQueueTimeCalculator(executionTimeCalculator, reconfigurationTimeCalculator);
+            var ganttChartManagerService = new MainWindowGanttChartManagerService(mainWindow.DataContext as MainWindowViewModel, mainWindow.GanttChart, orderExecutionCalculatorServer, ordersReconfigurationTimeCalculator, productionLineQueueTimeCalculator);
             DataContext = new PlanningConfigViewModel(errorsListWindowService,
                 planningConfigOrderConverterService,
                 planningConfigProductionLineConverterService,

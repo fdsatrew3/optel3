@@ -13,7 +13,7 @@ namespace OPTEL.UI.Desktop.Views
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
-            GanttChart.TimeResolution = TimeResolution.Hour;
+            //GanttChart.TimeResolution = TimeResolution.Hour;
             ProjectManager projectManager = new ProjectManager();
             GanttChart.Init(projectManager);
             Application.Current.MainWindow = this;

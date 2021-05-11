@@ -2,14 +2,29 @@
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Views;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
+        #region Properties
+        public string TargetFunctionString
+        {
+            get => _targetfunctionValue;
+            set
+            {
+                _targetfunctionValue = value;
+                OnPropertyChanged("TargetFunctionString");
+            }
+        }
+
+        #endregion
         #region Fields
+        private string _targetfunctionValue;
+
         private RelayCommand _openExtruderCalibrationsWindowCommand;
         private RelayCommand _openExtruderNozzlesWindowCommand;
         private RelayCommand _openExtruderCoolingLipsWindowCommand;
@@ -161,6 +176,15 @@ namespace OPTEL.UI.Desktop.ViewModels
                     window.ShowModalDialog();
                 });
             }
+        }
+        #endregion
+
+        #region PropertyChangedEventHandler
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }
