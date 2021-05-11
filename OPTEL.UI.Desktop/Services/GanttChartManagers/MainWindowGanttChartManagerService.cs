@@ -65,10 +65,11 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                     orderTask.Name = order.OrderNumber;
                     currentOrderExecutionTime = TimeSpan.FromMinutes(_orderExecutionTimeCalculator.Calculate(order));
                     currentOrderReconfigurationTime = TimeSpan.FromMinutes(_ordersReconfigurationTimeCalculator.Calculate(queue.ProductionLine, lastOrder, order));
+
                     currentTimeSpanOffset += currentOrderExecutionTime + currentOrderReconfigurationTime;
                     _projectManager.Add(orderTask);
                     _projectManager.SetStart(orderTask, currentTimeSpanOffset);
-                    _projectManager.SetDuration(orderTask, TimeSpan.FromHours(8));
+                    _projectManager.SetDuration(orderTask, currentOrderExecutionTime + currentOrderReconfigurationTime);
                     _projectManager.SetComplete(orderTask, 1.0f);
                     _projectManager.Group(productionLineTask, orderTask);
                     _projectManager.Relate(lastOrderTask, orderTask);
