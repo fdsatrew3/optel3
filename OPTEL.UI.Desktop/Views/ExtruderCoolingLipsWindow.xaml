@@ -65,8 +65,8 @@
                       x:Name="ElementsList"
                       behaviors:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=CoolingLipToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.CoolingLipToChange}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.ReconfigurationTime}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=CoolingLipToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.CoolingLipToChange}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.ReconfigurationTime}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCoolingLips.TargetExtruder}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>

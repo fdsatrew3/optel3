@@ -44,11 +44,6 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             TimeSpan currentOrderExecutionTime, currentOrderReconfigurationTime;
             Task lastOrderTask;
             Order lastOrder;
-            var orderExecutionTimeCalculator = new OrderExcecutionTimeCalculator();
-            var orderReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
-            var executionTimeCalculator = new ExecutionTimeCalculator(orderExecutionTimeCalculator);
-            var reconfigurationTimeCalculator = new ReconfigurationTimeCalculator(orderReconfigurationTimeCalculator);
-            var productionLineQueueTimeCalculator = new ProductionLineQueueTimeCalculator(executionTimeCalculator, reconfigurationTimeCalculator);
             foreach (ProductionLineQueue queue in plan.ProductionLineQueues)
             {
                 Task productionLineTask = new Task();
