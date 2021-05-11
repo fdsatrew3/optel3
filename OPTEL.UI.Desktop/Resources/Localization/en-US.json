@@ -71,6 +71,15 @@
   "Window.Global.MessageBox.Error.SavingChanges": {
     "Value": "You can't close this window while changes saving into database."
   },
+  "Window.Main.Title": {
+    "Value": "Optel"
+  },
+  "Window.Main.GanttChart.TimeTargetFunction": {
+    "Value": "Required time to execute production plan: {0}"
+  },
+  "Window.Main.GanttChart.CostTargetFunction": {
+    "Value": "Required cost to execute production plan: {0}"
+  },
   "Window.ExtruderCalibrations.Title": {
     "Value": "Production line calibrations changes"
   },

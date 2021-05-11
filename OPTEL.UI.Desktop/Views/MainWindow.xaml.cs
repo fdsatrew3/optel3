@@ -1,8 +1,5 @@
 ﻿using Braincase.GanttChart;
-using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.ViewModels;
-using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace OPTEL.UI.Desktop.Views

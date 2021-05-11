@@ -7,7 +7,7 @@
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
         mc:Ignorable="d"
-        Title="Optel - Username" 
+        Title="{localization:Localize Key=Window.Main.Title}" 
         Width="800"
         Height="600" 
         Icon="{StaticResource ApplicationIconBitmapImage}">
@@ -42,6 +42,5 @@
         <WindowsFormsHost Grid.Column="0" Grid.Row="1">
             <gantt:Chart x:Name="GanttChart"/>
         </WindowsFormsHost>
-        <Label Content="Required time to execute production plan: " Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
