@@ -494,6 +494,9 @@
   "Window.PlanningConfig.CalculationInProcess": {
     "Value": "You can't close this window while optimal plan calculations in process."
   },
+  "Window.PlanningConfig.Warnings.ProductionPlanNotFitPlanningInterval": {
+    "Value": "Calculated optimal production plan can't be executed in specified planning interval. Are you still wish to display it?"
+  },
   "Window.PlanningConfig.Errors.PlanningStartDateIsGreaterThanPlanningEndDate": {
     "Value": "Planning start date must be earlier than planning end date."
   },

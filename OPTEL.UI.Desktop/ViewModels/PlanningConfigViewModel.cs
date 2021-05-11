@@ -5,6 +5,7 @@ using OPTEL.Optimization.Algorithms.Bruteforce;
 using OPTEL.Optimization.Algorithms.FitnessFunctionCalculators;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
 using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
@@ -149,6 +150,8 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private IWindowCloseService _windowCloseService;
 
+        private IProductionLineQueueTimeCalculator _productionLineQueueTimeCalculator;
+
         private RelayCommand _moveToNextTabCommand;
         private RelayCommand _moveToPreviousTabCommand;
         private RelayCommand _startPlanningCommand;
@@ -157,13 +160,14 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _determineCloseAllowedCommand;
         #endregion
 
-        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, IWindowCloseService windowCloseService, int maxSelectedTabIndex, DataGrid ordersDataGrid, DataGrid productionLinesDataGrid)
+        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, IWindowCloseService windowCloseService, IProductionLineQueueTimeCalculator productionLineQueueTimeCalculator, int maxSelectedTabIndex, DataGrid ordersDataGrid, DataGrid productionLinesDataGrid)
         {
             _errorsListWindowService = errorsListWindowService;
             _planningConfigOrderConverterService = planningConfigOrderConverterService;
             _planningConfigProductionLineConverterService = planningConfigProductionLineConverterService;
             _ganttChartManagerService = ganttChartManagerService;
             _windowCloseService = windowCloseService;
+            _productionLineQueueTimeCalculator = productionLineQueueTimeCalculator;
             _ordersDataGrid = ordersDataGrid;
             _productionLinesDataGrid = productionLinesDataGrid;
             _currentSelectedTabIndex = 0;
@@ -347,19 +351,14 @@ namespace OPTEL.UI.Desktop.ViewModels
                             case PlanningAlgorithm.Types.Bruteforce:
                                 var orderBruteforceAlgorithm = new OrderBruteforceAlgorithm();
                                 ITargetFunctionCalculator<ProductionPlan> targetFunctionCalculator = null;
-                                var orderExecutionTimeCalculator = new OrderExcecutionTimeCalculator();
-                                var orderReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
-                                var executionTimeCalculator = new ExecutionTimeCalculator(orderExecutionTimeCalculator);
-                                var reconfigurationTimeCalculator = new ReconfigurationTimeCalculator(orderReconfigurationTimeCalculator);
-                                var productionLineQueueTimeCalculator = new ProductionLineQueueTimeCalculator(executionTimeCalculator, reconfigurationTimeCalculator);
                                 switch (SelectedObjectiveFunction.Type)
                                 {
                                     case ObjectiveFunction.Types.Cost:
-                                        var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(productionLineQueueTimeCalculator);
+                                        var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator);
                                         targetFunctionCalculator = new CostFunctionCalculator(productionLineQueueCostCalculator);
                                         break;
                                     case ObjectiveFunction.Types.Time:
-                                        targetFunctionCalculator = new TimeFunctionCalculator(productionLineQueueTimeCalculator);
+                                        targetFunctionCalculator = new TimeFunctionCalculator(_productionLineQueueTimeCalculator);
                                         break;
                                 }
                                 var fitnessCalculator = new MinFitnessCalculator(targetFunctionCalculator);
@@ -410,20 +409,47 @@ namespace OPTEL.UI.Desktop.ViewModels
                     }
                     if (errors.Count == 0)
                     {
-                        try
+                        double executionTime;
+                        bool isProductionPlanFitPlanningInterval = true;
+                        foreach (ProductionLineQueue queue in optimalProductionPlan.ProductionLineQueues)
                         {
-                            _ganttChartManagerService.SetDesiredInterval((DateTime)PlanningStartDate, (DateTime)PlanningEndDate);
-                            _ganttChartManagerService.SetProductionPlan(optimalProductionPlan);
-                            _ganttChartManagerService.UpdateChart();
-                        }
-                        catch (Exception ex)
-                        {
-                            errors.Add(new Error
+                            executionTime = _productionLineQueueTimeCalculator.Calculate(queue);
+                            if (PlanningStartDate + TimeSpan.FromMinutes(executionTime) > PlanningEndDate)
                             {
-                                Content = ex.Message
-                            });
-                            _errorsListWindowService.SetErrorsForDisplay(errors);
-                            _errorsListWindowService.ShowErrorsListWindow();
+                                isProductionPlanFitPlanningInterval = false;
+                                break;
+                            }
+                        }
+                        bool displayOptimalProductionPlan = true;
+                        if (!isProductionPlanFitPlanningInterval)
+                        {
+                            MessageBoxResult result = MessageBox.Show(
+                                LocalizationManager.Instance.GetValue("Window.PlanningConfig.Warnings.ProductionPlanNotFitPlanningInterval"),
+                                LocalizationManager.Instance.GetValue("Window.Global.MessageBox.Warning.Global.Title"),
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Warning);
+                            if (result == MessageBoxResult.No)
+                            {
+                                displayOptimalProductionPlan = false;
+                            }
+                        }
+                        if (displayOptimalProductionPlan == true)
+                        {
+                            try
+                            {
+                                _ganttChartManagerService.SetDesiredInterval((DateTime)PlanningStartDate, (DateTime)PlanningEndDate);
+                                _ganttChartManagerService.SetProductionPlan(optimalProductionPlan);
+                                _ganttChartManagerService.UpdateChart();
+                            }
+                            catch (Exception ex)
+                            {
+                                errors.Add(new Error
+                                {
+                                    Content = ex.Message
+                                });
+                                _errorsListWindowService.SetErrorsForDisplay(errors);
+                                _errorsListWindowService.ShowErrorsListWindow();
+                            }
                         }
                     }
                     else
