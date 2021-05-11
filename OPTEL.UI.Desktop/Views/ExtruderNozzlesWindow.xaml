@@ -65,8 +65,8 @@
                       x:Name="ElementsList"
                       behaviors:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=NozzleToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderNozzles.NozzleToChange}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderNozzles.ReconfigurationTime}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=NozzleToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderNozzles.NozzleToChange}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderNozzles.ReconfigurationTime}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderNozzles.TargetExtruder}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>

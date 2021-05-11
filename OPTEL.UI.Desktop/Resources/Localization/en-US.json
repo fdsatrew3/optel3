@@ -32,9 +32,6 @@
   "Menu.Tools": {
     "Value": "Tools"
   },
-  "Menu.Tools.GenerateExcelTemplate": {
-    "Value": "Generate excel file template"
-  },
   "Menu.Tools.ImportDataFromExcelFile": {
     "Value": "Import data from excel file"
   },

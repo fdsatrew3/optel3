@@ -65,9 +65,9 @@
                       x:Name="ElementsList"
                       behaviors:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=FilmTypeFrom.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.FilmTypeFrom}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=FilmTypeTo.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.FilmTypeTo}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.ReconfigurationTime}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=FilmTypeFrom.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.FilmTypeFrom}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=FilmTypeTo.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.FilmTypeTo}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.ReconfigurationTime}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.TargetExtruder}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
