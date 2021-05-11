@@ -486,7 +486,7 @@
     "Value": "Select all production lines"
   },
   "Window.PlanningConfig.Step4": {
-    "Value": "Step 3 of 4: Select planning algorithm"
+    "Value": "Step 4 of 4: Select planning algorithm"
   },
   "Window.PlanningConfig.PlanningAlgorithm": {
     "Value": "Planning algorithm"
