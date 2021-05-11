@@ -431,6 +431,18 @@
   "Window.PlanningConfig.Title": {
     "Value": "Planning config"
   },
+  "Window.PlanningConfig.CostObjectiveFunction": {
+    "Value": "Cost"
+  },
+  "Window.PlanningConfig.TimeObjectiveFunction": {
+    "Value": "Time"
+  },
+  "Window.PlanningConfig.GeneticPlanningAlgorithm": {
+    "Value": "Genetic"
+  },
+  "Window.PlanningConfig.BruteforcePlanningAlgorithm": {
+    "Value": "Bruteforce"
+  },
   "Window.PlanningConfig.Step1": {
     "Value": "Step 1 of 4: Select planning interval and objective function"
   },
@@ -468,7 +480,7 @@
     "Value": "Planning algorithm"
   },
   "Window.PlanningConfig.PlanningAlgorithm.Help": {
-    "Value": "Select Genetic planning algorithm, if you have large planning task.\nSelect Bruteforce planning algorithm, if you have small planning task."
+    "Value": "Select Genetic planning algorithm, if you have large planning task (20 or more orders, one or more production lines).\nSelect Bruteforce planning algorithm, if you have small planning task (10-15 orders, 1-2 production lines)."
   },
   "Window.PlanningConfig.DisplayDecisionTree": {
     "Value": "Display decision tree"

@@ -167,12 +167,12 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 new ObjectiveFunction
                 {
-                    Name = "Time",
+                    Name = LocalizationManager.Instance.GetValue("Window.PlanningConfig.TimeObjectiveFunction"),
                     Type = ObjectiveFunction.Types.Time
                 },
                 new ObjectiveFunction
                 {
-                    Name = "Cost",
+                    Name = LocalizationManager.Instance.GetValue("Window.PlanningConfig.CostObjectiveFunction"),
                     Type = ObjectiveFunction.Types.Cost
                 }
             };
@@ -181,12 +181,12 @@ namespace OPTEL.UI.Desktop.ViewModels
             {
                 new PlanningAlgorithm
                 {
-                    Name = "Genetic",
+                    Name = LocalizationManager.Instance.GetValue("Window.PlanningConfig.GeneticPlanningAlgorithm"),
                     Type = PlanningAlgorithm.Types.Genetic
                 },
                 new PlanningAlgorithm
                 {
-                    Name = "Bruteforce",
+                    Name = LocalizationManager.Instance.GetValue("Window.PlanningConfig.BruteforcePlanningAlgorithm"),
                     Type = PlanningAlgorithm.Types.Bruteforce
                 }
             };

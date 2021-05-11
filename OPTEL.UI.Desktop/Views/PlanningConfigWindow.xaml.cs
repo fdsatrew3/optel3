@@ -1,12 +1,8 @@
-﻿using OPTEL.Data;
-using OPTEL.Optimization.Algorithms.Best;
-using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
-using OPTEL.UI.Desktop.Models;
+﻿using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows;
 using OPTEL.UI.Desktop.Services.GanttChartManagers;
 using OPTEL.UI.Desktop.Services.ModelsConverter;
 using OPTEL.UI.Desktop.ViewModels;
-using System;
 using System.Windows;
 
 namespace OPTEL.UI.Desktop.Views
