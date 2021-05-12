@@ -456,7 +456,7 @@
     "Value": "Bruteforce"
   },
   "Window.PlanningConfig.Step1": {
-    "Value": "Step 1 of 4: Select planning interval and objective function"
+    "Value": "Step 1 of 4: Select planning interval and target function"
   },
   "Window.PlanningConfig.PlanningStartDate": {
     "Value": "Planning start date"
