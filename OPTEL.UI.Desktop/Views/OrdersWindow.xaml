@@ -10,6 +10,7 @@
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
         mc:Ignorable="d"
         Title="{localization:Localize Key=Window.Orders.Title}" Height="470" Width="800"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
@@ -65,13 +66,19 @@
                       x:Name="ElementsList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="auto" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <xctk:DateTimePicker Value="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="true"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
@@ -155,7 +162,10 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DoubleUpDown>
-            <Label Content="{localization:Localize Key=Window.Orders.PredefinedTime}"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{localization:Localize Key=Window.Orders.PredefinedTime}"/>
+                <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="{localization:Localize Key=Window.Orders.PredefinedTime.Help}"/>
+            </StackPanel>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedOrder.PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">

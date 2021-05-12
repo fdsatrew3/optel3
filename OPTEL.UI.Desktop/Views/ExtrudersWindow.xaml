@@ -66,19 +66,43 @@
                       x:Name="ElementsList"
                       behaviors:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=WidthMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthMin}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=WidthMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthMax}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ThicknessMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.ThicknessMin}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ThicknessMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.ThicknessMax}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=WeightMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WeightMin}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=WeightMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WeightMax}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=LengthMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.LengthMin}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=LengthMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.LengthMax}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Width}" Width="auto" IsReadOnly="True">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="WidthMin" />
+                                <Binding Path="WidthMax" />
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Thickness}" Width="auto" IsReadOnly="True">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="ThicknessMin" />
+                                <Binding Path="ThicknessMax" />
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Weight}" Width="auto" IsReadOnly="True">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="WeightMin" />
+                                <Binding Path="WeightMax" />
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="auto" IsReadOnly="True">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="LengthMin" />
+                                <Binding Path="LengthMax" />
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>

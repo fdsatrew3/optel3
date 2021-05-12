@@ -186,7 +186,7 @@
     "Value": "Hour cost, €/h"
   },
   "Window.Extruders.MaxProductionSpeed": {
-    "Value": "Max production speed"
+    "Value": "Max production speed, m/h"
   },
   "Window.Extruders.Width": {
     "Value": "Width, mm"
@@ -376,6 +376,9 @@
   },
   "Window.Orders.PredefinedTime": {
     "Value": "Predefined time, h"
+  },
+  "Window.Orders.PredefinedTime.Help": {
+    "Value": "This field used to define already known order execution time (without considering required reconfiguration time). Use 0 to make software ignore this field and calculate order execution time instead."
   },
   "Window.Orders.ParentCustomer": {
     "Value": "Customer"

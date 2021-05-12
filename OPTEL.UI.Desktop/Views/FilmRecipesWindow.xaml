@@ -65,13 +65,13 @@
                       x:Name="ElementsList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Name}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=FilmType.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.FilmType}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Thickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Thickness}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.ProductionSpeed}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=MaterialCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.MaterialCost}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Nozzle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Nozzle}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Calibration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Calibration}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Name}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=FilmType.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.FilmType}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Thickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Thickness}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=ProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.ProductionSpeed}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=MaterialCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.MaterialCost}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Nozzle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Nozzle}" Width="auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Calibration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.Calibration}" Width="auto" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=CoolingLip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.FilmRecipes.CoolingLip}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
