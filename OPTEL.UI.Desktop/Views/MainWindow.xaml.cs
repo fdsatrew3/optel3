@@ -1,6 +1,8 @@
 ﻿using Braincase.GanttChart;
 using OPTEL.UI.Desktop.ViewModels;
+using System.Drawing;
 using System.Windows;
+using SystemColors = System.Drawing.SystemColors;
 
 namespace OPTEL.UI.Desktop.Views
 {

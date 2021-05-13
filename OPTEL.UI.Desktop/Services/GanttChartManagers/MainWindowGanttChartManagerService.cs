@@ -30,9 +30,16 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             _planningStartDate = DateTime.MinValue;
             _planningEndDate = DateTime.MaxValue;
             _orderExecutionTimeCalculator = orderExecutionTimeCalculator ?? throw new Exception("IOrderExcecutionTimeCalculator is null");
-            _ordersReconfigurationTimeCalculator = ordersReconfigurationTimeCalculator;
-            _productionLineQueueTimeCalculator = productionLineQueueTimeCalculator;
+            _ordersReconfigurationTimeCalculator = ordersReconfigurationTimeCalculator ?? throw new Exception("IOrdersReconfigurationTimeCalculator is null");
+            _productionLineQueueTimeCalculator = productionLineQueueTimeCalculator ?? throw new Exception("IProductionLineQueueTimeCalculator is null");
             _viewModel = viewModel;
+            DisableUserInput(_ganttChart);
+        }
+
+        private void DisableUserInput(Chart ganttChart)
+        {
+            ganttChart.AllowTaskDragDrop = false;
+            ganttChart.AllowDrop = false;
         }
 
         public void SetDesiredInterval(DateTime start, DateTime end)
@@ -47,7 +54,7 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             _plan = plan;
             _projectManager = new ProjectManager();
             _projectManager.Start = _planningStartDate;
-            TimeSpan productionPlanDuration = _planningEndDate - _planningStartDate;
+            _projectManager.Now = TimeSpan.FromSeconds(0);
             TimeSpan currentTimeSpanOffset;
             TimeSpan currentOrderExecutionTime, currentOrderReconfigurationTime;
             Task lastOrderTask;
@@ -67,7 +74,6 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                 }
                 productionPlanExecutionPrice += currentQueueExecutionTime.TotalHours * queue.ProductionLine.HourCost;
                 _projectManager.SetDuration(productionLineTask, currentQueueExecutionTime);
-                //_ganttChart.SetToolTip(productionLineTask, (_projectManager.Start + productionLineTask.Start) + " - " + (_projectManager.Start + productionLineTask.End));
                 lastOrderTask = productionLineTask;
                 currentTimeSpanOffset = TimeSpan.FromSeconds(0);
                 lastOrder = null;
@@ -115,7 +121,7 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
         {
             if (_projectManager == null)
             {
-                throw new System.Exception("ProjectManager of GanttChart is null");
+                throw new Exception("ProjectManager of GanttChart is null");
             }
             _ganttChart.Init(_projectManager);
         }

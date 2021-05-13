@@ -70,20 +70,19 @@ namespace Braincase.GanttChart
             this.Margin = new Padding(0, 0, 0, 0);
             this.Padding = new Padding(0, 0, 0, 0);
             // Formatting
-            TaskFormat = new GanttChart.TaskFormat() {
+            Color contentColor = Color.FromArgb(255, 61, 185, 211);
+            Brush contentColorBrush = new SolidBrush(contentColor);
+            Color borderColor = Color.FromArgb(255, 40, 152, 176);
+            var taskFormat = new TaskFormat()
+            {
                 Color = Brushes.Black,
-                Border = Pens.Maroon,
-                BackFill = Brushes.MediumSlateBlue,
-                ForeFill = Brushes.YellowGreen,
-                SlackFill = new System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.LightDownwardDiagonal, Color.Blue, Color.Transparent)
+                Border = new Pen(borderColor),
+                BackFill = contentColorBrush,
+                ForeFill = contentColorBrush,
+                SlackFill = new System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.BackwardDiagonal, contentColor, contentColor)
             };
-            CriticalTaskFormat = new GanttChart.TaskFormat() {
-                Color = Brushes.Black,
-                Border = Pens.Maroon,
-                BackFill = Brushes.Crimson,
-                ForeFill = Brushes.YellowGreen,
-                SlackFill = new System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.LightDownwardDiagonal, Color.Red, Color.Transparent)
-            };
+            TaskFormat = taskFormat;
+            CriticalTaskFormat = taskFormat;
             HeaderFormat = new GanttChart.HeaderFormat() {
                 Color = Brushes.Black,
                 Border = new Pen(SystemColors.ActiveBorder),
@@ -725,7 +724,10 @@ namespace Braincase.GanttChart
         {
             // fire listeners
             TaskMouseDrag?.Invoke(this, e);
-
+            if(AllowTaskDragDrop == false)
+            {
+                return;
+            }
             // Default drag behaviors **********************************
             if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
@@ -780,7 +782,10 @@ namespace Braincase.GanttChart
         {
             // Fire event
             TaskMouseDrop?.Invoke(this, e);
-
+            if (AllowTaskDragDrop == false)
+            {
+                return;
+            }
             var delta = (e.PreviousLocation.X - e.StartLocation.X);
 
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -850,7 +855,10 @@ namespace Braincase.GanttChart
         protected virtual void OnTaskMouseClick(TaskMouseEventArgs e)
         {
             TaskMouseClick?.Invoke(this, e);
-
+            if(AllowTaskDragDrop == false)
+            {
+                return;
+            }
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 if (ModifierKeys.HasFlag(Keys.Shift)) // activate multi-select
@@ -890,7 +898,10 @@ namespace Braincase.GanttChart
         protected virtual void OnTaskMouseDoubleClick(TaskMouseEventArgs e)
         {
             TaskMouseDoubleClick?.Invoke(this, e);
-
+            if(AllowTaskDragDrop == false)
+            {
+                return;
+            }
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 e.Task.IsCollapsed = !e.Task.IsCollapsed;
@@ -1334,11 +1345,11 @@ namespace Braincase.GanttChart
                     break;
                 case TimeResolution.Hour:
                     minor.Text = datetime.Hour.ToString();
-                    if (datetime.Day != datetimeprev.Day) major.Text = datetime.ToString("dd MMM yyyy");
+                    if (datetime.Day != datetimeprev.Day) major.Text = datetime.ToString("dd MMMM yyyy");
                     break;
                 default: // case TimeResolution.Day: -- to implement other TimeResolutions, add to this function or listen to the the PaintTimeline event
                     minor.Text = ShortDays[datetime.DayOfWeek]; // datetime.ToString("dddd").Substring(0, 1).ToUpper();
-                    if (datetime.DayOfWeek == DayOfWeek.Sunday) major.Text = datetime.ToString("dd MMM yyyy");
+                    if (datetime.DayOfWeek == DayOfWeek.Sunday) major.Text = datetime.ToString("dd MMMM yyyy");
                     break;
             }
         }
@@ -1479,11 +1490,11 @@ namespace Braincase.GanttChart
                     var linerect = p1.Y < p3.Y ? new RectangleF(p1, size) : new RectangleF(new PointF(p1.X, p1.Y - size.Height), size);
                     if (clipRectF.IntersectsWith(linerect))
                     {
-                        graphics.DrawLines(Pens.Black, new PointF[] { p1, p2, p3 });
+                        graphics.DrawLines(Pens.Orange, new PointF[] { p1, p2, p3 });
                         // draw arrowhead
                         var p4 = new PointF(p3.X - 3f, p3.Y + (isPointingDown ? -6f : 6f));
                         var p5 = new PointF(p3.X + 3f, p4.Y);
-                        graphics.FillPolygon(Brushes.Black, new PointF[] { p3, p4, p5 });
+                        graphics.FillPolygon(Brushes.Orange, new PointF[] { p3, p4, p5 });
                     }
 
                 }
