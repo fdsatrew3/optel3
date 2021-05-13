@@ -59,6 +59,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\Localization\ru-RU.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Localization\en-US.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -114,5 +117,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

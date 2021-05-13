@@ -365,9 +365,9 @@ namespace OPTEL.UI.Desktop.ViewModels
                                 planningAlgorithm = new BruteforceAlgorithm(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator);
                                 break;
                             case PlanningAlgorithm.Types.Genetic:
-                                var algorithmSetting = new GeneticAlgorithmSetting<ProductionPlan>
-                                planningAlgorithm = new GeneticAlgorithm();
-                                // planningAlgorithm = new BestAlgorithm(productionLines, orders, filmChanges);
+                                //var algorithmSetting = new GeneticAlgorithmSetting<ProductionPlan>;
+                                //planningAlgorithm = new GeneticAlgorithm();
+                                planningAlgorithm = new BestAlgorithm(productionLines, orders, filmChanges);
                                 break;
                         }
                     }

@@ -30,9 +30,16 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             _planningStartDate = DateTime.MinValue;
             _planningEndDate = DateTime.MaxValue;
             _orderExecutionTimeCalculator = orderExecutionTimeCalculator ?? throw new Exception("IOrderExcecutionTimeCalculator is null");
-            _ordersReconfigurationTimeCalculator = ordersReconfigurationTimeCalculator;
-            _productionLineQueueTimeCalculator = productionLineQueueTimeCalculator;
+            _ordersReconfigurationTimeCalculator = ordersReconfigurationTimeCalculator ?? throw new Exception("IOrdersReconfigurationTimeCalculator is null");
+            _productionLineQueueTimeCalculator = productionLineQueueTimeCalculator ?? throw new Exception("IProductionLineQueueTimeCalculator is null");
             _viewModel = viewModel;
+            DisableUserInput(_ganttChart);
+        }
+
+        private void DisableUserInput(Chart ganttChart)
+        {
+            ganttChart.AllowTaskDragDrop = false;
+            ganttChart.AllowDrop = false;
         }
 
         public void SetDesiredInterval(DateTime start, DateTime end)
@@ -46,62 +53,49 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
 
             _plan = plan;
             _projectManager = new ProjectManager();
-            _projectManager.Start = _planningStartDate;
-            TimeSpan productionPlanDuration = _planningEndDate - _planningStartDate;
-            TimeSpan currentTimeSpanOffset;
-            TimeSpan currentOrderExecutionTime, currentOrderReconfigurationTime;
-            Task lastOrderTask;
-            Order lastOrder;
+            TimeSpan timeOffset = TimeSpan.FromDays(1);
+            _projectManager.Start = _planningStartDate - timeOffset;
             TimeSpan productionPlanExecutionTime = TimeSpan.FromSeconds(0);
-            double productionPlanExecutionPrice = 0;
+            GanttChartTask lastCreatedTask;
+            double productionPlanCost = 0;
             foreach (ProductionLineQueue queue in plan.ProductionLineQueues)
             {
-                Task productionLineTask = new Task();
-                productionLineTask.Name = queue.ProductionLine.Name;
+                GanttChartTask productionLineTask = new GanttChartTask(queue.ProductionLine);
                 _projectManager.Add(productionLineTask);
-                _projectManager.SetStart(productionLineTask, TimeSpan.FromHours(0));
-                TimeSpan currentQueueExecutionTime = TimeSpan.FromMinutes(_productionLineQueueTimeCalculator.Calculate(queue));
-                if (currentQueueExecutionTime > productionPlanExecutionTime)
-                {
-                    productionPlanExecutionTime = currentQueueExecutionTime;
-                }
-                productionPlanExecutionPrice += currentQueueExecutionTime.TotalHours * queue.ProductionLine.HourCost;
-                _projectManager.SetDuration(productionLineTask, currentQueueExecutionTime);
-                //_ganttChart.SetToolTip(productionLineTask, (_projectManager.Start + productionLineTask.Start) + " - " + (_projectManager.Start + productionLineTask.End));
-                lastOrderTask = productionLineTask;
-                currentTimeSpanOffset = TimeSpan.FromSeconds(0);
-                lastOrder = null;
+                _projectManager.SetStart(productionLineTask, timeOffset);
+                _projectManager.SetDuration(productionLineTask, TimeSpan.FromMinutes(_productionLineQueueTimeCalculator.Calculate(queue)));
+                productionPlanExecutionTime = productionLineTask.Duration > productionPlanExecutionTime ? productionLineTask.Duration : productionPlanExecutionTime;
+                productionPlanCost += productionLineTask.Duration.TotalHours * queue.ProductionLine.HourCost;
+                lastCreatedTask = productionLineTask;
                 foreach (Order order in queue.Orders)
                 {
-                    if (lastOrder == null)
+                    GanttChartTask orderTask = new GanttChartTask(queue.ProductionLine, order);
+                    TimeSpan orderDuration = TimeSpan.FromMinutes(_orderExecutionTimeCalculator.Calculate(order));
+                    TimeSpan orderStart = lastCreatedTask.Start;
+                    if (lastCreatedTask.Order != null)
                     {
-                        lastOrder = order;
+                        orderDuration += TimeSpan.FromMinutes(_ordersReconfigurationTimeCalculator.Calculate(queue.ProductionLine, lastCreatedTask.Order, order));
+                        orderStart = lastCreatedTask.End;
                     }
-                    Task orderTask = new Task();
-                    orderTask.Name = order.OrderNumber;
-                    currentOrderExecutionTime = TimeSpan.FromMinutes(_orderExecutionTimeCalculator.Calculate(order));
-                    currentOrderReconfigurationTime = TimeSpan.FromMinutes(_ordersReconfigurationTimeCalculator.Calculate(queue.ProductionLine, lastOrder, order));
-                    currentTimeSpanOffset += currentOrderExecutionTime + currentOrderReconfigurationTime;
                     _projectManager.Add(orderTask);
-                    _projectManager.SetStart(orderTask, currentTimeSpanOffset);
-                    _projectManager.SetDuration(orderTask, currentOrderExecutionTime + currentOrderReconfigurationTime);
-                    _projectManager.SetComplete(orderTask, 1.0f);
+                    _projectManager.SetStart(orderTask, orderStart);
+                    _projectManager.SetDuration(orderTask, orderDuration);
                     _projectManager.Group(productionLineTask, orderTask);
-                    _projectManager.Relate(lastOrderTask, orderTask);
-                    if (lastOrderTask != productionLineTask)
-                    {
-                        _ganttChart.SetToolTip(lastOrderTask, (_projectManager.Start + lastOrderTask.Start) + " - " + (_projectManager.Start + lastOrderTask.End));
-                    }
-                    lastOrderTask = orderTask;
+                    _projectManager.Relate(lastCreatedTask, orderTask);
+                    lastCreatedTask = orderTask;
                 }
+            }
+            foreach (GanttChartTask task in _projectManager.Tasks)
+            {
+                _ganttChart.SetToolTip(task, (_projectManager.Start + task.Start) + " - " + (_projectManager.Start + task.Start + task.Duration));
             }
             switch (_productionPlanTargetFunction.Type)
             {
                 case ObjectiveFunction.Types.Cost:
-                    _viewModel.TargetFunctionString = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.CostTargetFunction"), Math.Round(productionPlanExecutionPrice, 2));
+                    _viewModel.TargetFunctionValue = productionPlanCost;
                     break;
                 case ObjectiveFunction.Types.Time:
-                    _viewModel.TargetFunctionString = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.TimeTargetFunction"), productionPlanExecutionTime.ToString("dd"), productionPlanExecutionTime.ToString("hh\\:mm\\:ss"));
+                    _viewModel.TargetFunctionValue = productionPlanExecutionTime;
                     break;
             }
         }
@@ -115,9 +109,35 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
         {
             if (_projectManager == null)
             {
-                throw new System.Exception("ProjectManager of GanttChart is null");
+                throw new Exception("ProjectManager of GanttChart is null");
             }
             _ganttChart.Init(_projectManager);
+            _ganttChart.CreateTaskDelegate = delegate () { return new GanttChartTask(); };
+        }
+
+        [Serializable]
+        public class GanttChartTask : Task
+        {
+            public GanttChartTask(ProductionLine productionLine = null, Order order = null) : base()
+            {
+                ProductionLine = productionLine;
+                Order = order;
+                string name = string.Empty;
+                if (ProductionLine != null)
+                {
+                    if (Order != null)
+                    {
+                        name = string.Format("{0} ({1} {2})", order.OrderNumber, productionLine.Name, productionLine.Code);
+                    }
+                    else
+                    {
+                        name = string.Format("{0} {1}", productionLine.Name, productionLine.Code);
+                    }
+                }
+                Name = name;
+            }
+            public Order Order { get; set; }
+            public ProductionLine ProductionLine { get; set; }
         }
     }
 }

@@ -11,19 +11,19 @@ namespace OPTEL.UI.Desktop.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public string TargetFunctionString
+        public object TargetFunctionValue
         {
             get => _targetfunctionValue;
             set
             {
                 _targetfunctionValue = value;
-                OnPropertyChanged("TargetFunctionString");
+                OnPropertyChanged("TargetFunctionValue");
             }
         }
 
         #endregion
         #region Fields
-        private string _targetfunctionValue;
+        private object _targetfunctionValue;
 
         private RelayCommand _openExtruderCalibrationsWindowCommand;
         private RelayCommand _openExtruderNozzlesWindowCommand;
@@ -46,11 +46,15 @@ namespace OPTEL.UI.Desktop.ViewModels
                 languageMenuItem.Header = availableCultures[i].EnglishName;
                 languageMenuItem.Click += (o, e) =>
                 {
-                    LocalizationManager.Instance.CurrentCulture = LocalizationManager.Instance.AvailableCultures[Convert.ToInt32((o as MenuItem).DataContext)];
+                    LocalizationManager.Instance.CurrentCulture = LocalizationManager.Instance.AvailableCultures[Convert.ToInt32((o as MenuItem).Tag)];
                 };
-                languageMenuItem.DataContext = i;
+                languageMenuItem.Tag = i;
                 (Application.Current.MainWindow as MainWindow).languageMenuItem.Items.Add(languageMenuItem);
             }
+            LocalizationManager.Instance.PropertyChanged += (o, e) =>
+            {
+                TargetFunctionValue = TargetFunctionValue;
+            };
         }
         #region Commands
         public RelayCommand OpenExtruderCalibrationsWindowCommand
