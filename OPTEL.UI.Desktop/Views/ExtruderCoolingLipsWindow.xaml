@@ -5,7 +5,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:behaviors="clr-namespace:OPTEL.UI.Desktop.Behaviours"
+        xmlns:behaviors="clr-namespace:OPTEL.UI.Desktop.Views.Behaviours"
         xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
         xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
