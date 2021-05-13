@@ -1362,6 +1362,37 @@ namespace Braincase.GanttChart
             graphics.FillPolygon(Brushes.LightGoldenrodYellow, marker);
             graphics.DrawPolygon(new Pen(SystemColors.ButtonShadow), marker);
         }
+        private static GraphicsPath RoundedRect(RectangleF bounds, float radius)
+        {
+            float diameter = radius * 2;
+            SizeF size = new SizeF(diameter, diameter);
+            RectangleF arc = new RectangleF(bounds.Location, size);
+            GraphicsPath path = new GraphicsPath();
+
+            if (radius == 0)
+            {
+                path.AddRectangle(bounds);
+                return path;
+            }
+
+            // top left arc  
+            path.AddArc(arc, 180, 90);
+
+            // top right arc  
+            arc.X = bounds.Right - diameter;
+            path.AddArc(arc, 270, 90);
+
+            // bottom right arc  
+            arc.Y = bounds.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+
+            // bottom left arc 
+            arc.X = bounds.Left;
+            path.AddArc(arc, 90, 90);
+
+            path.CloseFigure();
+            return path;
+        }
 
         private int _DrawTasks(Graphics graphics, Rectangle clipRect)
         {
@@ -1486,28 +1517,34 @@ namespace Braincase.GanttChart
         {
             var fill = taskRect;
             fill.Width = (int)(fill.Width * task.Complete);
-            graphics.FillRectangle(e.Format.BackFill, taskRect);
-            graphics.FillRectangle(e.Format.ForeFill, fill);
-            graphics.DrawRectangle(e.Format.Border, taskRect);
-
-            // check if this is a parent task / group task, then draw the bracket
-            if (_mProject.IsGroup(task))
+            //graphics.FillRectangle(e.Format.BackFill, taskRect);
+            //graphics.FillRectangle(e.Format.ForeFill, fill);
+            using (GraphicsPath path = RoundedRect(taskRect, 4))
             {
-                var rod = new RectangleF(taskRect.Left, taskRect.Top, taskRect.Width, taskRect.Height / 2);
-                graphics.FillRectangle(Brushes.Black, rod);
-
-                if (!task.IsCollapsed)
+                graphics.FillPath(e.Format.BackFill, path);
+                //graphics.FillPath(e.Format.ForeFill, fill);
+                graphics.DrawPolygon(e.Format.Border, path.PathPoints);
+                // check if this is a parent task / group task, then draw the bracket
+                if (_mProject.IsGroup(task))
                 {
-                    // left bracket
-                    graphics.FillPolygon(Brushes.Black, new PointF[] {
-                                new PointF() { X = taskRect.Left, Y = taskRect.Top },
-                                new PointF() { X = taskRect.Left, Y = taskRect.Top + BarHeight },
-                                new PointF() { X = taskRect.Left + MinorWidth / 2f, Y = taskRect.Top } });
-                    // right bracket
-                    graphics.FillPolygon(Brushes.Black, new PointF[] {
-                                new PointF() { X = taskRect.Right, Y = taskRect.Top },
-                                new PointF() { X = taskRect.Right, Y = taskRect.Top + BarHeight },
-                                new PointF() { X = taskRect.Right - MinorWidth / 2f, Y = taskRect.Top } });
+                    //var rod = new RectangleF(taskRect.Left, taskRect.Top, taskRect.Width, taskRect.Height);
+                    //graphics.FillRectangle(Brushes.Red, rod);
+                    graphics.FillPath(e.Format.BackFill, path);
+                    graphics.DrawPolygon(e.Format.Border, path.PathPoints);
+                    /*
+                    if (!task.IsCollapsed)
+                    {
+                        // left bracket
+                        graphics.FillPolygon(Brushes.Black, new PointF[] {
+                                    new PointF() { X = taskRect.Left, Y = taskRect.Top },
+                                    new PointF() { X = taskRect.Left, Y = taskRect.Top + BarHeight },
+                                    new PointF() { X = taskRect.Left + MinorWidth / 2f, Y = taskRect.Top } });
+                        // right bracket
+                        graphics.FillPolygon(Brushes.Black, new PointF[] {
+                                    new PointF() { X = taskRect.Right, Y = taskRect.Top },
+                                    new PointF() { X = taskRect.Right, Y = taskRect.Top + BarHeight },
+                                    new PointF() { X = taskRect.Right - MinorWidth / 2f, Y = taskRect.Top } });
+                    } */
                 }
             }
         }
