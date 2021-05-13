@@ -1443,8 +1443,9 @@ namespace Braincase.GanttChart
                     var dvisible = _mChartTaskRects.ContainsKey(dependant);
                     RectangleF prect, drect;
                     PointF p1, p2, p3, p4, p5, p6;
-                    bool isPointingDown;
-                    var marginRight = 10;
+                    var arrowSize = 6f;
+                    var minLineLength = 10f;
+                    var maxLineLength = 10f;
                     // case where both precedent and dependant are visible, just connect line between them
                     if (!pvisible && !dvisible)
                     {
@@ -1457,9 +1458,9 @@ namespace Braincase.GanttChart
 
                         // plot and draw lines
                         p1 = new PointF(prect.Right, prect.Top + prect.Height / 2.0f);
-                        p2 = new PointF(p1.X + marginRight, p1.Y);
+                        p2 = new PointF(p1.X + Math.Min(Math.Max(((drect.Right - prect.Right) / 2.0f), minLineLength), maxLineLength), p1.Y);
                         p3 = new PointF(p2.X, prect.Bottom + (drect.Top - prect.Bottom) / 2.0f);
-                        p4 = new PointF(drect.Left - (p2.X - p1.X), p3.Y);
+                        p4 = new PointF(drect.Left - (p2.X - p1.X) - (arrowSize * 1.5f), p3.Y);
                         p5 = new PointF(p4.X, drect.Bottom - (drect.Height / 2.0f));
                         p6 = new PointF(drect.Left, p5.Y);
                     }
@@ -1470,10 +1471,10 @@ namespace Braincase.GanttChart
                     if (clipRectF.IntersectsWith(linerect))
                     {
                         Pen linePen = new Pen(Color.Orange, 2.0f);
-                        graphics.DrawLines(linePen, new PointF[] { p1, p2, p3, p4, p5, p6});
+                        graphics.DrawLines(linePen, new PointF[] { p1, p2, p3, p4, p5, p6 });
                         // draw arrowhead
-                        var p7 = new PointF(p6.X - 6f, p6.Y - 6f);
-                        var p8 = new PointF(p6.X - 6f, p6.Y + 6f);
+                        var p7 = new PointF(p6.X - arrowSize, p6.Y - arrowSize);
+                        var p8 = new PointF(p6.X - arrowSize, p6.Y + arrowSize);
                         graphics.FillPolygon(Brushes.Orange, new PointF[] { p6, p7, p8 });
                     }
 
