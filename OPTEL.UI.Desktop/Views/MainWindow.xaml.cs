@@ -16,6 +16,8 @@ namespace OPTEL.UI.Desktop.Views
             InitializeComponent();
             DataContext = new MainWindowViewModel();
             ProjectManager projectManager = new ProjectManager();
+            projectManager.Start = DateTime.Now;
+            projectManager.Now = TimeSpan.FromSeconds(0);
             GanttChart.Init(projectManager);
             Application.Current.MainWindow = this;
         }

@@ -54,7 +54,6 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             _plan = plan;
             _projectManager = new ProjectManager();
             _projectManager.Start = _planningStartDate;
-            _projectManager.Now = TimeSpan.FromSeconds(0);
             TimeSpan productionPlanExecutionTime = TimeSpan.FromSeconds(0);
             GanttChartTask lastCreatedTask;
             foreach (ProductionLineQueue queue in plan.ProductionLineQueues)
@@ -62,30 +61,29 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                 GanttChartTask productionLineTask = new GanttChartTask(queue.ProductionLine);
                 _projectManager.Add(productionLineTask);
                 _projectManager.SetDuration(productionLineTask, TimeSpan.FromMinutes(_productionLineQueueTimeCalculator.Calculate(queue)));
-                _ganttChart.SetToolTip(productionLineTask, (_projectManager.Start + productionLineTask.Start) + " - " + (_projectManager.Start + productionLineTask.End));
                 productionPlanExecutionTime = productionLineTask.Duration > productionPlanExecutionTime ? productionLineTask.Duration : productionPlanExecutionTime;
                 lastCreatedTask = productionLineTask;
                 foreach (Order order in queue.Orders)
                 {
                     GanttChartTask orderTask = new GanttChartTask(queue.ProductionLine, order);
                     TimeSpan orderDuration = TimeSpan.FromMinutes(_orderExecutionTimeCalculator.Calculate(order));
+                    TimeSpan orderStart = lastCreatedTask.Start;
                     if (lastCreatedTask.Order != null)
                     {
-                        TimeSpan.FromMinutes(_ordersReconfigurationTimeCalculator.Calculate(queue.ProductionLine, lastCreatedTask.Order, order));
+                        orderDuration += TimeSpan.FromMinutes(_ordersReconfigurationTimeCalculator.Calculate(queue.ProductionLine, lastCreatedTask.Order, order));
+                        orderStart = lastCreatedTask.End;
                     }
                     _projectManager.Add(orderTask);
-                    _projectManager.SetStart(orderTask, lastCreatedTask.Start);
-                    _projectManager.SetDuration(orderTask, TimeSpan.FromDays(20));
+                    _projectManager.SetStart(orderTask, orderStart);
+                    _projectManager.SetDuration(orderTask, orderDuration);
                     _projectManager.Group(productionLineTask, orderTask);
                     _projectManager.Relate(lastCreatedTask, orderTask);
-                    _ganttChart.SetToolTip(orderTask, (_projectManager.Start + orderTask.Start) + " - " + (_projectManager.Start + orderTask.End));
                     lastCreatedTask = orderTask;
-                    break;
                 }
             }
             foreach (GanttChartTask task in _projectManager.Tasks)
             {
-                _ganttChart.SetToolTip(task, (_projectManager.Start + task.Start) + " - " + (_projectManager.Start + task.End));
+                _ganttChart.SetToolTip(task, (_projectManager.Start + task.Start) + " - " + (_projectManager.Start + task.Start + task.Duration));
             }
             switch (_productionPlanTargetFunction.Type)
             {
