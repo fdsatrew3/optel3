@@ -75,7 +75,7 @@
     "Value": "Optel"
   },
   "Window.Main.GanttChart.TimeTargetFunction": {
-    "Value": "Required time to execute production plan: {0} day(s) {1}"
+    "Value": "Required time to execute production plan: {0:d\\ \\d\\a\\y\\(\\s\\)\\ hh\\:mm\\:ss} days"
   },
   "Window.Main.GanttChart.CostTargetFunction": {
     "Value": "Required cost to execute production plan: {0} €"
@@ -186,7 +186,7 @@
     "Value": "Hour cost, €/h"
   },
   "Window.Extruders.MaxProductionSpeed": {
-    "Value": "Max production speed"
+    "Value": "Max production speed, m/h"
   },
   "Window.Extruders.Width": {
     "Value": "Width, mm"
@@ -377,6 +377,9 @@
   "Window.Orders.PredefinedTime": {
     "Value": "Predefined time, h"
   },
+  "Window.Orders.PredefinedTime.Help": {
+    "Value": "This field used to define already known order execution time (without considering required reconfiguration time). Use 0 to make software ignore this field and calculate order execution time instead."
+  },
   "Window.Orders.ParentCustomer": {
     "Value": "Customer"
   },
@@ -456,7 +459,7 @@
     "Value": "Bruteforce"
   },
   "Window.PlanningConfig.Step1": {
-    "Value": "Step 1 of 4: Select planning interval and objective function"
+    "Value": "Step 1 of 4: Select planning interval and target function"
   },
   "Window.PlanningConfig.PlanningStartDate": {
     "Value": "Planning start date"

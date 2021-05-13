@@ -1,6 +1,8 @@
 ﻿using Braincase.GanttChart;
 using OPTEL.UI.Desktop.ViewModels;
+using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace OPTEL.UI.Desktop.Views
 {
@@ -13,8 +15,9 @@ namespace OPTEL.UI.Desktop.Views
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
-            //GanttChart.TimeResolution = TimeResolution.Hour;
             ProjectManager projectManager = new ProjectManager();
+            projectManager.Start = DateTime.Now;
+            projectManager.Now = TimeSpan.FromSeconds(0);
             GanttChart.Init(projectManager);
             Application.Current.MainWindow = this;
         }
