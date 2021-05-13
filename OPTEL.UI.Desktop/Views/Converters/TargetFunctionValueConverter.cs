@@ -14,7 +14,7 @@ namespace OPTEL.UI.Desktop.Views.Converters
             if (value is TimeSpan)
             {
                 TimeSpan time = (TimeSpan)value;
-                result = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.TimeTargetFunction"), time.ToString("dd"), time.ToString("hh\\:mm\\:ss"));
+                result = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.TimeTargetFunction"), time);
             }
             if (value is double)
             {

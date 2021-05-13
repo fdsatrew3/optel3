@@ -75,7 +75,7 @@
     "Value": "Optel"
   },
   "Window.Main.GanttChart.TimeTargetFunction": {
-    "Value": "Required time to execute production plan: {0} day(s) {1}"
+    "Value": "Required time to execute production plan: {0:d\\ \\d\\a\\y\\(\\s\\)\\ hh\\:mm\\:ss} days"
   },
   "Window.Main.GanttChart.CostTargetFunction": {
     "Value": "Required cost to execute production plan: {0} €"
