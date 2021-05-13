@@ -7,17 +7,18 @@ using Optimization.Algorithms.Bruteforce;
 
 namespace OPTEL.Optimization.Algorithms.Bruteforce
 {
-    public class BruteforceAlgorithm : IOptimizationAlgorithm<ProductionPlan>, IOptimizationAlgorithmDecisions<ProductionPlan>
+    public class BruteforceAlgorithm<T> : IOptimizationAlgorithm<T>, IOptimizationAlgorithmDecisions<T>
+        where T : ProductionPlan, new()
     {
         private readonly IOrderBruteforceAlgorithm _orderBruteforceAlgorithm;
         private readonly ICollection<Order> _orders;
         private readonly ICollection<ProductionLine> _productionLines;
-        private readonly IFitnessCalculator<ProductionPlan> _fitnessCalculator;
+        private readonly IFitnessCalculator<T> _fitnessCalculator;
 
         public BruteforceAlgorithm(IOrderBruteforceAlgorithm orderBruteforceAlgorithm,
             ICollection<Order> orders,
             ICollection<ProductionLine> productionLines,
-            IFitnessCalculator<ProductionPlan> fitnessCalculator)
+            IFitnessCalculator<T> fitnessCalculator)
         {
             _orderBruteforceAlgorithm = orderBruteforceAlgorithm ?? throw new ArgumentNullException(nameof(orderBruteforceAlgorithm));
             _orders = orders ?? throw new ArgumentNullException(nameof(orders));
@@ -25,10 +26,10 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             _fitnessCalculator = fitnessCalculator ?? throw new ArgumentNullException(nameof(fitnessCalculator));
         }
 
-        public IEnumerable<ProductionPlan> GetResolve()
+        public IEnumerable<T> GetResolve()
         {
             double? bestFitness = null;
-            ProductionPlan bestPlan;
+            T bestPlan;
 
             var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
             var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
@@ -51,10 +52,10 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             }
         }
 
-        ProductionPlan IOptimizationAlgorithm<ProductionPlan>.GetResolve()
+        T IOptimizationAlgorithm<T>.GetResolve()
         {
             double? bestFitness = null;
-            ProductionPlan bestPlan = null;
+            T bestPlan = null;
 
             var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
             var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
@@ -78,13 +79,13 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             return bestPlan;
         }
 
-        private ProductionPlan MakeProductionLineQueue(int[] productionLinesOrders, int[] ordersOrders)
+        private T MakeProductionLineQueue(int[] productionLinesOrders, int[] ordersOrders)
         {
-            var result = new ProductionPlan { ProductionLineQueues = new List<ProductionLineQueue>() };
+            var result = new T { ProductionLineQueues = new List<ProductionLineQueue>() };
 
             foreach(var order in productionLinesOrders)
             {
-                result.ProductionLineQueues.Add(new ProductionLineQueue { Orders = new List<Order>(), ProductionLine = _productionLines.ElementAt(order)});
+                result.ProductionLineQueues.Add(new ProductionLineQueue { Orders = new List<Order>(), ProductionLine = _productionLines.ElementAt(order) });
             }
 
             int i = 0;

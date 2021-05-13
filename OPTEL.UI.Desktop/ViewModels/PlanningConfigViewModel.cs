@@ -3,6 +3,11 @@ using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.Best;
 using OPTEL.Optimization.Algorithms.Bruteforce;
 using OPTEL.Optimization.Algorithms.FitnessFunctionCalculators;
+using OPTEL.Optimization.Algorithms.Genetic.Services.FinalConditionCheckers;
+using OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers;
+using OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Mutations;
+using OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerator;
+using OPTEL.Optimization.Algorithms.Genetic.Services.Util;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
@@ -15,7 +20,10 @@ using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using Optimization.Algorithms;
 using Optimization.Algorithms.Bruteforce;
 using Optimization.Algorithms.Core;
+using Optimization.Algorithms.Genetic.Data;
 using Optimization.Algorithms.Genetic.Services.Base;
+using Optimization.Algorithms.Genetic.Services.IndividualsSelectors;
+using Optimization.Algorithms.Genetic.Services.Operators.Crossovers.Selectors;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -349,25 +357,10 @@ namespace OPTEL.UI.Desktop.ViewModels
                         switch (SelectedPlanningAlgorithm.Type)
                         {
                             case PlanningAlgorithm.Types.Bruteforce:
-                                var orderBruteforceAlgorithm = new OrderBruteforceAlgorithm();
-                                ITargetFunctionCalculator<ProductionPlan> targetFunctionCalculator = null;
-                                switch (SelectedObjectiveFunction.Type)
-                                {
-                                    case ObjectiveFunction.Types.Cost:
-                                        var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator);
-                                        targetFunctionCalculator = new CostFunctionCalculator(productionLineQueueCostCalculator);
-                                        break;
-                                    case ObjectiveFunction.Types.Time:
-                                        targetFunctionCalculator = new TimeFunctionCalculator(_productionLineQueueTimeCalculator);
-                                        break;
-                                }
-                                var fitnessCalculator = new MinFitnessCalculator(targetFunctionCalculator);
-                                planningAlgorithm = new BruteforceAlgorithm(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator);
+                                optimalProductionPlan = await StartBruteforceAlgorithm(errors, orders, productionLines);
                                 break;
                             case PlanningAlgorithm.Types.Genetic:
-                                var algorithmSetting = new GeneticAlgorithmSetting<ProductionPlan>
-                                planningAlgorithm = new GeneticAlgorithm();
-                                // planningAlgorithm = new BestAlgorithm(productionLines, orders, filmChanges);
+                                optimalProductionPlan = await StartGeneticAlgorithm(errors, orders, productionLines);
                                 break;
                         }
                     }
@@ -376,30 +369,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                         errors.Add(new Error
                         {
                             Content = ex.Message
-                        });
-                    }
-                    if (planningAlgorithm != null)
-                    {
-                        await Task.Run(() =>
-                        {
-                            try
-                            {
-                                optimalProductionPlan = planningAlgorithm.GetResolve();
-                            }
-                            catch (Exception ex)
-                            {
-                                errors.Add(new Error
-                                {
-                                    Content = ex.Message
-                                });
-                            }
-                        });
-                    }
-                    else
-                    {
-                        errors.Add(new Error
-                        {
-                            Content = "planningAlgorithm is null?"
                         });
                     }
                     if (optimalProductionPlan == null)
@@ -492,6 +461,110 @@ namespace OPTEL.UI.Desktop.ViewModels
             if (this.PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
+
+        #region private methods
+
+        private async Task<ProductionPlan> StartBruteforceAlgorithm(ObservableCollection<Error> errors, ObservableCollection<Order> orders, ObservableCollection<ProductionLine> productionLines)
+        {
+            var orderBruteforceAlgorithm = new OrderBruteforceAlgorithm();
+            ITargetFunctionCalculator<ProductionPlan> targetFunctionCalculator = null;
+
+            switch (SelectedObjectiveFunction.Type)
+            {
+                case ObjectiveFunction.Types.Cost:
+                    var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator);
+                    targetFunctionCalculator = new CostFunctionCalculator<ProductionPlan>(productionLineQueueCostCalculator);
+                    break;
+                case ObjectiveFunction.Types.Time:
+                    targetFunctionCalculator = new TimeFunctionCalculator<ProductionPlan>(_productionLineQueueTimeCalculator);
+                    break;
+            }
+
+            var fitnessCalculator = new MinFitnessCalculator<ProductionPlan>(targetFunctionCalculator);
+            IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = new BruteforceAlgorithm<ProductionPlan>(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator);
+            ProductionPlan optimalProductionPlan = null;
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    optimalProductionPlan = planningAlgorithm.GetResolve();
+                }
+                catch (Exception ex)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = ex.Message
+                    });
+                }
+            });
+
+            return optimalProductionPlan;
+        }
+
+        private async Task<ProductionPlan> StartGeneticAlgorithm(ObservableCollection<Error> errors, ObservableCollection<Order> orders, ObservableCollection<ProductionLine> productionLines)
+        {
+            var random = new Random();
+            ITargetFunctionCalculator<Optimization.Algorithms.Genetic.Data.ProductionPlan> geneticTargetFunctionCalculator = null;
+            var standardIndividualSelector = new UniformRankingIndividualsSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(random, 100);
+
+            switch (SelectedObjectiveFunction.Type)
+            {
+                case ObjectiveFunction.Types.Cost:
+                    var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator);
+                    geneticTargetFunctionCalculator = new CostFunctionCalculator<Optimization.Algorithms.Genetic.Data.ProductionPlan>(productionLineQueueCostCalculator);
+                    break;
+                case ObjectiveFunction.Types.Time:
+                    geneticTargetFunctionCalculator = new TimeFunctionCalculator<Optimization.Algorithms.Genetic.Data.ProductionPlan>(_productionLineQueueTimeCalculator);
+                    break;
+            }
+
+            var tfitnessCalculator = new MinFitnessCalculator<Optimization.Algorithms.Genetic.Data.ProductionPlan>(geneticTargetFunctionCalculator);
+            var algorithmSetting = new GeneticAlgorithmSetting<Optimization.Algorithms.Genetic.Data.ProductionPlan>
+            {
+                MaxPopulationCount = 200,
+                StartPopulationCreator = new RandomStartPopulationGenerator(
+                    new Random(),
+                    productionLines,
+                    orders,
+                    geneticTargetFunctionCalculator,
+                    tfitnessCalculator,
+                    _productionLineQueueTimeCalculator
+                    ),
+                BestSelector = new BestSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(),
+                MutationOperator = new PointedMutationOperator(
+                    standardIndividualSelector, random, 0.5
+                    ),
+                CrossoverOperator = new MultipointedCrossoverOperator(
+                    2, 
+                    random, 
+                    new ProductionPlanUnwarper(), 
+                    new InbreedinganCrossoverOperatorSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(standardIndividualSelector)
+                    ),
+                PopulationSelector = new PopulationSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(standardIndividualSelector),
+                FinalCoditionCheckers = new List<IFinalCoditionChecker<IPopulation<Optimization.Algorithms.Genetic.Data.ProductionPlan>>> { 
+                    new GenerationsNumberFinalConditionChecker<Optimization.Algorithms.Genetic.Data.ProductionPlan>(1000) 
+                }
+            };
+            
+            /*
+            IOptimizationAlgorithm<Optimization.Algorithms.Genetic.Data.ProductionPlan> planningAlgorithm = 
+                new GeneticAlgorithm<Optimization.Algorithms.Genetic.Data.ProductionPlan>(algorithmSetting);
+            */
+            IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = new BestAlgorithm(productionLines, orders, Database.instance.FilmRecipeChangeRepository.GetAll());
+
+            // Optimization.Algorithms.Genetic.Data.ProductionPlan optimalProductionPlan = null;
+            ProductionPlan optimalProductionPlan = null;
+
+            await Task.Run(() =>
+            {
+                optimalProductionPlan = planningAlgorithm.GetResolve();
+            });
+
+            return optimalProductionPlan;
+        }
+
         #endregion
     }
 }

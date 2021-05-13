@@ -20,30 +20,34 @@ namespace Optimization.Algorithms.Genetic.Services.Base
 
         I IOptimizationAlgorithm<I>.GetResolve()
         {
-            var currentPopulation = GeneticAlgorithmSetting.StartPopulationCreator.CreateStartPopulation(GeneticAlgorithmSetting.MaxPopulationCount);
+            I bestResolve = null;
 
-            GeneticAlgorithmSetting.FinalCoditionCheckers.ForEach(x => x.Begin());
-
-            while (true)
+            foreach (var resolve in GetResolvesInternal())
             {
-                var children = GeneticAlgorithmSetting.CrossoverOperator.CreateChildren(currentPopulation);
-
-                currentPopulation.AddIndividuals(children);
-
-                GeneticAlgorithmSetting.MutationOperator.MakeMutation(currentPopulation);
-
-                currentPopulation = GeneticAlgorithmSetting.PopulationSelector.SelectPopulation(currentPopulation);
-
-                if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsStateFinal(currentPopulation)))
-                    break;
+                if (bestResolve == null || bestResolve.FitnessFunctionValue < resolve.FitnessFunctionValue)
+                {
+                    bestResolve = resolve.Clone() as I;
+                }
             }
 
-            var bestIndividual = GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation);
-
-            return bestIndividual;
+            return bestResolve;
         }
 
         IEnumerable<I> IOptimizationAlgorithm<IEnumerable<I>>.GetResolve()
+        {
+            I bestResolve = null;
+
+            foreach(var resolve in GetResolvesInternal())
+            {
+                if (bestResolve == null || bestResolve.FitnessFunctionValue < resolve.FitnessFunctionValue)
+                {
+                    bestResolve = resolve.Clone() as I;
+                    yield return bestResolve;
+                }
+            }
+        }
+
+        private IEnumerable<I> GetResolvesInternal()
         {
             var currentPopulation = GeneticAlgorithmSetting.StartPopulationCreator.CreateStartPopulation(GeneticAlgorithmSetting.MaxPopulationCount);
 
@@ -59,13 +63,11 @@ namespace Optimization.Algorithms.Genetic.Services.Base
 
                 currentPopulation = GeneticAlgorithmSetting.PopulationSelector.SelectPopulation(currentPopulation);
 
+                yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation);
+
                 if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsStateFinal(currentPopulation)))
                     break;
-                else
-                    yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation).Clone() as I;
             }
-
-            yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation);
         }
     }
 }

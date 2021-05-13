@@ -43,6 +43,7 @@
     <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
     <ProjectReference Include="..\OPTEL.Optimization.Algorithms.Best\OPTEL.Optimization.Algorithms.Best.csproj" />
     <ProjectReference Include="..\OPTEL.Optimization.Algorithms.Bruteforce\OPTEL.Optimization.Algorithms.Bruteforce.csproj" />
+    <ProjectReference Include="..\OPTEL.Optimization.Algorithms.Genetic\OPTEL.Optimization.Algorithms.Genetic.csproj" />
     <ProjectReference Include="..\OPTEL.Optimization.Algorithms\OPTEL.Optimization.Algorithms.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms.Genetic\Optimization.Algorithms.Genetic.csproj" />
     <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />

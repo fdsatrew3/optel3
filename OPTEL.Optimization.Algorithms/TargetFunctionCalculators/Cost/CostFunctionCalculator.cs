@@ -6,7 +6,8 @@ using System.Linq;
 
 namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost
 {
-    public class CostFunctionCalculator : ITargetFunctionCalculator<ProductionPlan>
+    public class CostFunctionCalculator<T> : ITargetFunctionCalculator<T>
+        where T : ProductionPlan
     {
         public IProductionLineQueueCostCalculator ProductionLineQueueCostCalculator { get; }
 
@@ -15,6 +16,6 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost
             ProductionLineQueueCostCalculator = productionLineQueueCostCalculator ?? throw new ArgumentNullException(nameof(productionLineQueueCostCalculator));
         }
 
-        public double Calculate(ProductionPlan individual) => individual.ProductionLineQueues.Select(x => ProductionLineQueueCostCalculator.Calculate(x)).Max();
+        public double Calculate(T individual) => individual.ProductionLineQueues.Select(x => ProductionLineQueueCostCalculator.Calculate(x)).Max();
     }
 }

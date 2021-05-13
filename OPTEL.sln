@@ -37,6 +37,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.UI.Desktop.Test", "OP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.Entity.Test", "OPTEL.Entity.Test\OPTEL.Entity.Test.csproj", "{E88B67F1-1AA0-494E-BFC8-BEB9B14CCADA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.Optimization.Algorithms.Genetic", "OPTEL.Optimization.Algorithms.Genetic\OPTEL.Optimization.Algorithms.Genetic.csproj", "{7BD6E37D-AD59-4508-A1B4-80CA684699FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPTEL.Optimization.Algorithms.Genetic.Test", "OPTEL.Optimization.Algorithms.Genetic.Test\OPTEL.Optimization.Algorithms.Genetic.Test.csproj", "{678F50A6-0FCF-4E5E-8037-C1C1AA4DAFA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +115,14 @@ Global
 		{E88B67F1-1AA0-494E-BFC8-BEB9B14CCADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E88B67F1-1AA0-494E-BFC8-BEB9B14CCADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E88B67F1-1AA0-494E-BFC8-BEB9B14CCADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD6E37D-AD59-4508-A1B4-80CA684699FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD6E37D-AD59-4508-A1B4-80CA684699FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD6E37D-AD59-4508-A1B4-80CA684699FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD6E37D-AD59-4508-A1B4-80CA684699FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{678F50A6-0FCF-4E5E-8037-C1C1AA4DAFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678F50A6-0FCF-4E5E-8037-C1C1AA4DAFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678F50A6-0FCF-4E5E-8037-C1C1AA4DAFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678F50A6-0FCF-4E5E-8037-C1C1AA4DAFA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

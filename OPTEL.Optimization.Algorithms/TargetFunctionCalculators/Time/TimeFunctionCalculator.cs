@@ -6,7 +6,8 @@ using System.Linq;
 
 namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
 {
-    public class TimeFunctionCalculator : ITargetFunctionCalculator<ProductionPlan>
+    public class TimeFunctionCalculator<T> : ITargetFunctionCalculator<T>
+        where T : ProductionPlan
     {
         public IProductionLineQueueTimeCalculator ProductionLineQueueTimeCalculator { get; }
 
@@ -15,6 +16,6 @@ namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
             ProductionLineQueueTimeCalculator = productionLineQueueTimeCalculator ?? throw new ArgumentNullException(nameof(productionLineQueueTimeCalculator));
         }
 
-        public double Calculate(ProductionPlan individual) => individual.ProductionLineQueues.Select(x => ProductionLineQueueTimeCalculator.Calculate(x)).Max();
+        public double Calculate(T individual) => individual.ProductionLineQueues.Select(x => ProductionLineQueueTimeCalculator.Calculate(x)).Max();
     }
 }
