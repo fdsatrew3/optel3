@@ -83,7 +83,8 @@ namespace Braincase.GanttChart
             };
             TaskFormat = taskFormat;
             CriticalTaskFormat = taskFormat;
-            HeaderFormat = new GanttChart.HeaderFormat() {
+            HeaderFormat = new GanttChart.HeaderFormat()
+            {
                 Color = Brushes.Black,
                 Border = new Pen(SystemColors.ActiveBorder),
                 GradientLight = SystemColors.ButtonHighlight,
@@ -94,7 +95,7 @@ namespace Braincase.GanttChart
         /// <summary>
         /// Delegate method for creating a new Task. Creates Task by default.
         /// </summary>
-        public Func<Task> CreateTaskDelegate = delegate() { return new Task(); };
+        public Func<Task> CreateTaskDelegate = delegate () { return new Task(); };
 
         /// <summary>
         /// Get the selected tasks.
@@ -164,7 +165,7 @@ namespace Braincase.GanttChart
         /// <summary>
         /// Get or set format for Tasks
         /// </summary>
-        public TaskFormat TaskFormat { get; set;  }
+        public TaskFormat TaskFormat { get; set; }
 
         /// <summary>
         /// Get or set format for critical Tasks
@@ -333,17 +334,18 @@ namespace Braincase.GanttChart
             float x = 0; // viewport world x, y coords
             float y = 0;
             int pageCount = 0;
-     
+
             document.PrintPage += (s, e) =>
             {
                 e.HasMorePages = false;
                 pageCount++;
-                
+
                 // create a PrintViewport to navigate the world
                 var printViewport = new PrintViewport(e.Graphics,
                     viewport.WorldWidth, viewport.WorldHeight,
                     e.MarginBounds.Width, e.MarginBounds.Height,
-                    e.PageSettings.Margins.Left, e.PageSettings.Margins.Right) { Scale = scale };
+                    e.PageSettings.Margins.Left, e.PageSettings.Margins.Right)
+                { Scale = scale };
                 _mViewport = printViewport;
 
                 // move the viewport
@@ -440,7 +442,7 @@ namespace Braincase.GanttChart
         /// <param name="task"></param>
         public void ClearToolTip(Task task)
         {
-            if(task != null)
+            if (task != null)
                 _mTaskToolTip.Remove(task);
         }
 
@@ -557,7 +559,7 @@ namespace Braincase.GanttChart
             if (!this.DesignMode)
                 this._Draw(e.Graphics, e.ClipRectangle);
         }
-        
+
         /// <summary>
         /// Raises the System.Windows.Forms.Control.MouseMove event
         /// </summary>
@@ -572,7 +574,7 @@ namespace Braincase.GanttChart
                 _mMouseEntered = null;
 
             }
-            else if(_mMouseEntered == null && task != null)
+            else if (_mMouseEntered == null && task != null)
             {
                 _mMouseEntered = task;
                 OnTaskMouseOver(new TaskMouseEventArgs(_mMouseEntered, _mChartTaskHitRects[task], e.Button, e.Clicks, e.X, e.Y, e.Delta));
@@ -588,7 +590,7 @@ namespace Braincase.GanttChart
                 OnTaskMouseDrag(new TaskDragDropEventArgs(_mDragTaskStartLocation, _mDragTaskLastLocation, _mDraggedTask, _mChartTaskHitRects[_mDraggedTask], target, targetRect, row, e.Button, e.Clicks, e.X, e.Y, e.Delta));
                 _mDragTaskLastLocation = e.Location;
             }
-            else if(_mDraggedTask == null && e.Button == MouseButtons.Middle) // panning mode
+            else if (_mDraggedTask == null && e.Button == MouseButtons.Middle) // panning mode
             {
                 this.Cursor = Cursors.SizeAll;
                 _mViewport.X -= e.X - _mPanViewLastLocation.X;
@@ -724,7 +726,7 @@ namespace Braincase.GanttChart
         {
             // fire listeners
             TaskMouseDrag?.Invoke(this, e);
-            if(AllowTaskDragDrop == false)
+            if (AllowTaskDragDrop == false)
             {
                 return;
             }
@@ -855,7 +857,7 @@ namespace Braincase.GanttChart
         protected virtual void OnTaskMouseClick(TaskMouseEventArgs e)
         {
             TaskMouseClick?.Invoke(this, e);
-            if(AllowTaskDragDrop == false)
+            if (AllowTaskDragDrop == false)
             {
                 return;
             }
@@ -898,7 +900,7 @@ namespace Braincase.GanttChart
         protected virtual void OnTaskMouseDoubleClick(TaskMouseEventArgs e)
         {
             TaskMouseDoubleClick?.Invoke(this, e);
-            if(AllowTaskDragDrop == false)
+            if (AllowTaskDragDrop == false)
             {
                 return;
             }
@@ -959,7 +961,7 @@ namespace Braincase.GanttChart
         {
             PaintHeader?.Invoke(this, e);
         }
-        
+
         #endregion Chart Events
 
         #region OverlayPainter
@@ -1053,9 +1055,9 @@ namespace Braincase.GanttChart
         /// <returns></returns>
         private int _DeviceCoordToChartRow(float y)
         {
-           y = _mViewport.DeviceToWorldCoord(new PointF(0, y)).Y;
-           var row = (int)((y - this.BarSpacing - this.HeaderOneHeight) / this.BarSpacing);
-           return row < 0 ? 0 : row;
+            y = _mViewport.DeviceToWorldCoord(new PointF(0, y)).Y;
+            var row = (int)((y - this.BarSpacing - this.HeaderOneHeight) / this.BarSpacing);
+            return row < 0 ? 0 : row;
         }
 
         /// <summary>
@@ -1162,7 +1164,7 @@ namespace Braincase.GanttChart
                         foreach (var part in _mProject.PartsOf(task))
                         {
                             taskRect = new RectangleF(GetSpan(part.Start), y_coord, GetSpan(part.Duration), this.BarHeight);
-                            parts.Add(new KeyValuePair<Task,RectangleF>(part, taskRect));
+                            parts.Add(new KeyValuePair<Task, RectangleF>(part, taskRect));
 
                             // Parts are mouse enabled, add to hitRect collection
                             _mChartTaskHitRects.Add(part, taskRect);
@@ -1233,7 +1235,7 @@ namespace Braincase.GanttChart
         private DateTime __CalculateViewportStart()
         {
             float vpTime = (int)(_mViewport.X / this.MinorWidth);
-            if(this.TimeResolution == GanttChart.TimeResolution.Week)
+            if (this.TimeResolution == GanttChart.TimeResolution.Week)
             {
                 return _mProject.Start.AddDays(vpTime * 7);
             }
@@ -1341,7 +1343,7 @@ namespace Braincase.GanttChart
             {
                 case TimeResolution.Week:
                     minor.Text = calendar.GetWeekOfYear(datetime, System.Globalization.CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday).ToString();
-                    if(datetime.Month != datetimeprev.Month) major.Text = datetime.ToString("MMMM");
+                    if (datetime.Month != datetimeprev.Month) major.Text = datetime.ToString("MMMM");
                     break;
                 case TimeResolution.Hour:
                     minor.Text = datetime.Hour.ToString();
@@ -1440,49 +1442,26 @@ namespace Braincase.GanttChart
                     var pvisible = _mChartTaskRects.ContainsKey(precedent);
                     var dvisible = _mChartTaskRects.ContainsKey(dependant);
                     RectangleF prect, drect;
-                    PointF p1, p2, p3;
+                    PointF p1, p2, p3, p4, p5, p6;
                     bool isPointingDown;
-
+                    var marginRight = 10;
                     // case where both precedent and dependant are visible, just connect line between them
                     if (!pvisible && !dvisible)
                     {
                         continue; //next dependant please!
                     }
-                    else if (pvisible && dvisible)
+                    else
                     {
                         prect = _mChartTaskRects[precedent];
                         drect = _mChartTaskRects[dependant];
 
                         // plot and draw lines
                         p1 = new PointF(prect.Right, prect.Top + prect.Height / 2.0f);
-                        p2 = new PointF(drect.Left, p1.Y);
-                        isPointingDown = p1.Y < drect.Top;
-                        p3 = new PointF(drect.Left, isPointingDown ? drect.Top : drect.Bottom);
-                       
-                    }
-                    else if(pvisible && !dvisible)
-                    {
-                        prect = _mChartTaskRects[precedent];
-                        var group = _mProject.GroupsOf(dependant).Last(g => g.IsCollapsed);
-                        drect = _mChartTaskRects[group];
-
-                        // if precendent.start > group.start, need to handle this case of line bending back
-                        p1 = new PointF(prect.Right, prect.Top + prect.Height / 2.0f);
-                        p2 = new PointF(GetSpan(dependant.Start), p1.Y);
-                        isPointingDown = p1.Y < drect.Top;
-                        p3 = new PointF(GetSpan(dependant.Start), isPointingDown ? drect.Top : drect.Bottom);
-                    }
-                    else // if(!pvisible && dvisible)
-                    {
-                        var group = _mProject.GroupsOf(precedent).Last(g => g.IsCollapsed);
-                        prect = _mChartTaskRects[group];
-                        drect = _mChartTaskRects[dependant];
-
-                        // TODO: if group.end > dependant.start, need to handle this case of line bending back
-                        p1 = new PointF(GetSpan(precedent.End), prect.Top + prect.Height / 2.0f);
-                        p2 = new PointF(drect.Left, p1.Y);
-                        isPointingDown = p1.Y < drect.Top;
-                        p3 = new PointF(drect.Left, isPointingDown ? drect.Top : drect.Bottom);
+                        p2 = new PointF(p1.X + marginRight, p1.Y);
+                        p3 = new PointF(p2.X, prect.Bottom + (drect.Top - prect.Bottom) / 2.0f);
+                        p4 = new PointF(drect.Left - (p2.X - p1.X), p3.Y);
+                        p5 = new PointF(p4.X, drect.Bottom - (drect.Height / 2.0f));
+                        p6 = new PointF(drect.Left, p5.Y);
                     }
 
                     // prepare and draw the lines
@@ -1490,11 +1469,12 @@ namespace Braincase.GanttChart
                     var linerect = p1.Y < p3.Y ? new RectangleF(p1, size) : new RectangleF(new PointF(p1.X, p1.Y - size.Height), size);
                     if (clipRectF.IntersectsWith(linerect))
                     {
-                        graphics.DrawLines(Pens.Orange, new PointF[] { p1, p2, p3 });
+                        Pen linePen = new Pen(Color.Orange, 2.0f);
+                        graphics.DrawLines(linePen, new PointF[] { p1, p2, p3, p4, p5, p6});
                         // draw arrowhead
-                        var p4 = new PointF(p3.X - 3f, p3.Y + (isPointingDown ? -6f : 6f));
-                        var p5 = new PointF(p3.X + 3f, p4.Y);
-                        graphics.FillPolygon(Brushes.Orange, new PointF[] { p3, p4, p5 });
+                        var p7 = new PointF(p6.X - 6f, p6.Y - 6f);
+                        var p8 = new PointF(p6.X - 6f, p6.Y + 6f);
+                        graphics.FillPolygon(Brushes.Orange, new PointF[] { p6, p7, p8 });
                     }
 
                 }
@@ -1814,7 +1794,7 @@ namespace Braincase.GanttChart
             : base(graphics, clipRect, chart)
         {
             this.Font = font;
-            this.Format = format;  
+            this.Format = format;
         }
     }
 
@@ -1835,7 +1815,7 @@ namespace Braincase.GanttChart
             get
             {
                 return new RectangleF(this.Chart.GetSpan(this.Task.Start), this.Row * this.Chart.BarSpacing + this.Chart.BarSpacing + this.Chart.HeaderOneHeight, this.Chart.GetSpan(this.Task.Duration), this.Chart.BarHeight);
-            }    
+            }
         }
         /// <summary>
         /// Get the row number of the task
