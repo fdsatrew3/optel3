@@ -53,13 +53,15 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
 
             _plan = plan;
             _projectManager = new ProjectManager();
-            _projectManager.Start = _planningStartDate;
+            TimeSpan timeOffset = TimeSpan.FromDays(0.5);
+            _projectManager.Start = _planningStartDate - timeOffset;
             TimeSpan productionPlanExecutionTime = TimeSpan.FromSeconds(0);
             GanttChartTask lastCreatedTask;
             foreach (ProductionLineQueue queue in plan.ProductionLineQueues)
             {
                 GanttChartTask productionLineTask = new GanttChartTask(queue.ProductionLine);
                 _projectManager.Add(productionLineTask);
+                _projectManager.SetStart(productionLineTask, timeOffset);
                 _projectManager.SetDuration(productionLineTask, TimeSpan.FromMinutes(_productionLineQueueTimeCalculator.Calculate(queue)));
                 productionPlanExecutionTime = productionLineTask.Duration > productionPlanExecutionTime ? productionLineTask.Duration : productionPlanExecutionTime;
                 lastCreatedTask = productionLineTask;
@@ -123,7 +125,7 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                 {
                     if (Order != null)
                     {
-                        name = string.Format("{0} {1} ({2})", productionLine.Name, productionLine.Code, order.OrderNumber);
+                        name = string.Format("{0} ({1} {2})", order.OrderNumber, productionLine.Name, productionLine.Code);
                     }
                     else
                     {
