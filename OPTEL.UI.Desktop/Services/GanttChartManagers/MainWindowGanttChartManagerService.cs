@@ -53,10 +53,11 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
 
             _plan = plan;
             _projectManager = new ProjectManager();
-            TimeSpan timeOffset = TimeSpan.FromDays(0.5);
+            TimeSpan timeOffset = TimeSpan.FromDays(1);
             _projectManager.Start = _planningStartDate - timeOffset;
             TimeSpan productionPlanExecutionTime = TimeSpan.FromSeconds(0);
             GanttChartTask lastCreatedTask;
+            double productionPlanCost = 0;
             foreach (ProductionLineQueue queue in plan.ProductionLineQueues)
             {
                 GanttChartTask productionLineTask = new GanttChartTask(queue.ProductionLine);
@@ -64,6 +65,7 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
                 _projectManager.SetStart(productionLineTask, timeOffset);
                 _projectManager.SetDuration(productionLineTask, TimeSpan.FromMinutes(_productionLineQueueTimeCalculator.Calculate(queue)));
                 productionPlanExecutionTime = productionLineTask.Duration > productionPlanExecutionTime ? productionLineTask.Duration : productionPlanExecutionTime;
+                productionPlanCost += productionLineTask.Duration.TotalHours * queue.ProductionLine.HourCost;
                 lastCreatedTask = productionLineTask;
                 foreach (Order order in queue.Orders)
                 {
@@ -90,10 +92,10 @@ namespace OPTEL.UI.Desktop.Services.GanttChartManagers
             switch (_productionPlanTargetFunction.Type)
             {
                 case ObjectiveFunction.Types.Cost:
-                    //_viewModel.TargetFunctionString = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.CostTargetFunction"), Math.Round(productionPlanExecutionPrice, 2));
+                    _viewModel.TargetFunctionValue = productionPlanCost;
                     break;
                 case ObjectiveFunction.Types.Time:
-                    _viewModel.TargetFunctionString = string.Format(LocalizationManager.Instance.GetValue("Window.Main.GanttChart.TimeTargetFunction"), productionPlanExecutionTime.ToString("dd"), productionPlanExecutionTime.ToString("hh\\:mm\\:ss"));
+                    _viewModel.TargetFunctionValue = productionPlanExecutionTime;
                     break;
             }
         }
