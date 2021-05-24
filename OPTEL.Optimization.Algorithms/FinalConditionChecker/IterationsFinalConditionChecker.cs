@@ -26,7 +26,7 @@ namespace OPTEL.Optimization.Algorithms.FinalConditionChecker
         {
             _currentIteration++;
 
-            return _currentIteration > _iterationsCount;
+            return _currentIteration >= _iterationsCount;
         }
     }
 }
