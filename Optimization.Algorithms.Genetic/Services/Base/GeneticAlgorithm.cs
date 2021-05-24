@@ -42,7 +42,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
                 if (bestResolve == null || bestResolve.FitnessFunctionValue < resolve.FitnessFunctionValue)
                 {
                     bestResolve = resolve.Clone() as I;
-                    yield return bestResolve;
+                    yield return resolve;
                 }
             }
         }

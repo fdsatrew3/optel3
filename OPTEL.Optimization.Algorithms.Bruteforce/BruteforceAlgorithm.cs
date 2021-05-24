@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OPTEL.Data;
+using Optimization.Algorithms;
 using Optimization.Algorithms.Core;
 using Optimization.Algorithms.Bruteforce;
 
@@ -14,16 +15,19 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
         private readonly ICollection<Order> _orders;
         private readonly ICollection<ProductionLine> _productionLines;
         private readonly IFitnessCalculator<T> _fitnessCalculator;
+        private readonly IEnumerable<IFinalConditionChecker<T>> _finalCoditionCheckers;
 
         public BruteforceAlgorithm(IOrderBruteforceAlgorithm orderBruteforceAlgorithm,
             ICollection<Order> orders,
             ICollection<ProductionLine> productionLines,
-            IFitnessCalculator<T> fitnessCalculator)
+            IFitnessCalculator<T> fitnessCalculator,
+            IEnumerable<IFinalConditionChecker<T>> finalCoditionCheckers)
         {
             _orderBruteforceAlgorithm = orderBruteforceAlgorithm ?? throw new ArgumentNullException(nameof(orderBruteforceAlgorithm));
             _orders = orders ?? throw new ArgumentNullException(nameof(orders));
             _productionLines = productionLines ?? throw new ArgumentNullException(nameof(productionLines));
             _fitnessCalculator = fitnessCalculator ?? throw new ArgumentNullException(nameof(fitnessCalculator));
+            _finalCoditionCheckers = finalCoditionCheckers;
         }
 
         public IEnumerable<T> GetResolve()
@@ -31,23 +35,16 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             double? bestFitness = null;
             T bestPlan;
 
-            var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
-            var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
-
-            foreach (var orderOrders in ordersOrders)
+            foreach (var resolve in GetResolvesInternal())
             {
-                foreach (var productionLinesOrder in productionLinesOrders)
+                var testFitness = _fitnessCalculator.Calculate(resolve);
+
+                if (bestFitness is null || testFitness > bestFitness)
                 {
-                    var plan = MakeProductionLineQueue(productionLinesOrder, orderOrders);
-                    var testFitness = _fitnessCalculator.Calculate(plan);
+                    bestPlan = resolve;
+                    bestFitness = testFitness;
 
-                    if (bestFitness is null || testFitness > bestFitness)
-                    {
-                        bestPlan = plan;
-                        bestFitness = testFitness;
-
-                        yield return bestPlan;
-                    }
+                    yield return resolve;
                 }
             }
         }
@@ -57,6 +54,22 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             double? bestFitness = null;
             T bestPlan = null;
 
+            foreach (var resolve in GetResolvesInternal())
+            {
+                var testFitness = _fitnessCalculator.Calculate(resolve);
+
+                if (bestFitness is null || testFitness > bestFitness)
+                {
+                    bestPlan = resolve;
+                    bestFitness = testFitness;
+                }
+            }
+
+            return bestPlan;
+        }
+
+        private IEnumerable<T> GetResolvesInternal()
+        {
             var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
             var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
 
@@ -64,19 +77,14 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
             {
                 foreach (var productionLinesOrder in productionLinesOrders)
                 {
-                    var plan = MakeProductionLineQueue(productionLinesOrder, orderOrders);
-                    var testFitness = _fitnessCalculator.Calculate(plan);
+                    var resolve = MakeProductionLineQueue(productionLinesOrder, orderOrders);
 
-                    if (bestFitness is null || testFitness > bestFitness)
-                    {
-                        bestPlan = plan;
-                        bestFitness = testFitness;
-                    }
-                    
+                    if (_finalCoditionCheckers != null && _finalCoditionCheckers.Any(x => x.IsStateFinal(resolve)))
+                        yield break;
+                    else
+                        yield return resolve;
                 }
             }
-
-            return bestPlan;
         }
 
         private T MakeProductionLineQueue(int[] productionLinesOrders, int[] ordersOrders)

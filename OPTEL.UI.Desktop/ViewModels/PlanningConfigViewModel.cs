@@ -482,7 +482,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
 
             var fitnessCalculator = new MinFitnessCalculator<ProductionPlan>(targetFunctionCalculator);
-            IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = new BruteforceAlgorithm<ProductionPlan>(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator);
+            IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = new BruteforceAlgorithm<ProductionPlan>(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator, null);
             ProductionPlan optimalProductionPlan = null;
 
             await Task.Run(() =>
