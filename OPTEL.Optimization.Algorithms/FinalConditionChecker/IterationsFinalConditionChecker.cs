@@ -3,7 +3,7 @@ using Optimization.Algorithms;
 
 namespace OPTEL.Optimization.Algorithms.FinalConditionChecker
 {
-    public class IterationsFinalConditionChecker<T> : IFinalCoditionChecker<T>
+    public class IterationsFinalConditionChecker<T> : IFinalConditionChecker<T>
     {
         private readonly int _iterationsCount;
 

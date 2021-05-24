@@ -6,7 +6,7 @@ using Optimization.Algorithms.Genetic.Data;
 
 namespace OPTEL.Optimization.Algorithms.Genetic.Services.FinalConditionCheckers
 {
-    public class PopulationFitnessDescendingFinalConditionChecker<I> : IFinalCoditionChecker<IPopulation<I>>
+    public class PopulationFitnessDescendingFinalConditionChecker<I> : IFinalConditionChecker<IPopulation<I>>
         where I : ICalculatedIndividual
     {
         protected int GenerationCount { get; }

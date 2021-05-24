@@ -4,7 +4,7 @@ using Optimization.Algorithms;
 
 namespace OPTEL.Optimization.Algorithms.FinalConditionChecker
 {
-    public class CancallationTokenFinalConditionChecker<T> : IFinalCoditionChecker<T>
+    public class CancallationTokenFinalConditionChecker<T> : IFinalConditionChecker<T>
     {
         private readonly CancellationTokenSource _cancellationTokenSource;
         

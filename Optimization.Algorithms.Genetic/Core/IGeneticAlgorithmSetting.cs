@@ -17,7 +17,7 @@ namespace Optimization.Algorithms.Genetic.Core
 
         IPopulationSelector<I> PopulationSelector { get; }
 
-        IEnumerable<IFinalCoditionChecker<IPopulation<I>>> FinalCoditionCheckers { get; }
+        IEnumerable<IFinalConditionChecker<IPopulation<I>>> FinalCoditionCheckers { get; }
 
         IBestSelector<I> BestSelector { get; }
     }

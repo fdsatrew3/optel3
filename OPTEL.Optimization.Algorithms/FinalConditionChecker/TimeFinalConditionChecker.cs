@@ -3,7 +3,7 @@ using Optimization.Algorithms;
 
 namespace OPTEL.Optimization.Algorithms.FinalConditionChecker
 {
-    public class TimeFinalConditionChecker<T> : IFinalCoditionChecker<T>
+    public class TimeFinalConditionChecker<T> : IFinalConditionChecker<T>
     {
         private const int TICKS_IN_SECOND = 1000;
 
