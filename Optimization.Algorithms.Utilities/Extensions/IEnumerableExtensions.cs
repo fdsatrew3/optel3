@@ -7,9 +7,6 @@ namespace Optimization.Algorithms.Utilities.Extensions
     {
         public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
         {
-            if (collection is null)
-                throw new ArgumentNullException(nameof(collection), "Collection is null");
-
             foreach(var item in collection)
             {
                 action(item);
