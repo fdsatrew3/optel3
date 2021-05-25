@@ -40,13 +40,13 @@ namespace OPTEL.Optimization.Algorithms.Best
                     orders.Add(ordersByTime[index + i]);
                 }
 
-                result.ProductionLineQueues.Add(BestProdactionPlan(_productionLines.ElementAt(i), orders));
+                result.ProductionLineQueues.Add(BestProductionPlan(_productionLines.ElementAt(i), orders));
             }
 
             return result;
         }
                 
-        private ProductionLineQueue BestProdactionPlan(ProductionLine productionLine, List<Order> orders)
+        private ProductionLineQueue BestProductionPlan(ProductionLine productionLine, List<Order> orders)
         {
             //берем все перенастройки
             var result = new ProductionLineQueue() { ProductionLine = productionLine, Orders = new List<Order>() };

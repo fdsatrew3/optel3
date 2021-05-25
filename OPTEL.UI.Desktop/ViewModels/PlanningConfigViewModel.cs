@@ -2,8 +2,8 @@
 using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.Best;
 using OPTEL.Optimization.Algorithms.Bruteforce;
+using OPTEL.Optimization.Algorithms.FinalConditionChecker;
 using OPTEL.Optimization.Algorithms.FitnessFunctionCalculators;
-using OPTEL.Optimization.Algorithms.Genetic.Services.FinalConditionCheckers;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Crossovers;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Mutations;
 using OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerator;
@@ -482,7 +482,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
 
             var fitnessCalculator = new MinFitnessCalculator<ProductionPlan>(targetFunctionCalculator);
-            IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = new BruteforceAlgorithm<ProductionPlan>(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator);
+            IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = new BruteforceAlgorithm<ProductionPlan>(orderBruteforceAlgorithm, orders, productionLines, fitnessCalculator, null);
             ProductionPlan optimalProductionPlan = null;
 
             await Task.Run(() =>
@@ -543,8 +543,8 @@ namespace OPTEL.UI.Desktop.ViewModels
                     new InbreedinganCrossoverOperatorSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(standardIndividualSelector)
                     ),
                 PopulationSelector = new PopulationSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(standardIndividualSelector),
-                FinalCoditionCheckers = new List<IFinalCoditionChecker<IPopulation<Optimization.Algorithms.Genetic.Data.ProductionPlan>>> { 
-                    new GenerationsNumberFinalConditionChecker<Optimization.Algorithms.Genetic.Data.ProductionPlan>(1000) 
+                FinalConditionCheckers = new List<IFinalConditionChecker<IPopulation<Optimization.Algorithms.Genetic.Data.ProductionPlan>>> { 
+                    new IterationsFinalConditionChecker<IPopulation<Optimization.Algorithms.Genetic.Data.ProductionPlan>>(1000) 
                 }
             };
             

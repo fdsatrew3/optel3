@@ -1,6 +1,6 @@
 ﻿namespace Optimization.Algorithms
 {
-    public interface IFinalCoditionChecker<T>
+    public interface IFinalConditionChecker<T>
     {
         /// <summary>
         /// Set start settings to checker
