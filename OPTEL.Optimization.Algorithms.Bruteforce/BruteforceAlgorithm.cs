@@ -5,6 +5,7 @@ using OPTEL.Data;
 using Optimization.Algorithms;
 using Optimization.Algorithms.Core;
 using Optimization.Algorithms.Bruteforce;
+using Optimization.Algorithms.Utilities.Extensions;
 
 namespace OPTEL.Optimization.Algorithms.Bruteforce
 {
@@ -70,6 +71,9 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
 
         private IEnumerable<T> GetResolvesInternal()
         {
+            if (_finalCoditionCheckers != null)
+                _finalCoditionCheckers.ForEach(x => x.Begin());
+
             var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
             var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
 
