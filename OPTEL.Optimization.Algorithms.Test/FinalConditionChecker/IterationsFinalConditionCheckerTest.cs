@@ -18,7 +18,7 @@ namespace OPTEL.Optimization.Algorithms.Test.FinalConditionChecker
         [Theory]
         [InlineData(1)]
         [InlineData(10)]
-        public void IsStateFinal_ForNonLastIteration_RetrunFalse(int iterationsCount)
+        public void IsStateFinal_ForNonLastIteration_ReturnFalse(int iterationsCount)
         {
             // Arrange
             var iterationsFinalConditionChecker = new IterationsFinalConditionChecker<object>(iterationsCount);
