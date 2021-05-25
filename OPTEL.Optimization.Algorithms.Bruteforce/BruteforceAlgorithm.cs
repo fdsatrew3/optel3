@@ -16,19 +16,19 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
         private readonly ICollection<Order> _orders;
         private readonly ICollection<ProductionLine> _productionLines;
         private readonly IFitnessCalculator<T> _fitnessCalculator;
-        private readonly IEnumerable<IFinalConditionChecker<T>> _finalCoditionCheckers;
+        private readonly IEnumerable<IFinalConditionChecker<T>> _finalConditionCheckers;
 
         public BruteforceAlgorithm(IOrderBruteforceAlgorithm orderBruteforceAlgorithm,
             ICollection<Order> orders,
             ICollection<ProductionLine> productionLines,
             IFitnessCalculator<T> fitnessCalculator,
-            IEnumerable<IFinalConditionChecker<T>> finalCoditionCheckers)
+            IEnumerable<IFinalConditionChecker<T>> finalConditionCheckers)
         {
             _orderBruteforceAlgorithm = orderBruteforceAlgorithm ?? throw new ArgumentNullException(nameof(orderBruteforceAlgorithm));
             _orders = orders ?? throw new ArgumentNullException(nameof(orders));
             _productionLines = productionLines ?? throw new ArgumentNullException(nameof(productionLines));
             _fitnessCalculator = fitnessCalculator ?? throw new ArgumentNullException(nameof(fitnessCalculator));
-            _finalCoditionCheckers = finalCoditionCheckers;
+            _finalConditionCheckers = finalConditionCheckers;
         }
 
         public IEnumerable<T> GetResolve()
@@ -71,8 +71,8 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
 
         private IEnumerable<T> GetResolvesInternal()
         {
-            if (_finalCoditionCheckers != null)
-                _finalCoditionCheckers.ForEach(x => x.Begin());
+            if (_finalConditionCheckers != null)
+                _finalConditionCheckers.ForEach(x => x.Begin());
 
             var productionLinesOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_productionLines.Count).ToArray();
             var ordersOrders = _orderBruteforceAlgorithm.GetPossibleOrders(_orders.Count);
@@ -83,7 +83,7 @@ namespace OPTEL.Optimization.Algorithms.Bruteforce
                 {
                     var resolve = MakeProductionLineQueue(productionLinesOrder, orderOrders);
 
-                    if (_finalCoditionCheckers != null && _finalCoditionCheckers.Any(x => x.IsStateFinal(resolve)))
+                    if (_finalConditionCheckers != null && _finalConditionCheckers.Any(x => x.IsStateFinal(resolve)))
                         yield break;
                     else
                         yield return resolve;
