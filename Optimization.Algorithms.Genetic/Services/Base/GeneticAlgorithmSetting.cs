@@ -18,7 +18,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
          
         public IPopulationSelector<I> PopulationSelector { get; set; }
 
-        public IEnumerable<IFinalConditionChecker<IPopulation<I>>> FinalCoditionCheckers { get; set; }
+        public IEnumerable<IFinalConditionChecker<IPopulation<I>>> FinalConditionCheckers { get; set; }
 
         public IBestSelector<I> BestSelector { get; set; }
 

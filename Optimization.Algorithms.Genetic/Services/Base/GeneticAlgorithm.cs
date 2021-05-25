@@ -51,7 +51,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
         {
             var currentPopulation = GeneticAlgorithmSetting.StartPopulationCreator.CreateStartPopulation(GeneticAlgorithmSetting.MaxPopulationCount);
 
-            GeneticAlgorithmSetting.FinalCoditionCheckers.ForEach(x => x.Begin());
+            GeneticAlgorithmSetting.FinalConditionCheckers.ForEach(x => x.Begin());
 
             while (true)
             {
@@ -65,7 +65,7 @@ namespace Optimization.Algorithms.Genetic.Services.Base
 
                 yield return GeneticAlgorithmSetting.BestSelector.SelectBestIndividual(currentPopulation);
 
-                if (GeneticAlgorithmSetting.FinalCoditionCheckers.Any(x => x.IsStateFinal(currentPopulation)))
+                if (GeneticAlgorithmSetting.FinalConditionCheckers.Any(x => x.IsStateFinal(currentPopulation)))
                     break;
             }
         }

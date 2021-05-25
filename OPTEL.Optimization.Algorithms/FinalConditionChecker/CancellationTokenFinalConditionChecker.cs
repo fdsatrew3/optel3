@@ -4,13 +4,13 @@ using Optimization.Algorithms;
 
 namespace OPTEL.Optimization.Algorithms.FinalConditionChecker
 {
-    public class CancallationTokenFinalConditionChecker<T> : IFinalConditionChecker<T>
+    public class CancellationTokenFinalConditionChecker<T> : IFinalConditionChecker<T>
     {
         private readonly CancellationTokenSource _cancellationTokenSource;
         
         private CancellationToken CancellationToken => _cancellationTokenSource.Token;
 
-        public CancallationTokenFinalConditionChecker(CancellationTokenSource cancellationTokenSource)
+        public CancellationTokenFinalConditionChecker(CancellationTokenSource cancellationTokenSource)
         {
             _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
         }

@@ -543,7 +543,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                     new InbreedinganCrossoverOperatorSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(standardIndividualSelector)
                     ),
                 PopulationSelector = new PopulationSelector<Optimization.Algorithms.Genetic.Data.ProductionPlan>(standardIndividualSelector),
-                FinalCoditionCheckers = new List<IFinalConditionChecker<IPopulation<Optimization.Algorithms.Genetic.Data.ProductionPlan>>> { 
+                FinalConditionCheckers = new List<IFinalConditionChecker<IPopulation<Optimization.Algorithms.Genetic.Data.ProductionPlan>>> { 
                     new IterationsFinalConditionChecker<IPopulation<Optimization.Algorithms.Genetic.Data.ProductionPlan>>(1000) 
                 }
             };

@@ -9,7 +9,7 @@ namespace OPTEL.Optimization.Algorithms.Test.FinalConditionChecker
         [Theory]
         [InlineData(0)]
         [InlineData(-10)]
-        public void Constructor_SecondsIsLesserThan1_THrowsArgumentOutOfRangeException(int seconds)
+        public void Constructor_SecondsIsLesserThan1_ThrowsArgumentOutOfRangeException(int seconds)
         {
             // Arrange & Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => new TimeFinalConditionChecker<object>(seconds));

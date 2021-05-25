@@ -9,7 +9,7 @@ namespace OPTEL.Optimization.Algorithms.Test.FinalConditionChecker
         [Theory]
         [InlineData(0)]
         [InlineData(-10)]
-        public void Constructor_IterrationsCountIsLesserThan1_THrowsArgumentOutOfRangeException(int iterationsCount)
+        public void Constructor_IterrationsCountIsLesserThan1_ThrowsArgumentOutOfRangeException(int iterationsCount)
         {
             // Arrange & Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => new IterationsFinalConditionChecker<object>(iterationsCount));
