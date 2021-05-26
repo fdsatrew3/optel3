@@ -1,11 +1,10 @@
-﻿using OPTEL.Data;
+﻿using System.Linq;
+using OPTEL.Data;
 using OPTEL.Data.Users;
 using OPTEL.Entity.Core;
 using OPTEL.Entity.Helpers.Ensurers;
 using OPTEL.Entity.Helpers.Exceptions;
 using OPTEL.Entity.Persistance;
-using System;
-using System.Linq;
 using Xunit;
 
 namespace OPTEL.Entity.Test
@@ -20,7 +19,7 @@ namespace OPTEL.Entity.Test
         }
 
         [Fact]
-        public void CreateDungeon_SavingSmallDungeonToDatabase_HasNoException()
+        public void SaveDatabase_BaseEntitiesAdded_RunSuccessfully()
         {
             // Arrange
             var customer = new Customer { Name = "I am customer" };
