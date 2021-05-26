@@ -6,7 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OPTEL.Data;
 using OPTEL.Data.Core;
-
+using OPTEL.Data.Users;
 using OPTEL.Entity.Helpers.Ensurers;
 using OPTEL.Entity.Helpers.Exceptions;
 using OPTEL.Entity.Helpers.Validation;
@@ -106,6 +106,18 @@ namespace OPTEL.Entity
         public DbSet<CalibrationChange> CalibrationChanges { get; set; }
 
         public DbSet<CoolingLipChange> CoolingLipChanges { get; set; }
+
+        #region Users
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Administrator> Administrators { get; set; }
+
+        public DbSet<ProductionDirector> ProductionDirectors { get; set; }
+
+        public DbSet<KnowledgeEngineer> KnowledgeEngineers { get; set; }
+
+        #endregion
 
         #endregion
 

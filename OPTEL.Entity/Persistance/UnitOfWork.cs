@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using OPTEL.Data;
 using OPTEL.Data.Core;
+using OPTEL.Data.Users;
 using OPTEL.Entity.Core;
 using OPTEL.Entity.Helpers.Ensurers;
 using OPTEL.Entity.Helpers.Exceptions;
@@ -34,6 +35,15 @@ namespace OPTEL.Entity.Persistance
         private IRepository<CalibrationChange> _calibrationChangeRepository;
         private IRepository<CoolingLipChange> _coolingLipChangeRepository;
 
+        #region Users
+
+        private IRepository<User> _userRepository;
+        private IRepository<Administrator> _administratorRepository;
+        private IRepository<ProductionDirector> _productionDirectorRepository;
+        private IRepository<KnowledgeEngineer> _knowledgeEngineerRepository;
+
+        #endregion
+
         #endregion
 
         #region Public members
@@ -55,6 +65,18 @@ namespace OPTEL.Entity.Persistance
         public IRepository<CalibrationChange> CalibrationChangeRepository => _calibrationChangeRepository ??= new EFRepository<CalibrationChange, DatabaseContext>(_context);
 
         public IRepository<CoolingLipChange> CoolingLipChangeRepository => _coolingLipChangeRepository ??= new EFRepository<CoolingLipChange, DatabaseContext>(_context);
+
+        #region Users
+
+        public IRepository<User> UserRepository => _userRepository ??= new EFRepository<User, DatabaseContext>(_context);
+
+        public IRepository<Administrator> AdministratorRepository => _administratorRepository ??= new EFRepository<Administrator, DatabaseContext>(_context);
+
+        public IRepository<ProductionDirector> ProductionDirectorRepository => _productionDirectorRepository ??= new EFRepository<ProductionDirector, DatabaseContext>(_context);
+
+        public IRepository<KnowledgeEngineer> KnowledgeEngineerRepository => _knowledgeEngineerRepository ??= new EFRepository<KnowledgeEngineer, DatabaseContext>(_context);
+
+        #endregion
 
         #endregion
 
