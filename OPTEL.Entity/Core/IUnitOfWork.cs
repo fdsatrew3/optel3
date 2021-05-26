@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using OPTEL.Data;
 using OPTEL.Data.Core;
-
+using OPTEL.Data.Users;
 using OPTEL.Entity.Helpers.Validation;
 
 namespace OPTEL.Entity.Core
@@ -29,6 +29,18 @@ namespace OPTEL.Entity.Core
         IRepository<CalibrationChange> CalibrationChangeRepository { get; }
 
         IRepository<CoolingLipChange> CoolingLipChangeRepository { get; }
+
+        #region Users
+
+        IRepository<User> UserRepository { get; }
+
+        IRepository<Administrator> AdministratorRepository { get; }
+
+        IRepository<ProductionDirector> ProductionDirectorRepository { get; }
+
+        IRepository<KnowledgeEngineer> KnowledgeEngineerRepository { get; }
+
+        #endregion
 
         #endregion
 
