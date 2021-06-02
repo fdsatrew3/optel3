@@ -11,7 +11,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
     {
         protected override int WorkSheetIndex => 5;
 
-        private enum ColumnIndexes { Name, Code, HourCost, MaxProductionSpeed, WidthMin, WidthMax, ThicknessMin, ThicknessMax, WeightMin, WeightMax, LengthMin, LengthMax, ThicknessChangeTime, WidthChangeTime }
+        private enum ColumnIndexes { Name, Code, HourCost, MaxProductionSpeed, WidthMin, WidthMax, ThicknessMin, ThicknessMax, WeightMin, WeightMax, LengthMin, LengthMax, ThicknessChangeTime, ThicknessChangeConsumption, WidthChangeTime, WidthChangeConsumption }
 
         protected override ProductionLine ParseRow(IExcelDataReader excelDataReader)
         {
@@ -30,7 +30,9 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
                 LengthMin = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.LengthMin)),
                 LengthMax = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.LengthMax)),
                 ThicknessChangeTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ThicknessChangeTime)),
-                WidthChangeTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WidthChangeTime))
+                ThicknessChangeConsumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ThicknessChangeConsumption)),
+                WidthChangeTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WidthChangeTime)),
+                WidthChangeConsumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WidthChangeConsumption))
             };
         }
     }

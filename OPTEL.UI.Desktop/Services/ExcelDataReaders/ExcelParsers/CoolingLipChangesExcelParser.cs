@@ -12,7 +12,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
     {
         protected override int WorkSheetIndex => 9;
 
-        private enum ColumnIndexes { ParentProductionLine, CoolingLipToChange, ReconfigurationTime }
+        private enum ColumnIndexes { ParentProductionLine, CoolingLipToChange, ReconfigurationTime, Consumption }
 
         public CoolingLipChangesExcelParser(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -25,7 +25,8 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
             {
                 ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentProductionLine)),
                 CoolingLipToChange = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.CoolingLipToChange)),
-                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime))
+                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime)),
+                Consumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Consumption)),
             };
         }
     }

@@ -44,7 +44,13 @@ namespace OPTEL.Data
         public double WidthChangeTime { get; set; }
 
         [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Thickness change time should be greater than or equal to 0")]
-        public double ThicknessChangeTime { get; set; }
+        public double ThicknessChangeTime { get; set; }        
+
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Width change consumption should be greater than or equal to 0")]
+        public double WidthChangeConsumption { get; set; }
+
+        [Validation.ValidationAttributes.Compare(ComparisonType.IsGreaterThanOrEqualTo, 0d, ErrorMessage = "Thickness change consumption should be greater than or equal to 0")]
+        public double ThicknessChangeConsumption { get; set; }
 
         public virtual ICollection<FilmTypesChange> FilmTypesChanges { get; set; }
 

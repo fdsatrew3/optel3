@@ -1,4 +1,5 @@
-﻿using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
+﻿using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows;
 using OPTEL.UI.Desktop.Services.GanttChartManagers;
 using OPTEL.UI.Desktop.Services.ModelsConverter;
@@ -28,7 +29,11 @@ namespace OPTEL.UI.Desktop.Views
             var executionTimeCalculator = new ExecutionTimeCalculator(orderExecutionTimeCalculator);
             var reconfigurationTimeCalculator = new ReconfigurationTimeCalculator(orderReconfigurationTimeCalculator);
             var productionLineQueueTimeCalculator = new ProductionLineQueueTimeCalculator(executionTimeCalculator, reconfigurationTimeCalculator);
+            var orderCostCalculator = new OrderCostCalculator();
+            var ordersReconfigurationCostCalculator = new OrdersReconfigurationCostCalculator();
+            var reconfigurationCostCalculator = new ReconfigurationCostCalculator(ordersReconfigurationCostCalculator);
             var ganttChartManagerService = new MainWindowGanttChartManagerService(mainWindow.DataContext as MainWindowViewModel, mainWindow.GanttChart, orderExecutionCalculatorServer, ordersReconfigurationTimeCalculator, productionLineQueueTimeCalculator);
+
             DataContext = new PlanningConfigViewModel(errorsListWindowService,
                 planningConfigOrderConverterService,
                 planningConfigProductionLineConverterService,
@@ -37,7 +42,9 @@ namespace OPTEL.UI.Desktop.Views
                 productionLineQueueTimeCalculator,
                 tabControl.Items.Count - 1,
                 OrdersList,
-                ProductionLinesList);
+                ProductionLinesList,
+                orderCostCalculator,
+                reconfigurationCostCalculator);
         }
     }
 }

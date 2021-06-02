@@ -12,7 +12,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
     {
         protected override int WorkSheetIndex => 8;
 
-        private enum ColumnIndexes { ParentProductionLine, CalibrationToChange, ReconfigurationTime }
+        private enum ColumnIndexes { ParentProductionLine, CalibrationToChange, ReconfigurationTime, Consumption }
 
         public CalibrationChangesExcelParser(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -25,7 +25,8 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
             {
                 ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentProductionLine)),
                 CalibrationToChange = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.CalibrationToChange)),
-                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime))
+                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime)),
+                Consumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Consumption)),
             };
         }
     }

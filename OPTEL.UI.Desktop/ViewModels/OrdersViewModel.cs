@@ -151,12 +151,15 @@ namespace OPTEL.UI.Desktop.ViewModels
                         Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PlanningEndDateIsNull"), entryIndex)
                     });
                 }
-                if (Math.Sign(Orders[i].PredefinedTime) < 0)
+                if (Orders[i].PredefinedTime != null)
                 {
-                    errors.Add(new Error
+                    if (Math.Sign((double)Orders[i].PredefinedTime) < 0)
                     {
-                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PredefinedTimeIsNegative"), entryIndex)
-                    });
+                        errors.Add(new Error
+                        {
+                            Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.PredefinedTimeIsNegative"), entryIndex)
+                        });
+                    }
                 }
                 if (Math.Sign(Orders[i].PriceOverdue) < 0)
                 {

@@ -12,7 +12,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
     {
         protected override int WorkSheetIndex => 7;
 
-        private enum ColumnIndexes { ParentProductionLine, NozzleToChange, ReconfigurationTime }
+        private enum ColumnIndexes { ParentProductionLine, NozzleToChange, ReconfigurationTime, Consumption }
 
         public NozzleChangesExcelParser(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -25,7 +25,8 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
             {
                 ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentProductionLine)),
                 NozzleToChange = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.NozzleToChange)),
-                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime))
+                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime)),
+                Consumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Consumption))
             };
         }
     }

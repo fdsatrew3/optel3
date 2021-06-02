@@ -1,20 +1,30 @@
-﻿using OPTEL.Data;
+﻿using System;
+using System.Linq;
+using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost.Base;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
-using System;
 
 namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost
 {
     public class ProductionLineQueueCostCalculator : IProductionLineQueueCostCalculator
     {
-        public IProductionLineQueueTimeCalculator TimeCalculator { get; }
+        private readonly IProductionLineQueueTimeCalculator _timeCalculator;
+        private readonly IOrderCostCalculator _orderCostCalculator;
+        private readonly IReconfigurationCostCalculator _reconfigurationCostCalculator;
 
-        public ProductionLineQueueCostCalculator(IProductionLineQueueTimeCalculator timeCalculator)
+        public ProductionLineQueueCostCalculator(IProductionLineQueueTimeCalculator timeCalculator, 
+            IOrderCostCalculator orderCostCalculator, 
+            IReconfigurationCostCalculator reconfigurationCostCalculator)
         {
-            TimeCalculator = timeCalculator ?? throw new ArgumentNullException(nameof(timeCalculator));
+            _timeCalculator = timeCalculator ?? throw new ArgumentNullException(nameof(timeCalculator));
+            _orderCostCalculator = orderCostCalculator ?? throw new ArgumentNullException(nameof(orderCostCalculator));
+            _reconfigurationCostCalculator = reconfigurationCostCalculator ?? throw new ArgumentNullException(nameof(reconfigurationCostCalculator));
         }
 
         public double Calculate(ProductionLineQueue productionLineQueue)
-            => (TimeCalculator.Calculate(productionLineQueue) / 3600) * Convert.ToDouble(productionLineQueue.ProductionLine.HourCost);
+            => (_timeCalculator.Calculate(productionLineQueue) / 60) 
+            * Convert.ToDouble(productionLineQueue.ProductionLine.HourCost) 
+            + productionLineQueue.Orders.Sum(x => _orderCostCalculator.Calculate(x))
+            + _reconfigurationCostCalculator.Calculate(productionLineQueue);
     }
 }

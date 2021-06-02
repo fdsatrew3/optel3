@@ -1,6 +1,7 @@
-﻿using ExcelDataReader;
-using ExcelNumberFormat;
+﻿using System;
 using System.Globalization;
+using ExcelDataReader;
+using ExcelNumberFormat;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils
 {
@@ -41,7 +42,17 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils
 
         public static string GetString(this IExcelDataReader excelDataReader, object columnIndex)
         {
-            return excelDataReader.GetString((int)columnIndex);
+            return excelDataReader.GetValue((int)columnIndex).ToString();
+        }
+
+        public static double? GetNullabeDouble(this IExcelDataReader excelDataReader, object columnIndex)
+        {
+            var value = excelDataReader.GetValue(columnIndex);
+
+            if (value == null)
+                return null;
+            else
+                return Convert.ToDouble(value);
         }
     }
 }
