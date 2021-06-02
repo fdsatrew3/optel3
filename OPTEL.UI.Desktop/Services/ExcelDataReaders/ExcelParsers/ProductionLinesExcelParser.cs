@@ -3,7 +3,6 @@ using OPTEL.Data;
 
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils;
-using Convert = System.Convert;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
 {
@@ -19,20 +18,20 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
             {
                 Name = excelDataReader.GetFormattedValue(ColumnIndexes.Name),
                 Code = excelDataReader.GetFormattedValue(ColumnIndexes.Code),
-                HourCost = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.HourCost)),
-                MaxProductionSpeed = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.MaxProductionSpeed)),
-                WidthMin = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WidthMin)),
-                WidthMax = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WidthMax)),
-                ThicknessMin = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ThicknessMin)),
-                ThicknessMax = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ThicknessMax)),
-                WeightMin = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WeightMin)),
-                WeightMax = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WeightMax)),
-                LengthMin = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.LengthMin)),
-                LengthMax = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.LengthMax)),
-                ThicknessChangeTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ThicknessChangeTime)),
-                ThicknessChangeConsumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ThicknessChangeConsumption)),
-                WidthChangeTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WidthChangeTime)),
-                WidthChangeConsumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.WidthChangeConsumption))
+                HourCost = excelDataReader.GetDouble(ColumnIndexes.HourCost),
+                MaxProductionSpeed = excelDataReader.GetDouble(ColumnIndexes.MaxProductionSpeed),
+                WidthMin = excelDataReader.GetDouble(ColumnIndexes.WidthMin),
+                WidthMax = excelDataReader.GetDouble(ColumnIndexes.WidthMax),
+                ThicknessMin = excelDataReader.GetDouble(ColumnIndexes.ThicknessMin),
+                ThicknessMax = excelDataReader.GetDouble(ColumnIndexes.ThicknessMax),
+                WeightMin = excelDataReader.GetDouble(ColumnIndexes.WeightMin),
+                WeightMax = excelDataReader.GetDouble(ColumnIndexes.WeightMax),
+                LengthMin = excelDataReader.GetDouble(ColumnIndexes.LengthMin),
+                LengthMax = excelDataReader.GetDouble(ColumnIndexes.LengthMax),
+                ThicknessChangeTime = excelDataReader.GetDouble(ColumnIndexes.ThicknessChangeTime),
+                ThicknessChangeConsumption = excelDataReader.GetDouble(ColumnIndexes.ThicknessChangeConsumption),
+                WidthChangeTime = excelDataReader.GetDouble(ColumnIndexes.WidthChangeTime),
+                WidthChangeConsumption = excelDataReader.GetDouble(ColumnIndexes.WidthChangeConsumption)
             };
         }
     }

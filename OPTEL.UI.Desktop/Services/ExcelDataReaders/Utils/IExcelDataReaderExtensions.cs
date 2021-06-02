@@ -30,20 +30,21 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils
         /// <param name="excelDataReader">Extension parameter</param>
         /// <param name="columnIndex">Should ba able to convert to int</param>
         /// <returns>String value</returns>
-        public static string GetFormattedValue(this IExcelDataReader excelDataReader, object columnIndex)
-        {
-            return excelDataReader.GetFormattedValue((int)columnIndex);
-        }
+        public static string GetFormattedValue(this IExcelDataReader excelDataReader, object columnIndex) => excelDataReader.GetFormattedValue((int)columnIndex);
 
-        public static object GetValue(this IExcelDataReader excelDataReader, object columnIndex)
-        {
-            return excelDataReader.GetValue((int)columnIndex);
-        }
+        public static object GetValue(this IExcelDataReader excelDataReader, object columnIndex) => excelDataReader.GetValue((int)columnIndex);
 
         public static string GetString(this IExcelDataReader excelDataReader, object columnIndex)
         {
-            return excelDataReader.GetValue((int)columnIndex).ToString();
+            var result = excelDataReader.GetValue((int)columnIndex);
+
+            if (result is null)
+                return string.Empty;
+            else
+                return result.ToString();
         }
+
+        public static double GetDouble(this IExcelDataReader excelDataReader, object columnIndex) => Convert.ToDouble(excelDataReader.GetValue(columnIndex));
 
         public static double? GetNullabeDouble(this IExcelDataReader excelDataReader, object columnIndex)
         {

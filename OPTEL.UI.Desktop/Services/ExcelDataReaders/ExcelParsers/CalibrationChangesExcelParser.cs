@@ -24,9 +24,9 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
             return new CalibrationChange
             {
                 ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentProductionLine)),
-                CalibrationToChange = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.CalibrationToChange)),
-                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime)),
-                Consumption = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Consumption)),
+                CalibrationToChange = excelDataReader.GetDouble(ColumnIndexes.CalibrationToChange),
+                ReconfigurationTime = excelDataReader.GetDouble(ColumnIndexes.ReconfigurationTime),
+                Consumption = excelDataReader.GetDouble(ColumnIndexes.Consumption)
             };
         }
     }
