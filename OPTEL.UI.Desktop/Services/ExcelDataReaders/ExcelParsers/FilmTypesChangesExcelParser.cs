@@ -4,7 +4,6 @@ using OPTEL.Entity.Core;
 
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers.Base;
 using OPTEL.UI.Desktop.Services.ExcelDataReaders.Utils;
-using Convert = System.Convert;
 
 namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
 {
@@ -12,7 +11,7 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
     {
         protected override int WorkSheetIndex => 6;
 
-        private enum ColumnIndexes { ParentProductionLine, FilmTypeFrom, FilmTypeTo, ReconfigurationTime }
+        private enum ColumnIndexes { ParentProductionLine, FilmTypeFrom, FilmTypeTo, ReconfigurationTime, Consumption }
 
         public FilmTypesChangesExcelParser(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -26,7 +25,8 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
                 ParentProductionLine = UnitOfWork.ProductionLineRepository.GetSingle(x => x.Name == excelDataReader.GetFormattedValue(ColumnIndexes.ParentProductionLine)),
                 FilmTypeFrom = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetFormattedValue(ColumnIndexes.FilmTypeFrom)),
                 FilmTypeTo = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetFormattedValue(ColumnIndexes.FilmTypeTo)),
-                ReconfigurationTime = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ReconfigurationTime))
+                ReconfigurationTime = excelDataReader.GetDouble(ColumnIndexes.ReconfigurationTime),
+                Consumption = excelDataReader.GetDouble(ColumnIndexes.Consumption)
             };
         }
     }

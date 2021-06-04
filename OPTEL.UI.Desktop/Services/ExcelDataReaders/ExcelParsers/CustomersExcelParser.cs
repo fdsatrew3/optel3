@@ -10,13 +10,14 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
     {
         protected override int WorkSheetIndex => 3;
 
-        private enum ColumnIndexes { Name }
+        private enum ColumnIndexes { Name, Number }
 
         protected override Customer ParseRow(IExcelDataReader excelDataReader)
         {
             return new Customer
             {
-                Name = excelDataReader.GetString(ColumnIndexes.Name)
+                Name = excelDataReader.GetString(ColumnIndexes.Name),
+                Number = excelDataReader.GetString(ColumnIndexes.Number)
             };
         }
     }

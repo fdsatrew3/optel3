@@ -22,10 +22,20 @@ namespace OPTEL.Data
 
         public double PriceOverdue { get; set; }
 
-        public double PredefinedTime { get; set; }
+        public double FinishedGoods { get; set; }
+
+        public double Waste { get; set; }
+
+        public int RollsCount { get; set; }
+
+        public double? PredefinedTime { get; set; }
 
         public int ParentCustomerID { get; set; }
 
         public virtual Customer ParentCustomer { get; set; }
+
+        public double RollWeight => FinishedGoods + Waste;
+
+        public double Weight => RollWeight * RollsCount;
     }
 }

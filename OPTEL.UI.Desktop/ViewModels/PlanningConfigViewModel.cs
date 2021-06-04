@@ -9,6 +9,7 @@ using OPTEL.Optimization.Algorithms.Genetic.Services.Operators.Mutations;
 using OPTEL.Optimization.Algorithms.Genetic.Services.StartPopulationGenerator;
 using OPTEL.Optimization.Algorithms.Genetic.Services.Util;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost;
+using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Cost.Base;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
 using OPTEL.UI.Desktop.Helpers;
@@ -158,7 +159,9 @@ namespace OPTEL.UI.Desktop.ViewModels
 
         private IWindowCloseService _windowCloseService;
 
-        private IProductionLineQueueTimeCalculator _productionLineQueueTimeCalculator;
+        private readonly IProductionLineQueueTimeCalculator _productionLineQueueTimeCalculator;
+        private readonly IOrderCostCalculator _orderCostCalculator;
+        private readonly IReconfigurationCostCalculator _reconfigurationCostCalculator;
 
         private RelayCommand _moveToNextTabCommand;
         private RelayCommand _moveToPreviousTabCommand;
@@ -168,7 +171,17 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _determineCloseAllowedCommand;
         #endregion
 
-        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService, IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService, IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService, IGanttChartManagerService ganttChartManagerService, IWindowCloseService windowCloseService, IProductionLineQueueTimeCalculator productionLineQueueTimeCalculator, int maxSelectedTabIndex, DataGrid ordersDataGrid, DataGrid productionLinesDataGrid)
+        public PlanningConfigViewModel(IErrorsListWindowService errorsListWindowService,
+            IModelConverterService<PlanningConfigOrder, Order> planningConfigOrderConverterService,
+            IModelConverterService<PlanningConfigProductionLine, ProductionLine> planningConfigProductionLineConverterService,
+            IGanttChartManagerService ganttChartManagerService,
+            IWindowCloseService windowCloseService,
+            IProductionLineQueueTimeCalculator productionLineQueueTimeCalculator,
+            int maxSelectedTabIndex,
+            DataGrid ordersDataGrid,
+            DataGrid productionLinesDataGrid,
+            IOrderCostCalculator orderCostCalculator,
+            IReconfigurationCostCalculator reconfigurationCostCalculator)
         {
             _errorsListWindowService = errorsListWindowService;
             _planningConfigOrderConverterService = planningConfigOrderConverterService;
@@ -225,6 +238,8 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
             IsBuildDecisionTreeChecked = true;
             IsBuildingProductionPlan = false;
+            _orderCostCalculator = orderCostCalculator ?? throw new ArgumentNullException(nameof(orderCostCalculator));
+            _reconfigurationCostCalculator = reconfigurationCostCalculator ?? throw new ArgumentNullException(nameof(reconfigurationCostCalculator));
         }
 
         #region Commands
@@ -473,7 +488,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             switch (SelectedObjectiveFunction.Type)
             {
                 case ObjectiveFunction.Types.Cost:
-                    var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator);
+                    var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator, _orderCostCalculator, _reconfigurationCostCalculator);
                     targetFunctionCalculator = new CostFunctionCalculator<ProductionPlan>(productionLineQueueCostCalculator);
                     break;
                 case ObjectiveFunction.Types.Time:
@@ -512,7 +527,7 @@ namespace OPTEL.UI.Desktop.ViewModels
             switch (SelectedObjectiveFunction.Type)
             {
                 case ObjectiveFunction.Types.Cost:
-                    var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator);
+                    var productionLineQueueCostCalculator = new ProductionLineQueueCostCalculator(_productionLineQueueTimeCalculator, _orderCostCalculator, _reconfigurationCostCalculator);
                     geneticTargetFunctionCalculator = new CostFunctionCalculator<Optimization.Algorithms.Genetic.Data.ProductionPlan>(productionLineQueueCostCalculator);
                     break;
                 case ObjectiveFunction.Types.Time:

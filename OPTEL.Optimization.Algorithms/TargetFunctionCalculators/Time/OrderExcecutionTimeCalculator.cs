@@ -1,20 +1,25 @@
-﻿using OPTEL.Data;
+﻿using System;
+using OPTEL.Data;
 using OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time.Base;
-using System;
 
 namespace OPTEL.Optimization.Algorithms.TargetFunctionCalculators.Time
 {
     public class OrderExcecutionTimeCalculator : IOrderExcecutionTimeCalculator
     {
+        /// <summary>
+        /// Calculate order execution time, min
+        /// </summary>
+        /// <param name="order">Order to calculate</param>
+        /// <returns>Order calculation time, min</returns>
         public double Calculate(Order order)
         {
-            if (order.PredefinedTime != 0)
+            if (order.PredefinedTime != null)
             {
-                return Convert.ToDouble(order.PredefinedTime) * 60;
+                return Convert.ToDouble(order.PredefinedTime);
             }
             else
             {
-                return Convert.ToDouble(order.QuantityInRunningMeter / (order.FilmRecipe.ProductionSpeed / 60));
+                return Convert.ToDouble(order.QuantityInRunningMeter / order.FilmRecipe.ProductionSpeed);
             }
         }
     }

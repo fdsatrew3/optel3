@@ -25,12 +25,12 @@ namespace OPTEL.UI.Desktop.Services.ExcelDataReaders.ExcelParsers
             {
                 Name = excelDataReader.GetFormattedValue(ColumnIndexes.Name),
                 FilmType = UnitOfWork.FilmTypeRepository.GetSingle(x => x.Article == excelDataReader.GetFormattedValue(ColumnIndexes.FilmType)),
-                Thickness = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Thickness)),
-                ProductionSpeed = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.ProductionSpeed)),
-                MaterialCost = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.MaterialCost)),
-                Nozzle = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Nozzle)),
-                Calibration = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.Calibration)),
-                CoolingLip = Convert.ToDouble(excelDataReader.GetValue(ColumnIndexes.CoolingLip))
+                Thickness = excelDataReader.GetDouble(ColumnIndexes.Thickness),
+                ProductionSpeed = excelDataReader.GetDouble(ColumnIndexes.ProductionSpeed),
+                MaterialCost = excelDataReader.GetDouble(ColumnIndexes.MaterialCost),
+                Nozzle = excelDataReader.GetDouble(ColumnIndexes.Nozzle),
+                Calibration = excelDataReader.GetDouble(ColumnIndexes.Calibration),
+                CoolingLip = excelDataReader.GetDouble(ColumnIndexes.CoolingLip)
             };
         }
     }
