@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace OPTEL.UI.Desktop.Services.WindowClosers
 {
-    public class DefaultWindowCloseService : IWindowCloseService
+    public class GenericWindowCloseService : IWindowCloseService
     {
         private Window _parent;
 
@@ -16,7 +16,7 @@ namespace OPTEL.UI.Desktop.Services.WindowClosers
 
         private RelayCommand _determineCloseAllowedCommand;
 
-        public DefaultWindowCloseService(Window parent)
+        public GenericWindowCloseService(Window parent)
         {
             _parent = parent;
             _isCloseAllowed = true;

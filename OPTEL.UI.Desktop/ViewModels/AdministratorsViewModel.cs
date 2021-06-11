@@ -1,7 +1,9 @@
 ﻿using OPTEL.Data.Users;
+using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
+using OPTEL.UI.Desktop.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -12,10 +14,10 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Properties
         public Administrator SelectedAdministrator
         {
-            get => _SelectedAdministrator;
+            get => _selectedAdministrator;
             set
             {
-                _SelectedAdministrator = value;
+                _selectedAdministrator = value;
                 IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedAdministrator");
                 AcceptMarkDataChangedRequestsCommand.Execute(null);
@@ -24,9 +26,23 @@ namespace OPTEL.UI.Desktop.ViewModels
         public ObservableCollection<Administrator> Administrators { get; set; }
         #endregion
         #region Fields
-        private Administrator _SelectedAdministrator;
-        #endregion
+        private Administrator _selectedAdministrator;
 
+        private RelayCommand _encryptPassword;
+        #endregion
+        #region Commands
+        public RelayCommand EncryptPassword
+        {
+            get
+            {
+                return _encryptPassword ??= new RelayCommand(obj =>
+                {
+                    SelectedAdministrator.Password = LoginWindow.Encrypt(SelectedAdministrator.Password);
+                    OnPropertyChanged("SelectedAdministrator");
+                });
+            }
+        }
+        #endregion
         public AdministratorsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             Administrators = new ObservableCollection<Administrator>(Database.instance.AdministratorRepository.GetAll());

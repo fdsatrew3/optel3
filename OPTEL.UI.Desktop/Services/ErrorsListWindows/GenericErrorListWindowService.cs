@@ -9,11 +9,11 @@ using System.Windows;
 
 namespace OPTEL.UI.Desktop.Services.ErrorsListWindows
 {
-    public class DefaultErrorListWindowService : IErrorsListWindowService
+    public class GenericErrorListWindowService : IErrorsListWindowService
     {
         private Window _parent;
 
-        public DefaultErrorListWindowService(Window parent)
+        public GenericErrorListWindowService(Window parent)
         {
             _parent = parent;
         }

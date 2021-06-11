@@ -10,11 +10,11 @@ namespace OPTEL.Data.Users
 
         [Required]
         [IndexColumn(IsUnique = true)]
-        [StringLength(30, MinimumLength = 4)]
+        [StringLength(32, MinimumLength = 4)]
         public string Login { get; set; }
 
         [Required]
-        [StringLength(20, MinimumLength = 3)]
+        [StringLength(32, MinimumLength = 3)]
         public string Password { get; set; }
     }
 }

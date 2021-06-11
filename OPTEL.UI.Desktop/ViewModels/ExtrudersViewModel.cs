@@ -1,6 +1,5 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
-using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
@@ -8,7 +7,6 @@ using OPTEL.UI.Desktop.ViewModels.Core;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {

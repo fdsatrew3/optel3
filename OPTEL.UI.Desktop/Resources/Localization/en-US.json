@@ -554,6 +554,9 @@
   "Window.Administrators.Password": {
     "Value": "Password"
   },
+  "Window.Administrators.EncryptPassword": {
+    "Value": "Encrypt password"
+  },
   "Window.KnowledgeEngineers.Title": {
     "Value": "Knowledge engineers"
   },
@@ -563,6 +566,9 @@
   "Window.KnowledgeEngineers.Password": {
     "Value": "Password"
   },
+  "Window.KnowledgeEngineers.EncryptPassword": {
+    "Value": "Encrypt password"
+  },
   "Window.ProductionDirectors.Title": {
     "Value": "Production directors"
   },
@@ -571,5 +577,29 @@
   },
   "Window.ProductionDirectors.Password": {
     "Value": "Password"
+  },
+  "Window.ProductionDirectors.EncryptPassword": {
+    "Value": "Encrypt password"
+  },
+  "Window.Login.Title": {
+    "Value": "Enter your credentials"
+  },
+  "Window.Login.Login": {
+    "Value": "Login"
+  },
+  "Window.Login.Password": {
+    "Value": "Password"
+  },
+  "Window.Login.Warnings.NewDatabase": {
+    "Value": "Database for this application was just created. \nUse admin & admin as credentials."
+  },
+  "Window.Login.Button.Text": {
+    "Value": "Log in."
+  },
+  "Window.Login.Errors.LoginIsTooShort": {
+    "Value": "Login must contain at least four symbols."
+  },
+  "Window.Login.Errors.CredentialsAreNotFound": {
+    "Value": "Login or password are incorrect."
   }
 }

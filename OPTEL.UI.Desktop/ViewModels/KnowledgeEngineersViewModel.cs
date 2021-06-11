@@ -3,6 +3,7 @@ using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
+using OPTEL.UI.Desktop.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -13,10 +14,10 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Properties
         public KnowledgeEngineer SelectedKnowledgeEngineer
         {
-            get => _SelectedKnowledgeEngineer;
+            get => _selectedKnowledgeEngineer;
             set
             {
-                _SelectedKnowledgeEngineer = value;
+                _selectedKnowledgeEngineer = value;
                 IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedKnowledgeEngineer");
                 AcceptMarkDataChangedRequestsCommand.Execute(null);
@@ -25,9 +26,24 @@ namespace OPTEL.UI.Desktop.ViewModels
         public ObservableCollection<KnowledgeEngineer> KnowledgeEngineers { get; set; }
         #endregion
         #region Fields
-        private KnowledgeEngineer _SelectedKnowledgeEngineer;
+        private KnowledgeEngineer _selectedKnowledgeEngineer;
+
+        private RelayCommand _encryptPassword;
         #endregion
 
+        #region Commands
+        public RelayCommand EncryptPassword
+        {
+            get
+            {
+                return _encryptPassword ??= new RelayCommand(obj =>
+                {
+                    SelectedKnowledgeEngineer.Password = LoginWindow.Encrypt(SelectedKnowledgeEngineer.Password);
+                    OnPropertyChanged("SelectedKnowledgeEngineer");
+                });
+            }
+        }
+        #endregion
         public KnowledgeEngineersViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             KnowledgeEngineers = new ObservableCollection<KnowledgeEngineer>(Database.instance.KnowledgeEngineerRepository.GetAll());

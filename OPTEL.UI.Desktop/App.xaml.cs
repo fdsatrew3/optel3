@@ -1,6 +1,9 @@
 ﻿using EasyLocalization.Localization;
 using EasyLocalization.Readers;
+using OPTEL.Data.Users;
 using OPTEL.Entity.Helpers.Ensurers;
+using OPTEL.UI.Desktop.Helpers;
+using OPTEL.UI.Desktop.Views;
 using System;
 using System.Globalization;
 using System.IO;
@@ -13,11 +16,36 @@ namespace OPTEL.UI.Desktop
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        private void OnApplicationStartup(object sender, StartupEventArgs e)
         {
-            base.OnStartup(e);
             LoadLocalizationFiles();
             Database.instance = new Entity.Persistance.UnitOfWork(new ProductionDataBaseEnsurer());
+            AddDefaultAdminToEmptyDatabase();
+            ShowMainWindow();
+            ShowLoginWindow();
+        }
+        private void ShowMainWindow()
+        {
+            MainWindow window = new MainWindow();
+            window.Show();
+        }
+
+        private void ShowLoginWindow()
+        {
+            LoginWindow window = new LoginWindow();
+            window.ShowModalDialog();
+        }
+
+        private void AddDefaultAdminToEmptyDatabase()
+        {
+            if (Database.instance.AdministratorRepository.GetCount() == 0)
+            {
+                Administrator admin = new Administrator();
+                admin.Login = "admin";
+                admin.Password = LoginWindow.Encrypt("admin");
+                Database.instance.AdministratorRepository.Add(admin);
+                Database.instance.Save();
+            }
         }
 
         private void LoadLocalizationFiles()

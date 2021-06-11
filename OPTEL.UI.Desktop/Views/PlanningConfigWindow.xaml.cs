@@ -18,12 +18,12 @@ namespace OPTEL.UI.Desktop.Views
         {
             InitializeComponent();
             MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-            var errorsListWindowService = new DefaultErrorListWindowService(this);
+            var errorsListWindowService = new GenericErrorListWindowService(this);
             var planningConfigOrderConverterService = new PlanningConfigOrderToOrderConverterService();
             var planningConfigProductionLineConverterService = new PlanningConfigProductionLineToProductionLineConverterService();
             var orderExecutionCalculatorServer = new OrderExcecutionTimeCalculator();
             var ordersReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
-            var windowCloseService = new DefaultWindowCloseService(this);
+            var windowCloseService = new GenericWindowCloseService(this);
             var orderExecutionTimeCalculator = new OrderExcecutionTimeCalculator();
             var orderReconfigurationTimeCalculator = new OrdersReconfigurationTimeCalculator();
             var executionTimeCalculator = new ExecutionTimeCalculator(orderExecutionTimeCalculator);

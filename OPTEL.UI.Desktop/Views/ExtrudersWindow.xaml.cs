@@ -13,8 +13,8 @@ namespace OPTEL.UI.Desktop.Views
         public ExtrudersWindow()
         {
             InitializeComponent();
-            var windowCloseService = new DefaultWindowCloseService(this);
-            var errorsListWindowService = new DefaultErrorListWindowService(this);
+            var windowCloseService = new GenericWindowCloseService(this);
+            var errorsListWindowService = new GenericErrorListWindowService(this);
             DataContext = new ExtrudersViewModel(windowCloseService, errorsListWindowService);
         }
 

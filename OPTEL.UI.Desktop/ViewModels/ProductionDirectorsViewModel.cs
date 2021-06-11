@@ -3,6 +3,7 @@ using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
+using OPTEL.UI.Desktop.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -13,10 +14,10 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Properties
         public ProductionDirector SelectedProductionDirector
         {
-            get => _SelectedProductionDirector;
+            get => _selectedProductionDirector;
             set
             {
-                _SelectedProductionDirector = value;
+                _selectedProductionDirector = value;
                 IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedProductionDirector");
                 AcceptMarkDataChangedRequestsCommand.Execute(null);
@@ -25,9 +26,23 @@ namespace OPTEL.UI.Desktop.ViewModels
         public ObservableCollection<ProductionDirector> ProductionDirectors { get; set; }
         #endregion
         #region Fields
-        private ProductionDirector _SelectedProductionDirector;
-        #endregion
+        private ProductionDirector _selectedProductionDirector;
 
+        private RelayCommand _encryptPassword;
+        #endregion
+        #region Commands
+        public RelayCommand EncryptPassword
+        {
+            get
+            {
+                return _encryptPassword ??= new RelayCommand(obj =>
+                {
+                    SelectedProductionDirector.Password = LoginWindow.Encrypt(SelectedProductionDirector.Password);
+                    OnPropertyChanged("SelectedProductionDirector");
+                });
+            }
+        }
+        #endregion
         public ProductionDirectorsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             ProductionDirectors = new ObservableCollection<ProductionDirector>(Database.instance.ProductionDirectorRepository.GetAll());
