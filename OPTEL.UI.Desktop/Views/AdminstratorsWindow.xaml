@@ -54,42 +54,40 @@
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedAdministrator}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedAdministrator}"/>
             </StackPanel>
-            <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <DataGrid ItemsSource="{Binding Path=Administrators, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <DataGrid ItemsSource="{Binding Path=Administrators, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
                       CanUserDeleteRows="false"
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
-                      Width="Auto"
+                        Grid.Column="0" Grid.Row="1" 
                       SelectedItem="{Binding SelectedAdministrator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="ElementsList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Administrators.Login}" Width="Auto" IsReadOnly="True"/>
-                    </DataGrid.Columns>
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Add}" Command="{Binding AddEntityCommand}">
-                                <MenuItem.Icon>
-                                    <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedAdministrator}">
-                                <MenuItem.Icon>
-                                    <Image Source="{StaticResource RemoveButtonBitmapImage}" Width="16" Height="16"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedAdministrator}">
-                                <MenuItem.Icon>
-                                    <Image Source="{StaticResource CloneButtonBitmapImage}" Width="16" Height="16"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
-                </DataGrid>
-            </ScrollViewer>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Administrators.Login}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Add}" Command="{Binding AddEntityCommand}">
+                            <MenuItem.Icon>
+                                <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedAdministrator}">
+                            <MenuItem.Icon>
+                                <Image Source="{StaticResource RemoveButtonBitmapImage}" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedAdministrator}">
+                            <MenuItem.Icon>
+                                <Image Source="{StaticResource CloneButtonBitmapImage}" Width="16" Height="16"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0" Margin="5,5,5,5">
             <StackPanel.Style>
