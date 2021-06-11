@@ -26,7 +26,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Fields
         private ProductionDirector _SelectedProductionDirector;
 
-        private RelayCommand _selectFirstDataEntryIfExistsCommand;
         private RelayCommand _addEntityCommand;
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
@@ -38,25 +37,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
 
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExistsCommand
-        {
-            get
-            {
-                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
-                {
-                    ProductionDirector coolingLip;
-                    try
-                    {
-                        coolingLip = ProductionDirectors.First();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    SelectedProductionDirector = coolingLip;
-                });
-            }
-        }
         public RelayCommand AddEntityCommand
         {
             get
@@ -98,5 +78,19 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
+
+        public override void SelectFirstDataEntryIfExist()
+        {
+            ProductionDirector director;
+            try
+            {
+                director = ProductionDirectors.First();
+            }
+            catch
+            {
+                return;
+            }
+            SelectedProductionDirector = director;
+        }
     }
 }

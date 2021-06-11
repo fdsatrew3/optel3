@@ -54,32 +54,33 @@
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedOrder}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedOrder}"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
                       CanUserDeleteRows="false"
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
-                      Grid.Column="0" Grid.Row="1"
                       SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="ElementsList"
-                      behaviours:DataGridBehavior.DisplayRowNumber="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="auto" IsReadOnly="True">
+                      behaviours:DataGridBehavior.DisplayRowNumber="True"
+                          Width="Auto">
+                    <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="Auto" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <xctk:DateTimePicker Value="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="true"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="Auto" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
@@ -101,6 +102,7 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
+            </ScrollViewer>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
             <StackPanel.Style>

@@ -47,25 +47,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
 
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExistsCommand
-        {
-            get
-            {
-                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
-                {
-                    Order coolingLip;
-                    try
-                    {
-                        coolingLip = Orders.First();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    SelectedOrder = coolingLip;
-                });
-            }
-        }
         public RelayCommand AddEntityCommand
         {
             get
@@ -184,6 +165,20 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return errors;
+        }
+
+        public override void SelectFirstDataEntryIfExist()
+        {
+            Order order;
+            try
+            {
+                order = Orders.First();
+            }
+            catch
+            {
+                return;
+            }
+            SelectedOrder = order;
         }
     }
 }

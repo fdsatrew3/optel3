@@ -45,25 +45,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
 
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExistsCommand
-        {
-            get
-            {
-                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
-                {
-                    NozzleChange nozzleChange;
-                    try
-                    {
-                        nozzleChange = ExtruderNozzles.First();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    SelectedExtruderNozzle = nozzleChange;
-                });
-            }
-        }
         public RelayCommand AddEntityCommand
         {
             get
@@ -138,6 +119,20 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return errors;
+        }
+
+        public override void SelectFirstDataEntryIfExist()
+        {
+            NozzleChange nozzleChange;
+            try
+            {
+                nozzleChange = ExtruderNozzles.First();
+            }
+            catch
+            {
+                return;
+            }
+            SelectedExtruderNozzle = nozzleChange;
         }
     }
 }

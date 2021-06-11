@@ -26,7 +26,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Fields
         private KnowledgeEngineer _SelectedKnowledgeEngineer;
 
-        private RelayCommand _selectFirstDataEntryIfExistsCommand;
         private RelayCommand _addEntityCommand;
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
@@ -38,25 +37,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
 
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExistsCommand
-        {
-            get
-            {
-                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
-                {
-                    KnowledgeEngineer coolingLip;
-                    try
-                    {
-                        coolingLip = KnowledgeEngineers.First();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    SelectedKnowledgeEngineer = coolingLip;
-                });
-            }
-        }
         public RelayCommand AddEntityCommand
         {
             get
@@ -98,5 +78,19 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
+
+        public override void SelectFirstDataEntryIfExist()
+        {
+            KnowledgeEngineer knowledgeEngineer;
+            try
+            {
+                knowledgeEngineer = KnowledgeEngineers.First();
+            }
+            catch
+            {
+                return;
+            }
+            SelectedKnowledgeEngineer = knowledgeEngineer;
+        }
     }
 }

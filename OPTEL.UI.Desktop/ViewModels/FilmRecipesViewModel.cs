@@ -32,7 +32,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Fields
         private FilmRecipe _SelectedFilmRecipe;
 
-        private RelayCommand _selectFirstDataEntryIfExistsCommand;
         private RelayCommand _addEntityCommand;
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
@@ -44,25 +43,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
 
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExistsCommand
-        {
-            get
-            {
-                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
-                {
-                    FilmRecipe coolingLip;
-                    try
-                    {
-                        coolingLip = FilmRecipes.First();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    SelectedFilmRecipe = coolingLip;
-                });
-            }
-        }
         public RelayCommand AddEntityCommand
         {
             get
@@ -176,6 +156,20 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return errors;
+        }
+
+        public override void SelectFirstDataEntryIfExist()
+        {
+            FilmRecipe filmRecipe;
+            try
+            {
+                filmRecipe = FilmRecipes.First();
+            }
+            catch
+            {
+                return;
+            }
+            SelectedFilmRecipe = filmRecipe;
         }
     }
 }

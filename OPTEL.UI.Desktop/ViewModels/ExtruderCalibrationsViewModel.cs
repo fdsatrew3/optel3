@@ -31,7 +31,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #region Fields
         private CalibrationChange _selectedExtruderCalibration;
 
-        private RelayCommand _selectFirstDataEntryIfExistsCommand;
         private RelayCommand _addEntityCommand;
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
@@ -43,25 +42,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
 
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExistsCommand
-        {
-            get
-            {
-                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
-                {
-                    CalibrationChange calibrationChange;
-                    try
-                    {
-                        calibrationChange = ExtruderCalibrations.First();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    SelectedExtruderCalibration = calibrationChange;
-                });
-            }
-        }
         public RelayCommand AddEntityCommand
         {
             get
@@ -136,6 +116,20 @@ namespace OPTEL.UI.Desktop.ViewModels
                 }
             }
             return errors;
+        }
+
+        public override void SelectFirstDataEntryIfExist()
+        {
+            CalibrationChange calibrationChange;
+            try
+            {
+                calibrationChange = ExtruderCalibrations.First();
+            }
+            catch
+            {
+                return;
+            }
+            SelectedExtruderCalibration = calibrationChange;
         }
     }
 }

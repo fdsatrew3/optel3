@@ -38,25 +38,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
 
         #region Commands
-        public RelayCommand SelectFirstDataEntryIfExistsCommand
-        {
-            get
-            {
-                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
-                {
-                    Administrator coolingLip;
-                    try
-                    {
-                        coolingLip = Administrators.First();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    SelectedAdministrator = coolingLip;
-                });
-            }
-        }
         public RelayCommand AddEntityCommand
         {
             get
@@ -98,5 +79,19 @@ namespace OPTEL.UI.Desktop.ViewModels
             }
         }
         #endregion
+
+        public override void SelectFirstDataEntryIfExist()
+        {
+            Administrator administrator;
+            try
+            {
+                administrator = Administrators.First();
+            }
+            catch
+            {
+                return;
+            }
+            SelectedAdministrator = administrator;
+        }
     }
 }

@@ -41,6 +41,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private RelayCommand _markEntityDataAsChangedCommand;
         private RelayCommand _saveChangesCommand;
         private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
+        private RelayCommand _selectFirstDataEntryIfExistsCommand;
 
         private IWindowCloseService _windowCloseService;
 
@@ -146,6 +147,17 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 });
             }
         }
+
+        public RelayCommand SelectFirstDataEntryIfExistsCommand
+        {
+            get
+            {
+                return _selectFirstDataEntryIfExistsCommand ??= new RelayCommand(obj =>
+                {
+                    SelectFirstDataEntryIfExist();
+                });
+            }
+        }
         #endregion
 
         public virtual ObservableCollection<Error> GetCustomErrors()
@@ -153,6 +165,10 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             return new ObservableCollection<Error>();
         }
 
+        public virtual void SelectFirstDataEntryIfExist()
+        {
+
+        }
         #region PropertyChangedEventHandler
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)
