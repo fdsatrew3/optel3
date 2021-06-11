@@ -32,11 +32,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #endregion
         #region Fields
         private Order _SelectedOrder;
-
-        private RelayCommand _selectFirstDataEntryIfExistsCommand;
-        private RelayCommand _addEntityCommand;
-        private RelayCommand _removeEntityCommand;
-        private RelayCommand _cloneEntityCommand;
         #endregion
 
         public OrdersViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
@@ -46,57 +41,6 @@ namespace OPTEL.UI.Desktop.ViewModels
             Customers = Database.instance.CustomerRepository.GetAll();
         }
 
-        #region Commands
-        public RelayCommand AddEntityCommand
-        {
-            get
-            {
-                return _addEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Order change = new Order();
-                    change.PlanningEndDate = DateTime.Now;
-                    Orders.Add(change);
-                    Database.instance.OrderRepository.Add(change);
-                    SelectedOrder = change;
-                });
-            }
-        }
-        public RelayCommand RemoveEntityCommand
-        {
-            get
-            {
-                return _removeEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Database.instance.OrderRepository.Delete(SelectedOrder);
-                    Orders.Remove(SelectedOrder);
-                    SelectFirstDataEntryIfExistsCommand.Execute(null);
-                }, (obj) => SelectedOrder != null);
-            }
-        }
-        public RelayCommand CloneEntityCommand
-        {
-            get
-            {
-                return _cloneEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Order change = new Order();
-                    change.FilmRecipe = SelectedOrder.FilmRecipe;
-                    change.FilmRecipeID = SelectedOrder.FilmRecipeID;
-                    change.OrderNumber = SelectedOrder.OrderNumber;
-                    change.ParentCustomer = SelectedOrder.ParentCustomer;
-                    change.ParentCustomerID = SelectedOrder.ParentCustomerID;
-                    change.PlanningEndDate = SelectedOrder.PlanningEndDate;
-                    change.PredefinedTime = SelectedOrder.PredefinedTime;
-                    change.PriceOverdue = SelectedOrder.PriceOverdue;
-                    change.QuantityInRunningMeter = SelectedOrder.QuantityInRunningMeter;
-                    change.Width = SelectedOrder.Width;
-                    Orders.Add(change);
-                    Database.instance.OrderRepository.Add(change);
-                    SelectedOrder = change;
-                }, (obj) => SelectedOrder != null);
-            }
-        }
-        #endregion
         public override ObservableCollection<Error> GetCustomErrors()
         {
             ObservableCollection<Error> errors = new ObservableCollection<Error>();
@@ -179,6 +123,50 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return;
             }
             SelectedOrder = order;
+        }
+
+        public override void AddEntity()
+        {
+            Order order = new Order();
+            order.PlanningEndDate = DateTime.Now;
+            Orders.Add(order);
+            Database.instance.OrderRepository.Add(order);
+            SelectedOrder = order;
+        }
+
+        public override void RemoveEntity()
+        {
+            Database.instance.OrderRepository.Delete(SelectedOrder);
+            Orders.Remove(SelectedOrder);
+            SelectFirstDataEntryIfExistsCommand.Execute(null);
+        }
+
+        public override bool RemoveEntityExecuteCondition()
+        {
+            return SelectedOrder != null;
+        }
+
+        public override void CloneEntity()
+        {
+            Order order = new Order();
+            order.FilmRecipe = SelectedOrder.FilmRecipe;
+            order.FilmRecipeID = SelectedOrder.FilmRecipeID;
+            order.OrderNumber = SelectedOrder.OrderNumber;
+            order.ParentCustomer = SelectedOrder.ParentCustomer;
+            order.ParentCustomerID = SelectedOrder.ParentCustomerID;
+            order.PlanningEndDate = SelectedOrder.PlanningEndDate;
+            order.PredefinedTime = SelectedOrder.PredefinedTime;
+            order.PriceOverdue = SelectedOrder.PriceOverdue;
+            order.QuantityInRunningMeter = SelectedOrder.QuantityInRunningMeter;
+            order.Width = SelectedOrder.Width;
+            Orders.Add(order);
+            Database.instance.OrderRepository.Add(order);
+            SelectedOrder = order;
+        }
+
+        public override bool CloneEntityExecuteCondition()
+        {
+            return SelectedOrder != null;
         }
     }
 }

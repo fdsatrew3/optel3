@@ -29,76 +29,11 @@ namespace OPTEL.UI.Desktop.ViewModels
         #endregion
         #region Fields
         private ProductionLine _SelectedExtruder;
-
-        private RelayCommand _selectFirstDataEntryIfExistsCommand;
-        private RelayCommand _addEntityCommand;
-        private RelayCommand _removeEntityCommand;
-        private RelayCommand _cloneEntityCommand;
         #endregion
         public ExtrudersViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             Extruders = new ObservableCollection<ProductionLine>(Database.instance.ProductionLineRepository.GetAll());
         }
-
-        #region Commands
-        public RelayCommand AddEntityCommand
-        {
-            get
-            {
-                return _addEntityCommand ??= new RelayCommand(obj =>
-                {
-                    ProductionLine change = new ProductionLine();
-                    Extruders.Add(change);
-                    Database.instance.ProductionLineRepository.Add(change);
-                    SelectedExtruder = change;
-                });
-            }
-        }
-        public RelayCommand RemoveEntityCommand
-        {
-            get
-            {
-                return _removeEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Database.instance.ProductionLineRepository.Delete(SelectedExtruder);
-                    Extruders.Remove(SelectedExtruder);
-                    SelectFirstDataEntryIfExistsCommand.Execute(null);
-                }, (obj) => SelectedExtruder != null);
-            }
-        }
-        public RelayCommand CloneEntityCommand
-        {
-            get
-            {
-                return _cloneEntityCommand ??= new RelayCommand(obj =>
-                {
-                    ProductionLine change = new ProductionLine();
-                    change.CalibrationChanges = SelectedExtruder.CalibrationChanges;
-                    change.Code = SelectedExtruder.Code;
-                    change.CoolingLipChanges = SelectedExtruder.CoolingLipChanges;
-                    change.FilmTypesChanges = SelectedExtruder.FilmTypesChanges;
-                    change.HourCost = SelectedExtruder.HourCost;
-                    change.LengthMax = SelectedExtruder.LengthMax;
-                    change.LengthMin = SelectedExtruder.LengthMin;
-                    change.MaxProductionSpeed = SelectedExtruder.MaxProductionSpeed;
-                    change.Name = SelectedExtruder.Name;
-                    change.NozzleChanges = SelectedExtruder.NozzleChanges;
-                    change.ThicknessChangeTime = SelectedExtruder.ThicknessChangeTime;
-                    change.ThicknessMax = SelectedExtruder.ThicknessMax;
-                    change.ThicknessMin = SelectedExtruder.ThicknessMin;
-                    change.WeightMax = SelectedExtruder.WeightMax;
-                    change.WeightMin = SelectedExtruder.WeightMin;
-                    change.WidthChangeTime = SelectedExtruder.WidthChangeTime;
-                    change.WidthMax = SelectedExtruder.WidthMax;
-                    change.WidthMin = SelectedExtruder.WidthMin;
-                    Extruders.Add(change);
-                    Database.instance.ProductionLineRepository.Add(change);
-                    SelectedExtruder = change;
-                }, (obj) => SelectedExtruder != null);
-            }
-        }
-        #endregion
-
         public override ObservableCollection<Error> GetCustomErrors()
         {
             ObservableCollection<Error> errors = new ObservableCollection<Error>();
@@ -248,6 +183,57 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return;
             }
             SelectedExtruder = productionLine;
+        }
+
+        public override void AddEntity()
+        {
+            ProductionLine productionLine = new ProductionLine();
+            Extruders.Add(productionLine);
+            Database.instance.ProductionLineRepository.Add(productionLine);
+            SelectedExtruder = productionLine;
+        }
+
+        public override void RemoveEntity()
+        {
+            Database.instance.ProductionLineRepository.Delete(SelectedExtruder);
+            Extruders.Remove(SelectedExtruder);
+            SelectFirstDataEntryIfExistsCommand.Execute(null);
+        }
+
+        public override bool RemoveEntityExecuteCondition()
+        {
+            return SelectedExtruder != null;
+        }
+
+        public override void CloneEntity()
+        {
+            ProductionLine productionLine = new ProductionLine();
+            productionLine.CalibrationChanges = SelectedExtruder.CalibrationChanges;
+            productionLine.Code = SelectedExtruder.Code;
+            productionLine.CoolingLipChanges = SelectedExtruder.CoolingLipChanges;
+            productionLine.FilmTypesChanges = SelectedExtruder.FilmTypesChanges;
+            productionLine.HourCost = SelectedExtruder.HourCost;
+            productionLine.LengthMax = SelectedExtruder.LengthMax;
+            productionLine.LengthMin = SelectedExtruder.LengthMin;
+            productionLine.MaxProductionSpeed = SelectedExtruder.MaxProductionSpeed;
+            productionLine.Name = SelectedExtruder.Name;
+            productionLine.NozzleChanges = SelectedExtruder.NozzleChanges;
+            productionLine.ThicknessChangeTime = SelectedExtruder.ThicknessChangeTime;
+            productionLine.ThicknessMax = SelectedExtruder.ThicknessMax;
+            productionLine.ThicknessMin = SelectedExtruder.ThicknessMin;
+            productionLine.WeightMax = SelectedExtruder.WeightMax;
+            productionLine.WeightMin = SelectedExtruder.WeightMin;
+            productionLine.WidthChangeTime = SelectedExtruder.WidthChangeTime;
+            productionLine.WidthMax = SelectedExtruder.WidthMax;
+            productionLine.WidthMin = SelectedExtruder.WidthMin;
+            Extruders.Add(productionLine);
+            Database.instance.ProductionLineRepository.Add(productionLine);
+            SelectedExtruder = productionLine;
+        }
+
+        public override bool CloneEntityExecuteCondition()
+        {
+            return SelectedExtruder != null;
         }
     }
 }

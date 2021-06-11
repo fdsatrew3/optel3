@@ -7,7 +7,6 @@ using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -28,10 +27,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #endregion
         #region Fields
         private FilmType _SelectedFilmType;
-
-        private RelayCommand _addEntityCommand;
-        private RelayCommand _removeEntityCommand;
-        private RelayCommand _cloneEntityCommand;
         #endregion
 
         public FilmTypesViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
@@ -39,47 +34,6 @@ namespace OPTEL.UI.Desktop.ViewModels
             FilmTypes = new ObservableCollection<FilmType>(Database.instance.FilmTypeRepository.GetAll());
         }
 
-        #region Commands
-        public RelayCommand AddEntityCommand
-        {
-            get
-            {
-                return _addEntityCommand ??= new RelayCommand(obj =>
-                {
-                    FilmType change = new FilmType();
-                    FilmTypes.Add(change);
-                    Database.instance.FilmTypeRepository.Add(change);
-                    SelectedFilmType = change;
-                });
-            }
-        }
-        public RelayCommand RemoveEntityCommand
-        {
-            get
-            {
-                return _removeEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Database.instance.FilmTypeRepository.Delete(SelectedFilmType);
-                    FilmTypes.Remove(SelectedFilmType);
-                    SelectFirstDataEntryIfExistsCommand.Execute(null);
-                }, (obj) => SelectedFilmType != null);
-            }
-        }
-        public RelayCommand CloneEntityCommand
-        {
-            get
-            {
-                return _cloneEntityCommand ??= new RelayCommand(obj =>
-                {
-                    FilmType change = new FilmType();
-                    change.Article = SelectedFilmType.Article;
-                    FilmTypes.Add(change);
-                    Database.instance.FilmTypeRepository.Add(change);
-                    SelectedFilmType = change;
-                }, (obj) => SelectedFilmType != null);
-            }
-        }
-        #endregion
         public override ObservableCollection<Error> GetCustomErrors()
         {
             ObservableCollection<Error> errors = new ObservableCollection<Error>();
@@ -110,6 +64,40 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return;
             }
             SelectedFilmType = filmType;
+        }
+
+        public override void AddEntity()
+        {
+            FilmType type = new FilmType();
+            FilmTypes.Add(type);
+            Database.instance.FilmTypeRepository.Add(type);
+            SelectedFilmType = type;
+        }
+
+        public override void RemoveEntity()
+        {
+            Database.instance.FilmTypeRepository.Delete(SelectedFilmType);
+            FilmTypes.Remove(SelectedFilmType);
+            SelectFirstDataEntryIfExistsCommand.Execute(null);
+        }
+
+        public override bool RemoveEntityExecuteCondition()
+        {
+            return SelectedFilmType != null;
+        }
+
+        public override void CloneEntity()
+        {
+            FilmType type = new FilmType();
+            type.Article = SelectedFilmType.Article;
+            FilmTypes.Add(type);
+            Database.instance.FilmTypeRepository.Add(type);
+            SelectedFilmType = type;
+        }
+
+        public override bool CloneEntityExecuteCondition()
+        {
+            return SelectedFilmType != null;
         }
     }
 }

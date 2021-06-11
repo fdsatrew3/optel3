@@ -1,6 +1,5 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
-using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
@@ -9,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -32,10 +30,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #endregion
         #region Fields
         private FilmTypesChange _SelectedExtruderRecipe;
-
-        private RelayCommand _addEntityCommand;
-        private RelayCommand _removeEntityCommand;
-        private RelayCommand _cloneEntityCommand;
         #endregion
         public ExtruderRecipesChangeViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
@@ -43,52 +37,6 @@ namespace OPTEL.UI.Desktop.ViewModels
             Extruders = Database.instance.ProductionLineRepository.GetAll();
             FilmTypes = Database.instance.FilmTypeRepository.GetAll();
         }
-
-        #region Commands
-        public RelayCommand AddEntityCommand
-        {
-            get
-            {
-                return _addEntityCommand ??= new RelayCommand(obj =>
-                {
-                    FilmTypesChange change = new FilmTypesChange();
-                    ExtruderRecipes.Add(change);
-                    Database.instance.FilmRecipeChangeRepository.Add(change);
-                    SelectedExtruderRecipe = change;
-                });
-            }
-        }
-        public RelayCommand RemoveEntityCommand
-        {
-            get
-            {
-                return _removeEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Database.instance.FilmRecipeChangeRepository.Delete(SelectedExtruderRecipe);
-                    ExtruderRecipes.Remove(SelectedExtruderRecipe);
-                    SelectFirstDataEntryIfExistsCommand.Execute(null);
-                }, (obj) => SelectedExtruderRecipe != null);
-            }
-        }
-        public RelayCommand CloneEntityCommand
-        {
-            get
-            {
-                return _cloneEntityCommand ??= new RelayCommand(obj =>
-                {
-                    FilmTypesChange change = new FilmTypesChange();
-                    change.FilmTypeFrom = SelectedExtruderRecipe.FilmTypeFrom;
-                    change.FilmTypeTo = SelectedExtruderRecipe.FilmTypeTo;
-                    change.ParentProductionLine = SelectedExtruderRecipe.ParentProductionLine;
-                    change.ParentProductionLineID = SelectedExtruderRecipe.ParentProductionLineID;
-                    change.ReconfigurationTime = SelectedExtruderRecipe.ReconfigurationTime;
-                    ExtruderRecipes.Add(change);
-                    Database.instance.FilmRecipeChangeRepository.Add(change);
-                    SelectedExtruderRecipe = change;
-                }, (obj) => SelectedExtruderRecipe != null);
-            }
-        }
-        #endregion
 
         public override ObservableCollection<Error> GetCustomErrors()
         {
@@ -148,6 +96,44 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return;
             }
             SelectedExtruderRecipe = extruderRecipe;
+        }
+
+        public override void AddEntity()
+        {
+            FilmTypesChange recipe = new FilmTypesChange();
+            ExtruderRecipes.Add(recipe);
+            Database.instance.FilmRecipeChangeRepository.Add(recipe);
+            SelectedExtruderRecipe = recipe;
+        }
+
+        public override void RemoveEntity()
+        {
+            Database.instance.FilmRecipeChangeRepository.Delete(SelectedExtruderRecipe);
+            ExtruderRecipes.Remove(SelectedExtruderRecipe);
+            SelectFirstDataEntryIfExistsCommand.Execute(null);
+        }
+
+        public override bool RemoveEntityExecuteCondition()
+        {
+            return SelectedExtruderRecipe != null;
+        }
+
+        public override void CloneEntity()
+        {
+            FilmTypesChange recipe = new FilmTypesChange();
+            recipe.FilmTypeFrom = SelectedExtruderRecipe.FilmTypeFrom;
+            recipe.FilmTypeTo = SelectedExtruderRecipe.FilmTypeTo;
+            recipe.ParentProductionLine = SelectedExtruderRecipe.ParentProductionLine;
+            recipe.ParentProductionLineID = SelectedExtruderRecipe.ParentProductionLineID;
+            recipe.ReconfigurationTime = SelectedExtruderRecipe.ReconfigurationTime;
+            ExtruderRecipes.Add(recipe);
+            Database.instance.FilmRecipeChangeRepository.Add(recipe);
+            SelectedExtruderRecipe = recipe;
+        }
+
+        public override bool CloneEntityExecuteCondition()
+        {
+            return SelectedExtruderRecipe != null;
         }
     }
 }

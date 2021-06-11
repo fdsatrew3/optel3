@@ -1,6 +1,5 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.Data;
-using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
@@ -9,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace OPTEL.UI.Desktop.ViewModels
 {
@@ -31,10 +29,6 @@ namespace OPTEL.UI.Desktop.ViewModels
         #endregion
         #region Fields
         private CoolingLipChange _selectedExtruderCoolingLip;
-
-        private RelayCommand _addEntityCommand;
-        private RelayCommand _removeEntityCommand;
-        private RelayCommand _cloneEntityCommand;
         #endregion
 
         public ExtruderCoolingLipsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
@@ -42,51 +36,6 @@ namespace OPTEL.UI.Desktop.ViewModels
             ExtruderCoolingLips = new ObservableCollection<CoolingLipChange>(Database.instance.CoolingLipChangeRepository.GetAll());
             Extruders = Database.instance.ProductionLineRepository.GetAll();
         }
-
-        #region Commands
-        public RelayCommand AddEntityCommand
-        {
-            get
-            {
-                return _addEntityCommand ??= new RelayCommand(obj =>
-                {
-                    CoolingLipChange change = new CoolingLipChange();
-                    ExtruderCoolingLips.Add(change);
-                    Database.instance.CoolingLipChangeRepository.Add(change);
-                    SelectedExtruderCoolingLip = change;
-                });
-            }
-        }
-        public RelayCommand RemoveEntityCommand
-        {
-            get
-            {
-                return _removeEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Database.instance.CoolingLipChangeRepository.Delete(SelectedExtruderCoolingLip);
-                    ExtruderCoolingLips.Remove(SelectedExtruderCoolingLip);
-                    SelectFirstDataEntryIfExistsCommand.Execute(null);
-                }, (obj) => SelectedExtruderCoolingLip != null);
-            }
-        }
-        public RelayCommand CloneEntityCommand
-        {
-            get
-            {
-                return _cloneEntityCommand ??= new RelayCommand(obj =>
-                {
-                    CoolingLipChange change = new CoolingLipChange();
-                    change.CoolingLipToChange = SelectedExtruderCoolingLip.CoolingLipToChange;
-                    change.ParentProductionLine = SelectedExtruderCoolingLip.ParentProductionLine;
-                    change.ParentProductionLineID = SelectedExtruderCoolingLip.ParentProductionLineID;
-                    change.ReconfigurationTime = SelectedExtruderCoolingLip.ReconfigurationTime;
-                    ExtruderCoolingLips.Add(change);
-                    Database.instance.CoolingLipChangeRepository.Add(change);
-                    SelectedExtruderCoolingLip = change;
-                }, (obj) => SelectedExtruderCoolingLip != null);
-            }
-        }
-        #endregion
 
         public override ObservableCollection<Error> GetCustomErrors()
         {
@@ -132,6 +81,43 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return;
             }
             SelectedExtruderCoolingLip = coolingLip;
+        }
+
+        public override void AddEntity()
+        {
+            CoolingLipChange change = new CoolingLipChange();
+            ExtruderCoolingLips.Add(change);
+            Database.instance.CoolingLipChangeRepository.Add(change);
+            SelectedExtruderCoolingLip = change;
+        }
+
+        public override void RemoveEntity()
+        {
+            Database.instance.CoolingLipChangeRepository.Delete(SelectedExtruderCoolingLip);
+            ExtruderCoolingLips.Remove(SelectedExtruderCoolingLip);
+            SelectFirstDataEntryIfExistsCommand.Execute(null);
+        }
+
+        public override bool RemoveEntityExecuteCondition()
+        {
+            return SelectedExtruderCoolingLip != null;
+        }
+
+        public override void CloneEntity()
+        {
+            CoolingLipChange change = new CoolingLipChange();
+            change.CoolingLipToChange = SelectedExtruderCoolingLip.CoolingLipToChange;
+            change.ParentProductionLine = SelectedExtruderCoolingLip.ParentProductionLine;
+            change.ParentProductionLineID = SelectedExtruderCoolingLip.ParentProductionLineID;
+            change.ReconfigurationTime = SelectedExtruderCoolingLip.ReconfigurationTime;
+            ExtruderCoolingLips.Add(change);
+            Database.instance.CoolingLipChangeRepository.Add(change);
+            SelectedExtruderCoolingLip = change;
+        }
+
+        public override bool CloneEntityExecuteCondition()
+        {
+            return SelectedExtruderCoolingLip != null;
         }
     }
 }

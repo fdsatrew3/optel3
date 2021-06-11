@@ -42,6 +42,9 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private RelayCommand _saveChangesCommand;
         private RelayCommand _checkForUnsavedChangesOnWindowClosingCommand;
         private RelayCommand _selectFirstDataEntryIfExistsCommand;
+        private RelayCommand _addEntityCommand;
+        private RelayCommand _removeEntityCommand;
+        private RelayCommand _cloneEntityCommand;
 
         private IWindowCloseService _windowCloseService;
 
@@ -158,6 +161,40 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 });
             }
         }
+
+        public RelayCommand AddEntityCommand
+        {
+            get
+            {
+                return _addEntityCommand ??= new RelayCommand(obj =>
+                {
+                    AddEntity();
+                    IsDataChanged = true;
+                }, (obj) => AddEntityExecuteCondition());
+            }
+        }
+        public RelayCommand RemoveEntityCommand
+        {
+            get
+            {
+                return _removeEntityCommand ??= new RelayCommand(obj =>
+                {
+                    RemoveEntity();
+                    IsDataChanged = true;
+                }, (obj) => RemoveEntityExecuteCondition());
+            }
+        }
+        public RelayCommand CloneEntityCommand
+        {
+            get
+            {
+                return _cloneEntityCommand ??= new RelayCommand(obj =>
+                {
+                    CloneEntity();
+                    IsDataChanged = true;
+                }, (obj) => CloneEntityExecuteCondition());
+            }
+        }
         #endregion
 
         public virtual ObservableCollection<Error> GetCustomErrors()
@@ -169,6 +206,34 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         {
 
         }
+
+        public virtual void AddEntity()
+        {
+
+        }
+        public virtual bool AddEntityExecuteCondition()
+        {
+            return true;
+        }
+
+        public virtual void RemoveEntity()
+        {
+
+        }
+        public virtual bool RemoveEntityExecuteCondition()
+        {
+            return false;
+        }
+
+        public virtual void CloneEntity()
+        {
+
+        }
+        public virtual bool CloneEntityExecuteCondition()
+        {
+            return false;
+        }
+
         #region PropertyChangedEventHandler
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)

@@ -25,59 +25,12 @@ namespace OPTEL.UI.Desktop.ViewModels
         #endregion
         #region Fields
         private ProductionDirector _SelectedProductionDirector;
-
-        private RelayCommand _addEntityCommand;
-        private RelayCommand _removeEntityCommand;
-        private RelayCommand _cloneEntityCommand;
         #endregion
 
         public ProductionDirectorsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
         {
             ProductionDirectors = new ObservableCollection<ProductionDirector>(Database.instance.ProductionDirectorRepository.GetAll());
         }
-
-        #region Commands
-        public RelayCommand AddEntityCommand
-        {
-            get
-            {
-                return _addEntityCommand ??= new RelayCommand(obj =>
-                {
-                    ProductionDirector change = new ProductionDirector();
-                    ProductionDirectors.Add(change);
-                    Database.instance.ProductionDirectorRepository.Add(change);
-                    SelectedProductionDirector = change;
-                });
-            }
-        }
-        public RelayCommand RemoveEntityCommand
-        {
-            get
-            {
-                return _removeEntityCommand ??= new RelayCommand(obj =>
-                {
-                    Database.instance.ProductionDirectorRepository.Delete(SelectedProductionDirector);
-                    ProductionDirectors.Remove(SelectedProductionDirector);
-                    SelectFirstDataEntryIfExistsCommand.Execute(null);
-                }, (obj) => SelectedProductionDirector != null);
-            }
-        }
-        public RelayCommand CloneEntityCommand
-        {
-            get
-            {
-                return _cloneEntityCommand ??= new RelayCommand(obj =>
-                {
-                    ProductionDirector change = new ProductionDirector();
-                    change.Login = SelectedProductionDirector.Login;
-                    change.Password = SelectedProductionDirector.Password;
-                    ProductionDirectors.Add(change);
-                    Database.instance.ProductionDirectorRepository.Add(change);
-                    SelectedProductionDirector = change;
-                }, (obj) => SelectedProductionDirector != null);
-            }
-        }
-        #endregion
 
         public override void SelectFirstDataEntryIfExist()
         {
@@ -91,6 +44,41 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return;
             }
             SelectedProductionDirector = director;
+        }
+
+        public override void AddEntity()
+        {
+            ProductionDirector productionDirector = new ProductionDirector();
+            ProductionDirectors.Add(productionDirector);
+            Database.instance.ProductionDirectorRepository.Add(productionDirector);
+            SelectedProductionDirector = productionDirector;
+        }
+
+        public override void RemoveEntity()
+        {
+            Database.instance.ProductionDirectorRepository.Delete(SelectedProductionDirector);
+            ProductionDirectors.Remove(SelectedProductionDirector);
+            SelectFirstDataEntryIfExistsCommand.Execute(null);
+        }
+
+        public override bool RemoveEntityExecuteCondition()
+        {
+            return SelectedProductionDirector != null;
+        }
+
+        public override void CloneEntity()
+        {
+            ProductionDirector productionDirector = new ProductionDirector();
+            productionDirector.Login = SelectedProductionDirector.Login;
+            productionDirector.Password = SelectedProductionDirector.Password;
+            ProductionDirectors.Add(productionDirector);
+            Database.instance.ProductionDirectorRepository.Add(productionDirector);
+            SelectedProductionDirector = productionDirector;
+        }
+
+        public override bool CloneEntityExecuteCondition()
+        {
+            return SelectedProductionDirector != null;
         }
     }
 }
