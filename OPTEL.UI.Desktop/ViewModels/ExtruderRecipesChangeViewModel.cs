@@ -20,8 +20,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _SelectedExtruderRecipe = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedExtruderRecipe");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<FilmTypesChange> ExtruderRecipes { get; set; }

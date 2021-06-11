@@ -68,8 +68,8 @@
                           Width="Auto">
                     <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.Width}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="Auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="Auto" IsReadOnly="True"/>
                         <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="Auto" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
@@ -78,8 +78,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="Auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="Auto" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>

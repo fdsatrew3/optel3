@@ -21,8 +21,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _SelectedExtruder = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedExtruder");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<ProductionLine> Extruders { get; set; }

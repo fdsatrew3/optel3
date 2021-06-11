@@ -20,8 +20,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _selectedExtruderCalibration = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedExtruderCalibration");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<CalibrationChange> ExtruderCalibrations { get; set; }

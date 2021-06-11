@@ -53,77 +53,79 @@
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedExtruder}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedExtruder}"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Path=Extruders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <DataGrid ItemsSource="{Binding Path=Extruders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
                       CanUserDeleteRows="false"
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
-                      Grid.Column="0" Grid.Row="1"
+                      Width="Auto"
                       SelectedItem="{Binding SelectedExtruder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="ElementsList"
                       behaviors:DataGridBehavior.DisplayRowNumber="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Width}" Width="auto" IsReadOnly="True">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="WidthMin" />
-                                <Binding Path="WidthMax" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Thickness}" Width="auto" IsReadOnly="True">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="ThicknessMin" />
-                                <Binding Path="ThicknessMax" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Weight}" Width="auto" IsReadOnly="True">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="WeightMin" />
-                                <Binding Path="WeightMax" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="auto" IsReadOnly="True">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="LengthMin" />
-                                <Binding Path="LengthMax" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="*" IsReadOnly="True"/>
-                </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Add}" Command="{Binding AddEntityCommand}">
-                            <MenuItem.Icon>
-                                <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedExtruder}">
-                            <MenuItem.Icon>
-                                <Image Source="{StaticResource RemoveButtonBitmapImage}" Width="16" Height="16"/>
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedExtruder}">
-                            <MenuItem.Icon>
-                                <Image Source="{StaticResource CloneButtonBitmapImage}" Width="16" Height="16"/>
-                            </MenuItem.Icon>
-                        </MenuItem>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Width}" Width="auto" IsReadOnly="True">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="WidthMin" StringFormat="N2" />
+                                    <Binding Path="WidthMax" StringFormat="N2"/>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Thickness}" Width="auto" IsReadOnly="True">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="ThicknessMin" StringFormat="N2"/>
+                                    <Binding Path="ThicknessMax" StringFormat="N2"/>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Weight}" Width="auto" IsReadOnly="True">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="WeightMin" StringFormat="N2"/>
+                                    <Binding Path="WeightMax" StringFormat="N2"/>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="auto" IsReadOnly="True">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="LengthMin" StringFormat="N2"/>
+                                    <Binding Path="LengthMax" StringFormat="N2"/>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="Auto" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Add}" Command="{Binding AddEntityCommand}">
+                                <MenuItem.Icon>
+                                    <Image Source="{StaticResource AddButtonBitmapImage}" Width="16" Height="16"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedExtruder}">
+                                <MenuItem.Icon>
+                                    <Image Source="{StaticResource RemoveButtonBitmapImage}" Width="16" Height="16"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedExtruder}">
+                                <MenuItem.Icon>
+                                    <Image Source="{StaticResource CloneButtonBitmapImage}" Width="16" Height="16"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </ScrollViewer>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
             <StackPanel.Style>

@@ -365,7 +365,6 @@ namespace OPTEL.UI.Desktop.ViewModels
                         });
                     }
                     var filmChanges = Database.instance.FilmRecipeChangeRepository.GetAll();
-                    IOptimizationAlgorithm<ProductionPlan> planningAlgorithm = null;
                     ProductionPlan optimalProductionPlan = null;
                     try
                     {

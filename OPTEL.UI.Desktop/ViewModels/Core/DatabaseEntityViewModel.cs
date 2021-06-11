@@ -16,7 +16,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         public bool IsDataChanged
         {
             get => _isDataChanged;
-            set
+            private set
             {
                 _isDataChanged = value;
                 OnPropertyChanged("IsDataChanged");
@@ -25,7 +25,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         public bool IsSavingChanges
         {
             get => _isSavingChanges;
-            set
+            private set
             {
                 _isSavingChanges = value;
                 OnPropertyChanged("IsSavingChanges");
@@ -37,6 +37,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         #region Fields
         private bool _isDataChanged;
         private bool _isSavingChanges;
+        private bool _isIgnoreDataChangedMark;
 
         private RelayCommand _markEntityDataAsChangedCommand;
         private RelayCommand _saveChangesCommand;
@@ -45,6 +46,8 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         private RelayCommand _addEntityCommand;
         private RelayCommand _removeEntityCommand;
         private RelayCommand _cloneEntityCommand;
+        private RelayCommand _ignoreMarkDataChangedRequestsCommand;
+        private RelayCommand _acceptMarkDataChangedRequestsCommand;
 
         private IWindowCloseService _windowCloseService;
 
@@ -66,7 +69,31 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             {
                 return _markEntityDataAsChangedCommand ??= new RelayCommand(obj =>
                 {
+                    if(_isIgnoreDataChangedMark)
+                    {
+                        return;
+                    }
                     IsDataChanged = true;
+                });
+            }
+        }
+        public RelayCommand IgnoreMarkDataChangedRequestsCommand
+        {
+            get
+            {
+                return _ignoreMarkDataChangedRequestsCommand ??= new RelayCommand(obj =>
+                {
+                    _isIgnoreDataChangedMark = true;
+                });
+            }
+        }
+        public RelayCommand AcceptMarkDataChangedRequestsCommand
+        {
+            get
+            {
+                return _acceptMarkDataChangedRequestsCommand ??= new RelayCommand(obj =>
+                {
+                    _isIgnoreDataChangedMark = false;
                 });
             }
         }
@@ -169,7 +196,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 return _addEntityCommand ??= new RelayCommand(obj =>
                 {
                     AddEntity();
-                    IsDataChanged = true;
+                    MarkEntityDataAsChangedCommand.Execute(null);
                 }, (obj) => AddEntityExecuteCondition());
             }
         }
@@ -180,7 +207,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 return _removeEntityCommand ??= new RelayCommand(obj =>
                 {
                     RemoveEntity();
-                    IsDataChanged = true;
+                    MarkEntityDataAsChangedCommand.Execute(null);
                 }, (obj) => RemoveEntityExecuteCondition());
             }
         }
@@ -191,7 +218,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 return _cloneEntityCommand ??= new RelayCommand(obj =>
                 {
                     CloneEntity();
-                    IsDataChanged = true;
+                    MarkEntityDataAsChangedCommand.Execute(null);
                 }, (obj) => CloneEntityExecuteCondition());
             }
         }

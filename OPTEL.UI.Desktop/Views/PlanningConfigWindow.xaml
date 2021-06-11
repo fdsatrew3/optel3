@@ -77,34 +77,36 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step2}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
-                    <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
                       CanUserDeleteRows="false"
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
-                      Grid.Column="0" Grid.Row="1"
+                      Width="Auto"
                       SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="OrdersList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="auto"/>
-                            <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.Width}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="auto" IsReadOnly="True">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <xctk:DateTimePicker Value="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="true"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="*" IsReadOnly="True"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.Width}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="auto" IsReadOnly="True">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <xctk:DateTimePicker Value="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="true"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="Auto" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
                     <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">
@@ -137,59 +139,61 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step3}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
-                    <DataGrid ItemsSource="{Binding Path=ProductionLines, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DataGrid ItemsSource="{Binding Path=ProductionLines, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
                       CanUserDeleteRows="false"
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
-                      Grid.Column="0" Grid.Row="1"
+                      Width="Auto"
                       SelectedItem="{Binding SelectedProductionLine, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="ProductionLinesList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="auto"/>
-                            <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Width}" Width="auto" IsReadOnly="True">
-                                <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="WidthMin" />
-                                        <Binding Path="WidthMax" />
-                                    </MultiBinding>
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Thickness}" Width="auto" IsReadOnly="True">
-                                <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="ThicknessMin" />
-                                        <Binding Path="ThicknessMax" />
-                                    </MultiBinding>
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Weight}" Width="auto" IsReadOnly="True">
-                                <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="WeightMin" />
-                                        <Binding Path="WeightMax" />
-                                    </MultiBinding>
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="auto" IsReadOnly="True">
-                                <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="LengthMin" />
-                                        <Binding Path="LengthMax" />
-                                    </MultiBinding>
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="auto" IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="*" IsReadOnly="True"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Width}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="WidthMin" StringFormat="N2"/>
+                                            <Binding Path="WidthMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Thickness}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ThicknessMin" StringFormat="N2"/>
+                                            <Binding Path="ThicknessMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Weight}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="WeightMin" StringFormat="N2"/>
+                                            <Binding Path="WeightMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="LengthMin" StringFormat="N2"/>
+                                            <Binding Path="LengthMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="Auto" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
                     <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
                         <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
                             <StackPanel Orientation="Horizontal">

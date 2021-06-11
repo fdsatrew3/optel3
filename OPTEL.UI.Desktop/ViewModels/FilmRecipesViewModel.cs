@@ -20,8 +20,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _SelectedFilmRecipe = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedFilmRecipe");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<FilmRecipe> FilmRecipes { get; set; }

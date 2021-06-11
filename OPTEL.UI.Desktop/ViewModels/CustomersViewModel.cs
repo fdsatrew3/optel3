@@ -18,8 +18,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _SelectedCustomer = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedCustomer");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<Customer> Customers { get; set; }

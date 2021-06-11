@@ -16,8 +16,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _SelectedAdministrator = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedAdministrator");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<Administrator> Administrators { get; set; }

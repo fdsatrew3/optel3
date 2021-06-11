@@ -17,8 +17,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _SelectedProductionDirector = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedProductionDirector");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<ProductionDirector> ProductionDirectors { get; set; }

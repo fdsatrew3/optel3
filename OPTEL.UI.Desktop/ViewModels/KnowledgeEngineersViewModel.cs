@@ -17,8 +17,9 @@ namespace OPTEL.UI.Desktop.ViewModels
             set
             {
                 _SelectedKnowledgeEngineer = value;
+                IgnoreMarkDataChangedRequestsCommand.Execute(null);
                 OnPropertyChanged("SelectedKnowledgeEngineer");
-                IsDataChanged = false;
+                AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
         public ObservableCollection<KnowledgeEngineer> KnowledgeEngineers { get; set; }
