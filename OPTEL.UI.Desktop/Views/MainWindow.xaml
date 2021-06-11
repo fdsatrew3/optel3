@@ -47,6 +47,11 @@
                 <MenuItem Header="{localization:Localize Key=Menu.Data.FilmTypes}" Command="{Binding OpenFilmTypesWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Orders}" Command="{Binding OpenOrdersWindowCommand}"></MenuItem>
                 <MenuItem Header="{localization:Localize Key=Menu.Data.Customers}" Command="{Binding OpenCustomersWindowCommand}"></MenuItem>
+                <MenuItem Header="{localization:Localize Key=Menu.Data.Users}">
+                    <MenuItem Header="{localization:Localize Key=Menu.Data.Users.Administrators}" Command="{Binding OpenAdminstratorsWindowCommand}"/>
+                    <MenuItem Header="{localization:Localize Key=Menu.Data.Users.KnowledgeEngineers}" Command="{Binding OpenKnowledgeEngineersWindowCommand}"/>
+                    <MenuItem Header="{localization:Localize Key=Menu.Data.Users.ProductionDirectors}" Command="{Binding OpenProductionDirectorsWindowCommand}"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="{localization:Localize Key=Menu.Tools}">
                 <MenuItem Header="{localization:Localize Key=Menu.Tools.ImportDataFromExcelFile}" Command="{Binding OpenImportExcelWindowCommand}"/>

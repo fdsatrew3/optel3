@@ -5,7 +5,6 @@ namespace OPTEL.UI.Desktop.Services.ErrorsListWindows.Base
 {
     public interface IErrorsListWindowService
     {
-        public void SetErrorsForDisplay(ObservableCollection<Error> errors);
-        public void ShowErrorsListWindow();
+        public void ShowErrorsListWindow(ObservableCollection<Error> errors);
     }
 }

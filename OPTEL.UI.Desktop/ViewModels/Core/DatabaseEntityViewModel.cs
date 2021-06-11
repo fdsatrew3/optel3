@@ -80,8 +80,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                     }
                     if (error == true)
                     {
-                        ErrorsListService.SetErrorsForDisplay(customErrors);
-                        ErrorsListService.ShowErrorsListWindow();
+                        ErrorsListService.ShowErrorsListWindow(customErrors);
                         return;
                     }
                     IsSavingChanges = true;
@@ -98,7 +97,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                             customErrors.Add(new Error { Content = currentException.InnerException.Message });
                             currentException = currentException.InnerException;
                         }
-                        ErrorsListService.ShowErrorsListWindow();
+                        ErrorsListService.ShowErrorsListWindow(customErrors);
                         error = true;
                     }
                     if (!error)

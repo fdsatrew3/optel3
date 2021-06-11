@@ -36,6 +36,9 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _openOrdersWindowCommand;
         private RelayCommand _openImportExcelWindowCommand;
         private RelayCommand _openPlanningWindowCommand;
+        private RelayCommand _openAdminstratorsWindowCommand;
+        private RelayCommand _openKnowledgeEngineersWindowCommand;
+        private RelayCommand _openProductionDirectorsWindowCommand;
         #endregion
         public MainWindowViewModel()
         {
@@ -177,6 +180,39 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _openPlanningWindowCommand ??= new RelayCommand(obj =>
                 {
                     PlanningConfigWindow window = new PlanningConfigWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+        public RelayCommand OpenAdminstratorsWindowCommand
+        {
+            get
+            {
+                return _openAdminstratorsWindowCommand ??= new RelayCommand(obj =>
+                {
+                    AdminstratorsWindow window = new AdminstratorsWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+        public RelayCommand OpenKnowledgeEngineersWindowCommand
+        {
+            get
+            {
+                return _openKnowledgeEngineersWindowCommand ??= new RelayCommand(obj =>
+                {
+                    KnowledgeEngineersWindow window = new KnowledgeEngineersWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+        public RelayCommand OpenProductionDirectorsWindowCommand
+        {
+            get
+            {
+                return _openProductionDirectorsWindowCommand ??= new RelayCommand(obj =>
+                {
+                    ProductionDirectorsWindow window = new ProductionDirectorsWindow();
                     window.ShowModalDialog();
                 });
             }

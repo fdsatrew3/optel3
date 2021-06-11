@@ -195,8 +195,7 @@ namespace OPTEL.UI.Desktop.ViewModels
                     if (error)
                     {
                         Database.instance.RejectAllChanges();
-                        _errorsListWindowService.SetErrorsForDisplay(errors);
-                        _errorsListWindowService.ShowErrorsListWindow();
+                        _errorsListWindowService.ShowErrorsListWindow(errors);
                         return;
                     }
                 });

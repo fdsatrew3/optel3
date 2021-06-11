@@ -12,22 +12,15 @@ namespace OPTEL.UI.Desktop.Services.ErrorsListWindows
     public class DefaultErrorListWindowService : IErrorsListWindowService
     {
         private Window _parent;
-        private ObservableCollection<Error> _errors;
 
         public DefaultErrorListWindowService(Window parent)
         {
             _parent = parent;
-            _errors = new ObservableCollection<Error>();
         }
 
-        public void SetErrorsForDisplay(ObservableCollection<Error> errors)
+        public void ShowErrorsListWindow(ObservableCollection<Error> errors)
         {
-            _errors = errors;
-        }
-
-        public void ShowErrorsListWindow()
-        {
-            ErrorsListWindow window = new ErrorsListWindow(_errors);
+            ErrorsListWindow window = new ErrorsListWindow(errors);
             window.ShowModalDialog(_parent);
         }
     }

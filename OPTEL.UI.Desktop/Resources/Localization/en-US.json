@@ -29,6 +29,18 @@
   "Menu.Data.Customers": {
     "Value": "Customers"
   },
+  "Menu.Data.Users": {
+    "Value": "Users"
+  },
+  "Menu.Data.Users.Administrators": {
+    "Value": "Administrators"
+  },
+  "Menu.Data.Users.KnowledgeEngineers": {
+    "Value": "Knowledge engineers"
+  },
+  "Menu.Data.Users.ProductionDirectors": {
+    "Value": "Production directors"
+  },
   "Menu.Tools": {
     "Value": "Tools"
   },
@@ -75,7 +87,7 @@
     "Value": "Optel"
   },
   "Window.Main.GanttChart.TimeTargetFunction": {
-    "Value": "Required time to execute production plan: {0:d\\ \\d\\a\\y\\(\\s\\)\\ hh\\:mm\\:ss} days"
+    "Value": "Required time to execute production plan: {0:d\\ \\d\\a\\y\\(\\s\\)\\ hh\\:mm\\:ss}"
   },
   "Window.Main.GanttChart.CostTargetFunction": {
     "Value": "Required cost to execute production plan: {0} €"
@@ -84,7 +96,7 @@
     "Value": "Production line calibrations changes"
   },
   "Window.ExtruderCalibrations.CalibrationToChange": {
-    "Value": "Target calibration, mk"
+    "Value": "Target calibration, DN"
   },
   "Window.ExtruderCalibrations.ReconfigurationTime": {
     "Value": "Required time for reconfiguration, min"
@@ -105,7 +117,7 @@
     "Value": "Production line cooling lips changes"
   },
   "Window.ExtruderCoolingLips.CoolingLipToChange": {
-    "Value": "Target cooling lip, mk"
+    "Value": "Target cooling lip, DN"
   },
   "Window.ExtruderCoolingLips.ReconfigurationTime": {
     "Value": "Required time for reconfiguration, min"
@@ -126,7 +138,7 @@
     "Value": "Production line nozzles changes"
   },
   "Window.ExtruderNozzles.NozzleToChange": {
-    "Value": "Target nozzle, mk"
+    "Value": "Target nozzle, DN"
   },
   "Window.ExtruderNozzles.ReconfigurationTime": {
     "Value": "Required time for reconfiguration, min"
@@ -312,13 +324,13 @@
     "Value": "Material cost, €/h"
   },
   "Window.FilmRecipes.Nozzle": {
-    "Value": "Nozzle, mk"
+    "Value": "Nozzle, DN"
   },
   "Window.FilmRecipes.Calibration": {
-    "Value": "Calibration, mk"
+    "Value": "Calibration, DN"
   },
   "Window.FilmRecipes.CoolingLip": {
-    "Value": "Cooling lip, mk"
+    "Value": "Cooling lip, DN"
   },
   "Window.FilmRecipes.Errors.CalibrationIsNegative": {
     "Value": "Calibration of film recipe #{0} can't be negative number!"
@@ -532,5 +544,32 @@
   },
   "Window.PlanningConfig.Errors.ObjectiveFunctionIsNull": {
     "Value": "You need to select objective function to calculate production plan."
+  },
+  "Window.Administrators.Title": {
+    "Value": "Administrators"
+  },
+  "Window.Administrators.Login": {
+    "Value": "Login"
+  },
+  "Window.Administrators.Password": {
+    "Value": "Password"
+  },
+  "Window.KnowledgeEngineers.Title": {
+    "Value": "Knowledge engineers"
+  },
+  "Window.KnowledgeEngineers.Login": {
+    "Value": "Login"
+  },
+  "Window.KnowledgeEngineers.Password": {
+    "Value": "Password"
+  },
+  "Window.ProductionDirectors.Title": {
+    "Value": "Production directors"
+  },
+  "Window.ProductionDirectors.Login": {
+    "Value": "Login"
+  },
+  "Window.ProductionDirectors.Password": {
+    "Value": "Password"
   }
 }

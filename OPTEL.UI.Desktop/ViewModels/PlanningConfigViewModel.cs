@@ -434,15 +434,13 @@ namespace OPTEL.UI.Desktop.ViewModels
                                 {
                                     Content = ex.Message
                                 });
-                                _errorsListWindowService.SetErrorsForDisplay(errors);
-                                _errorsListWindowService.ShowErrorsListWindow();
+                                _errorsListWindowService.ShowErrorsListWindow(errors);
                             }
                         }
                     }
                     else
                     {
-                        _errorsListWindowService.SetErrorsForDisplay(errors);
-                        _errorsListWindowService.ShowErrorsListWindow();
+                        _errorsListWindowService.ShowErrorsListWindow(errors);
                     }
                     IsBuildingProductionPlan = false;
                 });
