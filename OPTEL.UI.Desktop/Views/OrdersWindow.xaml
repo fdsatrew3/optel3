@@ -12,7 +12,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.Orders.Title}" Height="470" Width="800"
+        Title="{localization:Localize Key=Window.Orders.Title}" Height="578" Width="800"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
         WindowStartupLocation="CenterOwner">
     <intr:Interaction.Triggers>
@@ -79,6 +79,9 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                         <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=FinishedGoods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.FinishedGoods}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Waste, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.Waste}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=RollsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.RollsCount}" Width="Auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=PredefinedTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.PredefinedTime}" Width="Auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="Auto" IsReadOnly="True"/>
                 </DataGrid.Columns>
@@ -164,6 +167,30 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.Orders.FinishedGoods}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedOrder.FinishedGoods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.Orders.Waste}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedOrder.Waste, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.Orders.RollsCount}"/>
+            <xctk:IntegerUpDown Value="{Binding Path=SelectedOrder.RollsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:IntegerUpDown>
             <StackPanel Orientation="Horizontal">
                 <Label Content="{localization:Localize Key=Window.Orders.PredefinedTime}"/>
                 <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="{localization:Localize Key=Window.Orders.PredefinedTime.Help}"/>

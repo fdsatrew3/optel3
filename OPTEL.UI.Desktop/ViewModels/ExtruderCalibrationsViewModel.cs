@@ -65,6 +65,13 @@ namespace OPTEL.UI.Desktop.ViewModels
                         Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.CalibrationToChangeIsNegative"), entryIndex)
                     });
                 }
+                if (Math.Sign(ExtruderCalibrations[i].Consumption) < 0)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCalibrations.Errors.ConsumptionIsNegative"), entryIndex)
+                    });
+                }
             }
             return errors;
         }

@@ -108,6 +108,27 @@ namespace OPTEL.UI.Desktop.ViewModels
                         Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.WidthIsNegative"), entryIndex)
                     });
                 }
+                if (Math.Sign(Orders[i].RollsCount) < 0)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.RollsCountIsNegative"), entryIndex)
+                    });
+                }
+                if (Math.Sign(Orders[i].Waste) < 0)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.WasteIsNegative"), entryIndex)
+                    });
+                }
+                if (Math.Sign(Orders[i].FinishedGoods) < 0)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Orders.Errors.FinishedGoodsIsNegative"), entryIndex)
+                    });
+                }
             }
             return errors;
         }

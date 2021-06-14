@@ -120,6 +120,14 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.ExtruderCoolingLips.Consumption}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderCoolingLip.Consumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
             <Label Content="{localization:Localize Key=Window.ExtruderCoolingLips.TargetExtruder}"/>
             <ComboBox ItemsSource="{Binding Extruders}" SelectedItem="{Binding Path=SelectedExtruderCoolingLip.ParentProductionLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>

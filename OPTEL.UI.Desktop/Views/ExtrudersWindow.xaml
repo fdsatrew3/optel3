@@ -11,7 +11,7 @@
         xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{localization:Localize Key=Window.Extruders.Title}" Height="600" Width="800"
+        Title="{localization:Localize Key=Window.Extruders.Title}" Height="637" Width="800"
         Icon="{StaticResource ApplicationIconBitmapImage}"        
         WindowStartupLocation="CenterOwner">
     <intr:Interaction.Triggers>
@@ -104,6 +104,8 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=WidthChangeConsumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.WidthChangeConsumption}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=ThicknessChangeConsumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeConsumption}" Width="Auto" IsReadOnly="True"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
@@ -285,6 +287,22 @@
             </xctk:DoubleUpDown>
             <Label Content="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruder.ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.Extruders.WidthChangeConsumption}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruder.WidthChangeConsumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.Extruders.ThicknessChangeConsumption}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruder.ThicknessChangeConsumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
                         <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>

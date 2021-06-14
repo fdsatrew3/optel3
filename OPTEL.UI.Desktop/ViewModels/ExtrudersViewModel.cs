@@ -166,6 +166,20 @@ namespace OPTEL.UI.Desktop.ViewModels
                         Content = string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessChangeTimeIsNegative"), entryIndex)
                     });
                 }
+                if (Math.Sign(Extruders[i].WidthChangeConsumption) < 0)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.WidthChangeConsumptionIsNegative"), entryIndex)
+                    });
+                }
+                if (Math.Sign(Extruders[i].ThicknessChangeConsumption) < 0)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.Extruders.Errors.ThicknessChangeConsumptionIsNegative"), entryIndex)
+                    });
+                }
             }
             return errors;
         }

@@ -66,6 +66,13 @@ namespace OPTEL.UI.Desktop.ViewModels
                         Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.CoolingLipToChangeIsNegative"), entryIndex)
                     });
                 }
+                if (Math.Sign(ExtruderCoolingLips[i].Consumption) < 0)
+                {
+                    errors.Add(new Error
+                    {
+                        Content = string.Format(LocalizationManager.Instance.GetValue("Window.ExtruderCoolingLips.Errors.ConsumptionIsNegative"), entryIndex)
+                    });
+                }
             }
             return errors;
         }

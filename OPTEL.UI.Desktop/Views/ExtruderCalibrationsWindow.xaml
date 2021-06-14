@@ -68,6 +68,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=CalibrationToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderCalibrations.CalibrationToChange}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Consumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderCalibrations.Consumption}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderCalibrations.TargetExtruder}" Width="auto" IsReadOnly="True"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
@@ -114,6 +115,14 @@
             </xctk:DoubleUpDown>
             <Label Content="{localization:Localize Key=Window.ExtruderCalibrations.ReconfigurationTime}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderCalibration.ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.ExtruderCalibrations.Consumption}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderCalibration.Consumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
                         <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>

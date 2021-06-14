@@ -53,19 +53,21 @@
                 <Button Content="{StaticResource RemoveButtonImage}" Width="24" Height="24" Margin="0,0,2,0" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Remove}" Command="{Binding RemoveEntityCommand}" CommandParameter="{Binding SelectedCustomer}"/>
                 <Button Content="{StaticResource CloneButtonImage}" Width="24" Height="24" ToolTip="{localization:Localize Key=Window.Global.ContextMenu.Clone}" Command="{Binding CloneEntityCommand}" CommandParameter="{Binding SelectedCustomer}"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Path=Customers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <DataGrid ItemsSource="{Binding Path=Customers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           CanUserReorderColumns="False" CanUserResizeColumns="False" 
           CanUserResizeRows="False" CanUserSortColumns="False"
                       CanUserAddRows="false"
                       CanUserDeleteRows="false"
                       SelectionMode="Single" SelectionUnit="FullRow"
                       AutoGenerateColumns="False"
-                      Grid.Column="0" Grid.Row="1"
+                      Width="Auto"
                       SelectedItem="{Binding SelectedCustomer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       x:Name="ElementsList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Customers.Name}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Customers.Name}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Customers.Number}" Width="Auto" IsReadOnly="True"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
@@ -87,6 +89,7 @@
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
+            </ScrollViewer>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
             <StackPanel.Style>
@@ -102,6 +105,14 @@
             </StackPanel.Style>
             <Label Content="{localization:Localize Key=Window.Customers.Name}"/>
             <TextBox Text="{Binding Path=SelectedCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="TextChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </TextBox>
+            <Label Content="{localization:Localize Key=Window.Customers.Number}"/>
+            <TextBox Text="{Binding Path=SelectedCustomer.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="TextChanged">
                         <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>

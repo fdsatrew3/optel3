@@ -69,6 +69,7 @@
                         <DataGridTextColumn Binding="{Binding Path=FilmTypeFrom.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.FilmTypeFrom}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=FilmTypeTo.Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.FilmTypeTo}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.ReconfigurationTime}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Consumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.Consumption}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderRecipesChange.TargetExtruder}" Width="auto" IsReadOnly="True"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
@@ -123,6 +124,14 @@
             </ComboBox>
             <Label Content="{localization:Localize Key=Window.ExtruderRecipesChange.ReconfigurationTime}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderRecipe.ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.ExtruderRecipesChange.Consumption}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderRecipe.Consumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
                         <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>

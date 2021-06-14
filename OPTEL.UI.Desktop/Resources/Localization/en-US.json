@@ -98,6 +98,9 @@
   "Window.ExtruderCalibrations.CalibrationToChange": {
     "Value": "Target calibration, DN"
   },
+  "Window.ExtruderCalibrations.Consumption": {
+    "Value": "Consumption, kg/h"
+  },
   "Window.ExtruderCalibrations.ReconfigurationTime": {
     "Value": "Required time for reconfiguration, min"
   },
@@ -113,11 +116,17 @@
   "Window.ExtruderCalibrations.Errors.TargetExtruderIsNull": {
     "Value": "Target production line of production line calibration change #{0} can't be empty!"
   },
+  "Window.ExtruderCalibrations.Errors.ConsumptionIsNegative": {
+    "Value": "Consumption of production line calibration change #{0} can't be negative number!"
+  },
   "Window.ExtruderCoolingLips.Title": {
     "Value": "Production line cooling lips changes"
   },
   "Window.ExtruderCoolingLips.CoolingLipToChange": {
     "Value": "Target cooling lip, DN"
+  },
+  "Window.ExtruderCoolingLips.Consumption": {
+    "Value": "Consumption, kg/h"
   },
   "Window.ExtruderCoolingLips.ReconfigurationTime": {
     "Value": "Required time for reconfiguration, min"
@@ -134,11 +143,17 @@
   "Window.ExtruderCoolingLips.Errors.TargetExtruderIsNull": {
     "Value": "Target production line of production line cooling lip change #{0} can't be empty!"
   },
+  "Window.ExtruderCoolingLips.Errors.ConsumptionIsNegative": {
+    "Value": "Consumption of production line cooling lip change #{0} can't be negative number!"
+  },
   "Window.ExtruderNozzles.Title": {
     "Value": "Production line nozzles changes"
   },
   "Window.ExtruderNozzles.NozzleToChange": {
     "Value": "Target nozzle, DN"
+  },
+  "Window.ExtruderNozzles.Consumption": {
+    "Value": "Consumption, kg/h"
   },
   "Window.ExtruderNozzles.ReconfigurationTime": {
     "Value": "Required time for reconfiguration, min"
@@ -155,6 +170,9 @@
   "Window.ExtruderNozzles.Errors.TargetExtruderIsNull": {
     "Value": "Target production line of production line nozzle #{0} can't be empty!"
   },
+  "Window.ExtruderNozzles.Errors.ConsumptionIsNegative": {
+    "Value": "Consumption of production line nozzle #{0} can't be negative number!"
+  },
   "Window.ExtruderRecipesChange.Title": {
     "Value": "Production line film recipes changes"
   },
@@ -166,6 +184,9 @@
   },
   "Window.ExtruderRecipesChange.ReconfigurationTime": {
     "Value": "Required time for reconfiguration, min"
+  },
+  "Window.ExtruderRecipesChange.Consumption": {
+    "Value": "Consumption, kg/h"
   },
   "Window.ExtruderRecipesChange.TargetExtruder": {
     "Value": "Target production line"
@@ -184,6 +205,9 @@
   },
   "Window.ExtruderRecipesChange.Errors.ReconfigurationTimeIsNegative": {
     "Value": "Required time for reconfiguration of production line recipes change #{0} can't be negative number!"
+  },
+  "Window.ExtruderRecipesChange.Errors.ConsumptionIsNegative": {
+    "Value": "Consumption for reconfiguration of production line recipes change #{0} can't be negative number!"
   },
   "Window.Extruders.Title": {
     "Value": "Production line recipes changes"
@@ -242,6 +266,12 @@
   "Window.Extruders.ThicknessChangeTime": {
     "Value": "Required time to change thickness, min"
   },
+  "Window.Extruders.WidthChangeConsumption": {
+    "Value": "Width change consumption, kg/h"
+  },
+  "Window.Extruders.ThicknessChangeConsumption": {
+    "Value": "Thickness change consumption, kg/h"
+  },
   "Window.Extruders.Errors.HourCostIsNegative": {
     "Value": "Hour cost of production line #{0} can't be negative number!"
   },
@@ -289,6 +319,12 @@
   },
   "Window.Extruders.Errors.ThicknessChangeTimeIsNegative": {
     "Value": "Required time to change thickness of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.WidthChangeConsumptionIsNegative": {
+    "Value": "Width change consumption of production line #{0} can't be negative number!"
+  },
+  "Window.Extruders.Errors.ThicknessChangeConsumptionIsNegative": {
+    "Value": "Thickness change consumption of production line #{0} can't be negative number!"
   },
   "Window.Extruders.Errors.NameIsNull": {
     "Value": "Name of production line #{0} can't be empty!"
@@ -362,6 +398,9 @@
   "Window.Customers.Name": {
     "Value": "Name"
   },
+  "Window.Customers.Number": {
+    "Value": "Number"
+  },
   "Window.Customers.Errors.NameIsNull": {
     "Value": "Name of customer #{0} can't be empty!"
   },
@@ -386,8 +425,17 @@
   "Window.Orders.PriceOverdue": {
     "Value": "Price overdue, €/h"
   },
+  "Window.Orders.Waste": {
+    "Value": "Waste, kg"
+  },
+  "Window.Orders.FinishedGoods": {
+    "Value": "Finished goods, kg"
+  },
+  "Window.Orders.RollsCount": {
+    "Value": "Rolls count"
+  },
   "Window.Orders.PredefinedTime": {
-    "Value": "Predefined time, h"
+    "Value": "Predefined time, min"
   },
   "Window.Orders.PredefinedTime.Help": {
     "Value": "This field used to define already known order execution time (without considering required reconfiguration time). Use 0 to make software ignore this field and calculate order execution time instead."
@@ -418,6 +466,15 @@
   },
   "Window.Orders.Errors.WidthIsNegative": {
     "Value": "Width of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.RollsCountIsNegative": {
+    "Value": "Rolls count of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.WasteIsNegative": {
+    "Value": "Waste of order #{0} can't be negative number!"
+  },
+  "Window.Orders.Errors.FinishedGoodsIsNegative": {
+    "Value": "Finished goods of order #{0} can't be negative number!"
   },
   "Window.ImportExcel.Title": {
     "Value": "Import excel file"
@@ -585,7 +642,7 @@
     "Value": "Database for this application was just created. \nUse admin & admin as credentials."
   },
   "Window.Login.Button.Text": {
-    "Value": "Log in."
+    "Value": "Log in"
   },
   "Window.Login.Errors.LoginIsTooShort": {
     "Value": "Login must contain at least four symbols."

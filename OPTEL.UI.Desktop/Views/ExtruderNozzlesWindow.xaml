@@ -68,6 +68,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=NozzleToChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderNozzles.NozzleToChange}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderNozzles.ReconfigurationTime}" Width="auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Path=Consumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.ExtruderNozzles.Consumption}" Width="auto" IsReadOnly="True"/>
                         <DataGridTextColumn Binding="{Binding Path=ParentProductionLine.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.ExtruderNozzles.TargetExtruder}" Width="auto" IsReadOnly="True"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
@@ -114,6 +115,14 @@
             </xctk:DoubleUpDown>
             <Label Content="{localization:Localize Key=Window.ExtruderNozzles.ReconfigurationTime}"/>
             <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderNozzle.ReconfigurationTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <intr:Interaction.Triggers>
+                    <intr:EventTrigger EventName="ValueChanged">
+                        <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
+                    </intr:EventTrigger>
+                </intr:Interaction.Triggers>
+            </xctk:DoubleUpDown>
+            <Label Content="{localization:Localize Key=Window.ExtruderNozzles.Consumption}"/>
+            <xctk:DoubleUpDown FormatString="F3" Increment=".1" Value="{Binding Path=SelectedExtruderNozzle.Consumption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="ValueChanged">
                         <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
