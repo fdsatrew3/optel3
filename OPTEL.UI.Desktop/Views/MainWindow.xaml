@@ -60,6 +60,9 @@
                     <MenuItem Header="{localization:Localize Key=Menu.Tools.Options.Languages}" x:Name="languageMenuItem"/>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="{localization:Localize Key=Menu.Profile}">
+                <MenuItem Header="{localization:Localize Key=Menu.Profile.Logout}" Command="{Binding LogoutCommand}"/>
+            </MenuItem>
             <MenuItem Header="{Binding Path=TargetFunctionValue, Converter={StaticResource TargetFunctionValueConverter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Template="{StaticResource MenuItemTemplate}"/>
         </Menu>
         <WindowsFormsHost Grid.Column="0" Grid.Row="1">

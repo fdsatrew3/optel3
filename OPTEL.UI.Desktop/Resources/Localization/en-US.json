@@ -56,6 +56,12 @@
   "Menu.Tools.Options.Languages": {
     "Value": "Languages"
   },
+  "Menu.Profile": {
+    "Value": "Profile"
+  },
+  "Menu.Profile.Logout": {
+    "Value": "Logout"
+  },
   "Window.Global.SaveChanges": {
     "Value": "Save changes"
   },

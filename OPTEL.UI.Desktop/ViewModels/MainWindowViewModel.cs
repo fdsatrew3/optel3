@@ -39,6 +39,7 @@ namespace OPTEL.UI.Desktop.ViewModels
         private RelayCommand _openAdminstratorsWindowCommand;
         private RelayCommand _openKnowledgeEngineersWindowCommand;
         private RelayCommand _openProductionDirectorsWindowCommand;
+        private RelayCommand _logoutCommand;
         #endregion
         public MainWindowViewModel()
         {
@@ -213,6 +214,17 @@ namespace OPTEL.UI.Desktop.ViewModels
                 return _openProductionDirectorsWindowCommand ??= new RelayCommand(obj =>
                 {
                     ProductionDirectorsWindow window = new ProductionDirectorsWindow();
+                    window.ShowModalDialog();
+                });
+            }
+        }
+        public RelayCommand LogoutCommand
+        {
+            get
+            {
+                return _logoutCommand ??= new RelayCommand(obj =>
+                {
+                    LoginWindow window = new LoginWindow();
                     window.ShowModalDialog();
                 });
             }
