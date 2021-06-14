@@ -116,7 +116,6 @@
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </TextBox>
-            <Button Content="{localization:Localize Key=Window.ProductionDirectors.EncryptPassword}" HorizontalAlignment="Left" Margin="0,5,0,0" Command="{Binding EncryptPassword}"/>
         </StackPanel>
         <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5">
             <Grid.Style>

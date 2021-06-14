@@ -1,5 +1,6 @@
 ﻿using EasyLocalization.Localization;
 using OPTEL.UI.Desktop.Services.WindowClosers;
+using System;
 using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Text;
@@ -69,6 +70,10 @@ namespace OPTEL.UI.Desktop.Views
 
         public static string Encrypt(string text)
         {
+            if(text == null)
+            {
+                throw new Exception("Input string for encryption can't be null.");
+            }
             var bytes = _crypto.ComputeHash(Encoding.UTF8.GetBytes(text));
             return Encoding.UTF8.GetString(bytes);
         }

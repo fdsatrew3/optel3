@@ -1,6 +1,6 @@
 ﻿using OPTEL.Data.Users;
-using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
+using OPTEL.UI.Desktop.Services.ModelsConverter;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using OPTEL.UI.Desktop.Views;
@@ -12,7 +12,7 @@ namespace OPTEL.UI.Desktop.ViewModels
     public class AdministratorsViewModel : DatabaseEntityViewModel
     {
         #region Properties
-        public Administrator SelectedAdministrator
+        public Models.User SelectedAdministrator
         {
             get => _selectedAdministrator;
             set
@@ -23,34 +23,29 @@ namespace OPTEL.UI.Desktop.ViewModels
                 AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
-        public ObservableCollection<Administrator> Administrators { get; set; }
+        public ObservableCollection<Models.User> Administrators { get; set; }
         #endregion
         #region Fields
-        private Administrator _selectedAdministrator;
+        private Models.User _selectedAdministrator;
 
-        private RelayCommand _encryptPassword;
+        private UserToDataUserConverterService<Administrator> _userConverterService;
         #endregion
-        #region Commands
-        public RelayCommand EncryptPassword
+        public AdministratorsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService, UserToDataUserConverterService<Administrator> userConverterService) : base(windowCloseService, errorsListService)
         {
-            get
+            _userConverterService = userConverterService;
+            Administrators = new ObservableCollection<Models.User>();
+            var admins = new ObservableCollection<Administrator>(Database.instance.AdministratorRepository.GetAll());
+            foreach (var admin in admins)
             {
-                return _encryptPassword ??= new RelayCommand(obj =>
-                {
-                    SelectedAdministrator.Password = LoginWindow.Encrypt(SelectedAdministrator.Password);
-                    OnPropertyChanged("SelectedAdministrator");
-                });
+                var convertedAdmin = _userConverterService.Convert(admin);
+                convertedAdmin.IsPasswordEncrypted = true;
+                Administrators.Add(convertedAdmin);
             }
-        }
-        #endregion
-        public AdministratorsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
-        {
-            Administrators = new ObservableCollection<Administrator>(Database.instance.AdministratorRepository.GetAll());
         }
 
         public override void SelectFirstDataEntryIfExist()
         {
-            Administrator administrator;
+            Models.User administrator;
             try
             {
                 administrator = Administrators.First();
@@ -63,15 +58,16 @@ namespace OPTEL.UI.Desktop.ViewModels
         }
         public override void AddEntity()
         {
-            Administrator change = new Administrator();
-            Administrators.Add(change);
-            Database.instance.AdministratorRepository.Add(change);
-            SelectedAdministrator = change;
+            Administrator administrator = new Administrator();
+            Models.User convertedAdminstrator = new Models.User(administrator);
+            Database.instance.AdministratorRepository.Add(administrator);
+            Administrators.Add(convertedAdminstrator);
+            SelectedAdministrator = convertedAdminstrator;
         }
 
         public override void RemoveEntity()
         {
-            Database.instance.AdministratorRepository.Delete(SelectedAdministrator);
+            Database.instance.AdministratorRepository.Delete((Administrator)SelectedAdministrator.DataUser);
             Administrators.Remove(SelectedAdministrator);
             SelectFirstDataEntryIfExistsCommand.Execute(null);
         }
@@ -84,16 +80,31 @@ namespace OPTEL.UI.Desktop.ViewModels
         public override void CloneEntity()
         {
             Administrator adminstrator = new Administrator();
-            adminstrator.Login = SelectedAdministrator.Login;
-            adminstrator.Password = SelectedAdministrator.Password;
-            Administrators.Add(adminstrator);
+            adminstrator.Login = SelectedAdministrator.DataUser.Login;
+            adminstrator.Password = SelectedAdministrator.DataUser.Password;
+            var convertedAdministrator = new Models.User(adminstrator);
+            convertedAdministrator.IsPasswordEncrypted = SelectedAdministrator.IsPasswordEncrypted;
+            Administrators.Add(convertedAdministrator);
             Database.instance.AdministratorRepository.Add(adminstrator);
-            SelectedAdministrator = adminstrator;
+            SelectedAdministrator = convertedAdministrator;
         }
 
         public override bool CloneEntityExecuteCondition()
         {
             return SelectedAdministrator != null;
+        }
+
+        public override void OnSaveChanges()
+        {
+            foreach (var admin in Administrators)
+            {
+                if (admin.IsPasswordEncrypted == false)
+                {
+                    admin.DataUser.Password = LoginWindow.Encrypt(admin.DataUser.Password);
+                    admin.IsPasswordEncrypted = true;
+                }
+            }
+            OnPropertyChanged("SelectedAdministrator");
         }
     }
 }

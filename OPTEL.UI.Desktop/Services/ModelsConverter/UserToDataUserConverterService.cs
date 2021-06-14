@@ -3,36 +3,18 @@ using OPTEL.UI.Desktop.Services.ModelsConverter.Base;
 
 namespace OPTEL.UI.Desktop.Services.ModelsConverter
 {
-    public class UserToDataUserConverterService : IModelConverterService<Models.User, OPTEL.Data.Users.User>
+    public class UserToDataUserConverterService<T> : IModelConverterService<Models.User, T> where T : User
     {
         public int ID { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-        public Models.User Convert(OPTEL.Data.Users.User source)
+        public Models.User Convert(T source)
         {
             return new Models.User(source);
         }
 
-        public OPTEL.Data.Users.User ConvertBack(Models.User source)
+        public T ConvertBack(Models.User source)
         {
-            OPTEL.Data.Users.User result;
-            switch (source.Type)
-            {
-                case Models.User.Types.Adminstrator:
-                    result = new Administrator();
-                    break;
-                case Models.User.Types.KnowledgeEngineer:
-                    result = new KnowledgeEngineer();
-                    break;
-                case Models.User.Types.ProductionDirector:
-                    result = new ProductionDirector();
-                    break;
-                default:
-                    result = new OPTEL.Data.Users.User();
-                    break;
-            }
-            result.Login = source.DataUser.Login;
-            result.Password = source.DataUser.Password;
-            return result;
+            return (T)source.DataUser;
         }
     }
 }

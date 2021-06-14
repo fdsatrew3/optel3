@@ -4,6 +4,7 @@ using OPTEL.UI.Desktop.Models;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -69,7 +70,7 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             {
                 return _markEntityDataAsChangedCommand ??= new RelayCommand(obj =>
                 {
-                    if(_isIgnoreDataChangedMark)
+                    if (_isIgnoreDataChangedMark)
                     {
                         return;
                     }
@@ -103,13 +104,18 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
             {
                 return _saveChangesCommand ??= new RelayCommand(async obj =>
                 {
-                    bool error = false;
+                    bool isThereAreErrors = false;
                     ObservableCollection<Error> customErrors = GetCustomErrors();
-                    if (customErrors.Count > 0)
+                    try
                     {
-                        error = true;
+                        OnSaveChanges();
                     }
-                    if (error == true)
+                    catch (Exception ex)
+                    {
+                        PopulateErrorsListWithException(customErrors, ex);
+                    }
+                    isThereAreErrors = (customErrors.Count > 0);
+                    if (isThereAreErrors == true)
                     {
                         ErrorsListService.ShowErrorsListWindow(customErrors);
                         return;
@@ -121,17 +127,11 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                     }
                     catch (Exception ex)
                     {
-                        Exception currentException = ex;
-                        customErrors.Add(new Error { Content = ex.Message });
-                        while (currentException.InnerException != null)
-                        {
-                            customErrors.Add(new Error { Content = currentException.InnerException.Message });
-                            currentException = currentException.InnerException;
-                        }
+                        PopulateErrorsListWithException(customErrors, ex);
                         ErrorsListService.ShowErrorsListWindow(customErrors);
-                        error = true;
+                        isThereAreErrors = true;
                     }
-                    if (!error)
+                    if (!isThereAreErrors)
                     {
                         IsDataChanged = false;
                     }
@@ -139,6 +139,18 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
                 });
             }
         }
+
+        private void PopulateErrorsListWithException(ObservableCollection<Error> errorsList, Exception ex)
+        {
+            Exception currentException = ex;
+            errorsList.Add(new Error { Content = ex.Message });
+            while (currentException.InnerException != null)
+            {
+                errorsList.Add(new Error { Content = currentException.InnerException.Message });
+                currentException = currentException.InnerException;
+            }
+        }
+
         public RelayCommand CheckForUnsavedChangesOnWindowClosingCommand
         {
             get
@@ -259,6 +271,11 @@ namespace OPTEL.UI.Desktop.ViewModels.Core
         public virtual bool CloneEntityExecuteCondition()
         {
             return false;
+        }
+
+        public virtual void OnSaveChanges()
+        {
+
         }
 
         #region PropertyChangedEventHandler

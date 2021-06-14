@@ -1,6 +1,6 @@
 ﻿using OPTEL.Data.Users;
-using OPTEL.UI.Desktop.Helpers;
 using OPTEL.UI.Desktop.Services.ErrorsListWindows.Base;
+using OPTEL.UI.Desktop.Services.ModelsConverter;
 using OPTEL.UI.Desktop.Services.WindowClosers.Base;
 using OPTEL.UI.Desktop.ViewModels.Core;
 using OPTEL.UI.Desktop.Views;
@@ -12,7 +12,7 @@ namespace OPTEL.UI.Desktop.ViewModels
     public class ProductionDirectorsViewModel : DatabaseEntityViewModel
     {
         #region Properties
-        public ProductionDirector SelectedProductionDirector
+        public Models.User SelectedProductionDirector
         {
             get => _selectedProductionDirector;
             set
@@ -23,34 +23,29 @@ namespace OPTEL.UI.Desktop.ViewModels
                 AcceptMarkDataChangedRequestsCommand.Execute(null);
             }
         }
-        public ObservableCollection<ProductionDirector> ProductionDirectors { get; set; }
+        public ObservableCollection<Models.User> ProductionDirectors { get; set; }
         #endregion
         #region Fields
-        private ProductionDirector _selectedProductionDirector;
+        private Models.User _selectedProductionDirector;
 
-        private RelayCommand _encryptPassword;
+        private UserToDataUserConverterService<ProductionDirector> _userConverterService;
         #endregion
-        #region Commands
-        public RelayCommand EncryptPassword
+        public ProductionDirectorsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService, UserToDataUserConverterService<ProductionDirector> userConverterService) : base(windowCloseService, errorsListService)
         {
-            get
+            _userConverterService = userConverterService;
+            ProductionDirectors = new ObservableCollection<Models.User>();
+            var productionDirectors = new ObservableCollection<ProductionDirector>(Database.instance.ProductionDirectorRepository.GetAll());
+            foreach (var productionDirector in productionDirectors)
             {
-                return _encryptPassword ??= new RelayCommand(obj =>
-                {
-                    SelectedProductionDirector.Password = LoginWindow.Encrypt(SelectedProductionDirector.Password);
-                    OnPropertyChanged("SelectedProductionDirector");
-                });
+                var convertedProductionDirector = _userConverterService.Convert(productionDirector);
+                convertedProductionDirector.IsPasswordEncrypted = true;
+                ProductionDirectors.Add(convertedProductionDirector);
             }
-        }
-        #endregion
-        public ProductionDirectorsViewModel(IWindowCloseService windowCloseService, IErrorsListWindowService errorsListService) : base(windowCloseService, errorsListService)
-        {
-            ProductionDirectors = new ObservableCollection<ProductionDirector>(Database.instance.ProductionDirectorRepository.GetAll());
         }
 
         public override void SelectFirstDataEntryIfExist()
         {
-            ProductionDirector director;
+            Models.User director;
             try
             {
                 director = ProductionDirectors.First();
@@ -65,14 +60,15 @@ namespace OPTEL.UI.Desktop.ViewModels
         public override void AddEntity()
         {
             ProductionDirector productionDirector = new ProductionDirector();
-            ProductionDirectors.Add(productionDirector);
+            Models.User convertedProductionDirector = new Models.User(productionDirector);
             Database.instance.ProductionDirectorRepository.Add(productionDirector);
-            SelectedProductionDirector = productionDirector;
+            ProductionDirectors.Add(convertedProductionDirector);
+            SelectedProductionDirector = convertedProductionDirector;
         }
 
         public override void RemoveEntity()
         {
-            Database.instance.ProductionDirectorRepository.Delete(SelectedProductionDirector);
+            Database.instance.ProductionDirectorRepository.Delete((ProductionDirector)SelectedProductionDirector.DataUser);
             ProductionDirectors.Remove(SelectedProductionDirector);
             SelectFirstDataEntryIfExistsCommand.Execute(null);
         }
@@ -85,16 +81,30 @@ namespace OPTEL.UI.Desktop.ViewModels
         public override void CloneEntity()
         {
             ProductionDirector productionDirector = new ProductionDirector();
-            productionDirector.Login = SelectedProductionDirector.Login;
-            productionDirector.Password = SelectedProductionDirector.Password;
-            ProductionDirectors.Add(productionDirector);
+            productionDirector.Login = SelectedProductionDirector.DataUser.Login;
+            productionDirector.Password = SelectedProductionDirector.DataUser.Password;
+            var convertedProductionDirector = new Models.User(productionDirector);
+            convertedProductionDirector.IsPasswordEncrypted = SelectedProductionDirector.IsPasswordEncrypted;
+            ProductionDirectors.Add(convertedProductionDirector);
             Database.instance.ProductionDirectorRepository.Add(productionDirector);
-            SelectedProductionDirector = productionDirector;
+            SelectedProductionDirector = convertedProductionDirector;
         }
 
         public override bool CloneEntityExecuteCondition()
         {
             return SelectedProductionDirector != null;
+        }
+        public override void OnSaveChanges()
+        {
+            foreach (var productionDirector in ProductionDirectors)
+            {
+                if (productionDirector.IsPasswordEncrypted == false)
+                {
+                    productionDirector.DataUser.Password = LoginWindow.Encrypt(productionDirector.DataUser.Password);
+                    productionDirector.IsPasswordEncrypted = true;
+                }
+            }
+            OnPropertyChanged("SelectedProductionDirector");
         }
     }
 }

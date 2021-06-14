@@ -66,7 +66,7 @@
                       x:Name="ElementsList"
                       behaviours:DataGridBehavior.DisplayRowNumber="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Administrators.Login}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=DataUser.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Administrators.Login}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
@@ -102,7 +102,7 @@
                 </Style>
             </StackPanel.Style>
             <Label Content="{localization:Localize Key=Window.Administrators.Login}"/>
-            <TextBox Text="{Binding Path=SelectedAdministrator.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox Text="{Binding Path=SelectedAdministrator.DataUser.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="TextChanged">
                         <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
@@ -110,14 +110,13 @@
                 </intr:Interaction.Triggers>
             </TextBox>
             <Label Content="{localization:Localize Key=Window.Administrators.Password}"/>
-            <TextBox Text="{Binding Path=SelectedAdministrator.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox Text="{Binding Path=SelectedAdministrator.DataUser.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <intr:Interaction.Triggers>
                     <intr:EventTrigger EventName="TextChanged">
                         <intr:InvokeCommandAction Command="{Binding MarkEntityDataAsChangedCommand}"/>
                     </intr:EventTrigger>
                 </intr:Interaction.Triggers>
             </TextBox>
-            <Button Content="{localization:Localize Key=Window.Administrators.EncryptPassword}" HorizontalAlignment="Left" Margin="0,5,0,0" Command="{Binding EncryptPassword}"/>
         </StackPanel>
         <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="5,5,5,5">
             <Grid.Style>
