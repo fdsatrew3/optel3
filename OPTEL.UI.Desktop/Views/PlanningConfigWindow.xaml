@@ -1,0 +1,288 @@
+﻿<Window  
+        x:Class="OPTEL.UI.Desktop.Views.PlanningConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OPTEL.UI.Desktop.Views"
+        xmlns:behaviours="clr-namespace:OPTEL.UI.Desktop.Views.Behaviours"
+        xmlns:localization="clr-namespace:EasyLocalization.Localization;assembly=EasyLocalization"
+        xmlns:intr="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:draw="clr-namespace:System.Drawing;assembly=System.Drawing"
+        mc:Ignorable="d"
+        Title="{localization:Localize Key=Window.PlanningConfig.Title}" Height="420" Width="761"
+        Icon="{StaticResource ApplicationIconBitmapImage}"        
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="413*"/>
+            <ColumnDefinition Width="199*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.Column="0" Grid.Row="0" SelectedIndex="{Binding CurrentSelectedTabIndex}" x:Name="tabControl" Grid.ColumnSpan="2">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Path=Visibility}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
+                        <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step1}" TextWrapping="Wrap"/>
+                        <Label Content="{localization:Localize Key=Window.PlanningConfig.PlanningStartDate}"/>
+                        <DatePicker SelectedDate="{Binding Path=PlanningStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{localization:Localize Key=Window.PlanningConfig.PlanningEndDate}"/>
+                        <DatePicker SelectedDate="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="{localization:Localize Key=Window.PlanningConfig.TargetFunction}"/>
+                        <ComboBox ItemsSource="{Binding ObjectiveFunctions}" SelectedItem="{Binding SelectedObjectiveFunction}"/>
+                    </StackPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}" IsEnabled="false">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center" Command="{Binding MoveToNextTabCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.NextStep}" VerticalAlignment="Center"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step2}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DataGrid ItemsSource="{Binding Path=Orders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+          CanUserReorderColumns="False" CanUserResizeColumns="False" 
+          CanUserResizeRows="False" CanUserSortColumns="False"
+                      CanUserAddRows="false"
+                      CanUserDeleteRows="false"
+                      SelectionMode="Single" SelectionUnit="FullRow"
+                      AutoGenerateColumns="False"
+                      Width="Auto"
+                      SelectedItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      x:Name="OrdersList"
+                      behaviours:DataGridBehavior.DisplayRowNumber="True">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Path=OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.OrderNumber}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.Width}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=QuantityInRunningMeter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.QuantityInRunningMeter}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=FilmRecipe.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Orders.FilmRecipe}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTemplateColumn Header="{localization:Localize Key=Window.Orders.PlanningEndDate}" Width="auto" IsReadOnly="True">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <xctk:DateTimePicker Value="{Binding Path=PlanningEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="true"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Binding="{Binding Path=PriceOverdue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.PriceOverdue}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=ParentCustomer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Orders.ParentCustomer}" Width="Auto" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                    <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0,0,5,0"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center"  Command="{Binding MoveToNextTabCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.NextStep}" VerticalAlignment="Center"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16"  Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                    <Button Grid.Column="0" Grid.Row="2" Command="{Binding SelectAllOrdersCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.SelectAllOrders}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step3}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DataGrid ItemsSource="{Binding Path=ProductionLines, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+          CanUserReorderColumns="False" CanUserResizeColumns="False" 
+          CanUserResizeRows="False" CanUserSortColumns="False"
+                      CanUserAddRows="false"
+                      CanUserDeleteRows="false"
+                      SelectionMode="Single" SelectionUnit="FullRow"
+                      AutoGenerateColumns="False"
+                      Width="Auto"
+                      SelectedItem="{Binding SelectedProductionLine, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      x:Name="ProductionLinesList"
+                      behaviours:DataGridBehavior.DisplayRowNumber="True">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Code}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{localization:Localize Key=Window.Extruders.Name}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=HourCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.HourCost}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=MaxProductionSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.MaxProductionSpeed}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Width}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="WidthMin" StringFormat="N2"/>
+                                            <Binding Path="WidthMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Thickness}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="ThicknessMin" StringFormat="N2"/>
+                                            <Binding Path="ThicknessMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Weight}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="WeightMin" StringFormat="N2"/>
+                                            <Binding Path="WeightMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="{localization:Localize Key=Window.Extruders.Length}" Width="Auto" IsReadOnly="True">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="LengthMin" StringFormat="N2"/>
+                                            <Binding Path="LengthMax" StringFormat="N2"/>
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Path=WidthChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.WidthChangeTime}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Path=ThicknessChangeTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" Header="{localization:Localize Key=Window.Extruders.ThicknessChangeTime}" Width="Auto" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                    <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0">
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center" Command="{Binding MoveToNextTabCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.NextStep}" VerticalAlignment="Center"/>
+                                <Image Source="{StaticResource RightBitmapImage}" Height="16" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                    <Button Grid.Column="0" Grid.Row="2" Command="{Binding SelectAllProductionLinesCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.SelectAllProductionLines}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <Grid Margin="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
+                        <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.Step4}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{localization:Localize Key=Window.PlanningConfig.PlanningAlgorithm}"/>
+                            <Image Source="{Binding Source={x:Static draw:SystemIcons.Question}, Converter={StaticResource IconToImageSourceConverter}, Mode=OneWay}" Width="20" Height="20" ToolTip="{localization:Localize Key=Window.PlanningConfig.PlanningAlgorithm.Help}"/>
+                        </StackPanel>
+                        <ComboBox ItemsSource="{Binding PlanningAlgorithms}" SelectedItem="{Binding SelectedPlanningAlgorithm}"/>
+                        <CheckBox Content="{localization:Localize Key=Window.PlanningConfig.DisplayDecisionTree}" Margin="5,5,0,0" IsChecked="{Binding IsBuildDecisionTreeChecked}" IsEnabled="false"/>
+                    </StackPanel>
+                    <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom">
+                        <Grid.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="false">
+                                        <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="true">
+                                        <Setter Property="Grid.Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ProgressBar Grid.Row="0" Grid.Column="0" Height="25"  Minimum="0" Maximum="100" IsIndeterminate="True" Name="pbStatus"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{localization:Localize Key=Window.PlanningConfig.CalculatingProductionPlan}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <DockPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5">
+                        <DockPanel.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="true">
+                                        <Setter Property="DockPanel.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsBuildingProductionPlan}" Value="false">
+                                        <Setter Property="DockPanel.Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DockPanel.Style>
+                        <Button HorizontalAlignment="Center" Margin="0,0,5,0" Command="{Binding MoveToPreviousTabCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LeftBitmapImage}" Height="16" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.PreviousStep}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Center" Command="{Binding StartPlanningCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource ApplicationIconBitmapImage}" Height="16" Margin="0,0,5,0"/>
+                                <TextBlock Text="{localization:Localize Key=Window.PlanningConfig.CalculateProductionPlan}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

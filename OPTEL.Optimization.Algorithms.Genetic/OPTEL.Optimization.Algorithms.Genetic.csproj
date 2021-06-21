@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
+    <ProjectReference Include="..\OPTEL.Entity\OPTEL.Entity.csproj" />
+    <ProjectReference Include="..\OPTEL.Optimization.Algorithms\OPTEL.Optimization.Algorithms.csproj" />
+    <ProjectReference Include="..\Optimization.Algorithms.Genetic\Optimization.Algorithms.Genetic.csproj" />
+    <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
+  </ItemGroup>
+
+</Project>

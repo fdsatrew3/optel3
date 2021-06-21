@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 using OPTEL.Entity.Core;
 
@@ -49,7 +48,7 @@ namespace OPTEL.Entity.Persistance
             set.Remove(entity);
         }
 
-        public virtual void Delete(Guid id)
+        public virtual void Delete(int id)
         {
             var entity = _context.Set<TEntity>().Find(id);
             Delete(entity);
@@ -61,7 +60,7 @@ namespace OPTEL.Entity.Persistance
             DeleteRange(ids);
         }
 
-        public virtual void DeleteRange(IEnumerable<Guid> ids)
+        public virtual void DeleteRange(IEnumerable<int> ids)
         {
             foreach (var id in ids)
             {

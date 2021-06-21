@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OPTEL.Data\OPTEL.Data.csproj" />
+    <ProjectReference Include="..\Optimization.Algorithms.Bruteforce\Optimization.Algorithms.Bruteforce.csproj" />
+    <ProjectReference Include="..\Optimization.Algorithms.Utilities\Optimization.Algorithms.Utilities.csproj" />
+    <ProjectReference Include="..\Optimization.Algorithms\Optimization.Algorithms.csproj" />
+  </ItemGroup>
+
+</Project>

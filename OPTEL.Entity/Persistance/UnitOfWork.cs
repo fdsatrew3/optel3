@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
 using OPTEL.Data;
 using OPTEL.Data.Core;
+using OPTEL.Data.Users;
 using OPTEL.Entity.Core;
+using OPTEL.Entity.Helpers.Ensurers;
+using OPTEL.Entity.Helpers.Exceptions;
+using OPTEL.Entity.Helpers.Validation;
 
 namespace OPTEL.Entity.Persistance
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork()
+        public UnitOfWork(IDataBaseEnsurer ensurer)
         {
-            _context = new DatabaseContext();
+            _context = new DatabaseContext(ensurer);
         }
 
         #region Private members
@@ -26,59 +29,73 @@ namespace OPTEL.Entity.Persistance
         private IRepository<FilmRecipe> _filmRecipeRepository;
         private IRepository<Customer> _customerRepository;
         private IRepository<Order> _orderRepository;
-        private IRepository<Extruder> _extruderRepository;
-        private IRepository<FilmRecipeChange> _filmRecipeChangeRepository;
+        private IRepository<ProductionLine> _productionLineRepository;
+        private IRepository<FilmTypesChange> _filmRecipeChangeRepository;
         private IRepository<NozzleChange> _nozzleChangeRepository;
         private IRepository<CalibrationChange> _calibrationChangeRepository;
         private IRepository<CoolingLipChange> _coolingLipChangeRepository;
+
+        #region Users
+
+        private IRepository<User> _userRepository;
+        private IRepository<Administrator> _administratorRepository;
+        private IRepository<ProductionDirector> _productionDirectorRepository;
+        private IRepository<KnowledgeEngineer> _knowledgeEngineerRepository;
+
+        #endregion
 
         #endregion
 
         #region Public members
 
-        public IRepository<FilmType> FilmTypeRepository =>
-            _filmTypeRepository ?? (_filmTypeRepository = new EFRepository<FilmType, DatabaseContext>(_context));
+        public IRepository<FilmType> FilmTypeRepository => _filmTypeRepository ??= new EFRepository<FilmType, DatabaseContext>(_context);
 
-        public IRepository<FilmRecipe> FilmRecipeRepository =>
-            _filmRecipeRepository ?? (_filmRecipeRepository = new EFRepository<FilmRecipe, DatabaseContext>(_context));
+        public IRepository<FilmRecipe> FilmRecipeRepository =>_filmRecipeRepository ??= new EFRepository<FilmRecipe, DatabaseContext>(_context);
 
-        public IRepository<Customer> CustomerRepository =>
-            _customerRepository ?? (_customerRepository = new EFRepository<Customer, DatabaseContext>(_context));
+        public IRepository<Customer> CustomerRepository => _customerRepository ??= new EFRepository<Customer, DatabaseContext>(_context);
 
-        public IRepository<Order> OrderRepository =>
-            _orderRepository ?? (_orderRepository = new EFRepository<Order, DatabaseContext>(_context));
+        public IRepository<Order> OrderRepository => _orderRepository ??= new EFRepository<Order, DatabaseContext>(_context);
 
-        public IRepository<Extruder> ExtruderRepository =>
-            _extruderRepository ?? (_extruderRepository = new EFRepository<Extruder, DatabaseContext>(_context));
+        public IRepository<ProductionLine> ProductionLineRepository => _productionLineRepository ??= new EFRepository<ProductionLine, DatabaseContext>(_context);
 
-        public IRepository<FilmRecipeChange> FilmRecipeChangeRepository =>
-            _filmRecipeChangeRepository ?? (_filmRecipeChangeRepository = new EFRepository<FilmRecipeChange, DatabaseContext>(_context));
+        public IRepository<FilmTypesChange> FilmRecipeChangeRepository => _filmRecipeChangeRepository ??= new EFRepository<FilmTypesChange, DatabaseContext>(_context);
 
-        public IRepository<NozzleChange> NozzleChangeRepository =>
-            _nozzleChangeRepository ?? (_nozzleChangeRepository = new EFRepository<NozzleChange, DatabaseContext>(_context));
+        public IRepository<NozzleChange> NozzleChangeRepository => _nozzleChangeRepository ??= new EFRepository<NozzleChange, DatabaseContext>(_context);
 
-        public IRepository<CalibrationChange> CalibrationChangeRepository =>
-            _calibrationChangeRepository ?? (_calibrationChangeRepository = new EFRepository<CalibrationChange, DatabaseContext>(_context));
+        public IRepository<CalibrationChange> CalibrationChangeRepository => _calibrationChangeRepository ??= new EFRepository<CalibrationChange, DatabaseContext>(_context);
 
-        public IRepository<CoolingLipChange> CoolingLipChangeRepository =>
-            _coolingLipChangeRepository ?? (_coolingLipChangeRepository = new EFRepository<CoolingLipChange, DatabaseContext>(_context));
+        public IRepository<CoolingLipChange> CoolingLipChangeRepository => _coolingLipChangeRepository ??= new EFRepository<CoolingLipChange, DatabaseContext>(_context);
+
+        #region Users
+
+        public IRepository<User> UserRepository => _userRepository ??= new EFRepository<User, DatabaseContext>(_context);
+
+        public IRepository<Administrator> AdministratorRepository => _administratorRepository ??= new EFRepository<Administrator, DatabaseContext>(_context);
+
+        public IRepository<ProductionDirector> ProductionDirectorRepository => _productionDirectorRepository ??= new EFRepository<ProductionDirector, DatabaseContext>(_context);
+
+        public IRepository<KnowledgeEngineer> KnowledgeEngineerRepository => _knowledgeEngineerRepository ??= new EFRepository<KnowledgeEngineer, DatabaseContext>(_context);
+
+        #endregion
 
         #endregion
 
         protected virtual void ThrowUpdatedValidationException(DbEntityValidationException exception)
         {
             var errorMessages =
-                exception.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
+                exception.EntityValidationResults
+                    .SelectMany(x => x.ValidationResults)
                     .Select(x => x.ErrorMessage);
 
             var fullErrorMessage = string.Join($"; {Environment.NewLine}", errorMessages);
             var exceptionMessage = string.Concat(exception.Message, " The validation errors are: ", fullErrorMessage);
+
             //Запихаем в InnerException источник ошибок валидации
-            var invalidEntities = exception.EntityValidationErrors.Select(item => item.Entry.Entity.GetType().Name).Distinct();
+            var invalidEntities = exception.EntityValidationResults.Select(item => item.Entry.Entity.GetType().Name).Distinct();
             var innerExceptionMessage = string.Concat("Invalid Entities are:",
                 string.Join($"; {Environment.NewLine}", invalidEntities));
-            throw new DbEntityValidationException(exceptionMessage, exception.EntityValidationErrors, new Exception(innerExceptionMessage));
+
+            throw new DbEntityValidationException(exceptionMessage, exception.EntityValidationResults, new Exception(innerExceptionMessage));
         }
 
         public void RejectAllChanges() => _context.RejectAllChanges();
@@ -88,49 +105,45 @@ namespace OPTEL.Entity.Persistance
 
         public void Save()
         {
-            using (var transaction = _context.Database.BeginTransaction())
+            using var transaction = _context.Database.BeginTransaction();
+
+            try
             {
+                _context.SaveChanges();
+                transaction.Commit();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                transaction.Rollback();
+                ThrowUpdatedValidationException(ex);
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw ex;
+            }
+        }
+
+        public async Task SaveAsync()
+        {
+            await Task.Run(async () =>
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
                 try
                 {
-                    _context.SaveChanges();
-                    transaction.Commit();
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
                 }
                 catch (DbEntityValidationException ex)
                 {
-                    transaction.Rollback();
+                    await transaction.RollbackAsync();
                     ThrowUpdatedValidationException(ex);
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
-                    _context.RejectAllChanges();
-                    throw;
-                }
-            }
-        }
-
-        public async void SaveAsync()
-        {
-            await Task.Run(async () =>
-            {
-                using (var transaction = _context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        await _context.SaveChangesAsync();
-                        transaction.Commit();
-                    }
-                    catch (DbEntityValidationException ex)
-                    {
-                        transaction.Rollback();
-                        ThrowUpdatedValidationException(ex);
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        _context.RejectAllChanges();
-                        throw;
-                    }
+                    await transaction.RollbackAsync();
+                    throw ex;
                 }
             });
         }
@@ -141,15 +154,15 @@ namespace OPTEL.Entity.Persistance
                          let generics = property.PropertyType.GetGenericArguments()
                          where generics.Length == 1 && generics.First() == typeof(TEntity)
                          select property.GetValue(this)).ToList();
-            
+
             if (repos.Count == 0)
                 throw new ArgumentException($"No read-only repository of type {typeof(TEntity).Name} is defined");
-            else if (repos.Count > 1)
+            if (repos.Count > 1)
                 throw new ArgumentException($"Multiple read-only repositories of type {typeof(TEntity).Namespace} are defined");
-            else if (!(repos.First() is IReadOnlyRepository<TEntity> repo))
+            if (!(repos.First() is IReadOnlyRepository<TEntity> repo))
                 throw new ArgumentException($"The repository of type {typeof(TEntity).Name} can not be casted to needed type");
-            else
-                return repo;
+
+            return repo;
         }
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IDataObject
@@ -161,12 +174,12 @@ namespace OPTEL.Entity.Persistance
 
             if (repos.Count == 0)
                 throw new ArgumentException($"No repository of type {typeof(TEntity).Name} is defined");
-            else if (repos.Count > 1)
+            if (repos.Count > 1)
                 throw new ArgumentException($"Multiple repositories of type {typeof(TEntity).Namespace} are defined");
-            else if (!(repos.First() is IRepository<TEntity> repo))
+            if (!(repos.First() is IRepository<TEntity> repo))
                 throw new ArgumentException($"The repository of type {typeof(TEntity).Name} can not be casted to needed type");
-            else
-                return repo;
+
+            return repo;
         }
 
 

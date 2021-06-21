@@ -1,19 +1,20 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OPTEL.Data
 {
     public class CalibrationChange : Core.IDataObject
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ID { get; set; }
+        public int ID { get; set; }
 
-        public decimal CalibrationToChange { get; set; }
+        public double CalibrationToChange { get; set; }
 
-        public decimal ReconfigurationTime { get; set; }
+        public double ReconfigurationTime { get; set; }
+
+        public double Consumption { get; set; }
+
+        public int ParentProductionLineID { get; set; }
 
         [Required]
-        public virtual Extruder ParentExtruder { get; set; }
+        public virtual ProductionLine ParentProductionLine { get; set; }
     }
 }

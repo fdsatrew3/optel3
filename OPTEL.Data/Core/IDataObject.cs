@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace OPTEL.Data.Core
+﻿namespace OPTEL.Data.Core
 {
     public interface IDataObject
     {
-        Guid ID { get; set; }
+        int ID { get; set; }
     }
 }
